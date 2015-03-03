@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Histoweb
+        psr4_prefix: Histoweb
+        src_path: app
