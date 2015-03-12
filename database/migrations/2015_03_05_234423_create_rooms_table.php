@@ -19,7 +19,7 @@ class CreateRoomsTable extends Migration {
 			$table->string('name')->nullable();
 
 			$table->integer('created_by')->unsigned();
-		    $table->foreign('created_by')->references('Tz3CodUsuario')->on('TZ3USUARIOS');
+		    //$table->foreign('created_by')->references('Tz3CodUsuario')->on('TZ3USUARIOS');
 		});
 	}
 
