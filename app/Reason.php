@@ -1,10 +1,10 @@
-<?php 
+<?php namespace Histoweb;
 
 class Reason extends Eloquent
 {
-	protected $table = 'T15MOTIVODECONSULTA';
-	protected $primaryKey = 'T15CodMotivoConsulta';
-	protected $fillable = ['T15Tipo', 'T15Borrable'];
+	protected $table = 'reasons';
+	protected $primaryKey = 'code_reason';
+	protected $fillable = ['type', 'erasable'];
 
 	public $timestamps = false;
 	public $increments = true;
@@ -12,16 +12,16 @@ class Reason extends Eloquent
 
     public function getIdAttribute()
     {
-        return round($this->T15CodMotivoConsulta);
+        return round($this->code_reason);
     }
 
     public function getnameAttribute()
     {
-        return $this->T15Tipo;
+        return $this->type;
     }
 
     public static function allLists()
     {
-        return self::lists('T15Tipo', 'T15CodMotivoConsulta');
+        return self::lists('type', 'code_reason');
     }
 }

@@ -1,17 +1,17 @@
-<?php  
-/**
-* 
-*/
+<?php namespace Histoweb;
+
+
+
 class Regime extends Eloquent
 {
-	protected $table = 'T94REGIMEN';
-	protected $primaryKey = 'T94CodRegimen';
+	protected $table = 'regimes';
+	protected $primaryKey = 'code_regime';
 	public $timestamps = false;
 	public $increments = true;
 	public $errors;
 
 	public static function allLists()
     {
-        return self::lists('T94Tipo', 'T94CodRegimen');
+        return self::lists('type', 'code_regime');
     }
 }

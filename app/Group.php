@@ -1,4 +1,4 @@
-<?php 
+<?php namespace Histoweb;
 
 class Group extends Eloquent
 {

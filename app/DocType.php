@@ -1,17 +1,17 @@
-<?php  
-/**
-* 
-*/
+<?php namespace Histoweb;
+
+
+
 class DocType extends Eloquent
 {
-	protected $table = 'T023TIPODOCID';
-	protected $primaryKey = 'T023CodTipo';
+	protected $table = 'doc_types';
+	protected $primaryKey = 'code_type';
 	public $timestamps = false;
 	public $increments = true;
 	public $errors;
 
 	public static function allLists()
     {
-        return ['' => 'Seleccione un tipo de documento'] + self::lists('T023Tipo', 'T023CodTipo');
+        return ['' => 'Seleccione un tipo de documento'] + self::lists('type', 'doc_types');
     }
 }

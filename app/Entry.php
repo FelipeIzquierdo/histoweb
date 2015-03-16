@@ -1,11 +1,11 @@
-<?php 
+<?php namespace Histoweb;
 
 class Entry extends Eloquent
 {
-	protected $table = 'T32INGRESOSPORPERSONA';
-	protected $primaryKey = 'T32Id';
-	protected $fillable = ['T32CC', 'T32ConsecIngreso', 'T32CodRegimen', 'T32CodOcupacion', 'T32CodEps', 'T32TallaenCms', 
-        'T32PesoenKilos', 'T32CodTipoAfiliacion'];
+	protected $table = 'entries';
+	protected $primaryKey = 'id';
+	protected $fillable = ['patients_cc', 'code_regime', 'code_occupation', 'code_eps', 'height',
+        'weight', 'code_membership'];
 
 	public $timestamps = false;
 	public $increments = true;
@@ -13,7 +13,7 @@ class Entry extends Eloquent
 
     public static function generateSerial($patient_id)
     {
-        return self::where('T32CC', $patient_id)->count() + 1;
+        return self::where('patients_cc', $patient_id)->count() + 1;
     }
 
     public function syncReasons($reasons, $newReasons = null)
@@ -29,21 +29,21 @@ class Entry extends Eloquent
     public function syncNewReasons($newReasons)
     {
         foreach ($newReasons as $name) {
-            $newReason = new Reason(['T15Tipo' => $name]);
+            $newReason = new Reason(['type' => $name]);
             $this->reasons()->save($newReason);
         }
     }
 
     public function reasons()
     {
-        return $this->belongsToMany('Reason', 'T34MOTIVODECONSULTAXPNA', 'T34CodIngreso', 'T34CodMotivoConsulta');
+        return $this->belongsToMany('Reason', 'entries_reasons', 'admission_code', 'code_reason');
     }
 
 
 	public function isValid($data)
     {
         $rules = [
-            'T32CC'     => 'required'
+            'patients_cc'     => 'required'
         ];
         
         $validator = Validator::make($data, $rules);
@@ -59,12 +59,12 @@ class Entry extends Eloquent
 
     public function validAndSave($patient_id, $data)
     {
-        $data['T32CC'] = $patient_id;
+        $data['patients_cc'] = $patient_id;
 
         if ($this->isValid($data))
         {
             if (!$this->exists) {
-                $data['T32ConsecIngreso'] = self::generateSerial($patient_id);
+                $data['patient_entrie_number'] = self::generateSerial($patient_id);
             }
             
             $this->fill($data);

@@ -1,18 +1,18 @@
-<?php  
+<?php namespace Histoweb;
 /**
 * 
 */
 class MembershipType extends Eloquent
 {
-	protected $table = 'T001TIPOAFILIACION';
-	protected $primaryKey = 'T001CodTipoAfiliacion';
+	protected $table = 'membership_types';
+	protected $primaryKey = 'code_membership';
 	public $timestamps = false;
 	public $increments = true;
 	public $errors;
 
 	public static function allLists()
     {
-        return self::lists('T001Tipo', 'T001CodTipoAfiliacion');
+        return self::lists('type', 'code_membership');
     }
 }
 

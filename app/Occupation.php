@@ -1,17 +1,17 @@
-<?php  
-/**
-* 
-*/
+<?php namespace Histoweb;
+
+
+
 class Occupation extends Eloquent
 {
-	protected $table = 'T01OCUPACION';
-	protected $primaryKey = 'T01CodOcupacion';
+	protected $table = 'occupations';
+	protected $primaryKey = 'code_occupation';
 	public $timestamps = false;
 	public $increments = true;
 	public $errors;
 
 	public static function allLists()
     {
-        return self::lists('T01Tipo', 'T01CodOcupacion');
+        return self::lists('type', 'code_occupation');
     }
 }

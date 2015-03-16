@@ -1,10 +1,10 @@
-<?php 
+<?php namespace Histoweb;
 
 class Eps extends Eloquent
 {
-	protected $table = 'T04EPS';
-	protected $primaryKey = 'T04CodEps';
-	protected $fillable = ['T04Tipo', 'T04Borrable'];
+	protected $table = 'eps';
+	protected $primaryKey = 'code_eps';
+	protected $fillable = ['type', 'erasable'];
 
 	public $timestamps = false;
 	public $increments = true;
@@ -12,16 +12,16 @@ class Eps extends Eloquent
 
     public function getIdAttribute()
     {
-        return round($this->T04CodEps);
+        return round($this->code_eps);
     }
 
     public function getnameAttribute()
     {
-        return $this->T04Tipo;
+        return $this->type;
     }
 
     public static function allLists()
     {
-        return self::lists('T04Tipo', 'T04CodEps');
+        return self::lists('type', 'code_eps');
     }
 }

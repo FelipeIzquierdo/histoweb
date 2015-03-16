@@ -1,11 +1,11 @@
-<?php 
+<?php namespace Histoweb;
 
 class Patient extends Eloquent
 {
-	protected $table = 'T31IDENTIFICACION';
-	protected $primaryKey = 'T31CC';
-	protected $fillable = ['T31CC', 'T31CodTipoDocId', 'T31Nombre', 'T31SegundoNombre', 'T31PrimerApellido', 
-        'T31SegundoApellido', 'T31Sexo', 'T31Activo', 'T32FechaNacimiento'];
+	protected $table = 'patients';
+	protected $primaryKey = 'cc';
+	protected $fillable = ['cc', 'doc_type_id', 'name', 'middle_name', 'surname',
+        'last_name', 'sex', 'active', 'date_birth'];
 
 	public $timestamps = false;
 	public $increments = false;
@@ -13,53 +13,53 @@ class Patient extends Eloquent
 
     public static function allActived()
     {
-        return self::where('T31Activo', true)->get();
+        return self::where('active', true)->get();
     }
 
     public function getIdAttribute()
     {
-        return round($this->T31CC);
+        return round($this->cc);
     }
 
     public function getSexAttribute()
     {
-        return $this->T31Sexo;
+        return $this->sex;
     }
 
     public function getDocTypeIdAttribute()
     {
-        return $this->T31CodTipoDocId;
+        return $this->doc_type_id;
     }
 
     public function getDocTypeTextAttribute()
     {
-        return $this->docType->T023Tipo;
+        return $this->docType->type;
     }
 
     public function getNameAttribute()
     {
-        return $this->T31Nombre . ' ' . $this->T31SegundoNombre . ' ' . $this->T31PrimerApellido . ' ' . $this->T31SegundoApellido;
+        return $this->name . ' ' . $this->middle_name . ' ' . $this->surname . ' ' . $this->last_name;
     }
 
     public function docType()
     {
-        return $this->belongsTo('DocType', 'T31CodTipoDocId');
+        return $this->belongsTo('DocType', 'doc_type_id');
     }
 
     public function entries()
     {
-        return $this->hasMany('Entry', 'T32CC');
+        return $this->hasMany('Entry', 'patients_cc');
     }
 
     public function output()
     {
-        $this->T31Activo = false;
+        $this->active = false;
         $this->save();
     }
 
     public function isActived()
     {
-        if($this->T31Activo)
+        if($this->active)
         {
             return true;
         }
@@ -71,7 +71,7 @@ class Patient extends Eloquent
     {
         if($this->isActived())
         {
-            return $this->entries()->orderBy('T32ConsecIngreso', 'asc')->first();
+            return $this->entries()->orderBy('patient_entry_number', 'asc')->first();
         }
 
         return new Entry;
@@ -81,7 +81,7 @@ class Patient extends Eloquent
     {
         if($this->exists)
         {
-            return $this->entries()->orderBy('T32ConsecIngreso', 'asc')->first();
+            return $this->entries()->orderBy('patient_entry_number', 'asc')->first();
         }
 
         return new Entry;
@@ -94,7 +94,7 @@ class Patient extends Eloquent
 
     public function getLastReasonsListsAttribute()
     {
-        return $this->getLastEntry()->reasons->lists('T15CodMotivoConsulta');
+        return $this->getLastEntry()->reasons->lists('code_reason');
     }
 
     public function syncLastReasons($reasons, $newReasons = null)
@@ -105,13 +105,13 @@ class Patient extends Eloquent
 	public function isValid($data)
     {
         $rules = array(
-            'T31CC'     => 'required|max:100|unique:T31IDENTIFICACION',
-            'T31CodTipoDocId' => 'required'
+            'cc'     => 'required|max:100|unique:patients',
+            'doc_type_id' => 'required'
         );
 
         if ($this->exists)
         {
-			$rules['T31CC'] .= ',T31CC,'.$this->id.',T31CC';
+			$rules['cc'] .= ',cc,'.$this->id.',cc';
         }
         
         $validator = Validator::make($data, $rules);
