@@ -16,10 +16,11 @@
     @endsection
 
     @section('auth_form')
-        <form id="form-reminder" action="password/email" method="post" class="form-horizontal">
+
+        {!! Form::open(array('url' => 'auth/login', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'form-reminder')) !!}
             <div class="form-group">
                 <div class="col-xs-12">
-                    <input type="text" id="reminder-email" name="reminder-email" class="form-control" placeholder="Ingresa tu email..">
+                    {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Ingresa tu email..']) !!}
                 </div>
             </div>
             <div class="form-group form-actions">
@@ -27,7 +28,7 @@
                     <button type="submit" class="btn btn-effect-ripple btn-sm btn-primary"><i class="fa fa-check"></i> Enviar</button>
                 </div>
             </div>
-        </form>
+        {!! Form::close() !!}
     @endsection
     </div>
 @endsection

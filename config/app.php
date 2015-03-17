@@ -135,7 +135,11 @@ return [
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
+        /*
+		 * me Providers...
+		 */
 		'Collective\Html\HtmlServiceProvider',
+        'Histoweb\Components\FieldServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -193,8 +197,14 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-		'Form' => 'Collective\Html\FormFacade',
-    	'Html' => 'Collective\Html\HtmlFacade'
+
+        /*
+		 * me aliases...
+		 */
+
+        'Form' => 'Collective\Html\FormFacade',
+    	'Html' => 'Collective\Html\HtmlFacade',
+        'Field'=> 'Histoweb\Components\Field'
 
 	],
 
