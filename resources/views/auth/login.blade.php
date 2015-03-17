@@ -18,16 +18,11 @@
 
     @section('auth_form')
         {!! Form::open(array('url' => 'auth/login', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'form-login')) !!}
-            <div class="form-group">
-                <div class="col-xs-12">
-                    {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-xs-12">
-                    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Email']) !!}
-                </div>
-            </div>
+
+                    {!! Field::email( 'email',null, ['placeholder' => 'Email','template' => 'horizontal']) !!}
+
+                    {!! Field::password( 'password',['class' => 'form-control', 'placeholder' => 'Password','template' => 'horizontales']) !!}
+
             <div class="form-group form-actions">
                 <div class="col-xs-8">
                     <label class="csscheckbox csscheckbox-primary">
