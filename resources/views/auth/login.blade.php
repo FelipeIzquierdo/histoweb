@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <div class="col-xs-12">
-                    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Email']) !!}
+                    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Contraseña']) !!}
                 </div>
             </div>
             <div class="form-group form-actions">
@@ -41,4 +41,9 @@
                 </div>
             </div>
         {!! Form::close() !!}
+    @endsection
+
+    @section('js_extra')
+        {!! Html::script('assets/js/pages/formLogin.js') !!}
+        <script> $(function (){ formLogin.init(); });</script>
     @endsection

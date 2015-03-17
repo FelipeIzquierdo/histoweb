@@ -10,15 +10,9 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use Storage;
 
-Route::get('/', 'WelcomeController@index');
-
-Route::get('home', 'HomeController@index');
-
-Route::get('prueba', function()
-{
-	return View::make('dashboard.pages.layout');
-});
+Route::get('/', 'HomeController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
