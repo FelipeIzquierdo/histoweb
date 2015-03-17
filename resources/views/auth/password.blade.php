@@ -1,50 +1,33 @@
-@extends('app')
+@extends ('auth.layout')
+    @section('title')
+        Recuperar Contraseña
+    @endsection
 
-@section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Reset Password</div>
-				<div class="panel-body">
-					@if (session('status'))
-						<div class="alert alert-success">
-							{{ session('status') }}
-						</div>
-					@endif
+    @section('auth_title')
+        <i class="fa fa-cube"></i> <strong>Recuperar Contraseña</strong>
+    @endsection
 
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
+    @section('auth_buttons')
+        <a href="{{url('auth/login')}}" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" data-placement="left" title="Volver al Inicio de Sesión"><i class="fa fa-user"></i></a>
+    @endsection
 
-					<form class="form-horizontal" role="form" method="POST" action="/password/email">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+    @section('auth_header')
+        <h2>Recuerar Contraseña</h2>
+    @endsection
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-									Send Password Reset Link
-								</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+    @section('auth_form')
+        <form id="form-reminder" action="password/email" method="post" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <input type="text" id="reminder-email" name="reminder-email" class="form-control" placeholder="Ingresa tu email..">
+                </div>
+            </div>
+            <div class="form-group form-actions">
+                <div class="col-xs-12 text-right">
+                    <button type="submit" class="btn btn-effect-ripple btn-sm btn-primary"><i class="fa fa-check"></i> Enviar</button>
+                </div>
+            </div>
+        </form>
+    @endsection
+    </div>
 @endsection

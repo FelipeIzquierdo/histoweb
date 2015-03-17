@@ -1,63 +1,44 @@
-@extends('app')
+@extends ('auth.layout')
+    
+    @section ('title') .: HistoWeb | Login :. @endsection
+    
+    @section('auth_title')
+        <h1 class="h2 text-light text-center push-top-bottom animation-slideDown">
+            <i class="fa fa-cube"></i> <strong>HistoWeb</strong>
+        </h1>
+    @endsection
 
-@section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Login</div>
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
+    @section('auth_buttons')
+        <a href="{{url('password/email')}}" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" data-placement="left" title="Olvidaste tu contraseña?"><i class="fa fa-exclamation-circle"></i></a>
+    @endsection
 
-					<form class="form-horizontal" role="form" method="POST" action="/auth/login">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+    @section('auth_header')
+        <h2>Iniciar Sesión</h2>
+    @endsection
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="remember"> Remember Me
-									</label>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary" style="margin-right: 15px;">
-									Login
-								</button>
-
-								<a href="/password/email">Forgot Your Password?</a>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-@endsection
+    @section('auth_form')
+        {!! Form::open(array('url' => 'auth/login', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'form-login')) !!}
+            <div class="form-group">
+                <div class="col-xs-12">
+                    {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Email']) !!}
+                </div>
+            </div>
+            <div class="form-group form-actions">
+                <div class="col-xs-8">
+                    <label class="csscheckbox csscheckbox-primary">
+                        <input type="checkbox" id="login-remember-me" name="remember" value="true">
+                        <span></span>
+                    </label>
+                    Recordarme
+                </div>
+                <div class="col-xs-4 text-right">
+                    <button type="submit" class="btn btn-effect-ripple btn-sm btn-primary"><i class="fa fa-check"></i> Iniciar</button>
+                </div>
+            </div>
+        {!! Form::close() !!}
+    @endsection
