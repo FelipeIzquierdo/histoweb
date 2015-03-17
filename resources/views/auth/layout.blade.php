@@ -19,8 +19,6 @@
             	@yield('auth_title')
             </h1>
 
-            @include('_partials.errors')
-
             <div class="block animation-fadeInQuickInv">
                 <div class="block-title">
                     <div class="block-options pull-right">
