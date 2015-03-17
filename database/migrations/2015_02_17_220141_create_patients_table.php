@@ -28,7 +28,6 @@ class CreatePatientsTable extends Migration {
 		    $table->foreign('doc_type_id')->references('code_type')->on('doc_types');
 
             $table->primary('cc');
-
 		});
 	}
 

@@ -7,8 +7,8 @@
 
 <!-- Bootstrap.js, Jquery plugins and Custom JS code -->
 
-{{ HTML::script('assets/js/vendor/bootstrap.min.js'); }}
-{{ HTML::script('assets/js/plugins.js'); }}
-{{ HTML::script('assets/js/app.js'); }}
-{{ HTML::script('assets/js/admin.js'); }}
-{{ HTML::script('assets/js/plugins/fileinput/fileinput.min.js'); }}
+{!! Html::script('assets/js/vendor/bootstrap.min.js') !!}
+{!! Html::script('assets/js/plugins.js') !!}
+{!! Html::script('assets/js/app.js') !!}
+{!! Html::script('assets/js/admin.js') !!}
+{!! Html::script('assets/js/plugins/fileinput/fileinput.min.js') !!}

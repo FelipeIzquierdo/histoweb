@@ -10,7 +10,7 @@
         </li>
         <!-- END Main Sidebar Toggle Button -->
         <li>
-          <strong class="hidden-xs" style="height: 50px; line-height: 50px; padding: 0 10px; margin: 0; font-weight: 200; font-size: 18px; color:white;">{{ Auth::user()->preferredCompany->name }}</strong>  
+          <strong class="hidden-xs" style="height: 50px; line-height: 50px; padding: 0 10px; margin: 0; font-weight: 200; font-size: 18px; color:white;"> Angiografía de Colombia </strong>  
         </li>
     </ul>
     <!-- END Left Header Navigation -->
@@ -18,7 +18,7 @@
     <ul class="nav navbar-nav-custom pull-right">
         <!-- Search Form -->
         <li>
-          <strong class="hidden-xs" style="height: 50px; line-height: 50px; padding: 0 10px; margin: 0; font-weight: 200; font-size: 16px; color:white;">{{Auth::user()->name}} - {{Auth::user()->name_role}}</strong>  
+          <strong class="hidden-xs" style="height: 50px; line-height: 50px; padding: 0 10px; margin: 0; font-weight: 200; font-size: 16px; color:white;">{{Auth::user()->name}}</strong>  
         </li>
         <!-- END Search Form -->
 
@@ -46,7 +46,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('usuarios.show-profile')}}">
+                    <a href="#">
                         <i class="fa fa-pencil-square fa-fw pull-right"></i>
                         Mi Perfil
                     </a>
