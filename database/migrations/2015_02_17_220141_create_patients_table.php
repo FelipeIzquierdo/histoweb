@@ -29,7 +29,6 @@ class CreatePatientsTable extends Migration {
             $table->foreign('code_occupation')->references('code_occupation')->on('occupations');
 
             $table->primary('cc');
-
 		});
 	}
 

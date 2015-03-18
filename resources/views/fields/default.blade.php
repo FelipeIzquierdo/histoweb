@@ -2,8 +2,7 @@
         <div class="col-xs-12">
             {!! $control !!}
             @if ($error)
-                <p class="error_message">{{ $error }}</p>
+            	<div class="help-block animation-pullUp" style="color:#de815c;">{{ $error }}</div>
             @endif
-            {{$template}}
         </div>
     </div>

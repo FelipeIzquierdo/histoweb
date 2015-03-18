@@ -1,7 +1,8 @@
 @extends ('app')
 
     @section ('css') 
-        @include('auth.css') 
+        @include('auth.css')
+        @yield('css_extra') 
     @endsection
 
     @section ('meta') 
@@ -11,12 +12,13 @@
     @section ('class_body') class="auth" @endsection
 
     @section ('body')
+
         <div id="login-container">
             
             <h1 class="h2 text-light text-center push-top-bottom animation-slideDown">
             	@yield('auth_title')
             </h1>
-            
+
             <div class="block animation-fadeInQuickInv">
                 <div class="block-title">
                     <div class="block-options pull-right">
@@ -33,4 +35,10 @@
         
         </div>
     @endsection
+
+    @section ('js') 
+        @include('auth.js') 
+        @yield('js_extra')
+    @endsection
+
 

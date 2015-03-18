@@ -18,10 +18,10 @@
 
     @section('auth_form')
         {!! Form::open(array('url' => 'auth/login', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'form-login')) !!}
+            
+            {!! Field::email( 'email',null, ['placeholder' => 'Email']) !!}
 
-                    {!! Field::email( 'email',null, ['placeholder' => 'Email','template' => 'horizontal']) !!}
-
-                    {!! Field::password( 'password',['class' => 'form-control', 'placeholder' => 'Password','template' => 'horizontales']) !!}
+            {!! Field::password( 'password',['placeholder' => 'Password']) !!}
 
             <div class="form-group form-actions">
                 <div class="col-xs-8">
@@ -36,4 +36,9 @@
                 </div>
             </div>
         {!! Form::close() !!}
+    @endsection
+
+    @section('js_extra')
+        {!! Html::script('assets/js/pages/formLogin.js') !!}
+        <script> $(function (){ formLogin.init(); });</script>
     @endsection
