@@ -25,8 +25,6 @@ class CreateEntriesTable extends Migration {
 		    $table->integer('code_regime')->unsigned();
 		    $table->foreign('code_regime')->references('code_regime')->on('regimes');
 
-		    $table->integer('code_occupation')->unsigned();
-		    $table->foreign('code_occupation')->references('code_occupation')->on('occupations');
 
 		    $table->integer('code_membership')->unsigned();
 		    $table->foreign('code_membership')->references('code_membership')->on('membership_types');
