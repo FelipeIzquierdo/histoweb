@@ -1,0 +1,27 @@
+@extends('dashboard.pages.layout')
+	@section('dashboard_title')
+		<h1>
+			<i class="fa fa-calendar-o"></i>
+			Consultorios 
+			<a href="{{ route('consultorios.create') }}" class="btn btn-info" title="Nuevo Consultorio">
+				<i class="fa fa-plus"></i>
+			</a>
+		</h1>
+	@endsection
+	
+	@section('dashboard_body')
+		@foreach($surgeries as $surgery)
+			<div class="col-sm-3">
+				<a href="{{ route('consultorios.edit', $surgery->id) }}" class="widget">
+					<div class="widget-content themed-background-info text-light-op text-center">
+						<div class="widget-icon">
+							<i class="fa fa-calendar-o"></i>
+						</div>
+					</div>
+					<div class="widget-content text-dark text-center">
+						<strong>{{ $surgery->name }}</strong>
+					</div>
+				</a>
+			</div>
+		@endforeach
+	@endsection

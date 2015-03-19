@@ -115,10 +115,12 @@ return array(
 */
 
 'attributes' => array(
+	'name'	=> 'nombre',
     'username' => 'usuario',
     'password' => 'contraseña',
     'url_photo' => 'foto de perfil',
     'url_logo' => 'logo',
     'url_pdf' => 'PDF'
-),
+)
+
 );
