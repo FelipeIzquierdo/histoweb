@@ -14,10 +14,9 @@ class CreatePatientsTable extends Migration {
 	{
 		Schema::create('patients', function(Blueprint $table)
 		{
+            $table->increments('id');
 			$table->integer('cc')->unsigned();
-			$table->string('name', 50)->nullable();
-			$table->string('middle_name', 50)->nullable();
-			$table->string('surname', 50)->nullable();
+			$table->string('fist_name', 50)->nullable();
 			$table->string('last_name', 50)->nullable();
 
 			$table->string('sex', 9)->nullable();
@@ -25,9 +24,12 @@ class CreatePatientsTable extends Migration {
 			$table->boolean('active')->default(true);
 
 			$table->integer('doc_type_id')->unsigned();
-		    $table->foreign('doc_type_id')->references('code_type')->on('doc_types');
+		    $table->foreign('doc_type_id')->references('id')->on('doc_types');
 
-            $table->primary('cc');
+            $table->integer('occupation_id')->unsigned();
+            $table->foreign('occupation_id')->references('id')->on('occupations');
+
+
 		});
 	}
 

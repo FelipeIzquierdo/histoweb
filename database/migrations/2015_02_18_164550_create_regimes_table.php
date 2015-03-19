@@ -14,7 +14,7 @@ class CreateRegimesTable extends Migration {
 	{
 		Schema::create('regimes', function(Blueprint $table)
 		{
-			$table->increments('code_regime');
+			$table->increments('id');
 			$table->string('type')->unique();
 			$table->boolean('erasable')->nullable()->default(true);
 		});

@@ -14,7 +14,7 @@ class CreateMembershipTypesTable extends Migration {
 	{
 		Schema::create('membership_types', function(Blueprint $table)
 		{
-			$table->increments('code_membership');
+			$table->increments('id');
 			$table->string('type')->unique();
 			$table->boolean('erasable')->nullable()->default(true);
 		});
