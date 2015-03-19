@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMembershipTypesTable extends Migration {
+class CreateOccupationTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,12 @@ class CreateMembershipTypesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('membership_types', function(Blueprint $table)
+		Schema::create('occupations', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('type')->unique();
 			$table->boolean('erasable')->nullable()->default(true);
+
 		});
 	}
 
@@ -27,7 +28,7 @@ class CreateMembershipTypesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('membership_types');
+		Schema::drop('occupations');
 	}
 
 }

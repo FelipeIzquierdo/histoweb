@@ -14,7 +14,7 @@ class CreateReasonsTable extends Migration {
 	{
 		Schema::create('reasons', function(Blueprint $table)
 		{
-			$table->increments('code_reason');
+			$table->increments('id');
 			$table->string('type')->unique();
 			$table->boolean('erasable')->nullable()->default(true);
 		});

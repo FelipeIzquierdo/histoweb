@@ -14,7 +14,7 @@ class CreateEpsTable extends Migration {
 	{
 		Schema::create('eps', function(Blueprint $table)
 		{
-			$table->increments('code_eps');
+			$table->increments('id');
 			$table->string('type')->unique();
 			$table->boolean('erasable')->nullable()->default(true);
 		});
