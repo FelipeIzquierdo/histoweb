@@ -116,6 +116,7 @@ return array(
 
 'attributes' => array(
 	'name'	=> 'nombre',
+	'tools'	=> 'Herramientas',
     'username' => 'usuario',
     'password' => 'contraseña',
     'url_photo' => 'foto de perfil',

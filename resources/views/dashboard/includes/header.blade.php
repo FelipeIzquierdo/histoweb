@@ -18,7 +18,7 @@
     <ul class="nav navbar-nav-custom pull-right">
         <!-- Search Form -->
         <li>
-          <strong class="hidden-xs" style="height: 50px; line-height: 50px; padding: 0 10px; margin: 0; font-weight: 200; font-size: 16px; color:white;">{{Auth::user()->name}}</strong>  
+          <strong class="hidden-xs" style="height: 50px; line-height: 50px; padding: 0 10px; margin: 0; font-weight: 200; font-size: 16px; color:white;"> {{ Auth::user()->name }} </strong>  
         </li>
         <!-- END Search Form -->
 
@@ -33,7 +33,7 @@
         <!-- User Dropdown -->
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="{{URL::to(Auth::user()->image)}}" alt="Menú de Usuario">
+                <img src="" alt="Menú de Usuario">
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
                 <li class="dropdown-header">

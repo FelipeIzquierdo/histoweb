@@ -1,9 +1,9 @@
-<?php namespace Histoweb\Http\Requests;
+<?php namespace Histoweb\Http\Requests\Tool;
 
 use Histoweb\Http\Requests\Request;
 use Illuminate\Routing\Route;
 
-class EditSurgeryRequest extends Request {
+class EditRequest extends Request {
 
 	/**
 	 * @var Route
@@ -33,7 +33,7 @@ class EditSurgeryRequest extends Request {
 	public function rules()
 	{
 		return [
-			'name'  => 'required|max:100|unique:surgeries,name,' . $this->route->getParameter('consultorios')
+			'name'  => 'required|max:100|unique:tools,name,' . $this->route->getParameter('tools')
 		];
 	}
 

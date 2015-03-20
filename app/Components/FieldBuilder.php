@@ -14,8 +14,9 @@ class FieldBuilder {
     protected $defaultTemplate = 'default';
 
     protected $defaultClass = [
-        'default'   => 'form-control',
-        'checkbox'  => ''
+        'default'           => 'form-control',
+        'checkbox'          => '',
+        'select'            => 'select-chosen'
 
     ];
 
@@ -56,6 +57,7 @@ class FieldBuilder {
 
     public function buildLabel($name)
     {
+        $name = str_replace('[]', '', $name);
         if(\Lang::has('validation.attributes.'.$name))
         {
             $label = \Lang::get('validation.attributes.'.$name);
@@ -72,7 +74,6 @@ class FieldBuilder {
         switch($type)
         {
             case 'select':
-                $options = array('' => 'Seleccione')+$options;
                 return $this->form->select($name, $options, $value, $attributes);
             case 'password':
                 return $this->form->password($name,$attributes);
@@ -125,6 +126,11 @@ class FieldBuilder {
 
     public  function select($name, $options, $value = null, $attributes = array())
     {
+        if(!in_array('multiple', $attributes))
+        {
+            $options = ['' => ''] + $options;
+        }
+
         return $this->input('select', $name, $value, $attributes, $options);
     }
 

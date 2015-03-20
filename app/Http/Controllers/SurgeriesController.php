@@ -1,13 +1,32 @@
 <?php namespace Histoweb\Http\Controllers;
 
-use Histoweb\Http\Requests\CreateSurgeryRequest;
-use Histoweb\Http\Requests\EditSurgeryRequest;
+use Histoweb\Http\Requests\Surgery\CreateRequest;
+use Histoweb\Http\Requests\Surgery\EditRequest;
 use Histoweb\Http\Controllers\Controller;
-use Histoweb\Surgery;
 
-use Illuminate\Http\Request;
+use Histoweb\Surgery;
+use Histoweb\Tool;
+
+use Illuminate\Routing\Route;
 
 class SurgeriesController extends Controller {
+
+	private $surgery;
+
+	public function __construct() 
+	{
+		$this->middleware('auth');
+		$this->beforeFilter('@findSurgery', ['only' => ['show', 'edit', 'update', 'destroy']]);
+	}
+
+	/**
+	 * Find a specified resource
+	 *
+	 */
+	public function findSurgery(Route $route)
+	{
+		$this->surgery = Surgery::findOrFail($route->getParameter('surgeries'));
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -29,9 +48,10 @@ class SurgeriesController extends Controller {
 	public function create()
 	{
 		$surgery = new Surgery;
-		$form_data = ['route' => 'consultorios.store', 'method' => 'POST'];
+		$tools = Tool::allLists();
+		$form_data = ['route' => 'surgeries.store', 'method' => 'POST'];
 
-		return view('dashboard.pages.surgery.form', compact('surgery', 'form_data'));
+		return view('dashboard.pages.surgery.form', compact('surgery', 'tools', 'form_data'));
 	}
 
 	/**
@@ -39,10 +59,11 @@ class SurgeriesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(CreateSurgeryRequest $request)
+	public function store(CreateRequest $request)
 	{
-		Surgery::create($request->all());
-        return redirect()->route('consultorios.index');
+		$this->surgery = Surgery::create($request->all());
+		$this->surgery->tools()->sync($request->input('tools'));
+        return redirect()->route('surgeries.index');
 	}
 
 	/**
@@ -52,9 +73,7 @@ class SurgeriesController extends Controller {
 	 * @return Response
 	 */
 	public function show($id)
-	{
-		$surgery = Surgery::findOrFail($id);
-		
+	{	
 		return view('dashboard.pages.surgery.show', compact('surgery'));
 	}
 
@@ -66,10 +85,10 @@ class SurgeriesController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$surgery = Surgery::findOrFail($id);
-		$form_data = ['route' => ['consultorios.update', $surgery->id], 'method' => 'PUT'];
+		$tools = Tool::allLists();
+		$form_data = ['route' => ['surgeries.update', $this->surgery->id], 'method' => 'PUT'];
 
-		return view('dashboard.pages.surgery.form', compact('surgery', 'form_data'));
+		return view('dashboard.pages.surgery.form', compact('form_data', 'tools'))->with('surgery', $this->surgery);
 	}
 
 	/**
@@ -78,13 +97,13 @@ class SurgeriesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(EditSurgeryRequest $request, $id)
+	public function update(EditRequest $request, $id)
 	{
-		$surgery = Surgery::findOrFail($id);
-        $surgery->fill($request->all());
-        $surgery->save();
+        $this->surgery->fill($request->all());
+        $this->surgery->save();
+        $this->surgery->tools()->sync($request->input('tools'));
 
-        return redirect()->route('consultorios.index');
+        return redirect()->route('surgeries.index');
 	}
 
 	/**

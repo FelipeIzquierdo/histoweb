@@ -1,9 +1,8 @@
-<?php namespace Histoweb\Http\Requests;
+<?php namespace Histoweb\Http\Requests\Surgery;
 
 use Histoweb\Http\Requests\Request;
 
-class CreateSurgeryRequest extends Request {
-
+class CreateRequest extends Request {
 	/**
 	 * Determine if the user is authorized to make this request.
 	 *
@@ -13,7 +12,6 @@ class CreateSurgeryRequest extends Request {
 	{
 		return true;
 	}
-
 	/**
 	 * Get the validation rules that apply to the request.
 	 *
@@ -25,5 +23,4 @@ class CreateSurgeryRequest extends Request {
 			'name'  => 'required|max:100|unique:surgeries,name'
 		];
 	}
-
 }

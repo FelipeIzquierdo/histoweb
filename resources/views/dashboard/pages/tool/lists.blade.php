@@ -1,25 +1,29 @@
 @extends('dashboard.pages.layout')
+	@section('title') 
+	    Herramientas 
+	 @endsection
+
 	@section('dashboard_title')
 		<h1>
-			<i class="fa fa-calendar-o"></i>
-			Consultorios 
-			<a href="{{ route('surgeries.create') }}" class="btn btn-info" title="Nuevo Consultorio">
+			<i class="gi gi-settings"></i>
+			Herramientas 
+			<a href="{{ route('tools.create') }}" class="btn btn-info" title="Nueva Herramienta">
 				<i class="fa fa-plus"></i>
 			</a>
 		</h1>
 	@endsection
 	
 	@section('dashboard_body')
-		@foreach($surgeries as $surgery)
+		@foreach($tools as $tool)
 			<div class="col-sm-3">
-				<a href="{{ route('surgeries.edit', $surgery->id) }}" class="widget">
+				<a href="{{ route('tools.edit', $tool->id) }}" class="widget">
 					<div class="widget-content themed-background-info text-light-op text-center">
 						<div class="widget-icon">
-							<i class="fa fa-calendar-o"></i>
+							<i class="gi gi-settings"></i>
 						</div>
 					</div>
 					<div class="widget-content text-dark text-center">
-						<strong>{{ $surgery->name }}</strong>
+						<strong>{{ $tool->name }}</strong>
 					</div>
 				</a>
 			</div>
