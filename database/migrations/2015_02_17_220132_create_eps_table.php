@@ -17,6 +17,7 @@ class CreateEpsTable extends Migration {
 			$table->increments('id');
 			$table->string('type')->unique();
 			$table->boolean('erasable')->nullable()->default(true);
+            $table->timestamps();
 		});
 	}
 

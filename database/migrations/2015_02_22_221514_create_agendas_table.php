@@ -28,6 +28,7 @@ class CreateAgendasTable extends Migration {
 		    $table->foreign('regime_id')->references('id')->on('regimes');
 		    $table->integer('membership_id')->unsigned();
 		    $table->foreign('membership_id')->references('id')->on('membership_types');
+            $table->timestamps();
 		});
 	}
 

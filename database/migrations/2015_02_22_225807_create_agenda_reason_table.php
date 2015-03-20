@@ -20,6 +20,7 @@ class CreateAgendaReasonTable extends Migration {
 
 		    $table->integer('reason_id')->unsigned();
 		    $table->foreign('reason_id')->references('id')->on('reasons');
+            $table->timestamps();
 		});
 	}
 

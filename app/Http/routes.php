@@ -19,3 +19,5 @@ Route::controllers([
 ]);
 
 Route::resource('consultorios', 'SurgeriesController');
+
+Route::resource('doctor', 'DoctorsController');

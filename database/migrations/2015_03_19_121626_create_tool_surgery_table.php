@@ -15,6 +15,7 @@ class CreateToolSurgeryTable extends Migration {
 
             $table->integer('surgery_id')->unsigned();
             $table->foreign('surgery_id')->references('id')->on('surgeries');
+            $table->timestamps();
         });
 	}
 
