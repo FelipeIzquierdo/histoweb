@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-sm-7">
                 <div class="header-section">
-                    <h1><i class="@yield('dashboard_icon')"></i> @yield('dashboard_title', 'Inicio')</h1>
+                    @yield('dashboard_title', 'Inicio')
                 </div>
             </div>
             <div class="col-sm-5 hidden-xs">

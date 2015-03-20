@@ -14,9 +14,10 @@ class CreateOccupationTable extends Migration {
 	{
 		Schema::create('occupations', function(Blueprint $table)
 		{
-			$table->increments('code_occupation');
+			$table->increments('id');
 			$table->string('type')->unique();
 			$table->boolean('erasable')->nullable()->default(true);
+
 		});
 	}
 
