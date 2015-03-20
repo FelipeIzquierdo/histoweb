@@ -1,6 +1,7 @@
 <?php namespace Histoweb\Http\Controllers;
 
-use Histoweb\Http\Requests;
+use Histoweb\Http\Requests\CreateSurgeryRequest;
+use Histoweb\Http\Requests\EditSurgeryRequest;
 use Histoweb\Http\Controllers\Controller;
 use Histoweb\Surgery;
 
@@ -38,17 +39,10 @@ class SurgeriesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store(CreateSurgeryRequest $request)
 	{
-		$surgery = new Surgery;
-		$data = $request->all();
-
-	    if($surgery->validAndSave($data))
-        {
-            return redirect()->route('consultorios.index');
-        }
-
-		return redirect()->route('consultorios.create')->withInput()->withErrors($surgery->errors);
+		Surgery::create($request->all());
+        return redirect()->route('consultorios.index');
 	}
 
 	/**
@@ -84,17 +78,13 @@ class SurgeriesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request, $id)
+	public function update(EditSurgeryRequest $request, $id)
 	{
 		$surgery = Surgery::findOrFail($id);
-        $data = $request->all();
+        $surgery->fill($request->all());
+        $surgery->save();
 
-	    if($surgery->validAndSave($data))
-        {
-            return redirect()->route('consultorios.index');
-        }
-
-		return redirect()->route('consultorios.create')->withInput()->withErrors($surgery->errors);
+        return redirect()->route('consultorios.index');
 	}
 
 	/**

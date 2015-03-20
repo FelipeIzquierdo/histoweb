@@ -5,6 +5,6 @@
 	  		{!! $control !!}
 	      	<span class="input-group-addon"><i class="fa fa-bars"></i></span>
 	  </div>
-	  @if ($error)<span class="help-block text-danger">{{ $error }}</span>@endif
+	  @if ($error)<div class="help-block animation-pullUp" style="color: #de815c;">{{ $error }}</div>@endif
 	</div>
 </div>
