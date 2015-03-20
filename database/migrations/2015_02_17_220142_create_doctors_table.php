@@ -12,10 +12,10 @@ class CreateDoctorsTable extends Migration {
 		{
             $table->increments('id');
 			$table->integer('cc')->unsigned();
-			$table->string('fist_name', 50)->nullable();
+			$table->string('first_name', 50)->nullable();
 			$table->string('last_name', 50)->nullable();
-            $table->integer('specialties_id')->unsigned();
-            $table->foreign('specialties_id')->references('id')->on('specialties');
+            $table->integer('specialty_id')->unsigned();
+            $table->foreign('specialty_id')->references('id')->on('specialties');
             $table->timestamps();
         });
 	}

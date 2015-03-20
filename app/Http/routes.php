@@ -18,7 +18,8 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::resource('surgeries', 'SurgeriesController');
 Route::resource('tools', 'ToolsController');
+Route::resource('surgeries', 'SurgeriesController');
 
-Route::resource('doctor', 'DoctorsController');
+Route::resource('specialties', 'SpecialtiesController');
+Route::resource('doctors', 'DoctorsController');

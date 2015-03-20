@@ -1,30 +1,29 @@
 @extends('dashboard.pages.layout')
 	@section('title') 
-	    Doctores 
+	    Especialidades 
 	@endsection
 
 	@section('dashboard_title')
 		<h1>
-			<i class="gi gi-user_add"></i></i>
-			Doctores
-			<a href="{{ route('doctors.create') }}" class="btn btn-info" title="Nuevo Doctor">
+			<i class="fa fa-graduation-cap"></i>
+			Especialidades 
+			<a href="{{ route('specialties.create') }}" class="btn btn-info" title="Nueva Especialidad">
 				<i class="fa fa-plus"></i>
 			</a>
 		</h1>
 	@endsection
 	
 	@section('dashboard_body')
-		@foreach($doctors as $doctor)
+		@foreach($specialties as $specialty)
 			<div class="col-sm-3">
-				<a href="{{ route('doctors.edit', $doctor->id) }}" class="widget">
+				<a href="{{ route('specialties.edit', $specialty->id) }}" class="widget">
 					<div class="widget-content themed-background-info text-light-op text-center">
 						<div class="widget-icon">
-							<i class="gi gi-user_add"></i></i>
+							<i class="fa fa-graduation-cap"></i>
 						</div>
 					</div>
 					<div class="widget-content text-dark text-center">
-						<strong>{{ $doctor->fist_name }}</strong>
-						<strong>{{ $doctor->last_name }}</strong>
+						<strong>{{ $specialty->name }}</strong>
 					</div>
 				</a>
 			</div>

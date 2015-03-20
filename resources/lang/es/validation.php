@@ -117,6 +117,11 @@ return array(
 'attributes' => array(
 	'name'	=> 'nombre',
 	'tools'	=> 'Herramientas',
+	'cc'	=> 'Cédula',
+	'fist_name'	=> 'Nombres',
+	'last_name'	=> 'Apellidos',
+	'specialty_id'	=> 'Especialidad',
+	
     'username' => 'usuario',
     'password' => 'contraseña',
     'url_photo' => 'foto de perfil',

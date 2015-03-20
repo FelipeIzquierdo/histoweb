@@ -1,13 +1,32 @@
 <?php namespace Histoweb\Http\Controllers;
 
-use Histoweb\Doctor;
-use Histoweb\Http\Requests;
+use Histoweb\Http\Requests\Doctor\CreateRequest;
+use Histoweb\Http\Requests\Doctor\EditRequest;
 use Histoweb\Http\Controllers\Controller;
+
+use Histoweb\Doctor;
 use Histoweb\Specialty;
 
-use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 class DoctorsController extends Controller {
+
+	private $doctor;
+
+	public function __construct() 
+	{
+		$this->middleware('auth');
+		$this->beforeFilter('@findDoctor', ['only' => ['show', 'edit', 'update', 'destroy']]);
+	}
+
+	/**
+	 * Find a specified resource
+	 *
+	 */
+	public function findDoctor(Route $route)
+	{
+		$this->doctor = Doctor::findOrFail($route->getParameter('doctors'));
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -16,7 +35,7 @@ class DoctorsController extends Controller {
 	 */
 	public function index()
 	{
-        $doctors = Doctor::paginate(12);
+        $doctors = Doctor::all();
 
         return view('dashboard.pages.doctor.lists', compact('doctors'));
 	}
@@ -28,13 +47,11 @@ class DoctorsController extends Controller {
 	 */
 	public function create()
 	{
-        $doctors = new Doctor;
-        $form_data = ['route' => 'doctor.store', 'method' => 'POST'];
-        $specialty=Specialty::lists('name', 'id' );
+        $doctor = new Doctor;
+        $form_data = ['route' => 'doctors.store', 'method' => 'POST'];
+        $specialties = Specialty::lists('name', 'id' );
 
-
-
-        return view('dashboard.pages.doctor.form', compact('doctors','specialty', 'form_data'));
+        return view('dashboard.pages.doctor.form', compact('doctor','specialties', 'form_data'));
 	}
 
 	/**
@@ -42,17 +59,10 @@ class DoctorsController extends Controller {
 	 *
 	 * @return Response
 	 */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $doctors = new Doctor;
-        $data = $request->all();
-
-        if($doctors->validAndSave($data))
-        {
-            return redirect()->route('doctor.index');
-        }
-
-        return redirect()->route('doctor.create')->withInput()->withErrors($doctors->errors);
+        Doctor::create($request->all());
+        return redirect()->route('doctors.index');
     }
 
 	/**
@@ -63,8 +73,7 @@ class DoctorsController extends Controller {
 	 */
 	public function show($id)
 	{
-        $doctors = Surgery::findOrFail($id);
-        return view('dashboard.pages.doctors.show', compact('doctors'));
+        return view('dashboard.pages.doctors.show')->whit('docotr', $this->doctor);
 	}
 
 	/**
@@ -75,11 +84,10 @@ class DoctorsController extends Controller {
 	 */
 	public function edit($id)
 	{
-        $doctors = Doctor::findOrFail($id);
-        $form_data = ['route' => ['doctor.update', $doctors->id], 'method' => 'PUT'];
-        $specialty=Specialty::lists('name', 'id' );
+        $form_data = ['route' => ['doctors.update', $this->doctor->id], 'method' => 'PUT'];
+        $specialties = Specialty::allLists();
 
-        return view('dashboard.pages.doctor.form', compact('doctors','specialty', 'form_data'));
+        return view('dashboard.pages.doctor.form', compact('specialties', 'form_data'))->with('doctor', $this->doctor);
 	}
 
 	/**
@@ -88,17 +96,12 @@ class DoctorsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-    public function update(Request $request, $id)
+    public function update(EditRequest $request, $id)
     {
-        $doctors = Doctor::findOrFail($id);
-        $data = $request->all();
+        $this->doctor->fill($request->all());
+        $this->doctor->save();
 
-        if($doctors->validAndSave($data))
-        {
-            return redirect()->route('doctor.index');
-        }
-
-        return redirect()->route('doctor.create')->withInput()->withErrors($doctors->errors);
+        return redirect()->route('doctors.index');
     }
 
 	/**

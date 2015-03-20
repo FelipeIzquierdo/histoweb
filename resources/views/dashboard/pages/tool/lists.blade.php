@@ -1,7 +1,7 @@
 @extends('dashboard.pages.layout')
 	@section('title') 
 	    Herramientas 
-	 @endsection
+	@endsection
 
 	@section('dashboard_title')
 		<h1>

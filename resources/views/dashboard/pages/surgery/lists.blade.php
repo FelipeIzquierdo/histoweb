@@ -1,4 +1,8 @@
 @extends('dashboard.pages.layout')
+	@section('title') 
+	    Consultorios 
+	@endsection
+
 	@section('dashboard_title')
 		<h1>
 			<i class="fa fa-calendar-o"></i>
