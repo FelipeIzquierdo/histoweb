@@ -1,4 +1,4 @@
-<?php namespace Histoweb;
+<?php namespace Histoweb\Entities;
 
 class Patient extends Eloquent
 {

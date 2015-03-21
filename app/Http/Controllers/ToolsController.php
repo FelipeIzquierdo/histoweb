@@ -4,7 +4,7 @@ use Histoweb\Http\Requests\Tool\CreateRequest;
 use Histoweb\Http\Requests\Tool\EditRequest;
 use Histoweb\Http\Controllers\Controller;
 
-use Histoweb\Tool;
+use Histoweb\Entities\Tool;
 
 use Illuminate\Routing\Route;
 

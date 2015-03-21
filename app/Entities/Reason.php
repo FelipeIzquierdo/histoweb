@@ -1,9 +1,9 @@
-<?php namespace Histoweb;
+<?php namespace Histoweb\Entities;
 
-class Eps extends Eloquent
+class Reason extends Eloquent
 {
-	protected $table = 'eps';
-	protected $primaryKey = 'code_eps';
+	protected $table = 'reasons';
+	protected $primaryKey = 'code_reason';
 	protected $fillable = ['type', 'erasable'];
 
 	public $timestamps = false;
@@ -12,7 +12,7 @@ class Eps extends Eloquent
 
     public function getIdAttribute()
     {
-        return round($this->code_eps);
+        return round($this->code_reason);
     }
 
     public function getnameAttribute()
@@ -22,6 +22,6 @@ class Eps extends Eloquent
 
     public static function allLists()
     {
-        return self::lists('type', 'code_eps');
+        return self::lists('type', 'code_reason');
     }
 }

@@ -1,4 +1,4 @@
-<?php namespace Histoweb;
+<?php namespace Histoweb\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,7 +9,7 @@ class Surgery extends Model {
 
     public function tools()
     {
-        return $this->belongsToMany('Histoweb\Tool')->withTimestamps();
+        return $this->belongsToMany('Histoweb\Entities\Tool')->withTimestamps();
     }
 
     public function getToolsIdAttribute()

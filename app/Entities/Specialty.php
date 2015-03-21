@@ -1,4 +1,4 @@
-<?php namespace Histoweb;
+<?php namespace Histoweb\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 

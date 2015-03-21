@@ -4,8 +4,8 @@ use Histoweb\Http\Requests\Doctor\CreateRequest;
 use Histoweb\Http\Requests\Doctor\EditRequest;
 use Histoweb\Http\Controllers\Controller;
 
-use Histoweb\Doctor;
-use Histoweb\Specialty;
+use Histoweb\Entities\Doctor;
+use Histoweb\Entities\Specialty;
 
 use Illuminate\Routing\Route;
 
