@@ -2,8 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class availability extends Model {
-
-	//
-
+class Availability extends Model 
+{
+	protected $fillable = ['time_init', 'time_end'];
 }

@@ -118,9 +118,16 @@ return array(
 	'name'	=> 'nombre',
 	'tools'	=> 'Herramientas',
 	'cc'	=> 'Cédula',
-	'fist_name'	=> 'Nombres',
+	'first_name'	=> 'Nombres',
 	'last_name'	=> 'Apellidos',
 	'specialty_id'	=> 'Especialidad',
+
+	'start_date_end_date' => 'Rango de fechas',
+	'start_date'	=> 'Fecha de inicio',
+	'end_date'	=> 'Fecha fin',
+	'days'	=> 'Días',
+	'start_time'	=> 'Hora de inicio',
+	'end_time'	=> 'Hora fin',
 	
     'username' => 'usuario',
     'password' => 'contraseña',

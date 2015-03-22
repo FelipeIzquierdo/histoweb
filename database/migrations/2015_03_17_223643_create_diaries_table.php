@@ -22,6 +22,7 @@ class CreateDiariesTable extends Migration {
 
             $table->timestamp('time_init');
             $table->timestamp('time_end');
+            
             $table->timestamps();
         });
 

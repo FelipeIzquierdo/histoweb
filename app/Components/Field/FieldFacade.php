@@ -1,11 +1,11 @@
-<?php namespace Histoweb\Components;
+<?php namespace Histoweb\Components\Field;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Illuminate\Html\FormBuilder
  */
-class Field extends Facade {
+class FieldFacade extends Facade {
 
 	/**
 	 * Get the registered name of the component.

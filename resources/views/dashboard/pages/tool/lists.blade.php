@@ -19,7 +19,7 @@
 				<a href="{{ route('tools.edit', $tool->id) }}" class="widget">
 					<div class="widget-content themed-background-info text-light-op text-center">
 						<div class="widget-icon">
-							<i class="gi gi-settings"></i>
+							{!! Html::image('img/placeholders/icons/box.png', 'Icon Doctor', ['class' => 'img-circle img-thumbnail']) !!}
 						</div>
 					</div>
 					<div class="widget-content text-dark text-center">

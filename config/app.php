@@ -136,10 +136,11 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
         /*
-		 * me Providers...
+		 * Me Providers...
 		 */
 		'Collective\Html\HtmlServiceProvider',
-        'Histoweb\Components\FieldServiceProvider',
+        'Histoweb\Providers\FieldServiceProvider',
+        'Histoweb\Providers\CalendarServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -202,10 +203,10 @@ return [
 		 * me aliases...
 		 */
 
-        'Form' => 'Collective\Html\FormFacade',
-    	'Html' => 'Collective\Html\HtmlFacade',
-        'Field'=> 'Histoweb\Components\Field'
-
+        'Form' 		=> 'Collective\Html\FormFacade',
+    	'Html' 		=> 'Collective\Html\HtmlFacade',
+        'Field'		=> 'Histoweb\Components\Field\FieldFacade',
+        'Calendar'	=> 'Histoweb\Components\Calendar\CalendarFacade'
 	],
 
 ];

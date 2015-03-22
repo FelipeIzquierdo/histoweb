@@ -19,7 +19,7 @@
 				<a href="{{ route('specialties.edit', $specialty->id) }}" class="widget">
 					<div class="widget-content themed-background-info text-light-op text-center">
 						<div class="widget-icon">
-							<i class="fa fa-graduation-cap"></i>
+							{!! Html::image('img/placeholders/icons/student.png', 'Icon Doctor', ['class' => 'img-circle img-thumbnail ']) !!}
 						</div>
 					</div>
 					<div class="widget-content text-dark text-center">

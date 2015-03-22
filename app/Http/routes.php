@@ -1,5 +1,5 @@
-<?php
-
+<?php 
+use Histoweb\Entities\Doctor;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -23,3 +23,4 @@ Route::resource('surgeries', 'SurgeriesController');
 
 Route::resource('specialties', 'SpecialtiesController');
 Route::resource('doctors', 'DoctorsController');
+Route::resource('doctors.availabilities', 'DoctorsAvailabilitiesController');

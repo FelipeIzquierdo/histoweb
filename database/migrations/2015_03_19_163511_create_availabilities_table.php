@@ -11,13 +11,12 @@ class CreateAvailabilitiesTable extends Migration {
 		Schema::create('availabilities', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->string('days');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->timestamp('time_init');
+            $table->timestamp('time_end');
+
             $table->integer('doctor_id')->unsigned();
             $table->foreign('doctor_id')->references('id')->on('doctors');
+			
 			$table->timestamps();
 		});
 	}

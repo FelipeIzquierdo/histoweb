@@ -19,12 +19,11 @@
 				<a href="{{ route('doctors.edit', $doctor->id) }}" class="widget">
 					<div class="widget-content themed-background-info text-light-op text-center">
 						<div class="widget-icon">
-							<i class="gi gi-user_add"></i></i>
+							{!! Html::image('img/placeholders/icons/doctor.png', 'Icon Doctor', ['class' => 'img-circle img-thumbnail ']) !!}
 						</div>
 					</div>
 					<div class="widget-content text-dark text-center">
-						<strong>{{ $doctor->fist_name }}</strong>
-						<strong>{{ $doctor->last_name }}</strong>
+						<strong>{{ $doctor->name }}</strong>
 					</div>
 				</a>
 			</div>

@@ -1,7 +1,7 @@
-<?php namespace Histoweb\Components;
+<?php namespace Histoweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Histoweb\Components\Field\FieldBuilder;
 
 class FieldServiceProvider extends  ServiceProvider{
 

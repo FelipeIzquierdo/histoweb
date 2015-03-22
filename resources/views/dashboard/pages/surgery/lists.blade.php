@@ -19,7 +19,7 @@
 				<a href="{{ route('surgeries.edit', $surgery->id) }}" class="widget">
 					<div class="widget-content themed-background-info text-light-op text-center">
 						<div class="widget-icon">
-							<i class="fa fa-calendar-o"></i>
+							{!! Html::image('img/placeholders/icons/build.png', 'Icon Doctor', ['class' => 'img-circle img-thumbnail ']) !!}
 						</div>
 					</div>
 					<div class="widget-content text-dark text-center">
