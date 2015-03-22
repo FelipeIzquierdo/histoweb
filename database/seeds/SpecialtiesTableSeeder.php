@@ -4,111 +4,112 @@
 	*/
 	use Illuminate\Database\Seeder;
 	use Illuminate\Database\Eloquent\Model;
+    use Histoweb\Entities\Specialty;
 
 	class SpecialtiesTableSeeder extends Seeder
 	{
 		public function run()
 	    {
-	        DB::table('specialties')->insert(array(
+	        Specialty::create(array(
 	            'name'  => 'Alergología',
 	        ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Anestesiología y reanimación',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Cardiología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Gastroenterología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Endocrinología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Geriatría',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Hematología y hemoterapia',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Hidrología médica',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Infectología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Medicina aeroespacial',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Medicina del deporte',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Medicina del trabajo',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Medicina de urgencias',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Medicina familiar y comunitaria',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Medicina intensiva',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Medicina interna',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Medicina legal y forense',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Medicina preventiva y salud pública',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Neumología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Neurología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Nutriología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Odontología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Oftalmología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Oncología médica',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Oncología radioterápica',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Otorrinolaringología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Pediatría',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Proctología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Psiquiatría',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Rehabilitación',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Reumatología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Traumatología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Toxicología',
             ));
-            DB::table('specialties')->insert(array(
+            Specialty::create(array(
                 'name'  => 'Urología',
             ));
 

@@ -48,8 +48,19 @@ class DoctorsAvailabilitiesController extends Controller {
 	 */
 	public function index($doctor_id)
 	{
-		$availabilities = $this->doctor->availabilities;
-		return view('dashboard.pages.availability.lists', compact('availabilities'))->with('doctor', $this->doctor);
+		$url = route('doctors.availabilities.json', $this->doctor->id);
+		return view('dashboard.pages.availability.lists', compact('url'))->with('doctor', $this->doctor);
+	}
+
+	/**
+	 * Display a listing of the resource in JSON.
+	 *
+	 * @return Response JSON
+	 */
+	public function json($doctor_id)
+	{
+		$events = \Calendar::eventsOfCollection($this->doctor->availabilities);
+		return $events;
 	}
 
 	/**

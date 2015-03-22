@@ -4,5 +4,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Availability extends Model 
 {
-	protected $fillable = ['time_init', 'time_end'];
+	protected $fillable = ['start', 'end'];
+
+	public function getTitleAttribute()
+	{
+		return 'Disponible';
+	}
 }

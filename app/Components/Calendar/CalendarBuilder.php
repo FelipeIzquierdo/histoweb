@@ -11,6 +11,20 @@ class CalendarBuilder {
         $this->session = $session;
     }
 
+    public function eventsOfCollection($collection)
+    {
+    	$events = array();
+    	foreach ($collection as $key => $collection) 
+    	{
+            $events[$key]['id'] = $collection->id;
+    		$events[$key]['start'] = $collection->start;
+    		$events[$key]['end'] = $collection->end;
+    		$events[$key]['title'] = $collection->title;
+    	}
+
+    	return $events;
+    } 
+
     public function eventsOfData($data = array()) 
     {
         return $this->events($data['start_date'], $data['end_date'], $data['days'], $data['start_time'], $data['end_time']);
@@ -23,8 +37,8 @@ class CalendarBuilder {
 
     	foreach ($dates as $key => $date) 
     	{
-    		$events[$key]['time_init'] = $date . ' ' . $start_time;
-    		$events[$key]['time_end'] = $date . ' ' . $end_time;
+    		$events[$key]['start'] = $date . ' ' . $start_time;
+    		$events[$key]['end'] = $date . ' ' . $end_time;
     	}
 
     	return $events;

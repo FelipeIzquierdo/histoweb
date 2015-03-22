@@ -25,6 +25,9 @@
 
 	@section('js_extra')
 		<!-- Load and execute javascript code used only in this page -->
-		{!! Html::script('assets/js/pages/compCalendar.js') !!}
-	    <script>$(function(){ CompCalendar.init(); });</script>
+		{!! Html::script('assets/js/pages/calendar/availabilities.js') !!}
+	    <script>
+	    	var url = '{!! $url !!}';
+	    	$(function(){ CompCalendar.init(); });
+	    </script>
 	@endsection
