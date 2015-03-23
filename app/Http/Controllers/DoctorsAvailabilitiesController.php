@@ -21,7 +21,7 @@ class DoctorsAvailabilitiesController extends Controller {
 	{
 		$this->middleware('auth');
 		$this->beforeFilter('@findDoctor');
-		$this->beforeFilter('@findAvailability', ['only' => ['show', 'edit', 'update', 'destroy']]);
+		$this->beforeFilter('@findAvailability', ['only' => ['update', 'destroy']]);
 	}
 
 
@@ -84,14 +84,13 @@ class DoctorsAvailabilitiesController extends Controller {
 	 */
 	public function store(CreateRequest $request, $doctor_id)
 	{
-
 		$events = \Calendar::eventsOfData($request->all());
-
 		$availabilities = array();
-
+		$nextGroupId = Availability::nextGroupId();
+		
 		foreach ($events as $event) 
 		{
-			array_push($availabilities, new Availability($event));
+			array_push($availabilities, new Availability($event + ['group_id' => $nextGroupId]));
 		}
 
 		$this->doctor->availabilities()->saveMany($availabilities);
@@ -99,27 +98,6 @@ class DoctorsAvailabilitiesController extends Controller {
 		return redirect()->route('doctors.availabilities.index', $this->doctor->id);
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($doctor_id, $id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit(CreateRequest $request, $doctor_id, $id)
-	{
-
-	}
 
 	/**
 	 * Update the specified resource in storage.

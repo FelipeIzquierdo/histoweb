@@ -5,14 +5,33 @@ use Histoweb\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class Prueba extends Controller {
+class SurgeriesSchedulesController extends Controller {
+
+	private $surgery;
+	private $days = ['monday' => 'Lunes', 'tuesday' => 'Martes', 'wednesday' => 'Miercoles', 
+		'thursday' => 'Jueves', 'friday' => 'Viernes', 'sunday' => 'Sábado'];
+
+	public function __construct() 
+	{
+		$this->middleware('auth');
+		$this->beforeFilter('@findSurgery');
+	}
+
+	/**
+	 * Find a specified Surgery resource
+	 *
+	 */
+	public function findSurgery(Route $route)
+	{
+		$this->surgery = Surgery::find($route->getParameter('surgeries'));
+	}
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($surgery_id)
 	{
 		//
 	}
