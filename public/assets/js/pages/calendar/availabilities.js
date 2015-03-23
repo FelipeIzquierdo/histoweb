@@ -4,6 +4,36 @@
  *  Description: Custom javascript code used in Calendar page
  */
 
+function updateAvailability (event) {
+    $.ajax({
+        data:  {
+            'start': event.start.format('YYYY-MM-DD H:mm:ss'),
+            'end': event.end.format('YYYY-MM-DD H:mm:ss')
+        },
+        url:   '/histoweb5/public/doctors/' + event.doctor_id + '/availabilities/' + event.id,
+        type:  'PUT',
+        beforeSend: function(request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+        },
+        success:  function (data) {
+            console.log(data.message);
+        }
+    });
+}
+
+function deleteAvailability(event) {
+    $.ajax({
+        url:   '/histoweb5/public/doctors/' + event.doctor_id + '/availabilities/' + event.id,
+        type:  'DELETE',
+        beforeSend: function(request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+        },
+        success:  function (data) {
+            $('#calendar').fullCalendar('removeEvents', event.id);
+        }
+    });
+}
+
 var CompCalendar = function() {
     return {
         init: function() {
@@ -13,10 +43,6 @@ var CompCalendar = function() {
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
-
-            var parametros = {
-                'valor' : 1
-            };
 
             $('#calendar').fullCalendar({
                 header: {
@@ -42,21 +68,26 @@ var CompCalendar = function() {
                 timeFormat: 'h(:mm)a',
                 startEditable: true,
                 eventDurationEditable: true,
+                eventOverlap: false,
                 eventDrop: function(event, delta, revertFunc) {
-                    $.ajax({
-                        data:  parametros,
-                        url:   'gethint',
-                        type:  'post',
-                        beforeSend: function () {
-                            console.log('enviando');
-                        },
-                        success:  function (data) {
-                            console.log('exito');
-                        }
+                    updateAvailability(event);
+                }, 
+                eventResize: function(event, delta, revertFunc) {
+                    updateAvailability(event);
+                },
+                eventClick: function(event, jsEvent, view) {
+                    $("#eventId").html(event.id);
+                    $("#eventDate").html(event.start.format('YYYY-MM-DD'));
+                    $("#eventStart").html(event.start.format('h(:mm)a'));
+                    $("#eventEnd").html(event.end.format('h(:mm)a'));
+                    $("#eventDelete").click(function() {
+                      deleteAvailability(event);
                     });
-                    console.log(event.title + " fue movido a " + event.start.format());
+                    $('#modalFade').modal('show');
                 }       
             });
         }
+
+
     };
 }();

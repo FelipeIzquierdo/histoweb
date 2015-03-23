@@ -8,6 +8,7 @@ use Histoweb\Entities\Doctor;
 use Histoweb\Entities\Availability;
 
 use Illuminate\Routing\Route;
+use Illuminate\Http\Request;
 
 class DoctorsAvailabilitiesController extends Controller {
 
@@ -29,7 +30,7 @@ class DoctorsAvailabilitiesController extends Controller {
 	 */
 	public function findAvailability(Route $route)
 	{
-		$this->availability = $this->doctor->availabilities()->findOrFail($route->getParameter('availabilities'));
+		$this->availability = $this->doctor->availabilities()->find($route->getParameter('availabilities'));
 	}
 
 	/**
@@ -38,7 +39,7 @@ class DoctorsAvailabilitiesController extends Controller {
 	 */
 	public function findDoctor(Route $route)
 	{
-		$this->doctor = Doctor::findOrFail($route->getParameter('doctors'));
+		$this->doctor = Doctor::find($route->getParameter('doctors'));
 	}
 
 	/**
@@ -59,7 +60,7 @@ class DoctorsAvailabilitiesController extends Controller {
 	 */
 	public function json($doctor_id)
 	{
-		$events = \Calendar::eventsOfCollection($this->doctor->availabilities);
+		$events = $this->doctor->availabilities->toJson();
 		return $events;
 	}
 
@@ -102,7 +103,7 @@ class DoctorsAvailabilitiesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($doctor_id, $id)
 	{
 		//
 	}
@@ -113,9 +114,9 @@ class DoctorsAvailabilitiesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(CreateRequest $request, $doctor_id, $id)
 	{
-		//
+
 	}
 
 	/**
@@ -124,9 +125,17 @@ class DoctorsAvailabilitiesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(EditRequest $request, $doctor_id, $id)
 	{
-		//
+		$this->availability->fill($request->all());
+		$this->availability->save();
+
+		if($request->ajax())
+		{   	
+	        return response()->json([
+	            'message' =>     'Evento actualizado con exito',
+	        ]);
+	    }
 	}
 
 	/**
@@ -135,9 +144,15 @@ class DoctorsAvailabilitiesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Request $request, $doctor_id, $id)
 	{
-		//
+		$this->availability->delete();
+		if($request->ajax())
+		{   
+	        return response()->json([
+	            'message' =>     'Evento eliminado con exito',
+	        ]);
+	    }
 	}
 
 }

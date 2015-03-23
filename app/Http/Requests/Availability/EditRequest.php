@@ -33,7 +33,8 @@ class EditRequest extends Request {
 	public function rules()
 	{
 		return [
-			
+			'start' => 'required',
+			'end'	=> 'required'
 		];
 	}
 
