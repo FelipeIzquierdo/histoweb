@@ -30,6 +30,7 @@ function deleteAvailability(event) {
         },
         success:  function (data) {
             $('#calendar').fullCalendar('removeEvents', event.id);
+            console.log('evento ' + event.id + ' eliminado');
         }
     });
 }
@@ -75,11 +76,19 @@ var CompCalendar = function() {
                 eventResize: function(event, delta, revertFunc) {
                     updateAvailability(event);
                 },
-                eventClick: function(event, jsEvent, view) {
+                eventClick: function(event, delta, jsEvent, view) {
                     $("#eventId").html(event.id);
                     $("#eventDate").html(event.start.format('YYYY-MM-DD'));
                     $("#eventStart").html(event.start.format('h(:mm)a'));
-                    $("#eventEnd").html(event.end.format('h(:mm)a'));
+                    if(event.end)
+                    {
+                        $("#eventEnd").html(event.end.format('h(:mm)a'));    
+                    }
+                    else
+                    {
+                        $("#eventEnd").html(event.start.format('h(:mm)a'));       
+                    }
+                    $("#eventDelete").unbind("click");
                     $("#eventDelete").click(function() {
                       deleteAvailability(event);
                     });
