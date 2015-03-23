@@ -10,7 +10,7 @@ function updateAvailability (event) {
             'start': event.start.format('YYYY-MM-DD H:mm:ss'),
             'end': event.end.format('YYYY-MM-DD H:mm:ss')
         },
-        url:   '/histoweb5/public/doctors/' + event.doctor_id + '/availabilities/' + event.id,
+        url:   '/doctors/' + event.doctor_id + '/availabilities/' + event.id,
         type:  'PUT',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
@@ -23,7 +23,7 @@ function updateAvailability (event) {
 
 function deleteAvailability(event) {
     $.ajax({
-        url:   '/histoweb5/public/doctors/' + event.doctor_id + '/availabilities/' + event.id,
+        url:   '/doctors/' + event.doctor_id + '/availabilities/' + event.id,
         type:  'DELETE',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
