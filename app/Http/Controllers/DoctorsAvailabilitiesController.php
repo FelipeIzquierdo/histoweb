@@ -24,6 +24,7 @@ class DoctorsAvailabilitiesController extends Controller {
 		$this->beforeFilter('@findAvailability', ['only' => ['show', 'edit', 'update', 'destroy']]);
 	}
 
+
 	/**
 	 * Find a specified Availability resource 
 	 *
@@ -84,6 +85,7 @@ class DoctorsAvailabilitiesController extends Controller {
 	 */
 	public function store(CreateRequest $request, $doctor_id)
 	{
+
 		$events = \Calendar::eventsOfData($request->all());
 		$availabilities = array();
 
@@ -91,8 +93,10 @@ class DoctorsAvailabilitiesController extends Controller {
 		{
 			array_push($availabilities, new Availability($event));
 		}
+        dd($availabilities);
 
 		$this->doctor->availabilities()->saveMany($availabilities);
+
 
 		return redirect()->route('doctors.availabilities.index', $this->doctor->id);
 	}
