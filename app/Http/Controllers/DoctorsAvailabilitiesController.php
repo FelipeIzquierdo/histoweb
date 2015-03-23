@@ -60,8 +60,7 @@ class DoctorsAvailabilitiesController extends Controller {
 	 */
 	public function json($doctor_id)
 	{
-		$events = $this->doctor->availabilities->toJson();
-		return $events;
+		return $this->doctor->availabilities->toJson();
 	}
 
 	/**
@@ -85,6 +84,7 @@ class DoctorsAvailabilitiesController extends Controller {
 	public function store(CreateRequest $request, $doctor_id)
 	{
 		$events = \Calendar::eventsOfData($request->all());
+
 		$availabilities = array();
 
 		foreach ($events as $event) 
@@ -93,7 +93,8 @@ class DoctorsAvailabilitiesController extends Controller {
 		}
 
 		$this->doctor->availabilities()->saveMany($availabilities);
-
+		dd($availabilities);
+		
 		return redirect()->route('doctors.availabilities.index', $this->doctor->id);
 	}
 

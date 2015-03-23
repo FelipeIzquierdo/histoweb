@@ -37,8 +37,8 @@ class CalendarBuilder {
 
     	foreach ($dates as $key => $date) 
     	{
-    		$events[$key]['start'] = $date . ' ' . $start_time;
-    		$events[$key]['end'] = $date . ' ' . $end_time;
+    		$events[$key]['start'] = date('Y-m-d H:s:m', strtotime($date . ' ' . $start_time));
+    		$events[$key]['end'] = date('Y-m-d H:s:m', strtotime($date . ' ' . $end_time));
     	}
 
     	return $events;
