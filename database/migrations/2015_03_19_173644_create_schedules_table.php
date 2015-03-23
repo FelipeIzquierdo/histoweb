@@ -11,11 +11,11 @@ class CreateSchedulesTable extends Migration {
 		Schema::create('schedules', function(Blueprint $table)
 		{
                   $table->increments('id');
-                  $table->timestamp('time_init');
-                  $table->timestamp('time_end');
+                  $table->timestamp('start');
+                  $table->timestamp('end');
                   
-                  $table->integer('doctor_id')->unsigned();
-                  $table->foreign('doctor_id')->references('id')->on('doctors');
+                  //$table->integer('doctor_id')->unsigned();
+                 // $table->foreign('doctor_id')->references('id')->on('doctors');
                   $table->integer('surgery_id')->unsigned();
                   $table->foreign('surgery_id')->references('id')->on('surgeries');
 

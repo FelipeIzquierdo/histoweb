@@ -1,13 +1,19 @@
 <?php namespace Histoweb\Http\Controllers;
 
-use Histoweb\Http\Requests;
+use Histoweb\Http\Requests\Availability\CreateRequest;
+use Histoweb\Http\Requests\Availability\EditRequest;
 use Histoweb\Http\Controllers\Controller;
 
+use Histoweb\Entities\Surgery;
+use Histoweb\Entities\Schedule;
+
+use Illuminate\Routing\Route;
 use Illuminate\Http\Request;
 
 class SurgeriesSchedulesController extends Controller {
 
 	private $surgery;
+    protected $schedule;
 	private $days = ['monday' => 'Lunes', 'tuesday' => 'Martes', 'wednesday' => 'Miercoles', 
 		'thursday' => 'Jueves', 'friday' => 'Viernes', 'sunday' => 'Sábado'];
 
@@ -15,6 +21,7 @@ class SurgeriesSchedulesController extends Controller {
 	{
 		$this->middleware('auth');
 		$this->beforeFilter('@findSurgery');
+        $this->beforeFilter('@findSchedules', ['only' => ['update', 'destroy']]);
 	}
 
 	/**
@@ -26,6 +33,15 @@ class SurgeriesSchedulesController extends Controller {
 		$this->surgery = Surgery::find($route->getParameter('surgeries'));
 	}
 
+    /**
+     * Find a specified Schedules resource
+     *
+     */
+    public function findSchedules(Route $route)
+    {
+        $this->schedule = $this->surgery->schedules()->find($route->getParameter('schedules'));
+    }
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -33,8 +49,19 @@ class SurgeriesSchedulesController extends Controller {
 	 */
 	public function index($surgery_id)
 	{
-		//
+        $url = route('surgeries.schedules.json', $this->surgery->id);
+        return view('dashboard.pages.schedule.lists', compact('url'))->with('surgery', $this->surgery);
 	}
+
+    /**
+     * Display a listing of the resource in JSON.
+     *
+     * @return Response JSON
+     */
+    public function json($surgery_id)
+    {
+        return $this->surgery->schedules->toJson();
+    }
 
 	/**
 	 * Show the form for creating a new resource.
@@ -43,7 +70,10 @@ class SurgeriesSchedulesController extends Controller {
 	 */
 	public function create()
 	{
-		//
+        $schedule  = new Schedule ;
+        $form_data = ['route' => ['surgeries.schedules.store', $this->surgery->id], 'method' => 'POST'];
+
+        return view('dashboard.pages.schedule.form', compact('schedule', 'form_data'))->with('days', $this->days);
 	}
 
 	/**
@@ -51,32 +81,23 @@ class SurgeriesSchedulesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateRequest $request, $surgery_id)
 	{
-		//
+        $events = \Calendar::eventsOfData($request->all());
+        $schedules = array();
+        //$nextGroupId = Availability::nextGroupId();
+
+        foreach ($events as $event)
+        {
+            array_push($schedules, new Schedule($event));
+        }
+
+
+        $this->surgery->schedules()->saveMany($schedules);
+
+        return redirect()->route('surgeries.schedules.index', $this->surgery->id);
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
 
 	/**
 	 * Update the specified resource in storage.
@@ -84,9 +105,17 @@ class SurgeriesSchedulesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(EditRequest $request, $doctor_id, $id)
 	{
-		//
+        $this->schedule->fill($request->all());
+        $this->schedule->save();
+
+        if($request->ajax())
+        {
+            return response()->json([
+                'message' =>     'Evento actualizado con exito',
+            ]);
+        }
 	}
 
 	/**
@@ -95,9 +124,15 @@ class SurgeriesSchedulesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Request $request, $doctor_id, $id)
 	{
-		//
+        $this->schedule->delete();
+        if($request->ajax())
+        {
+            return response()->json([
+                'message' =>     'Evento eliminado con exito',
+            ]);
+        }
 	}
 
 }

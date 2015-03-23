@@ -16,4 +16,14 @@ class Surgery extends Model {
     {
     	return $this->tools->lists('id');
     }
+
+    public function schedules()
+    {
+        return $this->hasMany('Histoweb\Entities\Schedule');
+    }
+
+    public function doctors()
+    {
+        return $this->hasMany('Histoweb\Entities\Doctor');
+    }
 }
