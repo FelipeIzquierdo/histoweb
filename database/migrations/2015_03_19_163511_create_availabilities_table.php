@@ -18,7 +18,7 @@ class CreateAvailabilitiesTable extends Migration {
             $table->integer('doctor_id')->unsigned();
             $table->foreign('doctor_id')->references('id')->on('doctors');
 
-            $table->unique(['start', 'end', 'doctor_id']);
+
 			
 			$table->timestamps();
 		});
