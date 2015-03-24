@@ -10,7 +10,7 @@ class Doctor extends Model
 	public $increments = true;
 	public $errors;
 
-    protected $fillable = ['cc','first_name','last_name','specialty_id'];
+    protected $fillable = ['cc','first_name','last_name','color','specialty_id'];
 
     public function getNameAttribute()
     {
@@ -30,5 +30,10 @@ class Doctor extends Model
     public function diaries()
     {
         return $this->hasMany('Histoweb\Entities\Diary');
-    }    
+    }
+
+    public static function allLists()
+    {
+        return self::lists('first_name' ,'id' );
+    }
 }

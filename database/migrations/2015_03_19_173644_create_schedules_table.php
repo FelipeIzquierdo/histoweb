@@ -21,6 +21,7 @@ class CreateSchedulesTable extends Migration {
 			$table->foreign('surgery_id')->references('id')->on('surgeries');
 
 			$table->timestamps();
+
       	});
 	}
 

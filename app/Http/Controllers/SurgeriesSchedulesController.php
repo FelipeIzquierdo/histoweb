@@ -1,11 +1,13 @@
 <?php namespace Histoweb\Http\Controllers;
 
+
 use Histoweb\Http\Requests\Availability\CreateRequest;
 use Histoweb\Http\Requests\Availability\EditRequest;
 use Histoweb\Http\Controllers\Controller;
 
 use Histoweb\Entities\Surgery;
 use Histoweb\Entities\Schedule;
+use Histoweb\Entities\Doctor;
 
 use Illuminate\Routing\Route;
 use Illuminate\Http\Request;
@@ -72,8 +74,8 @@ class SurgeriesSchedulesController extends Controller {
 	{
         $schedule  = new Schedule ;
         $form_data = ['route' => ['surgeries.schedules.store', $this->surgery->id], 'method' => 'POST'];
-
-        return view('dashboard.pages.schedule.form', compact('schedule', 'form_data'))->with('days', $this->days);
+        $doctors = Doctor::allLists();
+        return view('dashboard.pages.schedule.form', compact('schedule', 'form_data','doctors'))->with('days', $this->days);
 	}
 
 	/**
@@ -83,18 +85,18 @@ class SurgeriesSchedulesController extends Controller {
 	 */
 	public function store(CreateRequest $request, $surgery_id)
 	{
+        $doctor=$request->input('doctor_id');
         $events = \Calendar::eventsOfData($request->all());
         $schedules = array();
+
+
         //$nextGroupId = Availability::nextGroupId();
 
         foreach ($events as $event)
         {
-            array_push($schedules, new Schedule($event));
+            array_push($schedules, new Schedule($event + ['doctor_id' => $doctor]));
         }
-
-
         $this->surgery->schedules()->saveMany($schedules);
-
         return redirect()->route('surgeries.schedules.index', $this->surgery->id);
 	}
 

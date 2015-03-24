@@ -14,6 +14,7 @@ class CreateDoctorsTable extends Migration {
 			$table->integer('cc')->unsigned();
 			$table->string('first_name', 50)->nullable();
 			$table->string('last_name', 50)->nullable();
+            $table->string('color', 8)->nullable();
             $table->integer('specialty_id')->unsigned();
             $table->foreign('specialty_id')->references('id')->on('specialties');
             $table->timestamps();
