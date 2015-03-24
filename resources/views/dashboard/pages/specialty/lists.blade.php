@@ -28,4 +28,9 @@
 				</a>
 			</div>
 		@endforeach
+		<div class="row">
+            <div class="col-xs-12">
+                {!! $specialties->render() !!}
+            </div>
+        </div>
 	@endsection

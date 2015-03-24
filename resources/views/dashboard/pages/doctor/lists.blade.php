@@ -16,8 +16,10 @@
 	@section('dashboard_body')
 		@foreach($doctors as $doctor)
 			<div class="col-sm-3">
+
 				<a href="{{ route('doctors.edit', $doctor->id) }}" class="widget">
-					<div class="widget-content themed-background-info text-light-op text-center">
+
+					<div class="widget-content  text-light-op text-center" style="background-color: {{$doctor->color}};">
 						<div class="widget-icon">
 							{!! Html::image('img/placeholders/icons/doctor.png', 'Icon Doctor', ['class' => 'img-circle img-thumbnail ']) !!}
 						</div>
@@ -28,4 +30,9 @@
 				</a>
 			</div>
 		@endforeach
+		<div class="row">
+		    <div class="col-xs-12">
+                {!! $doctors->render() !!}
+            </div>
+		</div>
 	@endsection

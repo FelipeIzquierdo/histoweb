@@ -21,9 +21,10 @@ class CreateRequest extends Request {
 	{
 		return [
 			'cc'                => 'required|max:11|unique:doctors,cc',
-            'first_name'         => 'required',
+            'first_name'        => 'required',
             'last_name'         => 'required',
-            'specialty_id'    => 'required'
+            'specialty_id'      => 'required',
+            'photo'             => 'required|image'
 		];
 	}
 }

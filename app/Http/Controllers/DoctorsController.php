@@ -35,8 +35,7 @@ class DoctorsController extends Controller {
 	 */
 	public function index()
 	{
-        $doctors = Doctor::all();
-
+        $doctors = Doctor::paginate(12);
         return view('dashboard.pages.doctor.lists', compact('doctors'));
 	}
 
@@ -61,7 +60,9 @@ class DoctorsController extends Controller {
 	 */
     public function store(CreateRequest $request)
     {
+       // dd($request->all());
         Doctor::create($request->all());
+
         return redirect()->route('doctors.index');
     }
 
