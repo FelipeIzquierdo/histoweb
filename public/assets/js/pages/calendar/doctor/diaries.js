@@ -64,21 +64,30 @@ var CompCalendar = function() {
                 maxTime: '22:00:00',
                 slotDuration: '00:15:00',
                 timeFormat: 'h(:mm)a',
-                
                 eventClick: function(event, delta, jsEvent, view) {
                     $("#eventId").html(event.id);
                     $("#eventDate").html(event.start.format('YYYY-MM-DD'));
                     $("#eventStart").html(event.start.format('h(:mm)a'));
                     if(event.end)
                     {
-                        $("#eventEnd").html(event.end.format('h(:mm)a'));    
+                        $("#eventEnd").html(event.end.format('h(:mm)a'));
                     }
                     else
                     {
-                        $("#eventEnd").html(event.start.format('h(:mm)a'));       
+                        $("#eventEnd").html(event.start.format('h(:mm)a'));
                     }
                     $('#modalFade').modal('show');
-                }       
+                },
+                dayClick: function(date, jsEvent, view) {
+                    if(view.name != 'month')
+                    {
+                        alert('Clicked on: ' + date.format());
+                        $(this).css('background-color', 'red');
+                    }
+
+                    
+                }
+                  
             });
         }
 

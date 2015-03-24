@@ -18,6 +18,7 @@
               </div>
               <div class="form-horizontal form-bordered">
                 {!! Form::model($doctor, $form_data) !!}
+                  {!! Field::text('color', null, ['template' => 'color']) !!}
                   {!! Field::text( 'cc', null, ['placeholder' => 'Cedula', 'template' => 'horizontal']) !!}
                   {!! Field::text( 'first_name', null, ['placeholder' => 'Nombres', 'template' => 'horizontal']) !!}
                   {!! Field::text( 'last_name', null, ['placeholder' => 'Apellidos', 'template' => 'horizontal']) !!}

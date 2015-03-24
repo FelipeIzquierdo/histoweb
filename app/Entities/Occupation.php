@@ -1,17 +1,15 @@
 <?php namespace Histoweb\Entities;
 
+use Illuminate\Database\Eloquent\Model;
 
-
-class Occupation extends Eloquent
+class Occupation extends Model
 {
-	protected $table = 'occupations';
-	protected $primaryKey = 'code_occupation';
-	public $timestamps = false;
+	public $timestamps = true;
 	public $increments = true;
 	public $errors;
 
 	public static function allLists()
     {
-        return self::lists('type', 'code_occupation');
+        return self::lists('name', 'id');
     }
 }

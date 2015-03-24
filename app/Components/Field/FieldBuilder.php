@@ -20,7 +20,6 @@ class FieldBuilder {
     protected $defaultClass = [
         'default'           => 'form-control',
         'dateRange'         => 'form-control',
-        'checkbox'          => '',
         'select'            => 'select-chosen',
         'time'              => 'form-control input-timepicker'
     ];

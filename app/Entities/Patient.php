@@ -4,7 +4,7 @@ class Patient extends Eloquent
 {
 	protected $table = 'patients';
 	protected $primaryKey = 'cc';
-	protected $fillable = ['cc', 'doc_type_id', 'name', 'middle_name', 'surname',
+	protected $fillable = ['cc', 'doc_type_id', 'first_name',
         'last_name', 'sex', 'active', 'date_birth'];
 
 	public $timestamps = false;
