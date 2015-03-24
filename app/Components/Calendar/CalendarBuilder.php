@@ -1,6 +1,7 @@
 <?php namespace Histoweb\Components\Calendar;
 
 use Illuminate\Session\Store as Session;
+use Carbon\Carbon; 
 
 class CalendarBuilder {
 
@@ -11,15 +12,34 @@ class CalendarBuilder {
         $this->session = $session;
     }
 
+    public function splitCollection($collection, $part = '+15 minutes')
+    {
+        $events = array();
+
+        foreach ($collection as $key => $model) 
+        {
+            $event = $model->toArray();
+
+            for ($timestamp = strtotime($model->start); $timestamp < strtotime($model->end); $timestamp = strtotime($part, $timestamp)) 
+            { 
+                $event['start'] = date('Y-m-d H:i:s', $timestamp);
+                $event['end'] = date('Y-m-d H:i:s', strtotime($part, $timestamp));
+                array_push($events, $event);
+            }
+        }
+
+        return $events;
+    }
+
     public function eventsOfCollection($collection)
     {
     	$events = array();
-    	foreach ($collection as $key => $collection) 
+    	foreach ($collection as $key => $model) 
     	{
-            $events[$key]['id'] = $collection->id;
-    		$events[$key]['start'] = $collection->start;
-    		$events[$key]['end'] = $collection->end;
-    		$events[$key]['title'] = $collection->title;
+            $events[$key]['id'] = $model->id;
+    		$events[$key]['start'] = $model->start;
+    		$events[$key]['end'] = $model->end;
+    		$events[$key]['title'] = $model->title;
     	}
 
     	return $events;
@@ -37,8 +57,8 @@ class CalendarBuilder {
 
     	foreach ($dates as $key => $date) 
     	{
-    		$events[$key]['start'] = date('Y-m-d H:s:m', strtotime($date . ' ' . $start_time));
-    		$events[$key]['end'] = date('Y-m-d H:s:m', strtotime($date . ' ' . $end_time));
+    		$events[$key]['start'] = date('Y-m-d H:i:s', strtotime($date . ' ' . $start_time));
+    		$events[$key]['end'] = date('Y-m-d H:i:s', strtotime($date . ' ' . $end_time));
     	}
 
     	return $events;

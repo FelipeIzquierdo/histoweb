@@ -95,7 +95,7 @@ class DoctorsAvailabilitiesController extends Controller {
 
 		$this->doctor->availabilities()->saveMany($availabilities);
 
-		return redirect()->route('doctor.availabilities.index', $this->doctor->id);
+		return redirect()->route('doctors.availabilities.index', $this->doctor->id);
 	}
 
 

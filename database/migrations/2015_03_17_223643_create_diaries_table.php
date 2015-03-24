@@ -22,8 +22,8 @@ class CreateDiariesTable extends Migration {
             $table->integer('doctor_id')->unsigned();
             $table->foreign('doctor_id')->references('id')->on('doctors');
 
-            $table->timestamp('time_init');
-            $table->timestamp('time_end');
+            $table->timestamp('start');
+            $table->timestamp('end');
             
             $table->timestamps();
         });

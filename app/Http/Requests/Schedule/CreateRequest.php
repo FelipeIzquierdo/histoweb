@@ -1,4 +1,4 @@
-<?php namespace Histoweb\Http\Requests\Availability;
+<?php namespace Histoweb\Http\Requests\Schedule;
 
 use Histoweb\Http\Requests\Request;
 use Illuminate\Routing\Route;
