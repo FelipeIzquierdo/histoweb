@@ -34,6 +34,6 @@ class Doctor extends Model
 
     public static function allLists()
     {
-        return self::lists('first_name' ,'id' );
+        return self::get()->lists('name' ,'id' );
     }
 }
