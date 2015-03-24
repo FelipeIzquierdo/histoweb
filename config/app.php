@@ -141,7 +141,7 @@ return [
 		'Collective\Html\HtmlServiceProvider',
         'Histoweb\Providers\FieldServiceProvider',
         'Histoweb\Providers\CalendarServiceProvider',
-        'Cviebrock\ImageValidator\ImageValidatorServiceProvider',
+
 
 		/*
 		 * Application Service Providers...

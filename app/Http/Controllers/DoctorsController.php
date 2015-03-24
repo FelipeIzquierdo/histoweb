@@ -60,9 +60,7 @@ class DoctorsController extends Controller {
 	 */
     public function store(CreateRequest $request)
     {
-       // dd($request->all());
         Doctor::create($request->all());
-
         return redirect()->route('doctors.index');
     }
 
@@ -74,7 +72,8 @@ class DoctorsController extends Controller {
 	 */
 	public function show($id)
 	{
-        return view('dashboard.pages.doctors.show')->whit('docotr', $this->doctor);
+        $doctor = Doctor::find($id);
+        return view('dashboard.pages.doctor.show',compact('id', 'doctor'));
 	}
 
 	/**

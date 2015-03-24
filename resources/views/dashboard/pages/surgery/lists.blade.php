@@ -16,7 +16,7 @@
 	@section('dashboard_body')
 		@foreach($surgeries as $surgery)
 			<div class="col-sm-3">
-				<a href="{{ route('surgeries.edit', $surgery->id) }}" class="widget">
+				<a href="{{ route('surgeries.show', $surgery->id) }}" class="widget">
 					<div class="widget-content themed-background-info text-light-op text-center">
 						<div class="widget-icon">
 							{!! Html::image('img/placeholders/icons/build.png', 'Icon Doctor', ['class' => 'img-circle img-thumbnail ']) !!}

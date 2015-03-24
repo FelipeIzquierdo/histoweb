@@ -5,7 +5,7 @@
 
 	@section('dashboard_title')
 		<h1>
-			<i class="gi gi-user_add"></i></i>
+			<i class="gi gi-user_add"></i>
 			Doctores
 			<a href="{{ route('doctors.create') }}" class="btn btn-info" title="Nuevo Doctor">
 				<i class="fa fa-plus"></i>
@@ -17,7 +17,7 @@
 		@foreach($doctors as $doctor)
 			<div class="col-sm-3">
 
-				<a href="{{ route('doctors.edit', $doctor->id) }}" class="widget">
+				<a href="{{ route('doctors.show', $doctor->id) }}" class="widget">
 
 					<div class="widget-content  text-light-op text-center" style="background-color: {{$doctor->color}};">
 						<div class="widget-icon">

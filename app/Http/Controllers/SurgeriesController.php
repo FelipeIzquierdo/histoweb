@@ -73,8 +73,10 @@ class SurgeriesController extends Controller {
 	 * @return Response
 	 */
 	public function show($id)
-	{	
-		return view('dashboard.pages.surgery.show', compact('surgery'));
+	{
+        $surgery = Surgery::find($id);
+        return view('dashboard.pages.surgery.show',compact('id', 'surgery'));
+
 	}
 
 	/**
