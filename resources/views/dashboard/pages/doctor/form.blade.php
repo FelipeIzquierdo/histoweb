@@ -18,15 +18,7 @@
               </div>
               <div class="form-horizontal form-bordered">
                 {!! Form::model($doctor, $form_data) !!}
-                  <div class="form-group">
-                      <label class="col-md-3 control-label" for="example-colorpicker2">As a component (hex)</label>
-                      <div class="col-md-8">
-                          <div class="input-group input-colorpicker">
-                              <input type="text" id="example-colorpicker2" name="example-colorpicker2" class="form-control">
-                              <span class="input-group-addon"><i></i></span>
-                          </div>
-                      </div>
-                  </div>
+                  {!! Field::text('color', null, ['template' => 'color']) !!}
                   {!! Field::text( 'cc', null, ['placeholder' => 'Cedula', 'template' => 'horizontal']) !!}
                   {!! Field::text( 'first_name', null, ['placeholder' => 'Nombres', 'template' => 'horizontal']) !!}
                   {!! Field::text( 'last_name', null, ['placeholder' => 'Apellidos', 'template' => 'horizontal']) !!}
