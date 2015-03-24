@@ -1,6 +1,6 @@
 @extends('dashboard.pages.layout')
 	@section('title') 
-	    Disponibilidad 
+	    Horarios
 	@endsection
 
 	@section('meta_extra') 
@@ -10,7 +10,7 @@
 	@section('dashboard_title')
 		<h1>
 			<i class="fa fa-calendar"></i>
-			Disponibilidad
+			Horarios
 			<a href="{{ route('surgeries.schedules.create', $surgery->id) }}" class="btn btn-info" title="Agregar Disponibilidad">
 				<i class="fa fa-plus"></i>
 			</a>
@@ -32,7 +32,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title"><strong>Dispoibilidad</strong></h3>
+                        <h3 class="modal-title"><strong>Horarios</strong></h3>
                     </div>
                     <div class="modal-body">
                         <p>Fecha: <spam id="eventDate"></spam></p>
