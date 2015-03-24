@@ -14,6 +14,8 @@ class CreateDiariesTable extends Migration {
 	{
         Schema::create('diaries', function(Blueprint $table)
         {
+        	$table->increments('id');
+        	
             $table->integer('patient_id')->unsigned();
             $table->foreign('patient_id')->references('id')->on('patients');
 

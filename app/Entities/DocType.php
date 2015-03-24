@@ -1,17 +1,16 @@
 <?php namespace Histoweb\Entities;
 
+use Illuminate\Database\Eloquent\Model;
 
-
-class DocType extends Eloquent
+class DocType extends Model
 {
 	protected $table = 'doc_types';
-	protected $primaryKey = 'code_type';
-	public $timestamps = false;
+	public $timestamps = true;
 	public $increments = true;
 	public $errors;
 
 	public static function allLists()
     {
-        return ['' => 'Seleccione un tipo de documento'] + self::lists('type', 'doc_types');
+        return self::lists('name', 'id');
     }
 }

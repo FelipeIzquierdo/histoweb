@@ -15,8 +15,7 @@ class CreateDocTypesTable extends Migration {
 		Schema::create('doc_types', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('type')->unique();
-			$table->boolean('erasable')->nullable()->default(true);
+			$table->string('name')->unique();
             $table->timestamps();
 		});
 	}

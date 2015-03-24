@@ -13,6 +13,7 @@
  *      (#m07hes) HELPERS
  *      (#m08ths) THEMES
  *      (#m09res) RESPONSIVE
+ *      (#m10prs) PRINT
  */
 
 /*
@@ -22,7 +23,7 @@
 */
 
 /* Include Lato font from Google Web Fonts */
-@import url('http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,500,500italic,600,600italic,700,700italic');
+@import url('//fonts.googleapis.com/css?family=Lato:300,400,400italic,500,500italic,600,600italic,700,700italic');
 
 /* Preloader */
 #page-wrapper.page-loading {
@@ -782,6 +783,67 @@ a.sidebar-title:focus {
     background-color: #dddddd;
 }
 
+/* Toggle Menu */
+.toggle-menu,
+.toggle-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.toggle-menu a {
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    padding: 5px 10px;
+    color: #454e59;
+    border-radius: 3px;
+}
+
+.toggle-menu a:hover,
+.toggle-menu a:focus,
+.toggle-menu a.active {
+    text-decoration: none;
+    color: #5ccdde;
+}
+
+.toggle-menu > li > a {
+    font-weight: bold;
+}
+
+.toggle-menu a.submenu > i {
+    margin-right: 7px;
+    -webkit-transition: -webkit-transform .1s ease-out;
+    transition: transform .1s ease-out;
+}
+
+.toggle-menu ul {
+    display: none;
+}
+
+.toggle-menu ul a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 15px;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.toggle-menu ul ul a {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-left: 30px;
+}
+
+.toggle-menu .open > a.submenu > i {
+    -webkit-transform: rotateZ(90deg);
+    transform: rotateZ(90deg);
+}
+
+.toggle-menu .open > ul {
+    display: block;
+}
+
 /*
 =================================================================
 (#m04mcs) MAIN CONTENT
@@ -954,6 +1016,7 @@ a.sidebar-title:focus {
     padding: 6px;
     vertical-align: middle;
     font-size: 14px;
+    margin-top: 4px;
 }
 
 .block-options .dropdown-menu {
@@ -3709,4 +3772,18 @@ p, .table, .alert, .carousel {
         right: 70px;
         margin-right: 0;
     }
+}
+
+/*
+=================================================================
+(#m10prs) PRINT
+=================================================================
+*/
+
+@media print {
+    #sidebar, #sidebar-alt, .content-header, .breadcrumb-top, .block-title .block-options {display: none !important;}
+    #page-content {min-height: 0 !important; height: auto !important; padding: 0 !important;}
+    #main-container {margin: 0 !important;}
+    .block, .block.full {border: none !important; padding: 0 !important;}
+    .block-title {margin: 0 0 20px !important;}
 }

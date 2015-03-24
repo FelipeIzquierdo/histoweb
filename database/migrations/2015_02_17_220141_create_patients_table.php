@@ -16,11 +16,11 @@ class CreatePatientsTable extends Migration {
 		{
             $table->increments('id');
 			$table->integer('cc')->unsigned();
-			$table->string('fist_name', 50)->nullable();
+			$table->string('first_name', 50)->nullable();
 			$table->string('last_name', 50)->nullable();
 
-			$table->string('sex', 9)->nullable();
-			$table->dateTime('date_birth');
+			$table->enum('sex', ['M', 'F'])->nullable();
+			$table->date('date_birth');
 			$table->boolean('active')->default(true);
 
 			$table->integer('doc_type_id')->unsigned();
