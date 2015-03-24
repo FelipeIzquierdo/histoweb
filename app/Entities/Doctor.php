@@ -22,7 +22,7 @@ class Doctor extends Model
         return $this->hasMany('Histoweb\Entities\Availability');
     }
 
-    public function scedules()
+    public function schedules()
     {
         return $this->hasMany('Histoweb\Entities\Schedule');
     }

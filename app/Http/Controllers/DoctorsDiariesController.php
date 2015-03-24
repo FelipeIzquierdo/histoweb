@@ -35,7 +35,7 @@ class DoctorsDiariesController extends Controller {
 	 */
 	public function index($doctor_id)
 	{
-		$url = route('doctors.availabilities.json', $this->doctor->id);
+		$url = route('doctors.diaries.json', $this->doctor->id);
 		return view('dashboard.pages.doctor.diaries', compact('url'))->with('doctor', $this->doctor);
 	}
 
@@ -46,6 +46,8 @@ class DoctorsDiariesController extends Controller {
 	 */
 	public function json($doctor_id)
 	{
-		return $this->doctor->diaries->toJson();
+		//$this->doctor->diaries->toJson();
+		return \Calendar::splitCollection($this->doctor->schedules);
+		//$this->doctor->availabilities->toJson();
 	}
 }
