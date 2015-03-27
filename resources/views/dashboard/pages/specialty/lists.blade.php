@@ -15,19 +15,9 @@
 	
 	@section('dashboard_body')
 		@foreach($specialties as $specialty)
-			<div class="col-sm-3">
-				<a href="{{ route('specialties.edit', $specialty->id) }}" class="widget">
-					<div class="widget-content themed-background-info text-light-op text-center">
-						<div class="widget-icon">
-							{!! Html::image('img/placeholders/icons/student.png', 'Icon Doctor', ['class' => 'img-circle img-thumbnail ']) !!}
-						</div>
-					</div>
-					<div class="widget-content text-dark text-center">
-						<strong>{{ $specialty->name }}</strong>
-					</div>
-				</a>
-			</div>
+			@include('dashboard.includes.bootstrap.widget', ['url_widget' => route("doctors.edit", $specialty->id), 'icon_widget' => 'img/placeholders/icons/student.png', 'title_widget' => $specialty->name])
 		@endforeach
+		
 		<div class="row">
             <div class="col-xs-12">
                 {!! $specialties->render() !!}

@@ -12,11 +12,22 @@ use Illuminate\Routing\Route;
 class DoctorsController extends Controller {
 
 	private $doctor;
+	private $specialties;
 
 	public function __construct() 
 	{
 		$this->middleware('auth');
 		$this->beforeFilter('@findDoctor', ['only' => ['show', 'edit', 'update', 'destroy']]);
+		$this->beforeFilter('@findSpecialties', ['only' => ['create', 'edit']]);
+	}
+
+	/**
+	 * Find all specialties
+	 *
+	 */
+	public function findSpecialties()
+	{
+		$this->specialties = Specialty::allLists();
 	}
 
 	/**
@@ -46,11 +57,11 @@ class DoctorsController extends Controller {
 	 */
 	public function create()
 	{
-        $doctor = new Doctor;
-        $form_data = ['route' => 'doctors.store', 'method' => 'POST'];
-        $specialties = Specialty::lists('name', 'id' );
+        $this->doctor = new Doctor;
+        $form_data = ['route' => 'doctors.store', 'method' => 'POST', 'files' => true];
 
-        return view('dashboard.pages.doctor.form', compact('doctor','specialties', 'form_data'));
+        return view('dashboard.pages.doctor.form', compact('form_data'))
+        	->with(['doctor' => $this->doctor, 'specialties' => $this->specialties]);
 	}
 
 	/**
@@ -60,8 +71,14 @@ class DoctorsController extends Controller {
 	 */
     public function store(CreateRequest $request)
     {
-        Doctor::create($request->all());
-        return redirect()->route('doctors.index');
+        $this->doctor = Doctor::create($request->all());
+
+        if ($photo = $request->hasFile('photo'))
+		{
+		    $request->file('photo')->move(Doctor::$pathPhoto, $this->doctor->name_photo);
+		}
+		
+        return redirect()->route('doctors.show', $this->doctor->id);
     }
 
 	/**
@@ -84,10 +101,10 @@ class DoctorsController extends Controller {
 	 */
 	public function edit($id)
 	{
-        $form_data = ['route' => ['doctors.update', $this->doctor->id], 'method' => 'PUT'];
-        $specialties = Specialty::allLists();
+        $form_data = ['route' => ['doctors.update', $this->doctor->id], 'method' => 'PUT', 'files' => 'true'];
 
-        return view('dashboard.pages.doctor.form', compact('specialties', 'form_data'))->with('doctor', $this->doctor);
+        return view('dashboard.pages.doctor.form', compact('form_data'))
+        	->with(['doctor' => $this->doctor, 'specialties' => $this->specialties]);
 	}
 
 	/**
@@ -101,7 +118,12 @@ class DoctorsController extends Controller {
         $this->doctor->fill($request->all());
         $this->doctor->save();
 
-        return redirect()->route('doctors.index');
+        if ($photo = $request->hasFile('photo'))
+		{
+		    $request->file('photo')->move(Doctor::$pathPhoto, $this->doctor->name_photo);
+		}
+
+        return redirect()->route('doctors.show', $this->doctor->id);
     }
 
 	/**

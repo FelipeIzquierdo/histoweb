@@ -1,7 +1,5 @@
 @extends('dashboard.pages.layout')
-	@section('title') 
-	    Herramientas 
-	@endsection
+	@section('title') Herramientas @endsection
 
 	@section('dashboard_title')
 		<h1>
@@ -14,23 +12,15 @@
 	@endsection
 	
 	@section('dashboard_body')
+
 		@foreach($tools as $tool)
-			<div class="col-sm-3">
-				<a href="{{ route('tools.edit', $tool->id) }}" class="widget">
-					<div class="widget-content themed-background-info text-light-op text-center">
-						<div class="widget-icon">
-							{!! Html::image('img/placeholders/icons/box.png', 'Icon Doctor', ['class' => 'img-circle img-thumbnail']) !!}
-						</div>
-					</div>
-					<div class="widget-content text-dark text-center">
-						<strong>{{ $tool->name }}</strong>
-					</div>
-				</a>
-			</div>
+			@include('dashboard.includes.bootstrap.widget', ['url_widget' => route("tools.edit", $tool->id), 'icon_widget' => 'img/placeholders/icons/box.png', 'title_widget' => $tool->name])
 		@endforeach
+
 		<div class="row">
             <div class="col-xs-12">
                 {!! $tools->render() !!}
             </div>
         </div>
+
 	@endsection

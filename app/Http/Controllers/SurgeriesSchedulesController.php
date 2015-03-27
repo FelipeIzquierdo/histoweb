@@ -1,8 +1,10 @@
 <?php namespace Histoweb\Http\Controllers;
 
 
-use Histoweb\Http\Requests\Availability\CreateRequest;
-use Histoweb\Http\Requests\Availability\EditRequest;
+use Histoweb\Entities\Availability;
+use Histoweb\Http\Requests\Schedule\CreateMassiveRequest;
+use Histoweb\Http\Requests\Schedule\CreateRequest;
+use Histoweb\Http\Requests\Schedule\EditRequest;
 use Histoweb\Http\Controllers\Controller;
 
 use Histoweb\Entities\Surgery;
@@ -17,7 +19,7 @@ class SurgeriesSchedulesController extends Controller {
 	private $surgery;
     protected $schedule;
 	private $days = ['monday' => 'Lunes', 'tuesday' => 'Martes', 'wednesday' => 'Miercoles', 
-		'thursday' => 'Jueves', 'friday' => 'Viernes', 'sunday' => 'Sábado'];
+		'thursday' => 'Jueves', 'friday' => 'Viernes', 'saturday' => 'Sábado'];
 
 	public function __construct() 
 	{
@@ -52,7 +54,7 @@ class SurgeriesSchedulesController extends Controller {
 	public function index($surgery_id)
 	{
         $url = route('surgeries.schedules.json', $this->surgery->id);
-        return view('dashboard.pages.schedule.lists', compact('url'))->with('surgery', $this->surgery);
+        return view('dashboard.pages.schedule.lists', compact('url','surgery_id'))->with('surgery', $this->surgery);
 	}
 
     /**
@@ -62,7 +64,7 @@ class SurgeriesSchedulesController extends Controller {
      */
     public function json($surgery_id)
     {
-        return $this->surgery->schedules->toJson();
+        return \Calendar::getSchedulesAvailabilities($this->surgery->schedules, Availability::allStateAvailable($this->surgery->id));
     }
 
 	/**
@@ -78,6 +80,24 @@ class SurgeriesSchedulesController extends Controller {
         return view('dashboard.pages.schedule.form', compact('schedule', 'form_data','doctors'))->with('days', $this->days);
 	}
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function storeMassive(CreateMassiveRequest $request, $surgery_id)
+    {
+        $schedule = new Schedule($request->all());
+        $schedule->save();
+        if($request->ajax())
+        {
+            return response()->json([
+                'message' =>     'Evento actualizado con exito',
+            ]);
+        }
+    }
+
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -85,12 +105,9 @@ class SurgeriesSchedulesController extends Controller {
 	 */
 	public function store(CreateRequest $request, $surgery_id)
 	{
-        $doctor=$request->input('doctor_id');
+        $doctor = $request->input('doctor_id');
         $events = \Calendar::eventsOfData($request->all());
         $schedules = array();
-
-
-        //$nextGroupId = Availability::nextGroupId();
 
         foreach ($events as $event)
         {
@@ -120,13 +137,31 @@ class SurgeriesSchedulesController extends Controller {
         }
 	}
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function discard(Request $request, $surgery_id, $id)
+    {
+        $this->surgery->discardedAvailabilities()->attach($id);
+
+        if($request->ajax())
+        {
+            return response()->json([
+                'message' =>     'Evento actualizado con exito',
+            ]);
+        }
+    }
+
 	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy(Request $request, $doctor_id, $id)
+	public function destroy(Request $request, $surgery_id, $id)
 	{
         $this->schedule->delete();
         if($request->ajax())

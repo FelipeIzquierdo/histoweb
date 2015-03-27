@@ -32,15 +32,18 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title"><strong>Horarios</strong></h3>
+                        <h3 class="modal-title" ><strong id="eventTitle"></strong></h3>
                     </div>
                     <div class="modal-body">
                         <p>Fecha: <spam id="eventDate"></spam></p>
                         <p>Hora de inicio: <spam id="eventStart"></spam></p>
                         <p>Hora fin: <spam id="eventEnd"></spam></p>
+                        <p id="eventState">Estado: <spam id="eventStateTex"></spam></p>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" id="eventDelete">Borrar</a>
+                        <a href="#" class="btn btn-effect-ripple btn-success" data-dismiss="modal" id="eventCreate">Asignar</a>
+                        <a href="#" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" id="eventDiscarded">Descartar</a>
+                        <a href="#" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" id="eventDelete">Eliminar</a>
                     </div>
                 </div>
             </div>
@@ -53,6 +56,7 @@
 		{!! Html::script('assets/js/pages/calendar/schedules.js') !!}
 	    <script>
 	    	var url = '{!! $url !!}';
+	    	var surgery_id = '{!! $surgery_id !!}';
 	    	$(function(){ CompCalendar.init(); });
 	    </script>
 	@endsection

@@ -16,12 +16,10 @@
 	@section('dashboard_body')
 		@foreach($doctors as $doctor)
 			<div class="col-sm-3">
-
 				<a href="{{ route('doctors.show', $doctor->id) }}" class="widget">
-
 					<div class="widget-content  text-light-op text-center" style="background-color: {{$doctor->color}};">
 						<div class="widget-icon">
-							{!! Html::image('img/placeholders/icons/doctor.png', 'Icon Doctor', ['class' => 'img-circle img-thumbnail ']) !!}
+							{!! Html::image($doctor->photo, 'Icon Doctor', ['class' => 'img-circle img-thumbnail ']) !!}
 						</div>
 					</div>
 					<div class="widget-content text-dark text-center">

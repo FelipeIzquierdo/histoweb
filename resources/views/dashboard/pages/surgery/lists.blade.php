@@ -15,19 +15,9 @@
 	
 	@section('dashboard_body')
 		@foreach($surgeries as $surgery)
-			<div class="col-sm-3">
-				<a href="{{ route('surgeries.show', $surgery->id) }}" class="widget">
-					<div class="widget-content themed-background-info text-light-op text-center">
-						<div class="widget-icon">
-							{!! Html::image('img/placeholders/icons/build.png', 'Icon Doctor', ['class' => 'img-circle img-thumbnail ']) !!}
-						</div>
-					</div>
-					<div class="widget-content text-dark text-center">
-						<strong>{{ $surgery->name }}</strong>
-					</div>
-				</a>
-			</div>
+			@include('dashboard.includes.bootstrap.widget', ['url_widget' => route("surgeries.edit", $surgery->id), 'icon_widget' => 'img/placeholders/icons/build.png', 'title_widget' => $surgery->name])
 		@endforeach
+		
 		<div class="row">
             <div class="col-xs-12">
                 {!! $surgeries->render() !!}

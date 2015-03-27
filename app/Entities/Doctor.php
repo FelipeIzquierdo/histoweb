@@ -9,12 +9,31 @@ class Doctor extends Model
 	public $timestamps = true;
 	public $increments = true;
 	public $errors;
+    public static $pathPhoto = 'img/placeholders/photos/doctors/';
 
     protected $fillable = ['cc','first_name','last_name','color','specialty_id'];
 
     public function getNameAttribute()
     {
     	return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getNamePhotoAttribute()
+    {
+        return $this->id . '.jpg';
+    }
+
+    public function getPhotoAttribute()
+    {
+        $photo = self::$pathPhoto . $this->id . '.jpg';
+
+        if (\File::exists($photo))
+        {
+            return $photo;
+        }
+
+        return 'img/placeholders/icons/doctor.png';
+
     }
 
     public function availabilities()
