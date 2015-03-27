@@ -23,7 +23,7 @@
 				</a>
 			</div>
 			<div class="col-sm-3">
-                <a href="{{ route('doctors.schedules.index', $surgery->id) }}" class="widget">
+                <a href="{{ route('surgeries.schedules.index', $surgery->id) }}" class="widget">
                     <div class="widget-content themed-background-info text-light-op text-center">
                         <div class="widget-icon">
                             {!! Html::image('img/placeholders/icons/build.png', 'Icon Doctor', ['class' => 'img-circle img-thumbnail ']) !!}

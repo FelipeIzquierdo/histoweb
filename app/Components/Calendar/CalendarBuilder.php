@@ -12,6 +12,40 @@ class CalendarBuilder {
         $this->session = $session;
     }
 
+    public function getSchedulesAvailabilities($schedules, $availabilities)
+    {
+        $events = array();
+
+        foreach ($schedules as  $schedule)
+        {
+            array_push($events,[
+                'type'      => 'schedule',
+                'start'     => $schedule->start,
+                'end'       => $schedule->end,
+                'color'     => '#5cafde',
+                'title'     => $schedule->title,
+                'id'        => 'sch-' . $schedule->id,
+                'doctor_id'  => $schedule->doctor_id,
+                'surgery_id' => $schedule->surgery_id
+            ]);
+        }
+        foreach ($availabilities as  $availability)
+        {
+            array_push($events,[
+                'type'  => 'availability',
+                'start' => $availability->start,
+                'end'   => $availability->end,
+                'color' => $availability->color,
+                'state' => $availability->state,
+                'title' => $availability->title,
+                'id' => 'ava-' . $availability->id,
+                'doctor_id' => $availability->doctor_id,
+                'group_id' => $availability->group_id
+            ]);
+        }
+        return $events;
+    }
+
     public function splitCollection($collection, $part = '+15 minutes')
     {
         $events = array();

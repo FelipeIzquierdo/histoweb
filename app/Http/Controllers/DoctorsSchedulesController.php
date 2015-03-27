@@ -16,7 +16,7 @@ class DoctorsSchedulesController extends Controller {
 	private $doctor;
     protected $schedule;
 	private $days = ['monday' => 'Lunes', 'tuesday' => 'Martes', 'wednesday' => 'Miercoles', 
-		'thursday' => 'Jueves', 'friday' => 'Viernes', 'sunday' => 'Sábado'];
+		'thursday' => 'Jueves', 'friday' => 'Viernes', 'saturday' => 'Sábado'];
 
 	public function __construct() 
 	{

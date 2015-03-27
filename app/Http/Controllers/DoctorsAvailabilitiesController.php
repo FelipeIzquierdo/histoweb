@@ -2,10 +2,12 @@
 
 use Histoweb\Http\Requests\Availability\CreateRequest;
 use Histoweb\Http\Requests\Availability\EditRequest;
+use Histoweb\Http\Requests\Availability\EditStateRequest;
 use Histoweb\Http\Controllers\Controller;
 
 use Histoweb\Entities\Doctor;
 use Histoweb\Entities\Availability;
+
 
 use Illuminate\Routing\Route;
 use Illuminate\Http\Request;
@@ -15,7 +17,7 @@ class DoctorsAvailabilitiesController extends Controller {
 	private $availability;
 	private $doctor;
 	private $days = ['monday' => 'Lunes', 'tuesday' => 'Martes', 'wednesday' => 'Miercoles', 
-		'thursday' => 'Jueves', 'friday' => 'Viernes', 'sunday' => 'Sábado'];
+		'thursday' => 'Jueves', 'friday' => 'Viernes', 'saturday' => 'Sábado'];
 
 	public function __construct() 
 	{

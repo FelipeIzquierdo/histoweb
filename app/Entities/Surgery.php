@@ -26,4 +26,9 @@ class Surgery extends Model {
     {
         return $this->hasMany('Histoweb\Entities\Doctor');
     }
+
+    public function discardedAvailabilities()
+    {
+        return $this->belongsToMany('Histoweb\Entities\Availability', 'discarded_availability');
+    }
 }

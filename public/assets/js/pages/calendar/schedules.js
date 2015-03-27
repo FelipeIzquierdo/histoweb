@@ -3,6 +3,57 @@
  *  Author     : pixelcave
  *  Description: Custom javascript code used in Calendar page
  */
+function updateAvailability (event, state) {
+    $.ajax({
+        data:  {
+            'start': event.start.format('YYYY-MM-DD H:mm:ss'),
+            'end': event.end.format('YYYY-MM-DD H:mm:ss'),
+            'state': state
+        },
+        url:   '/doctors/' + event.doctor_id + '/availabilities/' + event.id.substring(4),
+        type:  'PUT',
+        beforeSend: function(request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+        },
+        success:  function (data) {
+            $('#calendar').fullCalendar( 'refetchEvents' )
+
+        }
+    });
+}
+
+function discard (event) {
+    $.ajax({
+        url:   '/surgeries/' + surgery_id + '/availabilities/' + event.id.substring(4),
+        type:  'POST',
+        beforeSend: function(request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+        },
+        success:  function (data) {
+            $('#calendar').fullCalendar( 'removeEvents',event.id )
+
+        }
+    });
+}
+
+function createSchedule(event) {
+    $.ajax({
+        data:  {
+            'start': event.start.format('YYYY-MM-DD H:mm:ss'),
+            'end': event.end.format('YYYY-MM-DD H:mm:ss'),
+            'doctor_id': event.doctor_id,
+            'surgery_id':surgery_id
+        },
+        url:   '/surgeries/' + surgery_id + '/schedules-massive',
+        type:  'POST',
+        beforeSend: function(request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+        },
+        success:  function (data) {
+            console.log(data.message);
+        }
+    });
+}
 
 function updateSchedule (event) {
     $.ajax({
@@ -10,7 +61,7 @@ function updateSchedule (event) {
             'start': event.start.format('YYYY-MM-DD H:mm:ss'),
             'end': event.end.format('YYYY-MM-DD H:mm:ss')
         },
-        url:   '/surgeries/' + event.surgery_id + '/schedules/' + event.id,
+        url:   '/surgeries/' + event.surgery_id + '/schedules/' + event.id.substring(4),
         type:  'PUT',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
@@ -23,7 +74,7 @@ function updateSchedule (event) {
 
 function deleteSchedule(event) {
     $.ajax({
-        url:   '/surgeries/' + event.surgery_id + '/schedules/' + event.id,
+        url:   '/surgeries/' + event.surgery_id + '/schedules/' + event.id.substring(4),
         type:  'DELETE',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
@@ -71,13 +122,16 @@ var CompCalendar = function() {
                 eventDurationEditable: true,
                 eventOverlap: false,
                 eventDrop: function(event, delta, revertFunc) {
-                    updateSchedule(event);
+                    if(event.type == 'schedule') {
+                        updateSchedule(event);
+                    }
                 }, 
                 eventResize: function(event, delta, revertFunc) {
-                    updateSchedule(event);
+                    if(event.type == 'schedule') {
+                        updateSchedule(event);
+                    }
                 },
                 eventClick: function(event, delta, jsEvent, view) {
-                    $("#eventId").html(event.id);
                     $("#eventDate").html(event.start.format('YYYY-MM-DD'));
                     $("#eventStart").html(event.start.format('h(:mm)a'));
                     if(event.end)
@@ -88,15 +142,37 @@ var CompCalendar = function() {
                     {
                         $("#eventEnd").html(event.start.format('h(:mm)a'));       
                     }
-                    $("#eventDelete").unbind("click");
-                    $("#eventDelete").click(function() {
-                      deleteSchedule(event);
-                    });
+                    if(event.type == 'schedule') {
+                        $("#eventTitle").html('Horario Doctor '+ event.title);
+                        $("#eventState").hide();
+                        $("#eventCreate").hide();
+                        $("#eventDiscarded").hide();
+                        $("#eventDelete").show();
+                        $("#eventDelete").unbind("click");
+                        $("#eventDelete").click(function() {
+                            deleteSchedule(event);
+                        });
+                    }else{
+                        var color = {available:'Disponible',used:'Usado',discarded:'Descartado'};
+                        $("#eventTitle").html('Disponibilidad Doctor '+ event.title);
+                        $("#eventStateTex").html(color[event.state]);
+                        $("#eventState").show();
+                        $("#eventCreate").show();
+                        $("#eventCreate").unbind("click");
+                        $("#eventCreate").click(function() {
+                            createSchedule(event);
+                            updateAvailability(event,'used');
+                        });
+                        $("#eventDiscarded").show();
+                        $("#eventDelete").hide();
+                        $("#eventDiscarded").unbind("click");
+                        $("#eventDiscarded").click(function() {
+                            discard(event);
+                        });
+                    }
                     $('#modalFade').modal('show');
                 }       
             });
         }
-
-
     };
 }();
