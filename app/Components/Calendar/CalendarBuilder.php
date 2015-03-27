@@ -12,6 +12,11 @@ class CalendarBuilder {
         $this->session = $session;
     }
 
+    public function diariesAndAvailableSchedule($diaries, $schedules)
+    {
+        
+    }
+
     public function splitCollection($collection, $part = '+15 minutes')
     {
         $events = array();

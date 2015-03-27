@@ -46,8 +46,6 @@ class DoctorsDiariesController extends Controller {
 	 */
 	public function json($doctor_id)
 	{
-		//$this->doctor->diaries->toJson();
-		return \Calendar::splitCollection($this->doctor->schedules);
-		//$this->doctor->availabilities->toJson();
+		return \Calendar::diariesAndAvailableSchedule($this->doctor->diaries, $this->doctor->schedules);
 	}
 }
