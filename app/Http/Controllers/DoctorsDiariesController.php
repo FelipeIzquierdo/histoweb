@@ -1,5 +1,6 @@
 <?php namespace Histoweb\Http\Controllers;
 
+use Histoweb\Entities\Diary;
 use Histoweb\Http\Requests;
 use Histoweb\Http\Controllers\Controller;
 
@@ -46,8 +47,6 @@ class DoctorsDiariesController extends Controller {
 	 */
 	public function json($doctor_id)
 	{
-		//$this->doctor->diaries->toJson();
-		return \Calendar::splitCollection($this->doctor->schedules);
-		//$this->doctor->availabilities->toJson();
+		return \Calendar::getSchedulesDiaries ($this->doctor);
 	}
 }

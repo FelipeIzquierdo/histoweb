@@ -12,3 +12,9 @@
 {!! Html::style('assets/css/themes/system.css') !!}
 
 {!! Html::style('assets/css/fileinput/fileinput.min.css') !!}
+
+{!! Html::style('//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.1/fullcalendar.min.css') !!}
+
+
+
+
