@@ -47,22 +47,33 @@ class CalendarBuilder {
         return $events;
     }
 
-    public function splitCollection($collection, $part = '+15 minutes')
+    public function getSchedulesDiaries($doctor)
     {
         $events = array();
 
-        foreach ($collection as $key => $model) 
+        foreach ($doctor->schedules as  $schedule)
         {
-            $event = $model->toArray();
+            array_push($events,[
+                'type'  => 'schedule',
+                'id' =>  'availableForMeeting',
+                'start'     => $schedule->start,
+                'end'       => $schedule->end,
+                'rendering' => 'background',
 
-            for ($timestamp = strtotime($model->start); $timestamp < strtotime($model->end); $timestamp = strtotime($part, $timestamp)) 
-            { 
-                $event['start'] = date('Y-m-d H:i:s', $timestamp);
-                $event['end'] = date('Y-m-d H:i:s', strtotime($part, $timestamp));
-                array_push($events, $event);
-            }
+
+            ]);
         }
+        foreach ($doctor->diaries as  $diary)
+        {
+            array_push($events,[
+                'type'  => 'diary',
+                'start' => $diary->time_init,
+                'end'   => $diary->time_end,
+                'id' => 'dia-' . $diary->id,
+                'constraint'    => 'availableForMeeting',
 
+            ]);
+        }
         return $events;
     }
 
