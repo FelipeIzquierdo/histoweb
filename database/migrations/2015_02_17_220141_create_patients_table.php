@@ -15,13 +15,15 @@ class CreatePatientsTable extends Migration {
 		Schema::create('patients', function(Blueprint $table)
 		{
             $table->increments('id');
-			$table->integer('cc')->unsigned();
+			$table->string('doc', '100')->unique();
 			$table->string('first_name', 50)->nullable();
 			$table->string('last_name', 50)->nullable();
 
+			$table->string('email', 100)->nullable();
+			$table->string('tel', 100)->nullable();
 			$table->enum('sex', ['M', 'F'])->nullable();
 			$table->date('date_birth');
-			$table->boolean('active')->default(true);
+			$table->boolean('active')->default(false);
 
 			$table->integer('doc_type_id')->unsigned();
 		    $table->foreign('doc_type_id')->references('id')->on('doc_types');

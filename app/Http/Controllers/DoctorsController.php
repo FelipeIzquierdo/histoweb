@@ -78,7 +78,7 @@ class DoctorsController extends Controller {
 		    $request->file('photo')->move(Doctor::$pathPhoto, $this->doctor->name_photo);
 		}
 		
-        return redirect()->route('doctors.show', $this->doctor->id);
+        return redirect()->route('doctors.index', $this->doctor->id);
     }
 
 	/**
@@ -123,7 +123,7 @@ class DoctorsController extends Controller {
 		    $request->file('photo')->move(Doctor::$pathPhoto, $this->doctor->name_photo);
 		}
 
-        return redirect()->route('doctors.show', $this->doctor->id);
+        return redirect()->route('doctors.index', $this->doctor->id);
     }
 
 	/**

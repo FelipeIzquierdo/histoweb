@@ -10,4 +10,8 @@ class Diary extends Model
 
     protected $fillable = ['time_init','time_end'];
     
+    public function type()
+    {
+        return $this->belongsTo('Histoweb\Entities\DiaryType', 'type_id');
+    }
 }

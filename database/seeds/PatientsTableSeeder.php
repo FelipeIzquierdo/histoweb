@@ -12,10 +12,12 @@ class PatientsTableSeeder extends Seeder{
         foreach(range(1, 30) as $index)
         {
             \DB::table('patients')->insertGetId(array(
-                'cc'                => $faker->unique()->numberBetween($min = 1000, $max = 9000),
+                'doc'               => $faker->unique()->numberBetween($min = 1000, $max = 9000),
                 'first_name'        => $faker->firstName,
                 'last_name'         => $faker->lastName,
                 'sex'               => 'M',
+                'tel'               => $faker->phoneNumber,
+                'email'             => $faker->email,
                 'date_birth'     => '01-10-1990',
                 'doc_type_id'          =>  1,
                 'occupation_id'        =>  1,

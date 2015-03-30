@@ -25,7 +25,7 @@ class Doctor extends Model
 
     public function getPhotoAttribute()
     {
-        $photo = self::$pathPhoto . $this->id . '.jpg';
+        $photo = self::$pathPhoto . $this->name_photo;
 
         if (\File::exists($photo))
         {
@@ -49,6 +49,11 @@ class Doctor extends Model
     public function diaries()
     {
         return $this->hasMany('Histoweb\Entities\Diary');
+    }
+
+    public function specialty()
+    {
+        return $this->belongsTo('Histoweb\Entities\Specialty');
     }
 
     public static function allLists()

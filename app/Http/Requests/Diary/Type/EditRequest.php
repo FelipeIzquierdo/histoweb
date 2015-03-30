@@ -1,4 +1,4 @@
-<?php namespace Histoweb\Http\Requests\Surgery;
+<?php namespace Histoweb\Http\Requests\Diary\Type;
 
 use Histoweb\Http\Requests\Request;
 use Illuminate\Routing\Route;
@@ -9,10 +9,12 @@ class EditRequest extends Request {
 	 * @var Route
 	 */
 	private $route;
+	private $createRequest;
 
 	public function __construct(Route $route) 
 	{
 		$this->route = $route;
+		$this->createRequest = new CreateRequest;
 	}
 
 	/**
@@ -32,10 +34,10 @@ class EditRequest extends Request {
 	 */
 	public function rules()
 	{
-		return [
-			'name'  => 'required|max:100|unique:surgeries,name,' . $this->route->getParameter('surgeries'),
-			'tools'	=> 'array'
-		];
+		$rules = $this->createRequest->rules();
+		$rules['name'] = $rules['name'] . ',' . $this->route->getParameter('diary_types');
+
+		return $rules;
 	}
 
 }

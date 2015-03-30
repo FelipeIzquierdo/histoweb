@@ -114,26 +114,32 @@ return array(
 |
 */
 
-'attributes' => array(
-	'name'	=> 'nombre',
-	'tools'	=> 'Herramientas',
-	'cc'	=> 'Cédula',
-	'first_name'	=> 'Nombres',
-	'last_name'	=> 'Apellidos',
-	'specialty_id'	=> 'Especialidad',
+'attributes' => [
+	'name'					=> 'nombre',
+	'tools'					=> 'herramientas',
+	'doc_type'				=> 'tipo de documento',
+	'doc'					=> 'documento',
+	'first_name'			=> 'nombres',
+	'last_name'				=> 'apellidos',
+	'specialty_id'			=> 'especialidad',
+	'occupation_id'			=> 'ocupación',
+	'tel'					=> 'telefono',
+	'date_birth'			=> 'fecha de nacimiento',
+	'sex'					=> 'género',
+	'time'					=> 'tiempo',
 
-	'start_date_end_date' => 'Rango de fechas',
-	'start_date'	=> 'Fecha de inicio',
-	'end_date'	=> 'Fecha fin',
-	'days'	=> 'Días',
-	'start_time'	=> 'Hora de inicio',
-	'end_time'	=> 'Hora fin',
+	'start_date_end_date' 	=> 'rango de fechas',
+	'start_date'			=> 'fecha de inicio',
+	'end_date'				=> 'fecha fin',
+	'days'					=> 'días',
+	'start_time'			=> 'hora de inicio',
+	'end_time'				=> 'hora fin',
 	
-    'username' => 'usuario',
-    'password' => 'contraseña',
-    'url_photo' => 'foto de perfil',
-    'url_logo' => 'logo',
-    'url_pdf' => 'PDF'
-)
+    'username' 				=> 'usuario',
+    'password' 				=> 'contraseña',
+    'url_photo' 			=> 'foto de perfil',
+    'url_logo' 				=> 'logo',
+    'url_pdf' 				=> 'PDF'
+]
 
 );

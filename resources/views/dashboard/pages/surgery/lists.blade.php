@@ -15,7 +15,22 @@
 	
 	@section('dashboard_body')
 		@foreach($surgeries as $surgery)
-			@include('dashboard.includes.bootstrap.widget', ['url_widget' => route("surgeries.edit", $surgery->id), 'icon_widget' => 'img/placeholders/icons/build.png', 'title_widget' => $surgery->name])
+			<div class="col-sm-4">
+				<div class="widget">
+					<div class="widget-content text-right clearfix themed-background-flat">
+						<a href="{{ route('surgeries.edit', $surgery->id) }}" class="pull-left">
+							{!! Html::image('img/placeholders/icons/build.png', $surgery->name, ['class' => 'img-circle img-thumbnail img-thumbnail-avatar-2x']) !!}
+						</a>
+						<h3 class="widget-heading text-light">{{$surgery->name}}</h3>
+					</div>
+					<div class="widget-content themed-background-muted text-center">
+						<div class="btn-group">
+							<a href="{{ route('surgeries.schedules.index', $surgery->id) }}" title="Horario" class="btn btn-effect-ripple btn-success"><i class="fa fa-calendar"></i> Horario</a>
+							<a href="{{ route('surgeries.diaries.index', $surgery->id) }}" title="Citas" class="btn btn-effect-ripple btn-info"><i class="fa fa-calendar"></i> Citas</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		@endforeach
 		
 		<div class="row">

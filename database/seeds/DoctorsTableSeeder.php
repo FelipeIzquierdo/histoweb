@@ -9,7 +9,7 @@ class DoctorsTableSeeder extends Seeder{
 
         $faker = Faker::create();
 
-        foreach(range(1, 30) as $index)
+        foreach(range(1, 10) as $index)
         {
             \DB::table('doctors')->insertGetId(array(
                 'cc'              => $faker->unique()->numberBetween($min = 1000, $max = 9000),

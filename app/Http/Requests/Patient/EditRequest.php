@@ -1,5 +1,6 @@
-<?php namespace Histoweb\Http\Requests\Surgery;
+<?php namespace Histoweb\Http\Requests\Patient;
 
+//use CreateRequest;
 use Histoweb\Http\Requests\Request;
 use Illuminate\Routing\Route;
 
@@ -9,10 +10,12 @@ class EditRequest extends Request {
 	 * @var Route
 	 */
 	private $route;
+	private $createRequest;
 
 	public function __construct(Route $route) 
 	{
 		$this->route = $route;
+		$this->createRequest = new CreateRequest;
 	}
 
 	/**
@@ -32,10 +35,11 @@ class EditRequest extends Request {
 	 */
 	public function rules()
 	{
-		return [
-			'name'  => 'required|max:100|unique:surgeries,name,' . $this->route->getParameter('surgeries'),
-			'tools'	=> 'array'
-		];
+		$rules = $this->createRequest->rules();
+		$rules['doc'] = $rules['doc'] . ',' . $this->route->getParameter('patients');
+		$rules['email'] = $rules['email'] . ',' . $this->route->getParameter('patients');
+
+		return $rules;
 	}
 
 }

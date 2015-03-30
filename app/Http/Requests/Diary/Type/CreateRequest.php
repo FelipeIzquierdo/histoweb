@@ -1,4 +1,4 @@
-<?php namespace Histoweb\Http\Requests\Surgery;
+<?php namespace Histoweb\Http\Requests\Diary\Type;
 
 use Histoweb\Http\Requests\Request;
 
@@ -20,8 +20,8 @@ class CreateRequest extends Request {
 	public function rules()
 	{
 		return [
-			'name'  => 'required|max:100|unique:surgeries,name',
-			'tools'	=> 'array'
+			'name'              => 	'required|max:50|unique:diary_types,name',
+            'time'				=>	'required|integer|min:15'
 		];
 	}
 }

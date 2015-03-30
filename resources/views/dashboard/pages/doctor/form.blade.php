@@ -5,7 +5,7 @@
   
   @section('dashboard_title') 
     <h1>
-      @if($doctor->exists) Editar {{$doctor->cc}} @else Nuevo Doctor @endif
+      @if($doctor->exists) Editar Doctor: {{$doctor->name}} @else Nuevo Doctor @endif
     </h1> 
   @endsection 
 
