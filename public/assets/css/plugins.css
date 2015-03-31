@@ -71,6 +71,10 @@ body .fc { /* extra precedence to overcome jqui */
     font-size: 1em;
 }
 
+/* Background
+--------------------------------------------------------------------------------------------------*/
+
+
 
 /* Colors
 --------------------------------------------------------------------------------------------------*/
@@ -804,6 +808,33 @@ a.fc-more:hover {
     z-index: 5;
 }
 
+.fc-time-grid .fc-bgevent-skeleton, .fc-time-grid .fc-content-skeleton {
+	position: absolute;
+	top:0;
+	left:0;
+	right:0;
+}
+
+.fc-time-grid .fc-bgevent-skeleton {
+	z-index:3
+}
+
+.fc-time-grid .fc-bgevent-container, .fc-time-grid .fc-event-container {
+	position:relative
+}
+
+.fc-time-grid .fc-bgevent,.fc-time-grid .fc-event{position:absolute;z-index:1}
+
+.fc-time-grid .fc-bgevent {
+	left:0;
+	right:0;
+}
+
+.fc-bgevent {
+	background: #8fdf82;
+	opacity: .3;
+	filter: alpha(opacity=30);
+}
 
 /* TimeGrid Slats (lines that run horizontally)
 --------------------------------------------------------------------------------------------------*/
