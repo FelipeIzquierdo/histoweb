@@ -35,8 +35,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 			Route::resource('surgeries.diaries', 'SurgeriesDiariesController');
 
 
-Route::resource('doctors.diaries', 'DoctorsDiariesController');
-Route::get('doctors/{doctors}/diaries-json', ['uses' => 'DoctorsDiariesController@json', 'as' => 'doctors.diaries.json']);
 
 			Route::group(['prefix' => 'surgeries'], function() {
 				Route::get('{surgeries}/schedules-json', ['uses' => 'SurgeriesSchedulesController@json', 'as' => 'admin.company.surgeries.schedules.json']);
@@ -53,7 +51,7 @@ Route::get('doctors/{doctors}/diaries-json', ['uses' => 'DoctorsDiariesControlle
 		Route::group(['namespace' => 'Doctor'], function() {
 			Route::resource('doctors.availabilities', 'DoctorsAvailabilitiesController');
 			Route::resource('doctors.schedules', 'DoctorsSchedulesController');
-			Route::resource('doctors.diaries', 'DoctorsDiariesController', ['only' => 'index', 'json']);
+			Route::resource('doctors.diaries', 'DoctorsDiariesController', ['only' => 'index', 'json', 'store']);
 
 			Route::group(['prefix' => 'doctors'], function() {
 				Route::get('{doctors}/availabilities-json', ['uses' => 'DoctorsAvailabilitiesController@json', 'as' => 'admin.company.doctors.availabilities.json']);

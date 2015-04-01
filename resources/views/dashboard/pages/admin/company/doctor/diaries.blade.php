@@ -66,7 +66,7 @@
                     </div>
                     <div class="modal-body">
                                       <div class="form-horizontal form-bordered">
-                                      {!! Form::open(['route' => 'doctors.diaries.store', 'method' => 'POST', 'role' => 'form']) !!}
+
                                             {!! Field::select('patient_id', $patients, null, ['data-placeholder' => 'Seleccione un tipo de cita', 'template' => 'horizontal']) !!}
                                             {!! Field::select('type_id', $diaryTypes, null, ['data-placeholder' => 'Seleccione un tipo de cita', 'template' => 'horizontal']) !!}
                                             {!! Field::text( 'star', null, [ 'template' => 'horizontal']) !!}
@@ -75,7 +75,7 @@
                                                 <button type="submit" class="btn btn-effect-ripple btn-primary">Guardar</button>
                                             </div>
                                           </div>
-                                        {!! Form::close() !!}
+                                        
                                       </div>
                     </div>
                     <div class="modal-footer">

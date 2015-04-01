@@ -45,11 +45,9 @@ class DoctorsDiariesController extends Controller {
 
         $diaryTypes = DiaryType::allLists();
         $patients = Patient::allLists();
-		$url = route('doctors.diaries.json', $this->doctor->id);
-		return view('dashboard.pages.doctor.diaries', compact('url', 'diaryTypes', 'patients'))->with('doctor', $this->doctor);
 
 		$url = route(self::$prefixRoute . 'json', $this->doctor->id);
-		return view(self::$prefixView . 'diaries', compact('url'))->with('doctor', $this->doctor);
+		return view(self::$prefixView . 'diaries', compact('url', 'diaryTypes', 'patients'))->with('doctor', $this->doctor);
 
 	}
 
