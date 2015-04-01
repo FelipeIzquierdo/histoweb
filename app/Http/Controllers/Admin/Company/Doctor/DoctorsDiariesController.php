@@ -1,7 +1,11 @@
 <?php namespace Histoweb\Http\Controllers\Admin\Company\Doctor;
 
 use Histoweb\Entities\Diary;
+use Histoweb\Entities\DiaryType;
+use Histoweb\Entities\Patient;
 use Histoweb\Http\Requests;
+use Histoweb\Http\Requests\Diary\CreateRequest;
+use Histoweb\Http\Requests\Diary\EditRequest;
 use Histoweb\Http\Controllers\Controller;
 
 use Histoweb\Entities\Doctor;
@@ -38,9 +42,37 @@ class DoctorsDiariesController extends Controller {
 	 */
 	public function index($doctor_id)
 	{
+
+        $diaryTypes = DiaryType::allLists();
+        $patients = Patient::allLists();
+
 		$url = route(self::$prefixRoute . 'json', $this->doctor->id);
-		return view(self::$prefixView . 'diaries', compact('url'))->with('doctor', $this->doctor);
+		return view(self::$prefixView . 'diaries', compact('url', 'diaryTypes', 'patients'))->with('doctor', $this->doctor);
+
 	}
+
+    /**
+     * Display a listing of the resource in JSON.
+     *
+     * @return Response JSON
+     */
+    public function store(CreateRequest $request)
+    {
+        dd($request->all());
+        $events = \Calendar::eventsOfData($request->all());
+        $availabilities = array();
+        $nextGroupId = Availability::nextGroupId();
+
+        foreach ($events as $event)
+        {
+            array_push($availabilities, new Availability($event + ['group_id' => $nextGroupId]));
+        }
+
+        $this->doctor->availabilities()->saveMany($availabilities);
+
+        return redirect()->route('doctors.availabilities.index', $this->doctor->id);
+
+    }
 
 	/**
 	 * Display a listing of the resource in JSON.

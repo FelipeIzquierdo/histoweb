@@ -61,6 +61,7 @@ class CalendarBuilder {
                 'rendering' => 'background',
 
 
+
             ]);
         }
         foreach ($doctor->diaries as  $diary)

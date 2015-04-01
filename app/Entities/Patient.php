@@ -13,6 +13,16 @@ class Patient extends Model
 	public $errors;
     public static $genders = ['M' => 'Masculino', 'F' => 'Femenino'];
 
+    public function getNameDocAttribute()
+    {
+        return $this->doc. '-'.$this->first_name . ' ' . $this->last_name;
+    }
+
+    public static function allLists()
+    {
+        return self::get()->lists('nameDoc' ,'id' );
+    }
+
     public static function allActived()
     {
         return self::where('active', true)->get();
