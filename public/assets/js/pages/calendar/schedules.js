@@ -10,7 +10,7 @@ function updateAvailability (event, state) {
             'end': event.end.format('YYYY-MM-DD H:mm:ss'),
             'state': state
         },
-        url:   '/doctors/' + event.doctor_id + '/availabilities/' + event.id.substring(4),
+        url:   '/admin/company/doctors/' + event.doctor_id + '/availabilities/' + event.id.substring(4),
         type:  'PUT',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
@@ -24,7 +24,7 @@ function updateAvailability (event, state) {
 
 function discard (event) {
     $.ajax({
-        url:   '/surgeries/' + surgery_id + '/availabilities/' + event.id.substring(4),
+        url:   '/admin/company/surgeries/' + surgery_id + '/availabilities/' + event.id.substring(4),
         type:  'POST',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
@@ -44,7 +44,7 @@ function createSchedule(event) {
             'doctor_id': event.doctor_id,
             'surgery_id':surgery_id
         },
-        url:   '/surgeries/' + surgery_id + '/schedules-massive',
+        url:   '/admin/company/surgeries/' + surgery_id + '/schedules-massive',
         type:  'POST',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
@@ -61,7 +61,7 @@ function updateSchedule (event) {
             'start': event.start.format('YYYY-MM-DD H:mm:ss'),
             'end': event.end.format('YYYY-MM-DD H:mm:ss')
         },
-        url:   '/surgeries/' + event.surgery_id + '/schedules/' + event.id.substring(4),
+        url:   '/admin/company/surgeries/' + event.surgery_id + '/schedules/' + event.id.substring(4),
         type:  'PUT',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
@@ -74,7 +74,7 @@ function updateSchedule (event) {
 
 function deleteSchedule(event) {
     $.ajax({
-        url:   '/surgeries/' + event.surgery_id + '/schedules/' + event.id.substring(4),
+        url:   '/admin/company/surgeries/' + event.surgery_id + '/schedules/' + event.id.substring(4),
         type:  'DELETE',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
