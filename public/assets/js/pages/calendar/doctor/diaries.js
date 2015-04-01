@@ -37,20 +37,6 @@ function deleteAvailability(event) {
 
 var CompCalendar = function()
 {
-    var e = $(".calendar-events"), t = function()
-    {
-        e.find("li").each(function()
-        {
-            var e =
-            {
-                title:$.trim($(this).text()), color:$(this).css("background-color"),
-                type:'diary',
-                constraint: 'availableForMeeting'
-            };
-            $(this).data("eventObject", e),
-                $(this).draggable({zIndex:999,revert:!0,revertDuration:0})
-        })
-    };
     return {
         init: function()
         {
@@ -61,35 +47,41 @@ var CompCalendar = function()
             var y = date.getFullYear();
             /* initialize the external events
              -----------------------------------------------------------------*/
-
-            $('#external-events .fc-event').each(function() {
-
-                // store data so the calendar knows to render an event upon drop
-                $(this).data('event', {
-                    title: $.trim($(this).text()), // use the element's text as the event title
-                    stick: true // maintain when user navigates (see docs on the renderEvent method)
-                });
-
-                // make the event draggable using jQuery UI
-                $(this).draggable({
-                    zIndex: 999,
-                    revert: true,      // will cause the event to go back to its
-                    revertDuration: 0  //  original position after the drag
-                });
-
-            });
-
-
-            /* initialize the calendar
-             -----------------------------------------------------------------*/
-            t();
-            var a = $("#add-event"), n = "";
+            var initializeExternalEvent = function(){
+                $('#external-events .animation-fadeInQuick2Inv').each(function()
+                {
+                    var eventObject =
+                    {
+                        title:$.trim($(this).text()),
+                        color:$(this).css("background-color"),
+                        type:'diary',
+                        constraint: 'availableForMeeting'
+                    };
+                    $(this).data("eventObject", eventObject),
+                    $(this).draggable({
+                        zIndex:999,
+                        revert:!0,
+                        revertDuration:0})
+                })
+            };
+            initializeExternalEvent();
             $("#add-event-btn").on("click",function()
             {
-                return n = a.prop("value"),
-                n&&(e.prepend('<li class="animation-fadeInQuick2Inv"><i class="fa fa-calendar"></i> '+$("<div />").text(n).html()+"</li>"),a.prop("value",""),t(),a.focus()),!1
+                var type = $("#type"), valueType = "", patient = $("#patient"), valuePatient = "";
+                valueType = type.prop("value");
+                valuePatient = patient.prop("value");
+                if(valuePatient != "" && valueType != ""){
+                    $('#external-events').prepend('<li class="animation-fadeInQuick2Inv"><i class="fa fa-calendar"></i> '+$("<div />").text(valueType +' - '+ valuePatient).html()+"</li>");
+                    type.prop("value","");
+                    patient.prop("value","");
+                    initializeExternalEvent();
+                    type.focus();
+                    patient.focus();
+                }
+                return !1;
             });
-
+            /* initialize the calendar
+             -----------------------------------------------------------------*/
             $('#calendar').fullCalendar({
                 header: {
                     left: 'title',
@@ -100,35 +92,29 @@ var CompCalendar = function()
                 events: url,
                 lang: 'es',
                 firstDay: 1,
-
                 editable: true,
                 droppable: true,
                 startEditable: true,
                 eventDurationEditable: false,
-
-                defaultTimedEventDuration: '01:00:00',
+                defaultTimedEventDuration: '00:15:00',
                 minTime: '06:00:00',
                 maxTime: '22:00:00',
                 slotDuration: '00:15:00',
                 timeFormat: 'h(:mm)a',
-                drop:function(e)
+                selectOverlap: function(event) {
+                    return event.rendering === 'background';
+                },
+                eventOverlap: function(stillEvent) {
+                    return stillEvent.rendering === 'background';
+                },
+                drop:function(date, jsEvent, ui)
                 {
-                    var t =
-                        $(this).data("eventObject"),
-                        a = $.extend({}, t);
-                        a.start = e,
-                        $("#calendar").fullCalendar("renderEvent",a,!0),
+                    var originalEventObject  = $(this).data("eventObject"),
+                        copiedEventObject  = $.extend({}, originalEventObject );
+                        copiedEventObject .start = date,
+                        $("#calendar").fullCalendar("renderEvent",copiedEventObject ,!0),
                         $(this).remove()
                 },
-                eventOverlap: function(stillEvent, movingEvent) {
-
-                    if(stillEvent.type == movingEvent.type){
-                        return false;
-                    }
-
-                    return true;
-                },
-
                 eventClick: function(event, delta, jsEvent, view) {
                     $("#eventId").html(event.id);
                     $("#eventDate").html(event.start.format('YYYY-MM-DD'));

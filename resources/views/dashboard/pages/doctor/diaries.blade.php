@@ -22,27 +22,31 @@
                         <!-- Add event functionality (initialized in js/pages/compCalendar.js) -->
                         <form>
                             <div class="input-group">
-                                <input type="text" id="add-event" name="add-event" class="form-control" placeholder="What to do?">
-                                <div class="input-group-btn">
-                                    <button type="submit" id="add-event-btn" class="btn btn-effect-ripple btn-primary">Add</button>
+                                {!! Field::select('patient_id', $patients, null, ['data-placeholder' => 'Seleccione un Pasiente', 'template' => 'clean', 'id' => 'patient']) !!}
+                                {!! Field::select('type_id', $diaryTypes, null, ['data-placeholder' => 'Seleccione un tipo de cita', 'template' => 'clean', 'id' => 'type']) !!}
+                                <div class="col-md-9 col-md-offset-6">
+                                    <button type="submit" id="add-event-btn" class="btn btn-effect-ripple btn-primary">Agregar</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="block-section" >
-                        <ul class="calendar-events">
-                            <li class="themed-background-warning"><i class="fa fa-calendar"></i> Admin Template</li>
-                            <li class="themed-background-dark"><i class="fa fa-calendar"></i> Lunch</li>
-                            <li class="themed-background-info"><i class="fa fa-calendar"></i> TV Shows</li>
-                            <li class="themed-background-danger"><i class="fa fa-calendar"></i> Go to the gym</li>
-                            <li><i class="fa fa-calendar"></i> Work meeting</li>
-                            <li class="themed-background-info"><i class="fa fa-calendar"></i> Trip to Tokyo</li>
-                            <li class="themed-background-success"><i class="fa fa-calendar"></i> Go for a walk</li>
+                        <h4>Draggable Events</h4>
+                        <ul class="calendar-events" id='external-events'>
+                            <li class='animation-fadeInQuick2Inv'><i class="fa fa-calendar"></i>My Event 1</li>
+                            <li class='animation-fadeInQuick2Inv'><i class="fa fa-calendar"></i>My Event 2</li>
+                            <li class='animation-fadeInQuick2Inv'><i class="fa fa-calendar"></i>My Event 1</li>
+                            <li class='animation-fadeInQuick2Inv'><i class="fa fa-calendar"></i>My Event 2</li>
                         </ul>
+                        <p>
+                            <input type='checkbox' id='drop-remove' />
+                            <label for='drop-remove'>remove after drop</label>
+                        </p>
                         <div class="block-section text-center text-muted">
                             <small><i class="fa fa-arrows"></i> Drag and Drop Events</small>
                         </div>
-                    </div>
+                     </div>
+
                 </div>
                 <div class="col-md-9 col-md-pull-3 col-lg-10 col-lg-pull-2">
                     <!-- FullCalendar (initialized in js/pages/compCalendar.js), for more info and examples you can check out http://arshaw.com/fullcalendar/ -->
@@ -58,12 +62,21 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title"><strong>Cita</strong></h3>
+                        <h3 class="modal-title"><strong>Asignar Cita</strong></h3>
                     </div>
                     <div class="modal-body">
-                        <p>Fecha: <spam id="eventDate"></spam></p>
-                        <p>Hora de inicio: <spam id="eventStart"></spam></p>
-                        <p>Hora fin: <spam id="eventEnd"></spam></p>
+                                      <div class="form-horizontal form-bordered">
+                                      {!! Form::open(['route' => 'doctors.diaries.store', 'method' => 'POST', 'role' => 'form']) !!}
+                                            {!! Field::select('patient_id', $patients, null, ['data-placeholder' => 'Seleccione un tipo de cita', 'template' => 'horizontal']) !!}
+                                            {!! Field::select('type_id', $diaryTypes, null, ['data-placeholder' => 'Seleccione un tipo de cita', 'template' => 'horizontal']) !!}
+                                            {!! Field::text( 'star', null, [ 'template' => 'horizontal']) !!}
+                                          <div class="form-group form-actions">
+                                            <div class="col-md-9 col-md-offset-3">
+                                                <button type="submit" class="btn btn-effect-ripple btn-primary">Guardar</button>
+                                            </div>
+                                          </div>
+                                        {!! Form::close() !!}
+                                      </div>
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" id="eventDelete">Borrar</a>

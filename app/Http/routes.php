@@ -31,7 +31,7 @@ Route::get('doctors/{doctors}/availabilities-json', ['uses' => 'DoctorsAvailabil
 Route::resource('doctors.schedules', 'DoctorsSchedulesController');
 Route::get('doctors/{doctors}/schedules-json', ['uses' => 'DoctorsSchedulesController@json', 'as' => 'doctors.schedules.json']);
 
-Route::resource('doctors.diaries', 'DoctorsDiariesController', ['only' => 'index', 'json']);
+Route::resource('doctors.diaries', 'DoctorsDiariesController');
 Route::get('doctors/{doctors}/diaries-json', ['uses' => 'DoctorsDiariesController@json', 'as' => 'doctors.diaries.json']);
 
 Route::resource('surgeries.schedules', 'SurgeriesSchedulesController');
