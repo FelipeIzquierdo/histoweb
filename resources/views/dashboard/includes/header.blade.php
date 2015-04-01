@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{url('api/auth/logout')}}">
+                    <a href="{{url('auth/logout')}}">
                         <i class="fa fa-power-off fa-fw pull-right"></i>
                         Cerrar sesión
                     </a>
