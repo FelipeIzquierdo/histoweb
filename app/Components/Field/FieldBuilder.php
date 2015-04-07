@@ -83,6 +83,9 @@ class FieldBuilder {
         {
             case 'select':
                 return $this->form->select($name, $options, $value, $attributes);
+            case 'selectSimple':
+                $options = array('' => 'Seleccione')+$options;
+                return $this->form->select($name, $options, $value, $attributes);
             case 'password':
                 return $this->form->password($name,$attributes);
             case 'checkbox':
@@ -140,6 +143,11 @@ class FieldBuilder {
             $options = ['' => ''] + $options;
         }
 
+        return $this->input('select', $name, $value, $attributes, $options);
+    }
+
+    public  function selectSimple($name, $options, $value = null, $attributes = array())
+    {
         return $this->input('select', $name, $value, $attributes, $options);
     }
 

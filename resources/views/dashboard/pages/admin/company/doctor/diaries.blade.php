@@ -22,10 +22,9 @@
                         <!-- Add event functionality (initialized in js/pages/compCalendar.js) -->
                         <form>
                             <div class="input-group">
-                                {!! Field::select('patient_id', $patients, null, ['data-placeholder' => 'Seleccione un Pasiente', 'template' => 'clean', 'id' => 'patient']) !!}
-                                {!! Field::select('type_id', $diaryTypes, null, ['data-placeholder' => 'Seleccione un tipo de cita', 'template' => 'clean', 'id' => 'type']) !!}
-                                <div class="col-md-9 col-md-offset-6">
-                                    <button type="submit" id="add-event-btn" class="btn btn-effect-ripple btn-primary">Agregar</button>
+                                {!! Field::text('patient_id', null, ['placeholder' => 'Paciente', 'template' => 'clean', 'id' => 'patient']) !!}
+                                <div class="input-group-btn">
+                                    <button type="submit" id="add-event-btn" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;">Buscar</button>
                                 </div>
                             </div>
                         </form>
@@ -33,20 +32,12 @@
                     <div class="block-section" >
                         <h4>Draggable Events</h4>
                         <ul class="calendar-events" id='external-events'>
-                            <li class='animation-fadeInQuick2Inv'><i class="fa fa-calendar"></i>My Event 1</li>
-                            <li class='animation-fadeInQuick2Inv'><i class="fa fa-calendar"></i>My Event 2</li>
-                            <li class='animation-fadeInQuick2Inv'><i class="fa fa-calendar"></i>My Event 1</li>
-                            <li class='animation-fadeInQuick2Inv'><i class="fa fa-calendar"></i>My Event 2</li>
+
                         </ul>
-                        <p>
-                            <input type='checkbox' id='drop-remove' />
-                            <label for='drop-remove'>remove after drop</label>
-                        </p>
                         <div class="block-section text-center text-muted">
                             <small><i class="fa fa-arrows"></i> Drag and Drop Events</small>
                         </div>
                      </div>
-
                 </div>
                 <div class="col-md-9 col-md-pull-3 col-lg-10 col-lg-pull-2">
                     <!-- FullCalendar (initialized in js/pages/compCalendar.js), for more info and examples you can check out http://arshaw.com/fullcalendar/ -->
@@ -62,24 +53,27 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title"><strong>Asignar Cita</strong></h3>
+                        <h3 class="modal-title"><strong>Datos paciente</strong></h3>
                     </div>
-                    <div class="modal-body">
-                                      <div class="form-horizontal form-bordered">
-
-                                            {!! Field::select('patient_id', $patients, null, ['data-placeholder' => 'Seleccione un tipo de cita', 'template' => 'horizontal']) !!}
-                                            {!! Field::select('type_id', $diaryTypes, null, ['data-placeholder' => 'Seleccione un tipo de cita', 'template' => 'horizontal']) !!}
-                                            {!! Field::text( 'star', null, [ 'template' => 'horizontal']) !!}
-                                          <div class="form-group form-actions">
-                                            <div class="col-md-9 col-md-offset-3">
-                                                <button type="submit" class="btn btn-effect-ripple btn-primary">Guardar</button>
-                                            </div>
-                                          </div>
-                                        
-                                      </div>
-                    </div>
+                     <div class="row">
+                          <div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                              <div class="form-horizontal form-bordered">
+                                {!! Field::selectSimple( 'doc_type_id', $doc_types, null, ['data-placeholder' => 'Tipo de documento', 'template' => 'horizontal', 'id' => 'doc_type_id']) !!}
+                                {!! Field::text( 'doc', null, ['placeholder' => 'Documento', 'template' => 'horizontal', 'id' => 'doc']) !!}
+                                {!! Field::selectSimple( 'sex', $genders, null, ['data-placeholder' => 'Género', 'template' => 'horizontal', 'id' => 'sex']) !!}
+                                {!! Field::text( 'first_name', null, ['placeholder' => 'Nombres', 'template' => 'horizontal', 'id' => 'first_name']) !!}
+                                {!! Field::text( 'last_name', null, ['placeholder' => 'Apellidos', 'template' => 'horizontal', 'id' => 'last_name']) !!}
+                                {!! Field::text( 'date_birth', null, ['placeholder' => 'Fecha de nacimiento', 'class' => 'input-datepicker', 'template' => 'horizontal', 'data-date-format' => 'yyyy-mm-dd', 'id' => 'date_birth']) !!}
+                                {!! Field::text( 'tel', null, ['placeholder' => 'Télefono', 'template' => 'horizontal', 'id' => 'tel']) !!}
+                                {!! Field::email( 'email', null, ['placeholder' => 'Correo Electrónico', 'template' => 'horizontal', 'id' => 'email']) !!}
+                                {!! Field::selectSimple('occupation_id', $occupations, null, ['data-placeholder' => 'Seleccione una ocupación', 'template' => 'horizontal', 'id' => 'occupation_id']) !!}
+                                {!! Field::selectSimple('diaryTypes', $diaryTypes, null, ['data-placeholder' => 'Seleccione una ocupación', 'template' => 'horizontal', 'id' => 'diaryTypes']) !!}
+                              </div>
+                          </div>
+                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" id="eventDelete">Borrar</a>
+                        <a href="#!" class="btn btn-effect-ripple btn-primary" data-dismiss="modal" id="eventUpdate">Guardar</a>
+                        <a href="#!" class="btn btn-effect-ripple btn-primary" data-dismiss="modal" id="eventCreate">Registar</a>
                     </div>
                 </div>
             </div>
@@ -91,6 +85,7 @@
 		<!-- Load and execute javascript code used only in this page -->
 		{!! Html::script('assets/js/pages/calendar/doctor/diaries.js') !!}
 	    <script>
+	        var doctorId = '{!! $doctor->id !!}';
 	    	var url = '{!! $url !!}';
 	    	$(function(){ CompCalendar.init(); });
 	    </script>
