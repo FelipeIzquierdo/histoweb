@@ -30,7 +30,6 @@ class CreateDiariesTable extends Migration {
             
             $table->timestamps();
         });
-
 	}
 
 	/**
