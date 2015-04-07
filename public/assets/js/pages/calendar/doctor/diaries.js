@@ -94,7 +94,7 @@ function createUpdatePatient(url, type) {
             'occupation_id':parseInt($('#occupation_id').val())
         },
         url:   url,
-        type:  'POST',
+        type:  type,
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
         },

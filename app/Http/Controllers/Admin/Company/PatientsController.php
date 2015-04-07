@@ -95,6 +95,7 @@ class PatientsController extends Controller {
 		{
 		    $request->file('photo')->move(Patient::$pathPhoto, $this->patient->name_photo);
 		}
+
         if($request->ajax())
         {
             return $this->patient;
@@ -140,6 +141,7 @@ class PatientsController extends Controller {
     {
         $this->patient->fill($request->all());
         $this->patient->save();
+        
         if($request->ajax())
         {
             return $this->patient;

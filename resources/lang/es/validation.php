@@ -127,6 +127,8 @@ return array(
 	'date_birth'			=> 'fecha de nacimiento',
 	'sex'					=> 'género',
 	'time'					=> 'tiempo',
+	'doc_type_id'			=> 'tipo de documento',
+	'diaryTypes'			=> 'tipo de cita',
 
 	'start_date_end_date' 	=> 'rango de fechas',
 	'start_date'			=> 'fecha de inicio',

@@ -30,12 +30,12 @@
                         </form>
                     </div>
                     <div class="block-section" >
-                        <h4>Draggable Events</h4>
+                        <h4>Citas en Espera</h4>
                         <ul class="calendar-events" id='external-events'>
 
                         </ul>
                         <div class="block-section text-center text-muted">
-                            <small><i class="fa fa-arrows"></i> Drag and Drop Events</small>
+                            <small><i class="fa fa-arrows"></i> Ubica las citas</small>
                         </div>
                      </div>
                 </div>
