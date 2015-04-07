@@ -9,6 +9,7 @@ use Histoweb\Entities\Occupation;
 use Histoweb\Entities\DocType;
 
 use Illuminate\Routing\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class PatientsController extends Controller {
 
@@ -94,6 +95,10 @@ class PatientsController extends Controller {
 		{
 		    $request->file('photo')->move(Patient::$pathPhoto, $this->patient->name_photo);
 		}
+        if($request->ajax())
+        {
+            return $this->patient;
+        }
 		
         return redirect()->route(self::$prefixRoute . 'index');
     }
@@ -135,6 +140,10 @@ class PatientsController extends Controller {
     {
         $this->patient->fill($request->all());
         $this->patient->save();
+        if($request->ajax())
+        {
+            return $this->patient;
+        }
 
         return redirect()->route(self::$prefixRoute . 'index');
     }
@@ -150,4 +159,10 @@ class PatientsController extends Controller {
 		//
 	}
 
+    public function find(Request $request, $doc){
+        $patient = Patient::findByDoc($doc);
+        if($patient != null){
+            return $patient;
+        }
+    }
 }

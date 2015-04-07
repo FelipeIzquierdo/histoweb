@@ -10,7 +10,7 @@ function updateAvailability (event) {
             'start': event.start.format('YYYY-MM-DD H:mm:ss'),
             'end': event.end.format('YYYY-MM-DD H:mm:ss')
         },
-        url:   '/doctors/' + event.doctor_id + '/availabilities/' + event.id,
+        url:   '/admin/company/doctors/' + event.doctor_id + '/availabilities/' + event.id,
         type:  'PUT',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
@@ -23,7 +23,7 @@ function updateAvailability (event) {
 
 function deleteAvailability(event) {
     $.ajax({
-        url:   '/doctors/' + event.doctor_id + '/availabilities/' + event.id,
+        url:   '/admin/company/doctors/' + event.doctor_id + '/availabilities/' + event.id,
         type:  'DELETE',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));

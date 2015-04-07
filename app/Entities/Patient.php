@@ -48,4 +48,9 @@ class Patient extends Model
         return $this->belongsTo('Histoweb\Entities\DocType', 'doc_type_id');
     }
 
+    public static function  findByDoc($doc)
+    {
+        return self::where('doc',$doc)->first();
+    }
+
 }

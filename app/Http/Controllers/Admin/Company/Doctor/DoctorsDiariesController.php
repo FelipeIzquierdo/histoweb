@@ -2,6 +2,8 @@
 
 use Histoweb\Entities\Diary;
 use Histoweb\Entities\DiaryType;
+use Histoweb\Entities\DocType;
+use Histoweb\Entities\Occupation;
 use Histoweb\Entities\Patient;
 use Histoweb\Http\Requests;
 use Histoweb\Http\Requests\Diary\CreateRequest;
@@ -44,10 +46,12 @@ class DoctorsDiariesController extends Controller {
 	{
 
         $diaryTypes = DiaryType::allLists();
-        $patients = Patient::allLists();
+        $occupations = Occupation::allLists();
+        $doc_types = DocType::allLists();
+        $genders = Patient::$genders;
 
 		$url = route(self::$prefixRoute . 'json', $this->doctor->id);
-		return view(self::$prefixView . 'diaries', compact('url', 'diaryTypes', 'patients'))->with('doctor', $this->doctor);
+		return view(self::$prefixView . 'diaries', compact('url', 'diaryTypes','occupations', 'doc_types', 'genders'))->with('doctor', $this->doctor);
 
 	}
 
@@ -58,19 +62,7 @@ class DoctorsDiariesController extends Controller {
      */
     public function store(CreateRequest $request)
     {
-        dd($request->all());
-        $events = \Calendar::eventsOfData($request->all());
-        $availabilities = array();
-        $nextGroupId = Availability::nextGroupId();
 
-        foreach ($events as $event)
-        {
-            array_push($availabilities, new Availability($event + ['group_id' => $nextGroupId]));
-        }
-
-        $this->doctor->availabilities()->saveMany($availabilities);
-
-        return redirect()->route('doctors.availabilities.index', $this->doctor->id);
 
     }
 
@@ -83,4 +75,17 @@ class DoctorsDiariesController extends Controller {
 	{
 		return \Calendar::getSchedulesDiaries($this->doctor);
 	}
+
+    public function newDiary(Request $request, $doctor_id, $patient_id, $diary_type_id){
+
+        $patient = Patient::findOrFail($patient_id);
+        $diaryType = DiaryType::findOrFail($diary_type_id);
+
+        $newDiary = [
+            'patient_id'        => $patient->id,
+            'patient_name'      => $patient->name,
+            'diary_type_time'   => $diaryType->time,
+        ];
+        return $newDiary;
+    }
 }

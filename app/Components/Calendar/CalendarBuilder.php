@@ -58,10 +58,7 @@ class CalendarBuilder {
                 'id' =>  'availableForMeeting',
                 'start'     => $schedule->start,
                 'end'       => $schedule->end,
-                'rendering' => 'background',
-
-
-
+                'rendering' => 'background'
             ]);
         }
         foreach ($doctor->diaries as  $diary)
@@ -71,8 +68,7 @@ class CalendarBuilder {
                 'start' => $diary->time_init,
                 'end'   => $diary->time_end,
                 'id' => 'dia-' . $diary->id,
-                'constraint'    => 'availableForMeeting',
-
+                'constraint'    => 'availableForMeeting'
             ]);
         }
         return $events;
