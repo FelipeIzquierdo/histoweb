@@ -14,4 +14,6 @@
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system'), 'icon_widget' => 'img/placeholders/icons/system.png', 'title_widget' => 'Sistema'])
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.company'), 'icon_widget' => 'img/placeholders/icons/open.png', 'title_widget' => 'Institución'])
+
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('reception'), 'icon_widget' => 'img/placeholders/icons/reception.png', 'title_widget' => 'Recepción'])
 	@endsection

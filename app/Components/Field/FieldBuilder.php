@@ -84,7 +84,6 @@ class FieldBuilder {
             case 'select':
                 return $this->form->select($name, $options, $value, $attributes);
             case 'selectSimple':
-                $options = array('' => 'Seleccione')+$options;
                 return $this->form->select($name, $options, $value, $attributes);
             case 'password':
                 return $this->form->password($name,$attributes);
@@ -148,7 +147,7 @@ class FieldBuilder {
 
     public  function selectSimple($name, $options, $value = null, $attributes = array())
     {
-        return $this->input('select', $name, $value, $attributes, $options);
+        return $this->input('selectSimple', $name, $value, $attributes, $options);
     }
 
     public function  password($name, $attributes = array())

@@ -18,7 +18,6 @@ class DoctorsController extends Controller {
 
 	public function __construct() 
 	{
-		$this->middleware('auth');
 		$this->beforeFilter('@findDoctor', ['only' => ['show', 'edit', 'update', 'destroy']]);
 		$this->beforeFilter('@findSpecialties', ['only' => ['create', 'edit']]);
 	}

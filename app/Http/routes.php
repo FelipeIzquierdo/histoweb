@@ -18,6 +18,10 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => 'auth'], function() {
+	Route::controller('/', 'ReceptionController', ['getIndex' => 'reception']);
+});
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function() {
 	
 	Route::group(['prefix' => 'system', 'namespace' => 'System'], function() {
