@@ -94,7 +94,7 @@ function createUpdatePatient(url, type) {
             'occupation_id':parseInt($('#occupation_id').val())
         },
         url:   url,
-        type:  'POST',
+        type:  type,
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
         },
@@ -111,27 +111,60 @@ function createUpdatePatient(url, type) {
     });
 }
 
-function newDiary(doctorId, patientId, diaryTypeId) {
+function newDiary(doctorId, patientId, diaryTypeId)
+{
     $.ajax({
         url:   '/admin/company/doctors/' + doctorId + '/new-diary/' + patientId + '/' + diaryTypeId,
         type:  'GET',
         success:  function (data) {
-            $('#external-events').prepend('<li class="animation-fadeInQuick2Inv" data-time="' + data.diary_type_time + '" data-patient-id="' + patientId + '"><i class="fa fa-calendar"></i> '+ data.patient_name +'</li>');
+            $('#external-events').prepend('<li class="animation-fadeInQuick2Inv" data-time="' + data.diary_type_time + '" data-type-diary="' + diaryTypeId + '" data-patient-id="' + patientId + '" ><i class="fa fa-calendar"></i> '+ data.patient_name +'</li>');
             initializeExternalEvent();
         }
     });
 }
+
+function createDiary(copiedEventObject)
+{
+    $.ajax({
+        data:  {
+            'patient_id': parseInt(copiedEventObject.patientId),
+            'type_id': parseInt(copiedEventObject.typeDiary),
+            'start': copiedEventObject.start.format('YYYY-MM-DD H:mm:ss'),
+            'end': copiedEventObject.time
+        },
+        url:   '/admin/company/doctors/' + doctorId + '/diaries',
+        type:  'POST',
+        beforeSend: function(request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+        },
+        success:  function (data) {
+            console.log(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown)
+        {
+            if(jqXHR)
+            {
+                console.log(jqXHR);
+            }
+        }
+    });
+}
+
+
 function initializeExternalEvent () {
     $('#external-events .animation-fadeInQuick2Inv').each(function()
     {
         var eventObject =
         {
-            title:$.trim($(this).text()),
-            time:$.trim($(this).data('time')),
-            patientId:$.trim($(this).data('patient-id')),
-            color:$(this).css("background-color"),
-            type:'diary',
-            constraint: 'availableForMeeting'
+            typeDiary: $.trim($(this).data('type-diary')),
+            title: $.trim($(this).text()),
+            time: $.trim($(this).data('time')),
+            patientId: $.trim($(this).data('patient-id')),
+            color: $(this).css("background-color"),
+            type: 'diary',
+            constraint: 'availableForMeeting',
+            start: null,
+            end: null
         };
         $(this).data("eventObject", eventObject),
             $(this).draggable({
@@ -147,6 +180,7 @@ var CompCalendar = function()
         init: function()
         {
             /* Initialize FullCalendar */
+
             var date = new Date();
             var d = date.getDate();
             var m = date.getMonth();
@@ -159,10 +193,7 @@ var CompCalendar = function()
             {
                 var patientDoc = $("#patient").val();
                 findPatient(patientDoc);
-
-                //newDiary(doctorId, patientId, diaryTypeId);
                 return false;
-
             });
             /* initialize the calendar
              -----------------------------------------------------------------*/
@@ -193,11 +224,16 @@ var CompCalendar = function()
                 },
                 drop:function(date, jsEvent, ui)
                 {
-                    var originalEventObject  = $(this).data("eventObject"),
-                        copiedEventObject  = $.extend({}, originalEventObject );
-                        copiedEventObject .start = date,
-                        $("#calendar").fullCalendar("renderEvent",copiedEventObject ,!0),
-                        $(this).remove()
+                    var ret = new Date(date.format('YYYY-MM-DD H:mm:ss'));
+                    console.log(ret);
+                    var originalEventObject  = $(this).data("eventObject");
+                    var copiedEventObject  = $.extend({}, originalEventObject );
+                    ret.setTime(ret.getTime() + copiedEventObject.time*60000);
+                    copiedEventObject.start = date;
+                    copiedEventObject.end = ret;
+                    createDiary(copiedEventObject);
+                        $("#calendar").fullCalendar("renderEvent",copiedEventObject ,!0);
+                        $(this).remove();
                 },
                 eventClick: function(event, delta, jsEvent, view) {
                     $("#eventId").html(event.id);

@@ -60,10 +60,17 @@ class DoctorsDiariesController extends Controller {
      *
      * @return Response JSON
      */
-    public function store(CreateRequest $request)
+    public function store(Request $request, $doctor_id)
     {
+        $data = ($request->all()+ ['doctor_id' => $this->doctor->id]) ;
+        $timestamp = strtotime($data['start']);
+        $time = $data['end'];
+        $addTime = "+$time minutes";
+        $data ['end'] = date('Y-m-d H:i:s', strtotime($addTime, $timestamp));
+        $diary = new Diary($data);
+        $diary->save();
 
-
+        return $data;
     }
 
 	/**

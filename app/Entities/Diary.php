@@ -8,7 +8,12 @@ class Diary extends Model
 	public $increments = true;
 	public $errors;
 
-    protected $fillable = ['time_init','time_end'];
+    public function getTitleAttribute()
+    {
+        return Patient::find($this->attributes['patient_id'])->name;
+    }
+
+    protected $fillable = ['patient_id','doctor_id','type_id','start','end'];
     
     public function type()
     {

@@ -65,9 +65,10 @@ class CalendarBuilder {
         {
             array_push($events,[
                 'type'  => 'diary',
-                'start' => $diary->time_init,
-                'end'   => $diary->time_end,
+                'start' => $diary->start,
+                'end'   => $diary->end,
                 'id' => 'dia-' . $diary->id,
+                'title' => $diary->title,
                 'constraint'    => 'availableForMeeting'
             ]);
         }
@@ -121,5 +122,7 @@ class CalendarBuilder {
 
     	return $dates;
     }
+
+
     
 } 
