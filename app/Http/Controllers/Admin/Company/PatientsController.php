@@ -167,4 +167,9 @@ class PatientsController extends Controller {
             return $patient;
         }
     }
+
+    public function generateEndDate($start_date, $time)
+    {
+        return strtotime('+time minute', $start_date);
+    }
 }

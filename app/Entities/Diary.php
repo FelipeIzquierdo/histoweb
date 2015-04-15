@@ -8,8 +8,14 @@ class Diary extends Model
 	public $increments = true;
 	public $errors;
 
-    protected $fillable = ['strat','end', 'patient_id', 'doctor_id', 'eps_id'];
+
+    protected $fillable = ['type_id', 'strat','end', 'patient_id', 'doctor_id', 'eps_id'];
     
+    public function getTitleAttribute()
+    {
+        return Patient::find($this->attributes['patient_id'])->name;
+    }
+
     public static function allToday()
     {
         return self::orderBy('start')->get()->filter(function($diary)

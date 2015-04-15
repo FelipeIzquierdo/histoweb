@@ -66,7 +66,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		Route::group(['namespace' => 'Doctor'], function() {
 			Route::resource('doctors.availabilities', 'DoctorsAvailabilitiesController');
 			Route::resource('doctors.schedules', 'DoctorsSchedulesController');
-			Route::resource('doctors.diaries', 'DoctorsDiariesController', ['only' => 'index', 'json', 'store']);
+			Route::resource('doctors.diaries', 'DoctorsDiariesController');
 
 
 			Route::group(['prefix' => 'doctors'], function() {
