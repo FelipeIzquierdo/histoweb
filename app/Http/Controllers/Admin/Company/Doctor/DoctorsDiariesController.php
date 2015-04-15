@@ -86,6 +86,7 @@ class DoctorsDiariesController extends Controller {
             'patient_name'      => $patient->name,
             'diary_type_time'   => $diaryType->time,
         ];
+        
         return $newDiary;
     }
 }

@@ -2,16 +2,16 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class DiaryType extends Model {
+class SystemRevision extends Model
+{
+	protected $table = 'system_revisions';
+	protected $fillable = ['name'];
 
 	public $timestamps = true;
 	public $increments = true;
-	
-	protected $fillable = ['name','time'];
 
-	public static function allLists()
+    public static function allLists()
     {
         return self::lists('name', 'id');
     }
-
 }

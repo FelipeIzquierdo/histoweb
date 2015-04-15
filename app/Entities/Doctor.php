@@ -10,8 +10,22 @@ class Doctor extends Model
 	public $increments = true;
 	public $errors;
     public static $pathPhoto = 'img/placeholders/photos/doctors/';
+    private static $defaultPhoto = 'img/placeholders/icons/doctor.png';
 
     protected $fillable = ['cc','first_name','last_name','color','specialty_id'];
+
+    public static function allLists()
+    {
+        return self::get()->lists('name' ,'id' );
+    }
+
+    public function getDiariesToday()
+    {
+        return $this->diaries->sortBy('start')->filter(function($diary)
+        {
+            return $diary->isToday();
+        });
+    }
 
     public function getNameAttribute()
     {
@@ -26,14 +40,13 @@ class Doctor extends Model
     public function getPhotoAttribute()
     {
         $photo = self::$pathPhoto . $this->name_photo;
-
+        
         if (\File::exists($photo))
         {
             return $photo;
         }
 
-        return 'img/placeholders/icons/doctor.png';
-
+        return self::$defaultPhoto;
     }
 
     public function availabilities()
@@ -56,8 +69,4 @@ class Doctor extends Model
         return $this->belongsTo('Histoweb\Entities\Specialty');
     }
 
-    public static function allLists()
-    {
-        return self::get()->lists('name' ,'id' );
-    }
 }

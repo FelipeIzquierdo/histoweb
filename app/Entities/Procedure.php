@@ -2,14 +2,14 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class DiaryType extends Model {
+class Procedure extends Model {
+
+	protected $fillable = ['cod', 'name'];
 
 	public $timestamps = true;
 	public $increments = true;
-	
-	protected $fillable = ['name','time'];
 
-	public static function allLists()
+    public static function allLists()
     {
         return self::lists('name', 'id');
     }

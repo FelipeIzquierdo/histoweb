@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReasonsTable extends Migration {
+class CreateProceduresTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,12 @@ class CreateReasonsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('reasons', function(Blueprint $table)
+		Schema::create('procedures', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('cod')->unique();
 			$table->string('name')->unique();
-            $table->timestamps();
+			$table->timestamps();
 		});
 	}
 
@@ -27,7 +28,7 @@ class CreateReasonsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('reasons');
+		Schema::drop('procedures');
 	}
 
 }

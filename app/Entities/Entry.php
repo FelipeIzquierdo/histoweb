@@ -1,79 +1,118 @@
 <?php namespace Histoweb\Entities;
 
-class Entry extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Entry extends Model
 {
 	protected $table = 'entries';
-	protected $primaryKey = 'id';
-	protected $fillable = ['patients_cc', 'code_regime', 'code_occupation', 'code_eps', 'height',
-        'weight', 'code_membership'];
+	protected $fillable = ['diary_id', 'present_illness', 'management_plan'];
 
-	public $timestamps = false;
+	public $timestamps = true;
 	public $increments = true;
-	public $errors;
 
-    public static function generateSerial($patient_id)
+    private static function generateSerial($patient_id)
     {
-        return self::where('patients_cc', $patient_id)->count() + 1;
+        return self::where('patients_id', $patient_id)->count() + 1;
     }
+
+    public function isActive()
+    {
+        if($this->active == 1)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function scopeLastActive($query)
+    {
+        return $query->whereActive(1)->orderBy('created_at', 'desc')->first();
+    }
+
+    public function saveHistory($data)
+    {
+        $this->fill($data);
+        $this->active = 0;
+        $this->save();
+
+        $this->syncReasons($data['reasons'], $data['new_reasons']);
+        $this->syncSystemRevisions($data['system_revisions'], $data['new_system_revisions']);
+        $this->syncProcedures($data['procedures'], $data['new_procedures']);
+    } 
 
     public function syncReasons($reasons, $newReasons = null)
     {
         $this->reasons()->sync($reasons);
-        if (!is_null($newReasons) && !empty($newReasons)) 
+        if (!empty($newReasons)) 
         {
             $newReasons = explode(",", $newReasons);
-            $this->syncNewReasons($newReasons);
+            $this->saveNewReasons($newReasons);
         }
     }
 
-    public function syncNewReasons($newReasons)
+    public function saveNewReasons($reasons)
     {
-        foreach ($newReasons as $name) {
-            $newReason = new Reason(['type' => $name]);
-            $this->reasons()->save($newReason);
+        foreach ($reasons as $name) {
+            $reason = Reason::firstOrNew(['name' => $name]);
+            $this->reasons()->save($reason);
+        }
+    }
+
+    public function syncSystemRevisions($systemRevisions, $newSystemRevisions = null)
+    {
+        $this->systemRevisions()->sync($systemRevisions);
+        if (!empty($newSystemRevisions)) 
+        {
+            $newSystemRevisions = explode(",", $newSystemRevisions);
+            $this->saveNewReasons($newSystemRevisions);
+        }
+    }
+
+    public function saveNewSystemRevisions($systemRevisions)
+    {
+        foreach ($systemRevisions as $name) {
+            $systemRevision = SystemRevision::firstOrNew(['name' => $name]);
+            $this->systemRevisions()->save($systemRevision);
+        }
+    }
+
+    public function syncProcedures($procedures, $newProcedures = null)
+    {
+        $this->procedures()->sync($procedures);
+        /*if (!empty($newProcedures)) 
+        {
+            $newProcedures = explode(",", $newProcedures);
+            $this->saveNewProcedures($newProcedures);
+        }*/
+    }
+
+    public function saveNewProcedures($procedures)
+    {
+        foreach ($procedures as $name) {
+            $procedure = Procedure::firstOrNew(['name' => $name]);
+            $this->procedures()->save($procedure);
         }
     }
 
     public function reasons()
     {
-        return $this->belongsToMany('Reason', 'entries_reasons', 'admission_code', 'code_reason');
+        return $this->belongsToMany('Histoweb\Entities\Reason');
     }
 
-
-	public function isValid($data)
+    public function systemRevisions()
     {
-        $rules = [
-            'patients_cc'     => 'required'
-        ];
-        
-        $validator = Validator::make($data, $rules);
-        
-        if ($validator->passes())
-        {
-            return true;
-        }
-        
-        $this->errors = $validator->errors();
-        return false;
+        return $this->belongsToMany('Histoweb\Entities\SystemRevision');
     }
 
-    public function validAndSave($patient_id, $data)
+    public function procedures()
     {
-        $data['patients_cc'] = $patient_id;
-
-        if ($this->isValid($data))
-        {
-            if (!$this->exists) {
-                $data['patient_entrie_number'] = self::generateSerial($patient_id);
-            }
-            
-            $this->fill($data);
-            $this->save();
-            
-            return true;
-        }
-        
-        return false;
+        return $this->belongsToMany('Histoweb\Entities\Procedure');
     }
 
+    public function diary()
+    {
+        return $this->belongsTo('Histoweb\Entities\Diary');
+    }
+    
 }

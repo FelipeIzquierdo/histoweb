@@ -18,8 +18,20 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance', 'middleware' => 'auth'], function() {
+	Route::controller('/', 'AssistanceController', [
+		'getIndex' => 'assistance', 
+		'getEntries' => 'assistance.entries',
+		'getHistory'	=> 'assistance.entries.history',
+		'postHistory'	=> 'assistance.entries.history'
+	]);
+});
+
 Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => 'auth'], function() {
-	Route::controller('/', 'ReceptionController', ['getIndex' => 'reception']);
+	Route::controller('/', 'ReceptionController', [
+		'getIndex' => 'reception', 
+		'getActivateDiary' => 'reception.activate-diary'
+	]);
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function() {
@@ -38,8 +50,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		Route::group(['namespace' => 'Surgery'], function() {
 			Route::resource('surgeries.schedules', 'SurgeriesSchedulesController');
 			Route::resource('surgeries.diaries', 'SurgeriesDiariesController');
-
-
 
 			Route::group(['prefix' => 'surgeries'], function() {
 				Route::get('{surgeries}/schedules-json', ['uses' => 'SurgeriesSchedulesController@json', 'as' => 'admin.company.surgeries.schedules.json']);

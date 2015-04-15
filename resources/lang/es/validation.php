@@ -130,6 +130,16 @@ return array(
 	'doc_type_id'			=> 'tipo de documento',
 	'diaryTypes'			=> 'tipo de cita',
 
+	// Patient History
+	'reasons'				=> 'motivos de consulta',
+	'new_reasons'			=> 'nuevos motivos',
+	'present_illness'		=> 'enfermedad actual',
+	'review_of_systems'		=> 'revisión de sistemas',
+	'new_review_of_systems'	=> 'nuevas revisiones',
+	'procedures'			=> 'procedimientos',
+	'new_procedures'		=> 'nuevos procedimientos',
+	'management_plan'		=> 'plan de manejo',
+
 	'start_date_end_date' 	=> 'rango de fechas',
 	'start_date'			=> 'fecha de inicio',
 	'end_date'				=> 'fecha fin',

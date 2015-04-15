@@ -13,12 +13,12 @@ var CompTree = function() {
              */
 
             // Initialize default tree view list
-            $('#easy-tree1').easytree();
+            //$('#easy-tree1').easytree();
 
             // Initialize tree view list with extra options
             $('#easy-tree2').easytree({
                 disableIcons: true,
-                enableDnd: true
+                enableDnd: false
             });
         }
     };

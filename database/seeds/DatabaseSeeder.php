@@ -15,14 +15,19 @@ class DatabaseSeeder extends Seeder {
 		Model::unguard();
 
 		$this->call('DocTypesTableSeeder');
+		$this->call('DiaryTypesTableSeeder');
 		$this->call('OccupationsTableSeeder');
-		$this->call('PatientsTableSeeder');
+		$this->call('ReasonsTableSeeder');
+		$this->call('SystemRevisionsTableSeeder');
+		$this->call('ProceduresTableSeeder');
 		
 		$this->call('UserTableSeeder');
         $this->call('SpecialtiesTableSeeder');
         $this->call('DoctorsTableSeeder');
         $this->call('ToolsTableSeeder');
         $this->call('SurgeriesTableSeeder');
+
+        $this->call('PatientsTableSeeder');
 	}
 
 }

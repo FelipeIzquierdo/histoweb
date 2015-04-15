@@ -1,27 +1,16 @@
 <?php namespace Histoweb\Entities;
 
-class Reason extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Reason extends Model
 {
-	protected $table = 'reasons';
-	protected $primaryKey = 'code_reason';
-	protected $fillable = ['type', 'erasable'];
+	protected $fillable = ['name'];
 
-	public $timestamps = false;
+	public $timestamps = true;
 	public $increments = true;
-	public $errors;
-
-    public function getIdAttribute()
-    {
-        return round($this->code_reason);
-    }
-
-    public function getnameAttribute()
-    {
-        return $this->type;
-    }
 
     public static function allLists()
     {
-        return self::lists('type', 'code_reason');
+        return self::lists('name', 'id');
     }
 }
