@@ -16,4 +16,6 @@
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.specialties.index'), 'icon_widget' => 'img/placeholders/icons/student.png', 'title_widget' => 'Especialidades'])
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.diary-types.index'), 'icon_widget' => 'img/placeholders/icons/medical.png', 'title_widget' => 'Tipos de citas'])
+
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.memberships.index'), 'icon_widget' => 'img/placeholders/icons/assistance.png', 'title_widget' => 'Tipos de afiliación'])
 	@endsection

@@ -18,7 +18,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance', 'middleware' => 'auth'], function() {
+Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function() {
 	Route::controller('/', 'AssistanceController', [
 		'getIndex' => 'assistance', 
 		'getEntries' => 'assistance.entries',
@@ -37,6 +37,8 @@ Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function() {
 	
 	Route::group(['prefix' => 'system', 'namespace' => 'System'], function() {
+
+		Route::resource('memberships', 'MembershipsController');
 		Route::resource('diary-types', 'DiaryTypesController');
 		Route::resource('tools', 'ToolsController');
 		Route::resource('specialties', 'SpecialtiesController');
