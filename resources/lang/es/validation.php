@@ -165,7 +165,13 @@ return array(
     'password' 				=> 'contraseña',
     'url_photo' 			=> 'foto de perfil',
     'url_logo' 				=> 'logo',
-    'url_pdf' 				=> 'PDF'
+    'url_pdf' 				=> 'PDF',
+    // Membreship
+    'name'				=> 'Nombre',
+	'description'			=> 'Descripción',
+    // Membreship
+    'cod'				=> 'Código'
+
 ]
 
 );
