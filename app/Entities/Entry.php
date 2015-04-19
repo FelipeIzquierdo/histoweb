@@ -36,14 +36,31 @@ class Entry extends Model
         $this->active = 0;
         $this->save();
 
-        $this->syncReasons($data['reasons'], $data['new_reasons']);
-        $this->syncSystemRevisions($data['system_revisions'], $data['new_system_revisions']);
-        $this->syncProcedures($data['procedures'], $data['new_procedures']);
+        $this->syncNewReasons($data['new_reasons']);
+        if(array_key_exists('reasons', $data))
+        {
+            $this->reasons()->sync($reasons);
+        }
+        
+        $this->syncNewSystemRevisions($data['new_system_revisions']);
+        if(array_key_exists('system_revisions', $data))
+        {
+            $this->systemRevisions()->sync($systemRevisions);
+        }
+        
+        if(array_key_exists('procedures', $data))
+        {
+            $this->procedures()->sync($procedures);
+        }
+
+        if(array_key_exists('diagnostics', $data))
+        {
+            $this->diagnostics()->sync($diagnostics);
+        }
     } 
 
-    public function syncReasons($reasons, $newReasons = null)
-    {
-        $this->reasons()->sync($reasons);
+    public function syncNewReasons($newReasons)
+    {   
         if (!empty($newReasons)) 
         {
             $newReasons = explode(",", $newReasons);
@@ -59,9 +76,8 @@ class Entry extends Model
         }
     }
 
-    public function syncSystemRevisions($systemRevisions, $newSystemRevisions = null)
+    public function syncNewSystemRevisions($systemRevisions, $newSystemRevisions = null)
     {
-        $this->systemRevisions()->sync($systemRevisions);
         if (!empty($newSystemRevisions)) 
         {
             $newSystemRevisions = explode(",", $newSystemRevisions);
@@ -74,24 +90,6 @@ class Entry extends Model
         foreach ($systemRevisions as $name) {
             $systemRevision = SystemRevision::firstOrNew(['name' => $name]);
             $this->systemRevisions()->save($systemRevision);
-        }
-    }
-
-    public function syncProcedures($procedures, $newProcedures = null)
-    {
-        $this->procedures()->sync($procedures);
-        /*if (!empty($newProcedures)) 
-        {
-            $newProcedures = explode(",", $newProcedures);
-            $this->saveNewProcedures($newProcedures);
-        }*/
-    }
-
-    public function saveNewProcedures($procedures)
-    {
-        foreach ($procedures as $name) {
-            $procedure = Procedure::firstOrNew(['name' => $name]);
-            $this->procedures()->save($procedure);
         }
     }
 

@@ -35,7 +35,7 @@ class Patient extends Model
 
     public function getNameDocAttribute()
     {
-        return $this->doc. '-'.$this->first_name . ' ' . $this->last_name;
+        return $this->doc. ' - '.$this->first_name . ' ' . $this->last_name;
     }
 
     public function getNameAttribute()

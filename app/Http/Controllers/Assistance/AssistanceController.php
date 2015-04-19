@@ -22,6 +22,7 @@ class AssistanceController extends Controller {
 	private $systemRevisions;
 	private $procedures;
 	private $doctor;
+	private $diagnostics;
 
 	/**
 	 * Display a listing of functions that doctor can execute
@@ -34,7 +35,7 @@ class AssistanceController extends Controller {
 		$this->beforeFilter('@findDoctor');
 		$this->beforeFilter('@findDiaries', ['only' => ['getIndex', 'getEntries']]);
 		$this->beforeFilter('@findEntry', ['only' => ['getEntries', 'postHistory']]);
-		$this->beforeFilter('@verificActiveEntry', ['only' => ['getEntries', 'postHistory']]);
+		//$this->beforeFilter('@verificActiveEntry', ['only' => ['getEntries', 'postHistory']]);
 		$this->beforeFilter('@loadPatientRelations', ['only' => ['getEntries']]);
 	}
 
@@ -66,13 +67,14 @@ class AssistanceController extends Controller {
 		$this->reasons = Reason::allLists();
 		$this->systemRevisions = SystemRevision::allLists();
 		$this->procedures = Procedure::allLists();
+		$this->diagnostics = Procedure::allLists();
 	}
 
 	public function getIndex()
 	{	
 		return view('dashboard.pages.assistance.home')->with([
 			'diaries' 	=> $this->diaries,
-			'doctor'	=> $this->doctor 
+			'doctor'	=> $this->doctor
 		]);
 	}
 
@@ -83,7 +85,8 @@ class AssistanceController extends Controller {
 			'entry' 			=> $this->entry,
 			'reasons'			=> $this->reasons,
 			'system_revisions'	=> $this->systemRevisions,
-			'procedures'		=> $this->procedures
+			'procedures'		=> $this->procedures,
+			'diagnostics'		=> $this->diagnostics
 		]);
 	}
 
