@@ -155,6 +155,8 @@ return array(
     // Membreship
     'name'				=> 'Nombre',
 	'description'			=> 'Descripción',
+    // Membreship
+    'cod'				=> 'Código'
 
 ]
 

@@ -1,41 +1,41 @@
 <?php namespace Histoweb\Http\Controllers\Admin\System;
 
-use Histoweb\Http\Requests\Membership\CreateRequest;
-use Histoweb\Http\Requests\Membership\EditRequest;
+use Histoweb\Http\Requests\SystemRevision\CreateRequest;
+use Histoweb\Http\Requests\SystemRevision\EditRequest;
 use Histoweb\Http\Controllers\Controller;
 
-use Histoweb\Entities\MembershipType;	
+use Histoweb\Entities\SystemRevision;	
 
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class MembershipsController extends Controller {
+class SystemRevisionsController extends Controller {
 
-	private $membership;
-	private static $prefixRoute = 'admin.system.memberships.';
-	private static $prefixView = 'dashboard.pages.admin.system.membership.';
+	private $revision;
+	private static $prefixRoute = 'admin.system.system-revisions.';
+	private static $prefixView = 'dashboard.pages.admin.system.systemrevision.';
 
 	public function __construct() 
 	{
 		$this->middleware('auth');
-		$this->beforeFilter('@findMembership', ['only' => ['show', 'edit', 'update', 'destroy']]);
+		$this->beforeFilter('@findSystemRevisions', ['only' => ['show', 'edit', 'update', 'destroy']]);
 	}
 
 	/**
 	 * Find a specified resource
 	 *
 	 */
-	public function findMembership(Route $route)
+	public function findSystemRevisions(Route $route)
 	{
-		$this->membership = MembershipType::findOrFail($route->getParameter('memberships'));
+		$this->revision = SystemRevision::findOrFail($route->getParameter('system_revisions'));
 	}
 
 
 
 	public function index()
 	{
-        $memberships = MembershipType::orderBy('updated_at', 'desc')->paginate(12);
-        return view(self::$prefixView . 'lists', compact('memberships'));
+        $revisions = SystemRevision::orderBy('updated_at', 'desc')->paginate(12);
+        return view(self::$prefixView . 'lists', compact('revisions'));
 	}
 
 	/**
@@ -45,11 +45,11 @@ class MembershipsController extends Controller {
 	 */
 	public function create()
 	{
-        $this->membership = new MembershipType;
+        $this->revision = new SystemRevision;
         $form_data = ['route' => self::$prefixRoute . 'store', 'method' => 'POST'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['membership' => $this->membership]);
+        	->with(['revision' => $this->revision]);
 	}
 
 	/**
@@ -59,11 +59,11 @@ class MembershipsController extends Controller {
 	 */
     public function store(CreateRequest $request)
     {
-        $this->membership = MembershipType::create($request->all());
+        $this->revision = SystemRevision::create($request->all());
 
         if($request->ajax())
         {
-            return $this->membership;
+            return $this->revision;
         }
 		
         return redirect()->route(self::$prefixRoute . 'index');
@@ -77,8 +77,8 @@ class MembershipsController extends Controller {
 	 */
 	public function show($id)
 	{
-        $membership = MembershipType::find($id);
-        return view(self::$prefixView . 'show',compact('id', 'membership'));
+        $revision = SystemRevision::find($id);
+        return view(self::$prefixView . 'show',compact('id', 'revision'));
 	}
 
 	/**
@@ -89,10 +89,10 @@ class MembershipsController extends Controller {
 	 */
 	public function edit($id)
 	{
-        $form_data = ['route' => [self::$prefixRoute . 'update', $this->membership->id], 'method' => 'PUT'];
+        $form_data = ['route' => [self::$prefixRoute . 'update', $this->revision->id], 'method' => 'PUT'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['membership' => $this->membership]);
+        	->with(['revision' => $this->revision]);
 	}
 
 	/**
@@ -103,12 +103,12 @@ class MembershipsController extends Controller {
 	 */
     public function update(EditRequest $request, $id)
     {
-        $this->membership->fill($request->all());
-        $this->membership->save();
+        $this->revision->fill($request->all());
+        $this->revision->save();
         
         if($request->ajax())
         {
-            return $this->membership;
+            return $this->revision;
         }
 
         return redirect()->route(self::$prefixRoute . 'index');

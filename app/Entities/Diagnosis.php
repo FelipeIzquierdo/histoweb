@@ -2,11 +2,10 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class SystemRevision extends Model
-{
-	protected $table = 'system_revisions';
+class Diagnosis extends Model {
+
 	protected $fillable = ['name'];
-    
+
 	public $timestamps = true;
 	public $increments = true;
 
@@ -14,4 +13,5 @@ class SystemRevision extends Model
     {
         return self::lists('name', 'id');
     }
+
 }

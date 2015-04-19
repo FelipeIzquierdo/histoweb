@@ -1,4 +1,4 @@
-<?php namespace Histoweb\Http\Requests\Membership;
+<?php namespace Histoweb\Http\Requests\History;
 
 use Histoweb\Http\Requests\Request;
 
@@ -20,8 +20,8 @@ class CreateRequest extends Request {
 	public function rules()
 	{
 		return [
-			'name'            => 	'required|max:100|unique:membership_types,name',
-            'description'        => 	'required|max:100'
+			'name'              => 	'required|max:50|unique:histories,name',
+            'type'				=> 	'required|integer|exists:history_types,id'
 		];
 	}
 }

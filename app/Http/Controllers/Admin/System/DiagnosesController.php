@@ -1,41 +1,41 @@
 <?php namespace Histoweb\Http\Controllers\Admin\System;
 
-use Histoweb\Http\Requests\Membership\CreateRequest;
-use Histoweb\Http\Requests\Membership\EditRequest;
+use Histoweb\Http\Requests\Diagnosis\CreateRequest;
+use Histoweb\Http\Requests\Diagnosis\EditRequest;
 use Histoweb\Http\Controllers\Controller;
 
-use Histoweb\Entities\MembershipType;	
+use Histoweb\Entities\Diagnosis;	
 
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class MembershipsController extends Controller {
+class DiagnosesController extends Controller {
 
-	private $membership;
-	private static $prefixRoute = 'admin.system.memberships.';
-	private static $prefixView = 'dashboard.pages.admin.system.membership.';
+	private $diagnosis;
+	private static $prefixRoute = 'admin.system.diagnoses.';
+	private static $prefixView = 'dashboard.pages.admin.system.diagnosis.';
 
 	public function __construct() 
 	{
 		$this->middleware('auth');
-		$this->beforeFilter('@findMembership', ['only' => ['show', 'edit', 'update', 'destroy']]);
+		$this->beforeFilter('@findDiagnoses', ['only' => ['show', 'edit', 'update', 'destroy']]);
 	}
 
 	/**
 	 * Find a specified resource
 	 *
 	 */
-	public function findMembership(Route $route)
+	public function findDiagnoses(Route $route)
 	{
-		$this->membership = MembershipType::findOrFail($route->getParameter('memberships'));
+		$this->diagnosis = Diagnosis::findOrFail($route->getParameter('diagnoses'));
 	}
 
 
 
 	public function index()
 	{
-        $memberships = MembershipType::orderBy('updated_at', 'desc')->paginate(12);
-        return view(self::$prefixView . 'lists', compact('memberships'));
+        $diagnoses = Diagnosis::orderBy('updated_at', 'desc')->paginate(12);
+        return view(self::$prefixView . 'lists', compact('diagnoses'));
 	}
 
 	/**
@@ -45,11 +45,11 @@ class MembershipsController extends Controller {
 	 */
 	public function create()
 	{
-        $this->membership = new MembershipType;
+        $this->diagnosis = new Diagnosis;
         $form_data = ['route' => self::$prefixRoute . 'store', 'method' => 'POST'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['membership' => $this->membership]);
+        	->with(['diagnosis' => $this->diagnosis]);
 	}
 
 	/**
@@ -59,11 +59,11 @@ class MembershipsController extends Controller {
 	 */
     public function store(CreateRequest $request)
     {
-        $this->membership = MembershipType::create($request->all());
+        $this->diagnosis = Diagnosis::create($request->all());
 
         if($request->ajax())
         {
-            return $this->membership;
+            return $this->diagnosis;
         }
 		
         return redirect()->route(self::$prefixRoute . 'index');
@@ -77,8 +77,8 @@ class MembershipsController extends Controller {
 	 */
 	public function show($id)
 	{
-        $membership = MembershipType::find($id);
-        return view(self::$prefixView . 'show',compact('id', 'membership'));
+        $diagnosis = Diagnosis::find($id);
+        return view(self::$prefixView . 'show',compact('id', 'diagnosis'));
 	}
 
 	/**
@@ -89,10 +89,10 @@ class MembershipsController extends Controller {
 	 */
 	public function edit($id)
 	{
-        $form_data = ['route' => [self::$prefixRoute . 'update', $this->membership->id], 'method' => 'PUT'];
+        $form_data = ['route' => [self::$prefixRoute . 'update', $this->diagnosis->id], 'method' => 'PUT'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['membership' => $this->membership]);
+        	->with(['diagnosis' => $this->diagnosis]);
 	}
 
 	/**
@@ -103,12 +103,12 @@ class MembershipsController extends Controller {
 	 */
     public function update(EditRequest $request, $id)
     {
-        $this->membership->fill($request->all());
-        $this->membership->save();
+        $this->diagnosis->fill($request->all());
+        $this->diagnosis->save();
         
         if($request->ajax())
         {
-            return $this->membership;
+            return $this->diagnosis;
         }
 
         return redirect()->route(self::$prefixRoute . 'index');
