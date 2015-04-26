@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('DocTypesTableSeeder');
 		$this->call('DiaryTypesTableSeeder');
+		$this->call('HistoryTypesTableSeeder');
+		$this->call('HistoriesTableSeeder');
 		$this->call('OccupationsTableSeeder');
 		$this->call('ReasonsTableSeeder');
 		$this->call('SystemRevisionsTableSeeder');

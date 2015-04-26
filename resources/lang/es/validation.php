@@ -129,6 +129,7 @@ return array(
 	'time'					=> 'tiempo',
 	'doc_type_id'			=> 'tipo de documento',
 	'diaryTypes'			=> 'tipo de cita',
+	'name_system'			=> 'Nombre de Sistema',
 
 	// Patient History
 	'reasons'						=> 'motivos de consulta',
@@ -167,7 +168,6 @@ return array(
     'url_logo' 				=> 'logo',
     'url_pdf' 				=> 'PDF',
     // Membreship
-    'name'				=> 'Nombre',
 	'description'			=> 'Descripción',
     // Membreship
     'cod'				=> 'Código'

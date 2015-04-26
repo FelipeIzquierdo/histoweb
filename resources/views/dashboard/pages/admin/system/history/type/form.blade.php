@@ -19,6 +19,7 @@
               <div class="form-horizontal form-bordered">
                 {!! Form::model($type, $form_data) !!}
                   {!! Field::text('name', null, ['placeholder' => 'Nombre', 'template' => 'horizontal']) !!}
+                  {!! Field::text('name_system', null, ['placeholder' => 'Nombre de Sistema', 'template' => 'horizontal']) !!}
                   {!! Field::text('description', null, ['placeholder' => 'Descripción', 'template' => 'horizontal']) !!}
         
                   <div class="form-group form-actions">

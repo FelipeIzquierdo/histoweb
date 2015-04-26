@@ -27,90 +27,26 @@
             <div class="block-title clearfix">
                 <h2><span class="hidden-xs">Antecedentes Personales</h2>
             </div>
+            
             <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_medical_history" class=""> Antecedentes médicos</a>
-                        </h4>
-                    </div>
-                    <div id="collapse_medical_history" class="panel-collapse collapse" style="">
-                        <div class="panel-body form-horizontal form-bordered">
-                            {!! Field::select('medical_history[]', ['1' => 'd'], null, ['id' => 'medical_history', 'data-placeholder' => 'Antecedentes patologicos', 'template' => 'horizontal', 'multiple' ]) !!}
-                            
+                @foreach($historyTypes as $type)
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse_{!! $type->name_system !!}" class=""> {!! $type->name !!}</a>
+                            </h4>
+                        </div>
+                        <div id="collapse_{!! $type->name_system !!}" class="panel-collapse collapse" style="">
+                            <div class="panel-body form-horizontal form-bordered">
+                                {!! Field::select($type->name_system . '[]', $type->historyLists(), null, ['id' => $type->name_system, 'data-placeholder' => $type->name, 'template' => 'horizontal', 'multiple' ]) !!}
+                                @if($type->news)
+                                    {!! Field::text('new_' . $type->name_system, null, ['class' => 'input-tags', 'template' => 'horizontal']) !!}
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_surgical_history" class=""> Antecedentes quirurgicos</a>
-                        </h4>
-                    </div>
-                    <div id="collapse_surgical_history" class="panel-collapse collapse" style="">
-                        <div class="panel-body form-horizontal form-bordered">
-                            {!! Field::select('surgical_history[]', ['1' => 'd'], null, ['id' => 'surgical_history', 'data-placeholder' => 'Antecedentes quirurgicos', 'template' => 'horizontal', 'multiple' ]) !!}
-                            {!! Field::text('new_surgical_history', null, ['class' => 'input-tags', 'template' => 'horizontal']) !!}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_traumatic_history" class=""> Antecedentes traumaticos</a>
-                        </h4>
-                    </div>
-                    <div id="collapse_traumatic_history" class="panel-collapse collapse" style="">
-                        <div class="panel-body form-horizontal form-bordered">
-                            {!! Field::select('traumatic_history[]', ['1' => 'd'], null, ['id' => 'traumatic_history', 'data-placeholder' => 'Antecedentes traumaticos', 'template' => 'horizontal', 'multiple' ]) !!}
-                            {!! Field::text('new_traumatic_history', null, ['class' => 'input-tags', 'template' => 'horizontal']) !!}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_toxic_allergic_history" class=""> Antecedentes toxicos y alergicos</a>
-                        </h4>
-                    </div>
-                    <div id="collapse_toxic_allergic_history" class="panel-collapse collapse" style="">
-                        <div class="panel-body form-horizontal form-bordered">
-                            {!! Field::select('toxic_allergic_history[]', ['1' => 'd'], null, ['id' => 'toxic_allergic_history', 'data-placeholder' => 'Antecedentes toxicos y alergicos', 'template' => 'horizontal', 'multiple' ]) !!}
-                            {!! Field::text('new_toxic_allergic_history', null, ['class' => 'input-tags', 'template' => 'horizontal']) !!}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_reproductive_history" class=""> Antecedentes ginecoobstetricos</a>
-                        </h4>
-                    </div>
-                    <div id="collapse_reproductive_history" class="panel-collapse collapse" style="">
-                        <div class="panel-body form-horizontal form-bordered">
-                            {!! Field::select('reproductive_history[]', ['1' => 'd'], null, ['id' => 'reproductive_history', 'data-placeholder' => 'Antecedentes ginecoobstetricos', 'template' => 'horizontal', 'multiple' ]) !!}
-                            {!! Field::text('new_reproductive_history', null, ['class' => 'input-tags', 'template' => 'horizontal']) !!}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_hospitalizations" class=""> Hospitalizaciones</a>
-                        </h4>
-                    </div>
-                    <div id="collapse_hospitalizations" class="panel-collapse collapse" style="">
-                        <div class="panel-body form-horizontal form-bordered">
-                            {!! Field::select('hospitalizations[]', ['1' => 'd'], null, ['id' => 'hospitalizations', 'data-placeholder' => 'Hospitalizaciones ', 'template' => 'horizontal', 'multiple' ]) !!}
-                            {!! Field::text('new_hospitalizations', null, ['class' => 'input-tags', 'template' => 'horizontal']) !!}
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -144,7 +80,7 @@
             </div>
             <div class="form-horizontal form-bordered">
                 {!! Field::select('procedures[]', $procedures, null, ['id' => 'procedures', 'data-placeholder' => 'Procedimientos', 'template' => 'horizontal', 'multiple' ]) !!}
-                {!! Field::select('diagnostics[]', $diagnostics, null, ['id' => 'diagnostics', 'data-placeholder' => 'Diagnosticos', 'template' => 'horizontal', 'multiple' ]) !!}
+                {!! Field::select('diagnoses[]', $diagnoses, null, ['id' => 'diagnoses', 'data-placeholder' => 'Diagnosticos', 'template' => 'horizontal', 'multiple' ]) !!}
             </div>
         </div>  
 
@@ -170,7 +106,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title"><strong>Hisoria Clinica,</strong> {!! $entry->diary->patient->doc_type_doc !!} - {!! $entry->diary->patient->name !!} </h3>
+                    <h3 class="modal-title"><strong>Historia Clinica,</strong> {!! $entry->diary->patient->doc_type_doc !!} - {!! $entry->diary->patient->name !!} </h3>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal form-bordered">
@@ -207,7 +143,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Diagnosticos</label>
                             <div class="col-md-9">
-                                <p id="modal_diagnostics"></p>
+                                <p id="modal_diagnoses"></p>
                             </div>
                         </div>
                         <div class="form-group">

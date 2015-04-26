@@ -39,7 +39,7 @@ class Entry extends Model
         $this->syncNewReasons($data['new_reasons']);
         if(array_key_exists('reasons', $data))
         {
-            $this->reasons()->sync($reasons);
+            $this->reasons()->sync($data['reasons']);
         }
         
         $this->syncNewSystemRevisions($data['new_system_revisions']);
