@@ -10,6 +10,8 @@ use Histoweb\Entities\Doctor;
 use Histoweb\Entities\Reason;
 use Histoweb\Entities\SystemRevision;
 use Histoweb\Entities\Procedure;
+use Histoweb\Entities\Diagnosis;
+use Histoweb\Entities\HistoryType;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -22,6 +24,8 @@ class AssistanceController extends Controller {
 	private $systemRevisions;
 	private $procedures;
 	private $doctor;
+	private $diagnoses;
+	private $historyTypes;
 
 	/**
 	 * Display a listing of functions that doctor can execute
@@ -32,9 +36,9 @@ class AssistanceController extends Controller {
 	public function __construct() 
 	{
 		$this->beforeFilter('@findDoctor');
-		$this->beforeFilter('@findDiaries', ['only' => ['getIndex', 'getEntries']]);
-		$this->beforeFilter('@findEntry', ['only' => ['getEntries', 'postHistory']]);
-		$this->beforeFilter('@verificActiveEntry', ['only' => ['getEntries', 'postHistory']]);
+		$this->beforeFilter('@findDiaries', ['only' => ['getIndex', 'getEntries', 'getOptions']]);
+		$this->beforeFilter('@findEntry', ['only' => ['getEntries', 'postHistory', 'getOptions']]);
+		//$this->beforeFilter('@verificActiveEntry', ['only' => ['getEntries', 'postHistory']]);
 		$this->beforeFilter('@loadPatientRelations', ['only' => ['getEntries']]);
 	}
 
@@ -66,13 +70,15 @@ class AssistanceController extends Controller {
 		$this->reasons = Reason::allLists();
 		$this->systemRevisions = SystemRevision::allLists();
 		$this->procedures = Procedure::allLists();
+		$this->diagnoses = Diagnosis::allLists();
+		$this->historyTypes = HistoryType::withHistories();
 	}
 
 	public function getIndex()
 	{	
 		return view('dashboard.pages.assistance.home')->with([
 			'diaries' 	=> $this->diaries,
-			'doctor'	=> $this->doctor 
+			'doctor'	=> $this->doctor
 		]);
 	}
 
@@ -83,7 +89,9 @@ class AssistanceController extends Controller {
 			'entry' 			=> $this->entry,
 			'reasons'			=> $this->reasons,
 			'system_revisions'	=> $this->systemRevisions,
-			'procedures'		=> $this->procedures
+			'procedures'		=> $this->procedures,
+			'diagnoses'			=> $this->diagnoses,
+			'historyTypes'		=> $this->historyTypes
 		]);
 	}
 
@@ -91,7 +99,16 @@ class AssistanceController extends Controller {
 	{
 		$this->entry->saveHistory($request->all());
 
-		return redirect()->route('assistance');
+		return redirect()->route('assistance.entries.options', $id);
+	}
+
+	public function getOptions($id)
+	{	
+		return view('dashboard.pages.assistance.options')->with([
+			'diaries' 	=> $this->diaries,
+			'doctor'	=> $this->doctor,
+			'entry' 	=> $this->entry
+		]);
 	}
 
 }

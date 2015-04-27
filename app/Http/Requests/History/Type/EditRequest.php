@@ -36,6 +36,7 @@ class EditRequest extends Request {
 	{
 		$rules = $this->createRequest->rules();
 		$rules['name'] = $rules['name'] . ',' . $this->route->getParameter('history_types');
+		$rules['name_system'] = $rules['name_system'] . ',' . $this->route->getParameter('history_types');
 
 		return $rules;
 	}

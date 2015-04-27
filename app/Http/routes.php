@@ -23,7 +23,8 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 		'getIndex' => 'assistance', 
 		'getEntries' => 'assistance.entries',
 		'getHistory'	=> 'assistance.entries.history',
-		'postHistory'	=> 'assistance.entries.history'
+		'postHistory'	=> 'assistance.entries.history',
+		'getOptions'	=> 'assistance.entries.options'
 	]);
 });
 

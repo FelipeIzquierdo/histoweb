@@ -26,12 +26,15 @@ class PatientsTableSeeder extends Seeder{
                 'updated_at'        => new DateTime 
             ));
 
+            $start = $faker->dateTimeBetween('-2 days', '+15 hours');
+            $end = $start->add(new DateInterval('PT1H'));
+
             $diary_id = \DB::table('diaries')->insertGetId(array(
                 'patient_id'        => $patient_id,
                 'doctor_id'         => 1,
                 'type_id'           => 1,
-                'start'             => new DateTime,
-                'end'               => new DateTime, 
+                'start'             => $start,
+                'end'               => $end, 
                 'created_at'        => new DateTime,
                 'updated_at'        => new DateTime 
             ));

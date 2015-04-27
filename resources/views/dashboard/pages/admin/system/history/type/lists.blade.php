@@ -24,6 +24,7 @@
 						<tr>
 							<th>Nombre</th>
 							<th>Descripción</th>
+							<th>Nombre de Sistema</th>
 							<th style="min-width: 50px;" class="text-center"><i class="fa fa-flash"></i></th>
 						</tr>
 					</thead>
@@ -31,7 +32,8 @@
 						@foreach($types as $type)
 							<tr>
 								<td><strong>{{ $type->name }}</strong></td>
-								<td><strong>{{ $type->description }}</strong></td>
+								<td>{{ $type->description }}</td>
+								<td>{{ $type->name_system }}</td>
 								<td class="text-center">
 									<a href="{{ route('admin.system.history-types.edit', $type->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar tipo de antecedente"><i class="fa fa-pencil"></i></a>
 								</td>

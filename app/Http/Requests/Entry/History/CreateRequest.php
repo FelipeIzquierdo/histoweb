@@ -20,7 +20,7 @@ class CreateRequest extends Request {
 	public function rules()
 	{
 		return [
-            //'reasons'	=> 	'required'
+            'reasons'	=> 	'required'
 		];
 	}
 }

@@ -16,10 +16,12 @@ class CreateHistoriesTable extends Migration {
 	Schema::create('histories', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name')->unique();
-			$table->integer('type')->unsigned();
-            $table->foreign('type')->references('id')->on('history_types');
+			$table->string('name');
+			$table->integer('history_type_id')->unsigned();
+            $table->foreign('history_type_id')->references('id')->on('history_types');
+			
 			$table->timestamps();
+			$table->unique(['name', 'history_type_id']);
 		});
 
 	}

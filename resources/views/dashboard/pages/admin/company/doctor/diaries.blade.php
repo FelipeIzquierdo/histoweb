@@ -14,7 +14,7 @@
 		</h1>
 	@endsection
 	@section('dashboard_body')
-<!-- FullCalendar Block -->
+        <!-- FullCalendar Block -->
         <div class="block full">
             <div class="row">
                 <div class="col-md-3 col-md-push-9 col-lg-2 col-lg-push-10">
@@ -45,9 +45,9 @@
                 </div>
             </div>
         </div>
-<!-- END FullCalendar Block -->
+        <!-- END FullCalendar Block -->
 
-<!-- Regular Fade -->
+        <!-- Regular Fade -->
         <div id="modalFade" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-<!-- END Regular Fade -->
+        <!-- END Regular Fade -->
 	@endsection
 
 	@section('js_extra')
