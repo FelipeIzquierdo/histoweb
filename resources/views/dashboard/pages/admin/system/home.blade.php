@@ -30,4 +30,6 @@
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.history-types.index'), 'icon_widget' => 'img/placeholders/icons/history-type.png', 'title_widget' => 'Tipos de antecedentes'])
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.histories.index'), 'icon_widget' => 'img/placeholders/icons/history.png', 'title_widget' => 'Antecedentes'])
+
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.medicament'), 'icon_widget' => 'img/placeholders/icons/history.png', 'title_widget' => 'Medicamentos'])
 	@endsection

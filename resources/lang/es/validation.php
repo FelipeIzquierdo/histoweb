@@ -156,8 +156,15 @@ return array(
     'name'				=> 'Nombre',
 	'description'			=> 'Descripción',
     // Membreship
-    'cod'				=> 'Código'
-
+    'cod'				=> 'Código',
+    //medicament
+    'presentation_id'	=> 'Presentación',
+    //viamedicaments
+    'via_medicament_id'	=> 'Vía del medicamento',
+    //medicament
+    'medicament_id'	=> 'Medicamento',
+    'measure_id' => 'Medida',
+    'quantity' => 'Cantidad'
 ]
 
 );

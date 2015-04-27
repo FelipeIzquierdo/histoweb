@@ -48,7 +48,21 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		Route::resource('tools', 'ToolsController');
 		Route::resource('specialties', 'SpecialtiesController');
 		Route::resource('system-revisions', 'SystemRevisionsController');
+
+		Route::group(['prefix' => 'medicament', 'namespace' => 'Medicament'], function() {
+
+			Route::resource('inventaries', 'InventariesController');
+			Route::resource('measures', 'MeasuresController');
+			Route::resource('medicaments', 'MedicamentsController');
+			Route::resource('presentations', 'PresentationsController');
+			Route::resource('via-medicaments', 'ViaMedicamentsController');
+
+			Route::controller('/', 'MedicamentController', ['getIndex' => 'admin.system.medicament']);
+
+		});
+
 		Route::controller('/', 'SystemController', ['getIndex' => 'admin.system']);
+
 	});
 
 	Route::group(['prefix' => 'company', 'namespace' => 'Company'], function() {
