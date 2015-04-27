@@ -41,6 +41,7 @@ function findPatient(patientDoc) {
         url:   '/admin/company/patients/' + patientDoc + '/find',
         type:  'GET',
         success:  function (data) {
+            $('.form-errors').html('');
             $('#patient').val("");
             $('#doc').val(patientDoc);
             $('#first_name').val(data.first_name);
@@ -101,12 +102,18 @@ function createUpdatePatient(url, type) {
         success:  function (data) {
             newDiary(doctorId, data.id, diaryTypeId);
         },
-        error: function(jqXHR, textStatus, errorThrown)
-        {
-            if(jqXHR)
-            {
-                console.log(jqXHR);
-            }
+        error: function(data) {
+            // Error...
+            var errors = data.responseJSON;
+            $.each(errors, function (index, value) {
+                $('#error-'+ index +'').html(
+                    '<div class="alert alert-danger alert-dismissable">'+
+                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                        '<p>' + value + '</p>'+
+                    '</div>'
+                );
+            });
+            $('#modalFade').modal('show');
         }
     });
 }
@@ -192,7 +199,10 @@ var CompCalendar = function()
             $("#add-event-btn").on("click",function()
             {
                 var patientDoc = $("#patient").val();
-                findPatient(patientDoc);
+                if (patientDoc!= '')
+                {
+                    findPatient(patientDoc);
+                }
                 return false;
             });
             /* initialize the calendar
@@ -259,7 +269,6 @@ var CompCalendar = function()
                         updateSchedule(event);
                     }
                 },
-
                 dayClick: function(date, jsEvent, view) {
                     if(view.name != 'month')
                     {

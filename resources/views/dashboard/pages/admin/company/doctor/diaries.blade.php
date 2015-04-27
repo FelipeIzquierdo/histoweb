@@ -60,12 +60,17 @@
                               <div class="form-horizontal form-bordered">
                                 {!! Field::selectSimple( 'doc_type_id', $doc_types, null, ['data-placeholder' => 'Tipo de documento', 'template' => 'horizontal', 'id' => 'doc_type_id']) !!}
                                 {!! Field::text( 'doc', null, ['placeholder' => 'Documento', 'template' => 'horizontal', 'id' => 'doc']) !!}
+                                <div class="form-errors" id="error-doc" ></div>
                                 {!! Field::selectSimple( 'sex', $genders, null, ['data-placeholder' => 'Género', 'template' => 'horizontal', 'id' => 'sex']) !!}
                                 {!! Field::text( 'first_name', null, ['placeholder' => 'Nombres', 'template' => 'horizontal', 'id' => 'first_name']) !!}
+                                <div class="form-errors" id="error-first_name" ></div>
                                 {!! Field::text( 'last_name', null, ['placeholder' => 'Apellidos', 'template' => 'horizontal', 'id' => 'last_name']) !!}
+                                <div class="form-errors" id="error-last_name" ></div>
                                 {!! Field::text( 'date_birth', null, ['placeholder' => 'Fecha de nacimiento', 'class' => 'input-datepicker', 'template' => 'horizontal', 'data-date-format' => 'yyyy-mm-dd', 'id' => 'date_birth']) !!}
+                                <div class="form-errors" id="error-date_birth" ></div>
                                 {!! Field::text( 'tel', null, ['placeholder' => 'Télefono', 'template' => 'horizontal', 'id' => 'tel']) !!}
                                 {!! Field::email( 'email', null, ['placeholder' => 'Correo Electrónico', 'template' => 'horizontal', 'id' => 'email']) !!}
+                                <div class="form-errors" id="error-email" ></div>
                                 {!! Field::selectSimple('occupation_id', $occupations, null, ['data-placeholder' => 'Seleccione una ocupación', 'template' => 'horizontal', 'id' => 'occupation_id']) !!}
                                 {!! Field::selectSimple('diaryTypes', $diaryTypes, null, ['data-placeholder' => 'Seleccione una ocupación', 'template' => 'horizontal', 'id' => 'diaryTypes']) !!}
                               </div>
