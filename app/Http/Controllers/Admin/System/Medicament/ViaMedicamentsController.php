@@ -18,14 +18,14 @@ class ViaMedicamentsController extends Controller {
 	public function __construct() 
 	{
 		$this->middleware('auth');
-		$this->beforeFilter('@findProcedures', ['only' => ['show', 'edit', 'update', 'destroy']]);
+		$this->beforeFilter('@findViaMedicament', ['only' => ['show', 'edit', 'update', 'destroy']]);
 	}
 
 	/**
 	 * Find a specified resource
 	 *
 	 */
-	public function findProcedures(Route $route)
+	public function findViaMedicament(Route $route)
 	{
 		$this->viamedicament = ViaMedicament::findOrFail($route->getParameter('via_medicaments'));
 	}

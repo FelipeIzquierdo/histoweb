@@ -178,7 +178,10 @@ return array(
     //medicament
     'medicament_id'	=> 'Medicamento',
     'measure_id' => 'Medida',
-    'quantity' => 'Cantidad'
+    'quantity' => 'Cantidad',
+    'interval' => 'Intervalo (Horas)',
+    'limit' => 'Límite (Días)'
+
 ]
 
 );

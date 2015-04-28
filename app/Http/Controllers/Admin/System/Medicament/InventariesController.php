@@ -40,10 +40,6 @@ class InventariesController extends Controller {
 		$this->medicament = Medicament::allLists();
 	}
 
-	/**
-	 * Find all findPresentation
-	 *
-	 */
 	public function findPresentation()
 	{
 		$this->presentation = Presentation::allLists();

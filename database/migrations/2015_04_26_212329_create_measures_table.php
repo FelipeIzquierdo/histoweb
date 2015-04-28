@@ -28,7 +28,7 @@ class CreateMeasuresTable extends Migration {
 	 */
 	public function down()
 	{
-		//Schema::drop('measures');
+		Schema::drop('measures');
 	}
 
 }

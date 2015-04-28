@@ -19,12 +19,14 @@ Route::controllers([
 ]);
 
 Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function() {
+
+	Route::resource('formulate', 'FormulateController');
 	Route::controller('/', 'AssistanceController', [
 		'getIndex' => 'assistance', 
 		'getEntries' => 'assistance.entries',
 		'getHistory'	=> 'assistance.entries.history',
 		'postHistory'	=> 'assistance.entries.history',
-		'getOptions'	=> 'assistance.entries.options'
+		'getOptions'	=> 'assistance.entries.options',
 	]);
 });
 

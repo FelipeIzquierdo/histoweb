@@ -29,7 +29,7 @@ class CreateViaMedicamentsTable extends Migration {
 	 */
 	public function down()
 	{
-		//Schema::drop('via_medicaments');
+		Schema::drop('via_medicaments');
 	}
 
 }

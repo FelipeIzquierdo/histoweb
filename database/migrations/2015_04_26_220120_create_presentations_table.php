@@ -29,7 +29,7 @@ class CreatePresentationsTable extends Migration {
 	 */
 	public function down()
 	{
-		//Schema::drop('presentations');
+		Schema::drop('presentations');
 	}
 
 }

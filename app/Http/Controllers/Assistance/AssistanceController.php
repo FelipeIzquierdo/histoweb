@@ -111,4 +111,12 @@ class AssistanceController extends Controller {
 		]);
 	}
 
+	public function getFormulate($id)
+	{	
+		return view('dashboard.pages.assistance.options')->with([
+			'diaries' 	=> $this->diaries,
+			'doctor'	=> $this->doctor,
+			'entry' 	=> $this->entry
+		]);
+	}
 }
