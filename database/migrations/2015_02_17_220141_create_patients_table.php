@@ -12,7 +12,7 @@ class CreatePatientsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('patients', function(Blueprint $table)
+		Schema::create('patients', function($table)
 		{
             $table->increments('id');
 			$table->string('doc', '100')->unique();

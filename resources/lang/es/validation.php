@@ -169,7 +169,22 @@ return array(
     'url_pdf' 				=> 'PDF',
     'photo'                 => 'foto',
 	'description'			=> 'Descripción',
+<<<<<<< HEAD
     'cod'				    => 'Código'
+=======
+    // Membreship
+    'cod'				=> 'Código',
+    //medicament
+    'presentation_id'	=> 'Presentación',
+    //viamedicaments
+    'via_medicament_id'	=> 'Vía del medicamento',
+    //medicament
+    'medicament_id'	=> 'Medicamento',
+    'measure_id' => 'Medida',
+    'quantity' => 'Cantidad',
+    'interval' => 'Intervalo (Horas)',
+    'limit' => 'Límite (Días)'
+>>>>>>> e5f9003b7fea8d80de3108baf83a2c5f88fac570
 
 ]
 
