@@ -4,13 +4,13 @@
  *  Description: Custom javascript code used in Calendar page
  */
 
-function updateAvailability (event) {
+function updateDiary (event) {
     $.ajax({
         data:  {
             'start': event.start.format('YYYY-MM-DD H:mm:ss'),
             'end': event.end.format('YYYY-MM-DD H:mm:ss')
         },
-        url:   '/histoweb5/public/doctors/' + event.doctor_id + '/availabilities/' + event.id,
+        url:   '/admin/company/doctors/' + event.doctor_id + '/diaries/'+ event.id,
         type:  'PUT',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
@@ -143,7 +143,7 @@ function createDiary(copiedEventObject)
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
         },
         success:  function (data) {
-            //console.log(data);
+            console.log(data);
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
@@ -243,7 +243,8 @@ var CompCalendar = function()
                     copiedEventObject.start = date;
                     copiedEventObject.end = ret;
                     createDiary(copiedEventObject);
-                    $('#calendar').fullCalendar( 'refetchEvents' );
+                    $("#calendar").fullCalendar("renderEvent",copiedEventObject ,!0);
+                    //$('#calendar').fullCalendar( 'refetchEvents' );
                     $(this).remove();
                 },
                 eventClick: function(event, delta, jsEvent, view) {
@@ -261,14 +262,7 @@ var CompCalendar = function()
                     $('#modalFade').modal('show');
                 },
                 eventDrop: function(event, delta, revertFunc) {
-                    if(event.type == 'schedule') {
-                        updateSchedule(event);
-                    }
-                },
-                eventResize: function(event, delta, revertFunc) {
-                    if(event.type == 'schedule') {
-                        updateSchedule(event);
-                    }
+                        updateDiary(event);
                 },
                 dayClick: function(date, jsEvent, view) {
                     if(view.name != 'month')

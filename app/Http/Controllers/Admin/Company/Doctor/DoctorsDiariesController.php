@@ -1,5 +1,6 @@
 <?php namespace Histoweb\Http\Controllers\Admin\Company\Doctor;
 
+
 use Histoweb\Entities\Diary;
 use Histoweb\Entities\DiaryType;
 use Histoweb\Entities\DocType;
@@ -55,12 +56,14 @@ class DoctorsDiariesController extends Controller {
 
 	}
 
+
+
     /**
      * Display a listing of the resource in JSON.
      *
      * @return Response JSON
      */
-    public function store(Request $request, $doctor_id)
+    public function store(CreateRequest $request, $doctor_id)
     {
         $data = ($request->all()+ ['doctor_id' => $this->doctor->id]) ;
         $timestamp = strtotime($data['start']);
@@ -83,7 +86,7 @@ class DoctorsDiariesController extends Controller {
 		return \Calendar::getSchedulesDiaries($this->doctor);
 	}
 
-    public function newDiary(Request $request, $doctor_id, $patient_id, $diary_type_id){
+    public function newDiary($doctor_id, $patient_id, $diary_type_id){
 
         $patient = Patient::findOrFail($patient_id);
         $diaryType = DiaryType::findOrFail($diary_type_id);
@@ -95,5 +98,25 @@ class DoctorsDiariesController extends Controller {
         ];
         
         return $newDiary;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(EditRequest $request, $doctor_id, $diary_id)
+    {
+        $diary = Diary::find($diary_id);
+        $diary->fill($request->all());
+        $diary->save();
+
+        if($request->ajax())
+        {
+            return response()->json([
+                'message' =>     'Evento actualizado con exito',
+            ]);
+        }
     }
 }
