@@ -16,6 +16,16 @@ class Diary extends Model
         return Patient::find($this->attributes['patient_id'])->name;
     }
 
+    public function getNameDoctorAttribute()
+    {
+        return Doctor::find($this->attributes['doctor_id'])->name;
+    }
+
+    public function getDiaryTypeAttribute()
+    {
+        return DiaryType::find($this->attributes['type_id'])->name;
+    }
+
     public static function allToday()
     {
         return self::orderBy('start')->get()->filter(function($diary)

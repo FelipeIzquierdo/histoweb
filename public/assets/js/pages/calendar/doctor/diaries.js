@@ -80,7 +80,6 @@ function findPatient(patientDoc) {
         }
     });
 }
-
 function createUpdatePatient(url, type) {
    var diaryTypeId = $('#diaryTypes').val();
     $.ajax({
@@ -248,18 +247,16 @@ var CompCalendar = function()
                     $(this).remove();
                 },
                 eventClick: function(event, delta, jsEvent, view) {
+                    $("#eventPatient").html(event.title);
+                    $("#eventDoctor").html(event.nameDoctor);
+                    $("#eventDiaryType").html(event.diaryType);
                     $("#eventId").html(event.id);
-                    $("#eventDate").html(event.start.format('YYYY-MM-DD'));
-                    $("#eventStart").html(event.start.format('h(:mm)a'));
-                    if(event.end)
-                    {
-                        $("#eventEnd").html(event.end.format('h(:mm)a'));
-                    }
-                    else
-                    {
-                        $("#eventEnd").html(event.start.format('h(:mm)a'));
-                    }
-                    $('#modalFade').modal('show');
+                    $("#eventDate").html(event.start.format('DD / MM / YYYY'));
+                    $("#eventStart").html(event.start.format('hh : mm a'));
+                    $("#eventEnd").html(event.end.format('hh : mm a'));
+
+
+                    $('#modalDataEvent').modal('show');
                 },
                 eventDrop: function(event, delta, revertFunc) {
                         updateDiary(event);
