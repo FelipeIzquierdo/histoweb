@@ -19,7 +19,8 @@
                         <i class="fa fa-bar-chart-o sidebar-nav-icon"></i>
                         <span class="sidebar-nav-mini-hide">Inicio</span>
                     </a>
-                </li>   
+                </li> 
+                @yield('sidebar_menu')  
             </ul>
             <!-- END Sidebar Navigation -->
         </div>

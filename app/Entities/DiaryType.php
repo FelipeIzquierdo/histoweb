@@ -6,7 +6,7 @@ class DiaryType extends Model {
 
 	public $timestamps = true;
 	public $increments = true;
-	public $errors;
+	
 	protected $fillable = ['name','time'];
 
 	public static function allLists()

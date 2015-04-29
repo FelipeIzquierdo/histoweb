@@ -129,6 +129,31 @@ return array(
 	'time'					=> 'tiempo',
 	'doc_type_id'			=> 'tipo de documento',
 	'diaryTypes'			=> 'tipo de cita',
+	'name_system'			=> 'Nombre de Sistema',
+
+	// Patient History
+	'reasons'						=> 'motivos de consulta',
+	'new_reasons'					=> 'nuevos motivos',
+	'present_illness'				=> 'enfermedad actual',
+	'system_revisions'				=> 'revisión de sistemas',
+	'new_system_revisions'			=> 'nuevas revisiones',
+	'procedures'					=> 'procedimientos',
+	'diagnostics'					=> 'diagnosticos',
+	'management_plan'				=> 'plan de manejo',
+	'medical_history'				=> 'antecedentes medicos',
+	'surgical_history'				=> 'antecedentes quirurgicos',
+	'new_surgical_history'			=> 'nuevos antecedentes quirurgicos',
+	'traumatic_history'				=> 'antecedentes traumaticos',
+	'new_traumatic_history'			=> 'nuevos antecedentes traumaticos',
+	'toxic_allergic_history'		=> 'antecedentes toxicos y alergicos',
+	'new_toxic_allergic_history'	=> 'nuevos antecedentes toxicos y alergicos',
+	'immunological_history'			=> 'antecedentes inmunologicos',
+	'new_immunological_history'		=> 'nuevos antecedentes inmunologicos',
+	'reproductive_history'			=> 'antecedentes ginecoobstetricos',
+	'new_reproductive_history'		=> 'nuevos antecedentes ginecoobstetricos',
+	'hospitalizations'				=> 'hospitalizaciones',
+	'new_hospitalizations'			=> 'nuevas hospitalizaciones',
+	'sexual_history'				=> 'historia sexual',
 
 	'start_date_end_date' 	=> 'rango de fechas',
 	'start_date'			=> 'fecha de inicio',
@@ -142,7 +167,10 @@ return array(
     'url_photo' 			=> 'foto de perfil',
     'url_logo' 				=> 'logo',
     'url_pdf' 				=> 'PDF',
-    'photo'                 => 'foto'
+    'photo'                 => 'foto',
+	'description'			=> 'Descripción',
+    'cod'				    => 'Código'
+
 ]
 
 );

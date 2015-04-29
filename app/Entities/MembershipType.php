@@ -2,17 +2,21 @@
 /**
 * 
 */
-class MembershipType extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class MembershipType extends Model
 {
 	protected $table = 'membership_types';
-	protected $primaryKey = 'code_membership';
-	public $timestamps = false;
+
+	protected $fillable = ['name', 'description'];
+
+	public $timestamps = true;
 	public $increments = true;
 	public $errors;
 
 	public static function allLists()
     {
-        return self::lists('type', 'code_membership');
+        return self::lists('name', 'id');
     }
 }
 

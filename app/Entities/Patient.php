@@ -13,11 +13,6 @@ class Patient extends Model
 	public $errors;
     public static $genders = ['M' => 'Masculino', 'F' => 'Femenino'];
 
-    public function getNameDocAttribute()
-    {
-        return $this->doc. '-'.$this->first_name . ' ' . $this->last_name;
-    }
-
     public static function allLists()
     {
         return self::get()->lists('nameDoc' ,'id' );
@@ -28,9 +23,29 @@ class Patient extends Model
         return self::where('active', true)->get();
     }
 
+    public static function  findByDoc($doc)
+    {
+        return self::where('doc',$doc)->first();
+    }
+
+    public function getActiveEntry()
+    {
+        return $this->entries()->lastActive();
+    }
+
+    public function getNameDocAttribute()
+    {
+        return $this->doc. ' - '.$this->first_name . ' ' . $this->last_name;
+    }
+
     public function getNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getShortNameAttribute()
+    {
+        return substr($this->name, 0, 20);
     }
 
     public function getDocTypeDocAttribute()
@@ -43,14 +58,19 @@ class Patient extends Model
         return self::$genders[$this->sex];
     }
 
+    public function getIconAttribute()
+    {
+        return 'fa fa-heart';
+    }
+
     public function docType()
     {
         return $this->belongsTo('Histoweb\Entities\DocType', 'doc_type_id');
     }
 
-    public static function  findByDoc($doc)
+    public function diaries()
     {
-        return self::where('doc',$doc)->first();
+        return $this->hasMany('Histoweb\Entities\Diary');
     }
 
 }

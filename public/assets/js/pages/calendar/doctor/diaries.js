@@ -41,7 +41,8 @@ function findPatient(patientDoc) {
         url:   '/admin/company/patients/' + patientDoc + '/find',
         type:  'GET',
         success:  function (data) {
-            $('.form-errors').html('');
+
+            $('.help-block').html('');
             $('#patient').val("");
             $('#doc').val(patientDoc);
             $('#first_name').val(data.first_name);
@@ -107,10 +108,7 @@ function createUpdatePatient(url, type) {
             var errors = data.responseJSON;
             $.each(errors, function (index, value) {
                 $('#error-'+ index +'').html(
-                    '<div class="alert alert-danger alert-dismissable">'+
-                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
-                        '<p>' + value + '</p>'+
-                    '</div>'
+                    '<p>' + value + '</p>'
                 );
             });
             $('#modalFade').modal('show');
@@ -136,7 +134,7 @@ function createDiary(copiedEventObject)
         data:  {
             'patient_id': parseInt(copiedEventObject.patientId),
             'type_id': parseInt(copiedEventObject.typeDiary),
-            'start': copiedEventObject.start.format('YYYY-MM-DD H:mm:ss'),
+            'start': copiedEventObject.start.format('YYYY-MM-DD hh:mm:ss'),
             'end': copiedEventObject.time
         },
         url:   '/admin/company/doctors/' + doctorId + '/diaries',
@@ -145,7 +143,7 @@ function createDiary(copiedEventObject)
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
         },
         success:  function (data) {
-            console.log(data);
+            //console.log(data);
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
@@ -167,7 +165,7 @@ function initializeExternalEvent () {
             title: $.trim($(this).text()),
             time: $.trim($(this).data('time')),
             patientId: $.trim($(this).data('patient-id')),
-            color: $(this).css("background-color"),
+            color: "#3F94D4",
             type: 'diary',
             constraint: 'availableForMeeting',
             start: null,
@@ -202,6 +200,10 @@ var CompCalendar = function()
                 if (patientDoc!= '')
                 {
                     findPatient(patientDoc);
+                }else{
+                    $('#error-patient_id').html(
+                        '<p> El campo paciente es requerido </p>'
+                    );
                 }
                 return false;
             });
@@ -235,15 +237,14 @@ var CompCalendar = function()
                 drop:function(date, jsEvent, ui)
                 {
                     var ret = new Date(date.format('YYYY-MM-DD H:mm:ss'));
-                    console.log(ret);
                     var originalEventObject  = $(this).data("eventObject");
                     var copiedEventObject  = $.extend({}, originalEventObject );
                     ret.setTime(ret.getTime() + copiedEventObject.time*60000);
                     copiedEventObject.start = date;
                     copiedEventObject.end = ret;
                     createDiary(copiedEventObject);
-                        $("#calendar").fullCalendar("renderEvent",copiedEventObject ,!0);
-                        $(this).remove();
+                    $('#calendar').fullCalendar( 'refetchEvents' );
+                    $(this).remove();
                 },
                 eventClick: function(event, delta, jsEvent, view) {
                     $("#eventId").html(event.id);

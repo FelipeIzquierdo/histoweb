@@ -18,16 +18,37 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function() {
+	Route::controller('/', 'AssistanceController', [
+		'getIndex' => 'assistance', 
+		'getEntries' => 'assistance.entries',
+		'getHistory'	=> 'assistance.entries.history',
+		'postHistory'	=> 'assistance.entries.history',
+		'getOptions'	=> 'assistance.entries.options'
+	]);
+});
+
 Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => 'auth'], function() {
-	Route::controller('/', 'ReceptionController', ['getIndex' => 'reception']);
+	Route::controller('/', 'ReceptionController', [
+		'getIndex' => 'reception', 
+		'getActivateDiary' => 'reception.activate-diary'
+	]);
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function() {
 	
 	Route::group(['prefix' => 'system', 'namespace' => 'System'], function() {
+
 		Route::resource('diary-types', 'DiaryTypesController');
+		Route::resource('diagnoses', 'DiagnosesController');
+		Route::resource('histories', 'HistoriesController');
+		Route::resource('history-types', 'HistoryTypesController');
+		Route::resource('memberships', 'MembershipsController');
+		Route::resource('procedures', 'ProceduresController');
+		Route::resource('reasons', 'ReasonsController');
 		Route::resource('tools', 'ToolsController');
 		Route::resource('specialties', 'SpecialtiesController');
+		Route::resource('system-revisions', 'SystemRevisionsController');
 		Route::controller('/', 'SystemController', ['getIndex' => 'admin.system']);
 	});
 
@@ -38,8 +59,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		Route::group(['namespace' => 'Surgery'], function() {
 			Route::resource('surgeries.schedules', 'SurgeriesSchedulesController');
 			Route::resource('surgeries.diaries', 'SurgeriesDiariesController');
-
-
 
 			Route::group(['prefix' => 'surgeries'], function() {
 				Route::get('{surgeries}/schedules-json', ['uses' => 'SurgeriesSchedulesController@json', 'as' => 'admin.company.surgeries.schedules.json']);
