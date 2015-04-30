@@ -4,6 +4,16 @@
  *  Description: Custom javascript code used in Calendar page
  */
 
+function changeTest(){
+    doctorId = $('#doctorSelect').val();
+    url = '/admin/company/doctors/' + doctorId + '/diaries-json';
+    //alert(url,doctorId);
+    $("#calendar").fullCalendar('removeEvents');
+    $("#calendar").fullCalendar('addEventSource', url)
+    $("#calendar").fullCalendar('rerenderEvents');
+
+}
+
 function updateDiary (event)
 {
     $.ajax({
@@ -246,12 +256,11 @@ var CompCalendar = function()
                     copiedEventObject.start = date;
                     copiedEventObject.end = ret;
                     console.log();
-                    if (event.rendering === 'background'){
-                        createDiary(copiedEventObject);
-                        $("#calendar").fullCalendar("renderEvent",copiedEventObject ,!0);
-                        //$('#calendar').fullCalendar( 'refetchEvents' );
-                        $(this).remove();
-                    }
+                    createDiary(copiedEventObject);
+                    $("#calendar").fullCalendar("renderEvent",copiedEventObject ,!0);
+                    //$('#calendar').fullCalendar( 'refetchEvents' );
+                    $(this).remove();
+
                 },
                 eventClick: function(event, delta, jsEvent, view) {
                     $("#eventPatient").html(event.title);

@@ -1,11 +1,13 @@
 <?php namespace Histoweb\Http\Controllers\Reception;
 
-use Histoweb\Http\Requests;
-use Histoweb\Http\Controllers\Controller;
-
 use Histoweb\Entities\Doctor;
 use Histoweb\Entities\Diary;
-
+use Histoweb\Entities\DiaryType;
+use Histoweb\Entities\DocType;
+use Histoweb\Entities\Occupation;
+use Histoweb\Entities\Patient;
+use Histoweb\Http\Requests;
+use Histoweb\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 
@@ -32,8 +34,18 @@ class ReceptionController extends Controller {
 
 	public function getIndex()
 	{
-		$doctors = Doctor::allLists();
-		return view('dashboard.pages.reception.home', compact('doctors'));
+        $diaryTypes = DiaryType::allLists();
+        $occupations = Occupation::allLists();
+        $doc_types = DocType::allLists();
+        $genders = Patient::$genders;
+        $doctors = Doctor::allLists();
+        $doctor = 1;
+
+        $url = route('admin.company.doctors.diaries.json', 1);
+        return view('dashboard.pages.reception.home', compact('doctors','url', 'diaryTypes','occupations', 'doc_types', 'genders', 'doctor'));
+
+
+
 	}
 
 	public function getActivateDiary(Request $request, $diary_id)
