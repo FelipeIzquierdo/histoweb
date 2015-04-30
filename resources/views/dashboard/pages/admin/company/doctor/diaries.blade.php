@@ -54,7 +54,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title"><strong>Datos Cita</strong></h3>
+                        <h3 class="modal-title"><strong>Datos de Cita</strong></h3>
                     </div>
                     <div class="modal-body">
                         <label class="col-md-4 control-label" for="example-progress-username">Paciente:</label>
