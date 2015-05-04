@@ -4547,12 +4547,12 @@ class ProceduresTableSeeder extends Seeder {
 
     public function run()
     {
-    	foreach (self::$procedures as $procedure) {
+    /*	foreach (self::$procedures as $procedure) {
 	    	Procedure::create([
 	            'cod' => $procedure['cod'],
 	            'name' => $procedure['name']
 	        ]);
-    	}	
+    	}	*/
     }
 }
 

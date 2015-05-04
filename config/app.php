@@ -153,6 +153,8 @@ return [
 		'Histoweb\Providers\EventServiceProvider',
 		'Histoweb\Providers\RouteServiceProvider',
 
+		'Elibyy\TCPDF\ServiceProvider',
+
 	],
 
 	/*

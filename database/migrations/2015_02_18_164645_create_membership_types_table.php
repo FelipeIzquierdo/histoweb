@@ -16,7 +16,7 @@ class CreateMembershipTypesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name')->unique();
-			$table->boolean('description');
+			$table->string('description')->nullable();
             $table->timestamps();
 		});
 	}

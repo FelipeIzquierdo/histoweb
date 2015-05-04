@@ -5,6 +5,7 @@ use Histoweb\Http\Requests\Procedure\EditRequest;
 use Histoweb\Http\Controllers\Controller;
 
 use Histoweb\Entities\Procedure;	
+use Histoweb\Entities\ProcedureType;	
 
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ProceduresController extends Controller {
 
 	private $procedure;
+	private $procedure_types;
 	private static $prefixRoute = 'admin.system.procedures.';
 	private static $prefixView = 'dashboard.pages.admin.system.procedure.';
 
@@ -19,6 +21,7 @@ class ProceduresController extends Controller {
 	{
 		$this->middleware('auth');
 		$this->beforeFilter('@findProcedures', ['only' => ['show', 'edit', 'update', 'destroy']]);
+		$this->beforeFilter('@findProcedureTypes', ['only' => ['create', 'edit']]);
 	}
 
 	/**
@@ -30,6 +33,10 @@ class ProceduresController extends Controller {
 		$this->procedure = Procedure::findOrFail($route->getParameter('procedures'));
 	}
 
+	public function findProcedureTypes()
+	{
+		$this->procedure_types = ProcedureType::allLists();
+	}
 
 
 	public function index()
@@ -49,7 +56,7 @@ class ProceduresController extends Controller {
         $form_data = ['route' => self::$prefixRoute . 'store', 'method' => 'POST'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['procedure' => $this->procedure]);
+        	->with(['procedure' => $this->procedure,'procedure_types' => $this->procedure_types]);
 	}
 
 	/**
@@ -92,7 +99,7 @@ class ProceduresController extends Controller {
         $form_data = ['route' => [self::$prefixRoute . 'update', $this->procedure->id], 'method' => 'PUT'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['procedure' => $this->procedure]);
+        	->with(['procedure' => $this->procedure,'procedure_types' => $this->procedure_types]);
 	}
 
 	/**

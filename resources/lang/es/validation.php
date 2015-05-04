@@ -181,8 +181,10 @@ return array(
     'measure_id' => 'Medida',
     'quantity' => 'Cantidad',
     'interval' => 'Intervalo (Horas)',
-    'limit' => 'Límite (Días)'
-
+    'limit' => 'Límite (Días)',
+   	//Procedure
+   	'procedure_type_id' => 'Tipo de procedimiento',
+   	'procedure_id' => 'Procedimiento'
 
 ]
 

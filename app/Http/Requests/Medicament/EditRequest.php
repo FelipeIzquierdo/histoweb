@@ -36,8 +36,6 @@ class EditRequest extends Request {
 	public function rules()
 	{
 		$rules = $this->createRequest->rules();
-		$rules['name'] = $rules['name'] . ',' . $this->route->getParameter('medicaments');
-		$rules['description'] = $rules['description'] . ',' . $this->route->getParameter('medicaments');
 
 		return $rules;
 	}
