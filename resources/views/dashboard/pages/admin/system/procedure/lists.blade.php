@@ -24,6 +24,7 @@
 						<tr>
 							<th>Código</th>
 							<th>Nombre</th>
+							<th>Tipo</th>
 							<th style="min-width: 50px;" class="text-center"><i class="fa fa-flash"></i></th>
 						</tr>
 					</thead>
@@ -32,6 +33,7 @@
 							<tr>
 								<td>{{ $procedure->cod }}</td>
 								<td><strong>{{ $procedure->name }}</strong></td>
+								<td>{{ $procedure->procedure_type_name }}</td>
 								<td class="text-center">
 									<a href="{{ route('admin.system.procedures.edit', $procedure->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar procedimiento"><i class="fa fa-pencil"></i></a>
 								</td>

@@ -20,13 +20,22 @@ Route::controllers([
 
 Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function() {
 
-	Route::resource('formulate', 'FormulateController');
+	Route::get('options/{one}/formulate/create', ['uses' => 'FormulateController@create', 'as' => 'assistance.options.formulate.create']);
+	Route::post('options/{one}/formulate/create', ['uses' => 'FormulateController@store', 'as' => 'assistance.options.formulate.store']);
+	Route::get('options/{one}/formulate/{two}/edit', ['uses' => 'FormulateController@edit', 'as' => 'assistance.options.formulate.edit']);
+	Route::post('options/{one}/formulate/{two}/edit', ['uses' => 'FormulateController@update', 'as' => 'assistance.options.formulate.update']);
+
+	Route::get('options/{one}/order-procedures/create', ['uses' => 'OrderProceduresController@create', 'as' => 'assistance.options.order-procedures.create']);
+	Route::post('options/{one}/order-procedures/create', ['uses' => 'OrderProceduresController@store', 'as' => 'assistance.options.order-procedures.store']);
+	Route::get('jsonProcedure/{id}', 'OrderProceduresController@jsonProcedure');
+
 	Route::controller('/', 'AssistanceController', [
 		'getIndex' => 'assistance', 
 		'getEntries' => 'assistance.entries',
 		'getHistory'	=> 'assistance.entries.history',
 		'postHistory'	=> 'assistance.entries.history',
 		'getOptions'	=> 'assistance.entries.options',
+		'getPdf'		=> 'assistance.entries.pdf',
 	]);
 });
 
@@ -47,6 +56,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		Route::resource('history-types', 'HistoryTypesController');
 		Route::resource('memberships', 'MembershipsController');
 		Route::resource('procedures', 'ProceduresController');
+		Route::resource('procedure-types', 'ProcedureTypeController');
 		Route::resource('reasons', 'ReasonsController');
 		Route::resource('tools', 'ToolsController');
 		Route::resource('specialties', 'SpecialtiesController');

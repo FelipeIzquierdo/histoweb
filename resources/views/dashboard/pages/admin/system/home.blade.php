@@ -19,6 +19,8 @@
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.memberships.index'), 'icon_widget' => 'img/placeholders/icons/membership.png', 'title_widget' => 'Tipos de afiliación'])
 
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.procedure-types.index'), 'icon_widget' => 'img/placeholders/icons/procedure-type.png', 'title_widget' => 'Tipo de Procedimientos'])
+
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.procedures.index'), 'icon_widget' => 'img/placeholders/icons/procedure.png', 'title_widget' => 'Procedimientos'])
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.diagnoses.index'), 'icon_widget' => 'img/placeholders/icons/diagnosis.png', 'title_widget' => 'Diagnósticos'])

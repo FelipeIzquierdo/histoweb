@@ -15,11 +15,9 @@ class CreateMedicamentsTable extends Migration {
 		Schema::create('medicaments', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('cod')->unique();
 			$table->string('name')->unique();
-			$table->string('description');
-
-			$table->integer('presentation_id')->unsigned();
-            $table->foreign('presentation_id')->references('id')->on('presentations');
+			$table->string('description')->nullable();
 
             $table->timestamps();
 		});

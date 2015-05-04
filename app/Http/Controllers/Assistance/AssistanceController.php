@@ -12,10 +12,12 @@ use Histoweb\Entities\SystemRevision;
 use Histoweb\Entities\Procedure;
 use Histoweb\Entities\Diagnosis;
 use Histoweb\Entities\HistoryType;
+use Histoweb\Entities\OrderProcedure;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 
+use Response;
 class AssistanceController extends Controller {
 
 	private $diaries;
@@ -104,11 +106,20 @@ class AssistanceController extends Controller {
 
 	public function getOptions($id)
 	{	
+		$order_procedure = OrderProcedure::orderBy('updated_at', 'desc')->paginate(12);
 		return view('dashboard.pages.assistance.options')->with([
 			'diaries' 	=> $this->diaries,
 			'doctor'	=> $this->doctor,
-			'entry' 	=> $this->entry
+			'entry' 	=> $this->entry,
+			'order_procedure' => $order_procedure,
+			'id'		=> $id
 		]);
+	}
+
+	public function getPdf($id)
+	{	
+		$filename = public_path().'documents/'.$id;
+		return Response::download($filename);
 	}
 
 	public function getFormulate($id)

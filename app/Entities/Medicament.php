@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Medicament extends Model
 {
-	protected $fillable = ['name', 'description' ,'presentation_id'];
+	protected $fillable = ['cod','name', 'description'] ;
 
 	public $timestamps = true;
 	public $increments = true;
@@ -14,16 +14,6 @@ class Medicament extends Model
     public static function allLists()
     {
         return self::get()->lists('name' ,'id' );
-    }
-
-    public function presentation()
-    {
-        return $this->belongsTo('Histoweb\Entities\Presentation', 'presentation_id');
-    }
-
-    public function getPresentationNameAttribute()
-    {
-    	return $this->presentation->name;	
     }
 
 }

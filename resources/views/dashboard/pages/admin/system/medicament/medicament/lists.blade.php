@@ -22,18 +22,18 @@
 				<table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
 					<thead>
 						<tr>
+							<th>Código</th>
 							<th>Nombre</th>
 							<th>Descripción</th>
-							<th>Presentación</th>
 							<th style="min-width: 50px;" class="text-center"><i class="fa fa-flash"></i></th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($medicaments as $medicament)
 							<tr>
+								<td>{{ $medicament->cod }}</td>
 								<td><strong>{{ $medicament->name }}</strong></td>
 								<td>{{ $medicament->description }}</td>
-								<td>{{ $medicament->presentation_name }}</td>
 								<td class="text-center">
 									<a href="{{ route('admin.system.medicament.medicaments.edit', $medicament->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar medicamento"><i class="fa fa-pencil"></i></a>
 								</td>

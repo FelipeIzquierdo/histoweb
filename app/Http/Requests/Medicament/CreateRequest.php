@@ -20,9 +20,9 @@ class CreateRequest extends Request {
 	public function rules()
 	{
 		return [
+			'cod'		  => 	'required|numeric|digits_between:1,250', 
 			'name'              => 	'required|max:50|unique:medicaments,name',
-			'description'        => 'required|max:100',
-            'presentation_id'				=> 	'required|integer|exists:via_medicaments,id'
+			'description'        => 'max:100'
 		];
 	}
 }

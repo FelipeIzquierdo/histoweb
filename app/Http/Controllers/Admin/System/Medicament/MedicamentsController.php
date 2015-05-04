@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 class MedicamentsController extends Controller {
 
 	private $medicament;
-	private $presentation;
 	private static $prefixRoute = 'admin.system.medicament.medicaments.';
 	private static $prefixView = 'dashboard.pages.admin.system.medicament.medicament.';
 
@@ -21,16 +20,6 @@ class MedicamentsController extends Controller {
 	{
 		$this->middleware('auth');
 		$this->beforeFilter('@findMedicament', ['only' => ['show', 'edit', 'update', 'destroy']]);
-		$this->beforeFilter('@findPresentation', ['only' => ['create', 'edit']]);
-	}
-
-	/**
-	 * Find all HistoryTypes
-	 *
-	 */
-	public function findPresentation()
-	{
-		$this->presentation = Presentation::allLists();
 	}
 
 	/**
@@ -64,7 +53,7 @@ class MedicamentsController extends Controller {
         $form_data = ['route' => self::$prefixRoute . 'store', 'method' => 'POST'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['medicament' => $this->medicament,'presentation' => $this->presentation]);
+        	->with(['medicament' => $this->medicament]);
 	}
 
 	/**
@@ -107,7 +96,7 @@ class MedicamentsController extends Controller {
         $form_data = ['route' => [self::$prefixRoute . 'update', $this->medicament->id], 'method' => 'PUT'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['medicament' => $this->medicament, 'presentation' => $this->presentation]);
+        	->with(['medicament' => $this->medicament]);
 	}
 
 	/**
