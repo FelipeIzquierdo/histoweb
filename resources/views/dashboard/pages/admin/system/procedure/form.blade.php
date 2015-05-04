@@ -20,6 +20,7 @@
                 {!! Form::model($procedure, $form_data) !!}
                   {!! Field::text( 'cod', null, ['placeholder' => 'Código', 'template' => 'horizontal']) !!}
                   {!! Field::text( 'name', null, ['placeholder' => 'Nombre', 'template' => 'horizontal']) !!}
+                  {!! Field::select( 'procedure_type_id', $procedure_types, null, ['data-placeholder' => 'Tipo de procedimiento', 'template' => 'horizontal']) !!}
                   <div class="form-group form-actions">
                     <div class="col-md-9 col-md-offset-3">
                         <button type="submit" class="btn btn-effect-ripple btn-primary">Guardar</button>

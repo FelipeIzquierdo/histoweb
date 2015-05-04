@@ -32,13 +32,39 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title" ><strong id="eventTitle"></strong></h3>
+                        <h3 class="modal-title" ><strong id="title"></strong></h3>
                     </div>
                     <div class="modal-body">
-                        <p>Fecha: <spam id="eventDate"></spam></p>
-                        <p>Hora de inicio: <spam id="eventStart"></spam></p>
-                        <p>Hora fin: <spam id="eventEnd"></spam></p>
-                        <p id="eventState">Estado: <spam id="eventStateTex"></spam></p>
+                         <div class="modal-body form-group">
+                            <label class="col-md-4 control-label" for="example-progress-username">Doctor:</label>
+                            <div class="col-md-6">
+                                <p><spam id="eventDoctor"></spam></p>
+                            </div>
+                        </div>
+                        <div class="modal-body form-group">
+                            <label class="col-md-4 control-label" for="example-progress-username">Fecha:</label>
+                            <div class="col-md-6">
+                                <p><spam id="eventDate"></spam></p>
+                            </div>
+                        </div>
+                        <div class="modal-body form-group">
+                            <label class="col-md-4 control-label" for="example-progress-username">Hora inicio:</label>
+                            <div class="col-md-6">
+                                <p><spam id="eventStart"></spam></p>
+                            </div>
+                        </div>
+                        <div  class="modal-body form-group">
+                            <label class="col-md-4 control-label" for="example-progress-username">Hora fin:</label>
+                            <div class="col-md-6">
+                                <p><spam id="eventEnd"></spam></p>
+                            </div>
+                        </div>
+                        <div id="eventState" class="modal-body form-group">
+                            <label class="col-md-4 control-label" for="example-progress-username">Estado:</label>
+                            <div class="col-md-6">
+                                <p><spam id="eventStateTex"></spam></p>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="btn btn-effect-ripple btn-success" data-dismiss="modal" id="eventCreate">Asignar</a>

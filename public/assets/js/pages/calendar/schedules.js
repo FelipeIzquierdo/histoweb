@@ -132,6 +132,7 @@ var CompCalendar = function() {
                     }
                 },
                 eventClick: function(event, delta, jsEvent, view) {
+                    $("#eventDoctor").html( event.title);
                     $("#eventDate").html(event.start.format('YYYY-MM-DD'));
                     $("#eventStart").html(event.start.format('h(:mm)a'));
                     if(event.end)
@@ -143,7 +144,7 @@ var CompCalendar = function() {
                         $("#eventEnd").html(event.start.format('h(:mm)a'));       
                     }
                     if(event.type == 'schedule') {
-                        $("#eventTitle").html('Horario Doctor '+ event.title);
+                        $("#title").html('Horario');
                         $("#eventState").hide();
                         $("#eventCreate").hide();
                         $("#eventDiscarded").hide();
@@ -154,7 +155,7 @@ var CompCalendar = function() {
                         });
                     }else{
                         var color = {available:'Disponible',used:'Usado',discarded:'Descartado'};
-                        $("#eventTitle").html('Disponibilidad Doctor '+ event.title);
+                        $("#title").html('Disponibilidad');
                         $("#eventStateTex").html(color[event.state]);
                         $("#eventState").show();
                         $("#eventCreate").show();

@@ -4,13 +4,24 @@
  *  Description: Custom javascript code used in Calendar page
  */
 
-function updateAvailability (event) {
+function changeTest(){
+    doctorId = $('#doctorSelect').val();
+    url = '/admin/company/doctors/' + doctorId + '/diaries-json';
+    //alert(url,doctorId);
+    $("#calendar").fullCalendar('removeEvents');
+    $("#calendar").fullCalendar('addEventSource', url)
+    $("#calendar").fullCalendar('rerenderEvents');
+
+}
+
+function updateDiary (event)
+{
     $.ajax({
         data:  {
             'start': event.start.format('YYYY-MM-DD H:mm:ss'),
             'end': event.end.format('YYYY-MM-DD H:mm:ss')
         },
-        url:   '/histoweb5/public/doctors/' + event.doctor_id + '/availabilities/' + event.id,
+        url:   '/admin/company/doctors/' + event.doctor_id + '/diaries/'+ event.id,
         type:  'PUT',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
@@ -21,7 +32,8 @@ function updateAvailability (event) {
     });
 }
 
-function deleteAvailability(event) {
+function deleteAvailability(event)
+{
     $.ajax({
         url:   '/histoweb5/public/doctors/' + event.doctor_id + '/availabilities/' + event.id,
         type:  'DELETE',
@@ -33,14 +45,16 @@ function deleteAvailability(event) {
             console.log('evento ' + event.id + ' eliminado');
         }
     });
-
 }
 
-function findPatient(patientDoc) {
+function findPatient(patientDoc)
+{
     $.ajax({
         url:   '/admin/company/patients/' + patientDoc + '/find',
         type:  'GET',
         success:  function (data) {
+
+            $('.help-block').html('');
             $('#patient').val("");
             $('#doc').val(patientDoc);
             $('#first_name').val(data.first_name);
@@ -78,8 +92,8 @@ function findPatient(patientDoc) {
         }
     });
 }
-
-function createUpdatePatient(url, type) {
+function createUpdatePatient(url, type)
+{
    var diaryTypeId = $('#diaryTypes').val();
     $.ajax({
         data:  {
@@ -101,12 +115,15 @@ function createUpdatePatient(url, type) {
         success:  function (data) {
             newDiary(doctorId, data.id, diaryTypeId);
         },
-        error: function(jqXHR, textStatus, errorThrown)
-        {
-            if(jqXHR)
-            {
-                console.log(jqXHR);
-            }
+        error: function(data) {
+            // Error...
+            var errors = data.responseJSON;
+            $.each(errors, function (index, value) {
+                $('#error-'+ index +'').html(
+                    '<p>' + value + '</p>'
+                );
+            });
+            $('#modalFade').modal('show');
         }
     });
 }
@@ -117,7 +134,7 @@ function newDiary(doctorId, patientId, diaryTypeId)
         url:   '/admin/company/doctors/' + doctorId + '/new-diary/' + patientId + '/' + diaryTypeId,
         type:  'GET',
         success:  function (data) {
-            $('#external-events').prepend('<li class="animation-fadeInQuick2Inv" data-time="' + data.diary_type_time + '" data-type-diary="' + diaryTypeId + '" data-patient-id="' + patientId + '" ><i class="fa fa-calendar"></i> '+ data.patient_name +'</li>');
+            $('#external-events').prepend('<li class="animation-fadeInQuick2Inv" data-duration="' + data.time + '" data-time="' + data.diary_type_time + '" data-type-diary="' + diaryTypeId + '" data-patient-id="' + patientId + '" ><i class="fa fa-calendar"></i> '+ data.patient_name +'</li>');
             initializeExternalEvent();
         }
     });
@@ -129,7 +146,7 @@ function createDiary(copiedEventObject)
         data:  {
             'patient_id': parseInt(copiedEventObject.patientId),
             'type_id': parseInt(copiedEventObject.typeDiary),
-            'start': copiedEventObject.start.format('YYYY-MM-DD H:mm:ss'),
+            'start': copiedEventObject.start.format('YYYY-MM-DD hh:mm:ss'),
             'end': copiedEventObject.time
         },
         url:   '/admin/company/doctors/' + doctorId + '/diaries',
@@ -151,7 +168,8 @@ function createDiary(copiedEventObject)
 }
 
 
-function initializeExternalEvent () {
+function initializeExternalEvent ()
+{
     $('#external-events .animation-fadeInQuick2Inv').each(function()
     {
         var eventObject =
@@ -160,7 +178,7 @@ function initializeExternalEvent () {
             title: $.trim($(this).text()),
             time: $.trim($(this).data('time')),
             patientId: $.trim($(this).data('patient-id')),
-            color: $(this).css("background-color"),
+            color: "#3F94D4",
             type: 'diary',
             constraint: 'availableForMeeting',
             start: null,
@@ -192,7 +210,14 @@ var CompCalendar = function()
             $("#add-event-btn").on("click",function()
             {
                 var patientDoc = $("#patient").val();
-                findPatient(patientDoc);
+                if (patientDoc!= '')
+                {
+                    findPatient(patientDoc);
+                }else{
+                    $('#error-patient_id').html(
+                        '<p> El campo paciente es requerido </p>'
+                    );
+                }
                 return false;
             });
             /* initialize the calendar
@@ -225,47 +250,30 @@ var CompCalendar = function()
                 drop:function(date, jsEvent, ui)
                 {
                     var ret = new Date(date.format('YYYY-MM-DD H:mm:ss'));
-                    console.log(ret);
                     var originalEventObject  = $(this).data("eventObject");
                     var copiedEventObject  = $.extend({}, originalEventObject );
                     ret.setTime(ret.getTime() + copiedEventObject.time*60000);
                     copiedEventObject.start = date;
                     copiedEventObject.end = ret;
+                    console.log();
                     createDiary(copiedEventObject);
-                        $("#calendar").fullCalendar("renderEvent",copiedEventObject ,!0);
-                        $(this).remove();
+                    $("#calendar").fullCalendar("renderEvent",copiedEventObject ,!0);
+                    //$('#calendar').fullCalendar( 'refetchEvents' );
+                    $(this).remove();
+
                 },
                 eventClick: function(event, delta, jsEvent, view) {
+                    $("#eventPatient").html(event.title);
+                    $("#eventDoctor").html(event.nameDoctor);
+                    $("#eventDiaryType").html(event.diaryType);
                     $("#eventId").html(event.id);
-                    $("#eventDate").html(event.start.format('YYYY-MM-DD'));
-                    $("#eventStart").html(event.start.format('h(:mm)a'));
-                    if(event.end)
-                    {
-                        $("#eventEnd").html(event.end.format('h(:mm)a'));
-                    }
-                    else
-                    {
-                        $("#eventEnd").html(event.start.format('h(:mm)a'));
-                    }
-                    $('#modalFade').modal('show');
+                    $("#eventDate").html(event.start.format('DD / MM / YYYY'));
+                    $("#eventStart").html(event.start.format('hh : mm a'));
+                    $("#eventEnd").html(event.end.format('hh : mm a'));
+                    $('#modalDataEvent').modal('show');
                 },
                 eventDrop: function(event, delta, revertFunc) {
-                    if(event.type == 'schedule') {
-                        updateSchedule(event);
-                    }
-                },
-                eventResize: function(event, delta, revertFunc) {
-                    if(event.type == 'schedule') {
-                        updateSchedule(event);
-                    }
-                },
-
-                dayClick: function(date, jsEvent, view) {
-                    if(view.name != 'month')
-                    {
-                        alert('Clicked on: ' + date.format());
-                        //$(this).css('background-color', 'red');
-                    }
+                        updateDiary(event);
                 }
             });
         }

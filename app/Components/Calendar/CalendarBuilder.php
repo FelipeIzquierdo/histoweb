@@ -67,8 +67,11 @@ class CalendarBuilder {
                 'type'  => 'diary',
                 'start' => $diary->start,
                 'end'   => $diary->end,
-                'id' => 'dia-' . $diary->id,
+                'id'    => $diary->id,
                 'title' => $diary->title,
+                'doctor'=> $diary->doctor_id,
+                'nameDoctor' => $diary->nameDoctor,
+                'diaryType' => $diary->diaryType,
                 'constraint'    => 'availableForMeeting'
             ]);
         }

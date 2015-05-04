@@ -15,6 +15,8 @@ class CreateFormulateTable extends Migration {
 		Schema::create('formulate', function(Blueprint $table)
 		{
 			$table->increments('id');		
+			$table->integer('entry_id')->unsigned();
+            $table->foreign('entry_id')->references('id')->on('entries');
             $table->integer('medicament_id')->unsigned();
             $table->foreign('medicament_id')->references('id')->on('medicaments');
             $table->integer('presentation_id')->unsigned();

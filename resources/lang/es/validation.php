@@ -167,7 +167,7 @@ return array(
     'url_photo' 			=> 'foto de perfil',
     'url_logo' 				=> 'logo',
     'url_pdf' 				=> 'PDF',
-    // Membreship
+    'photo'                 => 'foto',
 	'description'			=> 'Descripción',
     // Membreship
     'cod'				=> 'Código',
@@ -180,7 +180,10 @@ return array(
     'measure_id' => 'Medida',
     'quantity' => 'Cantidad',
     'interval' => 'Intervalo (Horas)',
-    'limit' => 'Límite (Días)'
+    'limit' => 'Límite (Días)',
+   	//Procedure
+   	'procedure_type_id' => 'Tipo de procedimiento',
+   	'procedure_id' => 'Procedimiento'
 
 ]
 

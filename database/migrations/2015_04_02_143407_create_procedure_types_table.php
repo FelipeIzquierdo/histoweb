@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProceduresTable extends Migration {
+class CreateProcedureTypesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,13 @@ class CreateProceduresTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('procedures', function(Blueprint $table)
+		Schema::create('procedure_types', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('cod')->unique();
 			$table->string('name')->unique();
-			$table->timestamps();
+			$table->string('description')->nullable();
+
+            $table->timestamps();
 		});
 	}
 
@@ -28,7 +29,7 @@ class CreateProceduresTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('procedures');
+		Schema::drop('procedure_types');
 	}
 
 }

@@ -18,7 +18,7 @@ class CreateHistoryTypesTable extends Migration {
 			$table->string('name')->unique();
 			$table->string('name_system')->unique();
 			$table->boolean('news')->default(false);
-			$table->string('description');
+			$table->string('description')->nullable();
 			$table->timestamps();
 		});
 	}

@@ -9,6 +9,7 @@ use Histoweb\Entities\Presentation;
 use Histoweb\Entities\Medicament;
 use Histoweb\Entities\Measure;
 use Histoweb\Entities\ViaMedicament;
+use Histoweb\Entities\Entry;
 
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,61 +17,55 @@ use Symfony\Component\HttpFoundation\Request;
 class FormulateController extends Controller {
 
 	private $formulate;
+	private $entry;
 	private $presentation;
 	private $medicament;
 	private $measure;
 	private $viamedicament;
-	private static $prefixRoute = 'assistance.formulate.';
+	private static $prefixRoute = 'assistance.options.formulate.';
 	private static $prefixView = 'dashboard.pages.assistance.formulate.';
 
 	public function __construct() 
 	{
 		$this->middleware('auth');
-		$this->beforeFilter('@findFormulate', ['only' => ['show', 'edit', 'update', 'destroy']]);
-		$this->beforeFilter('@findPresentation', ['only' => ['create', 'edit']]);
-		$this->beforeFilter('@findMedicament', ['only' => ['create', 'edit']]);
-		$this->beforeFilter('@findMeasure', ['only' => ['create', 'edit']]);
-		$this->beforeFilter('@findViaMedicament', ['only' => ['create', 'edit']]);
+		$this->beforeFilter('@findFormulate', ['only' => ['edit', 'update']]);
+		$this->beforeFilter('@findGroup', ['only' => ['create', 'edit']]);
+		$this->beforeFilter('@findEntry', ['only' => ['create','store', 'edit','update']]);
+	}
+
+
+	public function findEntry(Route $route)
+	{
+		$this->entry = Entry::findOrFail($route->getParameter('one'));
 	}
 
 	public function findFormulate(Route $route)
 	{
-		$this->formulate = Formulate::findOrFail($route->getParameter('formulate'));
+		$this->formulate = Formulate::findOrFail($route->getParameter('two'));
 	}
 
-	public function findViaMedicament(Route $route)
+	public function findGroup()
 	{
 		$this->viamedicament = ViaMedicament::allLists();
-	}
-
-	public function findMeasure()
-	{
 		$this->measure = Measure::allLists();
-	}
-
-	public function findMedicament()
-	{
 		$this->medicament = Medicament::allLists();
-	}
-
-	public function findPresentation()
-	{
 		$this->presentation = Presentation::allLists();
 	}
 
-	public function create()
+	public function create($one)
 	{
 		$formulate_e = Formulate::orderBy('updated_at', 'desc')->paginate(12);
 
         $this->formulate = new Formulate;
-        $form_data = ['route' => self::$prefixRoute . 'store', 'method' => 'POST'];
+        $form_data = ['route' => [self::$prefixRoute . 'store',$this->entry->id], 'method' => 'POST'];
 
         return view(self::$prefixView . 'form', compact('form_data','formulate_e'))
         	->with(['formulate' => $this->formulate,
         			'presentation' => $this->presentation,
         			'medicament' => $this->medicament,
         			'measure' => $this->measure,
-        			'viamedicament' => $this->viamedicament]);
+        			'viamedicament' => $this->viamedicament,
+        			'entry' => $this->entry]);
 	}
 
 	/**
@@ -78,26 +73,28 @@ class FormulateController extends Controller {
 	 *
 	 * @return Response
 	 */
-    public function store(CreateRequest $request)
+    public function store(CreateRequest $request,$id)
     {
-
-        $this->formulate = Formulate::create($request->all());
+    	$dates = $request->all();
+    	$dates['entry_id'] = $this->entry->id;
+        $this->formulate = Formulate::create($dates);
 		
-        return redirect()->route(self::$prefixRoute . 'create');
+        return redirect()->route(self::$prefixRoute . 'create', $id);
     }
 
-	public function edit($id)
+	public function edit($one,$two)
 	{
 		$formulate_e = Formulate::orderBy('updated_at', 'desc')->paginate(12);
 		
-        $form_data = ['route' => [self::$prefixRoute . 'update', $this->formulate->id], 'method' => 'PUT'];
-
+        $form_data = ['route' => [self::$prefixRoute . 'update', $this->entry->id,$this->formulate->id], 'method' => 'POST'];
+        
         return view(self::$prefixView . 'form', compact('form_data','formulate_e'))
         	->with(['formulate' => $this->formulate,
         			'presentation' => $this->presentation,
         			'medicament' => $this->medicament,
         			'measure' => $this->measure,
-        			'viamedicament' => $this->viamedicament]);
+        			'viamedicament' => $this->viamedicament,
+        			'entry' => $this->entry]);
 	}
 
 	/**
@@ -108,7 +105,9 @@ class FormulateController extends Controller {
 	 */
     public function update(EditRequest $request, $id)
     {
-        $this->formulate->fill($request->all());
+    	$dates = $request->all();
+    	$dates['entry_id'] = $this->entry->id;
+        $this->formulate->fill($dates);
         $this->formulate->save();
         
         if($request->ajax())
@@ -116,7 +115,7 @@ class FormulateController extends Controller {
             return $this->formulate;
         }
 
-        return redirect()->route(self::$prefixRoute . 'create');
+        return redirect()->route(self::$prefixRoute . 'create',$id);
     }
 
 }

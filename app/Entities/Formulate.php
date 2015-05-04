@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Formulate extends Model
 {
-	protected $fillable = [ 'limit' ,'interval','quantity', 'measure_id' ,'concentration' ,'via_medicament_id', 'presentation_id', 'medicament_id'];
+	protected $fillable = [ 'limit' ,'interval','quantity', 'measure_id' ,'concentration' ,'via_medicament_id', 'presentation_id','entry_id' ,'medicament_id'];
 
     protected $table = 'formulate';
 	public $timestamps = true;

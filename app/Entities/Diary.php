@@ -9,11 +9,21 @@ class Diary extends Model
 	public $errors;
 
 
-    protected $fillable = ['type_id', 'strat','end', 'patient_id', 'doctor_id', 'eps_id'];
+    protected $fillable = ['type_id', 'start','end', 'patient_id', 'doctor_id', 'eps_id'];
     
     public function getTitleAttribute()
     {
         return Patient::find($this->attributes['patient_id'])->name;
+    }
+
+    public function getNameDoctorAttribute()
+    {
+        return Doctor::find($this->attributes['doctor_id'])->name;
+    }
+
+    public function getDiaryTypeAttribute()
+    {
+        return DiaryType::find($this->attributes['type_id'])->name;
     }
 
     public static function allToday()
