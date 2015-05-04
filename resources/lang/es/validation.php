@@ -161,6 +161,7 @@ return array(
 	'days'					=> 'días',
 	'start_time'			=> 'hora de inicio',
 	'end_time'				=> 'hora fin',
+    'address'               => 'dirección',
 	
     'username' 				=> 'usuario',
     'password' 				=> 'contraseña',

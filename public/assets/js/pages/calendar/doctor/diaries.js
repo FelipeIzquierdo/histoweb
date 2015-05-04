@@ -61,6 +61,7 @@ function findPatient(patientDoc)
             $('#last_name').val(data.last_name);
             $('#email').val(data.email);
             $('#tel').val(data.tel);
+            $('#address').val(data.address);
             $("#sex option[value=" + data.sex + "]").attr('selected', true);
             $('#date_birth').val(data.date_birth);
             $("#doc_type_id option[value=" + data.doc_type_id + "]").attr('selected', true);
@@ -102,6 +103,7 @@ function createUpdatePatient(url, type)
             'last_name':    $('#last_name').val(),
             'email':        $('#email').val(),
             'tel':          $('#tel').val(),
+            'address':      $('#address').val(),
             'sex':          $('#sex').val(),
             'date_birth':   $('#date_birth').val(),
             'doc_type_id':  parseInt($("#doc_type_id").val()),
@@ -155,7 +157,7 @@ function createDiary(copiedEventObject)
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
         },
         success:  function (data) {
-            console.log(data);
+            $("#calendar").fullCalendar("renderEvent",data,!0);
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
@@ -257,10 +259,7 @@ var CompCalendar = function()
                     copiedEventObject.end = ret;
                     console.log();
                     createDiary(copiedEventObject);
-                    $("#calendar").fullCalendar("renderEvent",copiedEventObject ,!0);
-                    //$('#calendar').fullCalendar( 'refetchEvents' );
                     $(this).remove();
-
                 },
                 eventClick: function(event, delta, jsEvent, view) {
                     $("#eventPatient").html(event.title);

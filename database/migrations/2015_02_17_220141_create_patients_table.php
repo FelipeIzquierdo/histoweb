@@ -21,6 +21,7 @@ class CreatePatientsTable extends Migration {
 
 			$table->string('email', 100)->nullable();
 			$table->string('tel', 100)->nullable();
+            $table->string('address', 100)->nullable();
 			$table->enum('sex', ['M', 'F'])->nullable();
 			$table->date('date_birth');
 			$table->boolean('active')->default(false);

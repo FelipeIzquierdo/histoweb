@@ -73,7 +73,19 @@ class DoctorsDiariesController extends Controller {
         $diary = new Diary($data);
         $diary->save();
 
-        return $data;
+        $events =[
+        'type'  => 'diary',
+        'start' => $diary->start,
+        'end'   => $diary->end,
+        'id'    => $diary->id,
+        'title' => $diary->title,
+        'doctor'=> $diary->doctor_id,
+        'nameDoctor' => $diary->nameDoctor,
+        'diaryType' => $diary->diaryType,
+        'constraint'    => 'availableForMeeting'
+        ];
+
+        return $events;
     }
 
 	/**

@@ -28,7 +28,8 @@ class CreateRequest extends Request {
             'date_birth'		=>	'required|date',
             'sex'				=> 	'required|in:M,F',
             'email'				=>	'email|max:100|unique:patients,email',
-            'tel'				=>	'numeric'
+            'tel'				=>	'numeric',
+            'address'           =>  'max:100'
 		];
 	}
 }

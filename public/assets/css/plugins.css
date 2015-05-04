@@ -1009,7 +1009,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .fc-highlight { /* when user is selecting cells */
-    background: #bce8f1;
+    background: #000000;
     opacity: .3;
     filter: alpha(opacity=30); /* for IE */
 }

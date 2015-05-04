@@ -126,6 +126,7 @@
                             </div>
                             <!-- END Step Info -->
                             {!! Field::text( 'tel', null, ['placeholder' => 'Télefono', 'template' => 'horizontalmodal', 'id' => 'tel']) !!}
+                            {!! Field::text( 'address', null, ['placeholder' => 'Dirección', 'template' => 'horizontalmodal', 'id' => 'address']) !!}
                             {!! Field::email( 'email', null, ['placeholder' => 'Correo Electrónico', 'template' => 'horizontalmodal', 'id' => 'email']) !!}
                             {!! Field::selectSimple('occupation_id', $occupations, null, ['data-placeholder' => 'Seleccione una ocupación', 'template' => 'horizontalmodal', 'id' => 'occupation_id']) !!}
                         </div>
