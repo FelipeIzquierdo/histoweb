@@ -4,6 +4,8 @@ use Histoweb\Entities\Doctor;
 use Histoweb\Entities\Diary;
 use Histoweb\Entities\DiaryType;
 use Histoweb\Entities\DocType;
+use Histoweb\Entities\Eps;
+use Histoweb\Entities\MembershipType;
 use Histoweb\Entities\Occupation;
 use Histoweb\Entities\Patient;
 use Histoweb\Http\Requests;
@@ -40,9 +42,11 @@ class ReceptionController extends Controller {
         $genders = Patient::$genders;
         $doctors = Doctor::allLists();
         $doctor = 1;
+        $eps = Eps::allLists();
+        $membershipTypes = MembershipType::allLists();
 
         $url = route('admin.company.doctors.diaries.json', 1);
-        return view('dashboard.pages.reception.home', compact('doctors','url', 'diaryTypes','occupations', 'doc_types', 'genders', 'doctor'));
+        return view('dashboard.pages.reception.home', compact('doctors','url', 'diaryTypes','occupations', 'doc_types', 'genders', 'doctor','eps', 'membershipTypes'));
 
 
 

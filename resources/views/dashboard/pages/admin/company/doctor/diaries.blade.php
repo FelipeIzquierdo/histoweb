@@ -144,6 +144,8 @@
                                 </div>
                                 <!-- END Step Info -->
                                {!! Field::selectSimple('diaryTypes', $diaryTypes, null, ['data-placeholder' => 'Seleccione una ocupación', 'template' => 'horizontalmodal', 'id' => 'diaryTypes']) !!}
+                               {!! Field::selectSimple('eps', $diaryTypes, null, ['data-placeholder' => 'Seleccione una eps', 'template' => 'horizontalmodal', 'id' => 'eps']) !!}
+                               {!! Field::selectSimple('membershipTypes', $diaryTypes, null, ['data-placeholder' => 'Seleccione tipo de afiliación', 'template' => 'horizontalmodal', 'id' => 'membershipTypes']) !!}
                             </div>
                             <!-- END Third Step -->
                         </div>

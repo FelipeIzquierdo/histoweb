@@ -4,6 +4,8 @@
 use Histoweb\Entities\Diary;
 use Histoweb\Entities\DiaryType;
 use Histoweb\Entities\DocType;
+use Histoweb\Entities\Eps;
+use Histoweb\Entities\MembershipType;
 use Histoweb\Entities\Occupation;
 use Histoweb\Entities\Patient;
 use Histoweb\Http\Requests;
@@ -50,9 +52,11 @@ class DoctorsDiariesController extends Controller {
         $occupations = Occupation::allLists();
         $doc_types = DocType::allLists();
         $genders = Patient::$genders;
+        $eps = Eps::allLists();
+        $membershipTypes = MembershipType::allLists();
 
 		$url = route(self::$prefixRoute . 'json', $this->doctor->id);
-		return view(self::$prefixView . 'diaries', compact('url', 'diaryTypes','occupations', 'doc_types', 'genders'))->with('doctor', $this->doctor);
+		return view(self::$prefixView . 'diaries', compact('url', 'diaryTypes','occupations', 'doc_types', 'genders', 'eps', 'membershipTypes'))->with('doctor', $this->doctor);
 
 	}
 
@@ -73,19 +77,25 @@ class DoctorsDiariesController extends Controller {
         $diary = new Diary($data);
         $diary->save();
 
-        $events =[
-        'type'  => 'diary',
-        'start' => $diary->start,
-        'end'   => $diary->end,
-        'id'    => $diary->id,
-        'title' => $diary->title,
-        'doctor'=> $diary->doctor_id,
-        'nameDoctor' => $diary->nameDoctor,
-        'diaryType' => $diary->diaryType,
-        'constraint'    => 'availableForMeeting'
-        ];
+        if($request->ajax())
+        {
+            $events =[
+                'type'  => 'diary',
+                'start' => $diary->start,
+                'end'   => $diary->end,
+                'id'    => $diary->id,
+                'title' => $diary->title,
+                'doctor'=> $diary->doctor_id,
+                'nameDoctor' => $diary->nameDoctor,
+                'diaryType' => $diary->diaryType,
+                'constraint'    => 'availableForMeeting'
+            ];
 
-        return $events;
+            return $events;
+
+        }
+
+
     }
 
 	/**
