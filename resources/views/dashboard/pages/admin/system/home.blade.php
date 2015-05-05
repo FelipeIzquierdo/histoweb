@@ -34,4 +34,6 @@
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.histories.index'), 'icon_widget' => 'img/placeholders/icons/history.png', 'title_widget' => 'Antecedentes'])
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.medicament'), 'icon_widget' => 'img/placeholders/icons/medicament.png', 'title_widget' => 'Medicamentos'])
+
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.eps.index'), 'icon_widget' => 'img/placeholders/icons/eps.png', 'title_widget' => 'EPS'])
 	@endsection

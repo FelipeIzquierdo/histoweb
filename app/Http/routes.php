@@ -61,6 +61,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		Route::resource('tools', 'ToolsController');
 		Route::resource('specialties', 'SpecialtiesController');
 		Route::resource('system-revisions', 'SystemRevisionsController');
+        Route::resource('eps', 'EpsController');
 
 		Route::group(['prefix' => 'medicament', 'namespace' => 'Medicament'], function() {
 

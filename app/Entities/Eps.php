@@ -1,27 +1,38 @@
 <?php namespace Histoweb\Entities;
 
-class Eps extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Eps extends Model
 {
 	protected $table = 'eps';
-	protected $primaryKey = 'code_eps';
-	protected $fillable = ['type', 'erasable'];
+	protected $fillable = ['name', 'code'];
 
-	public $timestamps = false;
+	public $timestamps = true;
 	public $increments = true;
-	public $errors;
+    public $errors;
 
-    public function getIdAttribute()
+    public static $pathPhoto = 'img/placeholders/photos/eps/';
+    private static $defaultPhoto = 'img/placeholders/icons/eps.png';
+
+    public function getNamePhotoAttribute()
     {
-        return round($this->code_eps);
+        return $this->id . '.jpg';
     }
 
-    public function getnameAttribute()
+    public function getPhotoAttribute()
     {
-        return $this->type;
+        $photo = self::$pathPhoto . $this->name_photo;
+
+        if (\File::exists($photo))
+        {
+            return $photo;
+        }
+
+        return self::$defaultPhoto;
     }
 
     public static function allLists()
     {
-        return self::lists('type', 'code_eps');
+        return self::lists('name', 'id');
     }
 }

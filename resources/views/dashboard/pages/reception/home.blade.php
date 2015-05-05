@@ -126,6 +126,7 @@
                             </div>
                             <!-- END Step Info -->
                             {!! Field::text( 'tel', null, ['placeholder' => 'Télefono', 'template' => 'horizontalmodal', 'id' => 'tel']) !!}
+                            {!! Field::text( 'address', null, ['placeholder' => 'Dirección', 'template' => 'horizontalmodal', 'id' => 'address']) !!}
                             {!! Field::email( 'email', null, ['placeholder' => 'Correo Electrónico', 'template' => 'horizontalmodal', 'id' => 'email']) !!}
                             {!! Field::selectSimple('occupation_id', $occupations, null, ['data-placeholder' => 'Seleccione una ocupación', 'template' => 'horizontalmodal', 'id' => 'occupation_id']) !!}
                         </div>
@@ -145,6 +146,8 @@
                             </div>
                             <!-- END Step Info -->
                            {!! Field::selectSimple('diaryTypes', $diaryTypes, null, ['data-placeholder' => 'Seleccione una ocupación', 'template' => 'horizontalmodal', 'id' => 'diaryTypes']) !!}
+                           {!! Field::selectSimple('eps', $eps, null, ['data-placeholder' => 'Seleccione una eps', 'template' => 'horizontalmodal', 'id' => 'eps']) !!}
+                           {!! Field::selectSimple('membershipTypes', $membershipTypes, null, ['data-placeholder' => 'Seleccione tipo de afiliación', 'template' => 'horizontalmodal', 'id' => 'membershipTypes']) !!}
                         </div>
                         <!-- END Third Step -->
                     </div>

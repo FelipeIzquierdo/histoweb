@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
 	protected $fillable = ['doc', 'doc_type_id', 'first_name',
-        'last_name', 'sex', 'date_birth', 'tel', 'email', 'occupation_id'];
+        'last_name', 'sex', 'date_birth', 'tel', 'address', 'email', 'occupation_id'];
 
 	public $timestamps = true;
 	public $increments = true;
