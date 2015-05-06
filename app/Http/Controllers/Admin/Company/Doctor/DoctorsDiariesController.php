@@ -47,7 +47,6 @@ class DoctorsDiariesController extends Controller {
 	 */
 	public function index($doctor_id)
 	{
-
         $diaryTypes = DiaryType::allLists();
         $occupations = Occupation::allLists();
         $doc_types = DocType::allLists();

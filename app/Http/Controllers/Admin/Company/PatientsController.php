@@ -1,5 +1,6 @@
 <?php namespace Histoweb\Http\Controllers\Admin\Company;
 
+use Histoweb\Entities\Diary;
 use Histoweb\Http\Requests\Patient\CreateRequest;
 use Histoweb\Http\Requests\Patient\EditRequest;
 use Histoweb\Http\Controllers\Controller;
@@ -164,7 +165,29 @@ class PatientsController extends Controller {
     public function find(Request $request, $doc){
         $patient = Patient::findByDoc($doc);
         if($patient != null){
-            return $patient;
+            $diary = Diary::findByPatient($patient->id);
+            if($diary != null)
+            {
+                $dataPatient = ([
+                    'id'         => $patient->id,
+                    'first_name' => $patient->first_name,
+                    'last_name'  => $patient->last_name,
+                    'email'      => $patient->email,
+                    'tel'        => $patient->tel,
+                    'address'    => $patient->address,
+                    'sex'        => $patient->sex,
+                    'date_birth' => $patient->date_birth,
+                    'doc_type_id' => $patient->doc_type_id,
+                    'occupation_id' => $patient->occupation_id,
+                    'eps_id' => $diary->eps_id,
+                    'membership_types_id' => $diary->membership_types_id
+                ]);
+                return $dataPatient;
+            }
+            else
+            {
+                return $patient;
+            }
         }
     }
 

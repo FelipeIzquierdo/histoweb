@@ -9,11 +9,16 @@ class Diary extends Model
 	public $errors;
 
 
-    protected $fillable = ['type_id', 'start','end', 'patient_id', 'doctor_id', 'eps_id'];
+    protected $fillable = ['type_id', 'start','end', 'patient_id', 'doctor_id', 'eps_id', 'membership_types_id'];
     
     public function getTitleAttribute()
     {
         return Patient::find($this->attributes['patient_id'])->name;
+    }
+
+    public static function  findByPatient($patient)
+    {
+        return self::where('patient_id',$patient)->orderBy('id','desc')->first();
     }
 
     public function getNameDoctorAttribute()

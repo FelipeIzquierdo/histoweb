@@ -25,6 +25,12 @@ class CreateDiariesTable extends Migration {
             $table->integer('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('diary_types');
 
+            $table->integer('eps_id')->unsigned();
+            $table->foreign('eps_id')->references('id')->on('eps');
+
+            $table->integer('membership_types_id')->unsigned();
+            $table->foreign('membership_types_id')->references('id')->on('membership_types');
+
             $table->timestamp('start');
             $table->timestamp('end');
             

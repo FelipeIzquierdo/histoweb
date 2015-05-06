@@ -11,7 +11,6 @@ function changeTest(){
     $("#calendar").fullCalendar('removeEvents');
     $("#calendar").fullCalendar('addEventSource', url)
     $("#calendar").fullCalendar('rerenderEvents');
-
 }
 
 function updateDiary (event)
@@ -53,7 +52,6 @@ function findPatient(patientDoc)
         url:   '/admin/company/patients/' + patientDoc + '/find',
         type:  'GET',
         success:  function (data) {
-
             $('.help-block').html('');
             $('#patient').val("");
             $('#doc').val(patientDoc);
@@ -66,6 +64,9 @@ function findPatient(patientDoc)
             $('#date_birth').val(data.date_birth);
             $("#doc_type_id option[value=" + data.doc_type_id + "]").attr('selected', true);
             $("#occupation_id option[value=" + data.occupation_id + "]").attr('selected', true);
+            $("#membershipTypes option[value=" + data.membership_types_id + "]").attr('selected', true);
+            $("#eps option[value=" + data.eps_id + "]").attr('selected', true);
+
             if(data != "")
             {
                 $("#eventUpdate").show();
@@ -132,11 +133,13 @@ function createUpdatePatient(url, type)
 
 function newDiary(doctorId, patientId, diaryTypeId)
 {
+    var eps = $('#eps').val();
+    var membership = $('#membershipTypes').val();
     $.ajax({
         url:   '/admin/company/doctors/' + doctorId + '/new-diary/' + patientId + '/' + diaryTypeId,
         type:  'GET',
         success:  function (data) {
-            $('#external-events').prepend('<li class="animation-fadeInQuick2Inv" data-duration="' + data.time + '" data-time="' + data.diary_type_time + '" data-type-diary="' + diaryTypeId + '" data-patient-id="' + patientId + '" ><i class="fa fa-calendar"></i> '+ data.patient_name +'</li>');
+            $('#external-events').prepend('<li class="animation-fadeInQuick2Inv" data-duration="' + data.time + '" data-eps="' + eps + '" data-membership="' + membership + '" data-time="' + data.diary_type_time + '" data-type-diary="' + diaryTypeId + '" data-patient-id="' + patientId + '" ><i class="fa fa-calendar"></i> '+ data.patient_name +'</li>');
             initializeExternalEvent();
         }
     });
@@ -149,7 +152,10 @@ function createDiary(copiedEventObject)
             'patient_id': parseInt(copiedEventObject.patientId),
             'type_id': parseInt(copiedEventObject.typeDiary),
             'start': copiedEventObject.start.format('YYYY-MM-DD hh:mm:ss'),
-            'end': copiedEventObject.time
+            'end': copiedEventObject.time,
+            'eps_id': copiedEventObject.eps,
+            'membership_types_id': copiedEventObject.membership
+
         },
         url:   '/admin/company/doctors/' + doctorId + '/diaries',
         type:  'POST',
@@ -176,15 +182,17 @@ function initializeExternalEvent ()
     {
         var eventObject =
         {
-            typeDiary: $.trim($(this).data('type-diary')),
-            title: $.trim($(this).text()),
-            time: $.trim($(this).data('time')),
-            patientId: $.trim($(this).data('patient-id')),
-            color: "#3F94D4",
-            type: 'diary',
+            typeDiary:  $.trim($(this).data('type-diary')),
+            title:      $.trim($(this).text()),
+            time:       $.trim($(this).data('time')),
+            patientId:  $.trim($(this).data('patient-id')),
+            eps:        $.trim($(this).data('eps')),
+            membership: $.trim($(this).data('membership')),
+            color:      "#3F94D4",
+            type:       'diary',
             constraint: 'availableForMeeting',
-            start: null,
-            end: null
+            start:       null,
+            end:         null
         };
         $(this).data("eventObject", eventObject),
             $(this).draggable({

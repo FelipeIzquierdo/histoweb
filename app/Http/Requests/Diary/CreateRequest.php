@@ -22,7 +22,9 @@ class CreateRequest extends Request {
 		return [
 			'patient_id'    => 	'required',
             'type_id'       =>	'required',
-            'start'         =>  'required'
+            'start'         =>  'required',
+            'eps_id'        =>  'required',
+            'membership_types_id'   => 'required'
 		];
 	}
 }

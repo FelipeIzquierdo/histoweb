@@ -25,7 +25,7 @@ class PatientsTableSeeder extends Seeder{
                 'created_at'        => new DateTime,
                 'updated_at'        => new DateTime 
             ));
-
+/*
             $start = $faker->dateTimeBetween('-2 days', '+15 hours');
             $end = $start->add(new DateInterval('PT1H'));
 
@@ -38,7 +38,7 @@ class PatientsTableSeeder extends Seeder{
                 'created_at'        => new DateTime,
                 'updated_at'        => new DateTime 
             ));
-
+*/
             //Diary::find($diary_id)->createEntry();
 
         }
