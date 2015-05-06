@@ -18,15 +18,9 @@ class ReceptionController extends Controller {
 	private $patient;
 	private $diary;
 
-	public function __construct() 
-	{
-		$this->beforeFilter('@findDiary', ['only' => ['getActivateDiary']]);
-	}
 
-	public function findDiary(Route $route)
-	{
-		$this->diary = Diary::findOrFail($route->getParameter('one'));
-	}
+
+
 
 	/**
 	 * Display a listing of functions that admin can execute
@@ -47,19 +41,17 @@ class ReceptionController extends Controller {
 
         $url = route('admin.company.doctors.diaries.json', 1);
         return view('dashboard.pages.reception.home', compact('doctors','url', 'diaryTypes','occupations', 'doc_types', 'genders', 'doctor','eps', 'membershipTypes'));
-
-
-
 	}
 
-	public function getActivateDiary(Request $request, $diary_id)
+	public function postActivateDiary(Request $request, $diary_id)
 	{
-		dd($this->diary->createEntry());
+        $diary = Diary::find($diary_id);
+        $diary->createEntry();
 
 		if($request->ajax())
 		{   	
 	        return response()->json([
-	            'message' =>     'Cita medica activada correctamente',
+	            'message' =>     $diary->id,
 	        ]);
 	    }
 	}

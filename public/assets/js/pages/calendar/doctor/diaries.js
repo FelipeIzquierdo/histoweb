@@ -13,6 +13,23 @@ function changeTest(){
     $("#calendar").fullCalendar('rerenderEvents');
 }
 
+function activatePatient (event)
+{
+    $.ajax({
+        data:  {
+
+        },
+        url:   'reception/activate-diary/'+ event.id,
+        type:  'post',
+        beforeSend: function(request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+        },
+        success:  function (data) {
+            console.log(data.message);
+        }
+    });
+}
+
 function updateDiary (event)
 {
     $.ajax({
@@ -277,6 +294,13 @@ var CompCalendar = function()
                     $("#eventDate").html(event.start.format('DD / MM / YYYY'));
                     $("#eventStart").html(event.start.format('hh : mm a'));
                     $("#eventEnd").html(event.end.format('hh : mm a'));
+                    $('#modalDataEvent .modal-dialog') .css({
+                        width: '450px'
+                    });
+                    $("#eventActivate").unbind("click");
+                    $("#eventActivate").click(function() {
+                        activatePatient(event);
+                    });
                     $('#modalDataEvent').modal('show');
                 },
                 eventDrop: function(event, delta, revertFunc) {

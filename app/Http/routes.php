@@ -41,8 +41,8 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 
 Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => 'auth'], function() {
 	Route::controller('/', 'ReceptionController', [
-		'getIndex' => 'reception', 
-		'getActivateDiary' => 'reception.activate-diary'
+		'getIndex' => 'reception',
+		'postActivateDiary' => 'reception.activate-diary'
 	]);
 });
 
