@@ -36,7 +36,7 @@
 								<td><strong>{{ $order_procedures->procedure_name }}</strong></td>
 								<td>{{ $order_procedures->procedure_type_name }}</td>
 								<td class="text-center">
-									<a href="{{ route('assistance.entries.pdf', $order_procedures->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Descargar procedimiento"><i class="fa fa-cloud-download"></i></a>
+									<a href="{{ route('assistance.entries.pdf', $entry->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Descargar procedimiento"><i class="fa fa-cloud-download"></i></a>
 								</td>
 							</tr>
 						@endforeach

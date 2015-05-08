@@ -13,8 +13,6 @@ use Histoweb\Entities\Formulate;
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-use PDF;
-
 class OrderProceduresController extends Controller {
 
 	private $order_procedure;
@@ -52,14 +50,11 @@ class OrderProceduresController extends Controller {
     public function store(CreateRequest $request,$id)
     {
     	$rta = Procedure::getProceduresAll(array_map('intval', $request->get('procedure_id')));
-
+    	$this->pdf($rta);
     	foreach ($rta as $key => $value) {
     		$value->entry_id = $this->entry->id;
-    		$proc = Procedure::findOrFail($value->procedure_id);
-    		//$this->pdf($proc);
     		OrderProcedure::create(json_decode($value, true));
     	}
-		
         return redirect()->route('assistance.entries.options', $id);
     }
 
@@ -69,25 +64,38 @@ class OrderProceduresController extends Controller {
     	return response($rta);
     }
 
-    public function pdf($valor)
+    public function pdf($rta)
     {
-	$html = '<h1>Solicitud de Procedimiento - HISTOWEB</h1>
-	<h2>'.$this->entry->diary->patient->doc_type_doc .' - '. $this->entry->diary->patient->name .'</h2>
-	Tipo de procedimiento:
-	<ol>
-	<li><b>'.$valor->procedure_type_name.'</b></li>
-	</ol>
-	Procedimiento:
-	<ol>
-	<li><b>'.$valor->name.'</b></li>
-	</ol>';
+    	return "asds";
+	$patientcc = $this->entry->diary->patient->doc_type_doc;
+	$patientname = $this->entry->diary->patient->name;
+	$patientdoc = $this->entry->diary->patient->doc;
 
-	PDF::SetTitle('Reporte');
-	PDF::SetAuthor('Histoweb');
-	PDF::AddPage();
-	PDF::Write(0, 'Hello World');
-	//PDF::writeHTML( $html, true, false, true, false, '');
-	$filename = public_path() . '/documents/'.$this->entry->diary->patient->doc.'-'.$valor->id.'.pdf';
-	PDF::Output($filename,'F');
+	$pdf = new Pdf;
+
+	$pdf->SetTitle('Reporte');
+	$pdf->SetAuthor('Histoweb');
+	$pdf->SetTitle('Lista de Procedimientos, Paciente '.$patientcc .' - '. $patientname);
+
+	foreach ($rta as $key => $value) {
+	$value->entry_id = $this->entry->id;
+	$proc = Procedure::findOrFail($value->procedure_id);
+	$proceduretypename = $proc->procedure_type_name;
+	$procedurename = $proc->name;
+
+	$pdf->AddPage();
+	$pdf->Ln(20);
+	$pdf->SetFont('helvetica', 'B', 17);
+	$pdf->MultiCell(0, 0, 'Lista de Procedimientos, Paciente '.$patientcc .' - '. $patientname, 0, 'C', 0, 1, '', '', true, 0);
+	$pdf->Ln(10);
+	$pdf->SetFont('times', '', 14);
+	$pdf->Write(0, 'Tipo de Procedimiento : '.$proceduretypename, '', 0, '', 0, 0, false, false, 0);
+	$pdf->SetFont('times', '', 12);
+	$pdf->Ln(10);
+	$pdf->Write(0, 'Procedimiento : '.$procedurename, '', 0, '', 0, 0, false, false, 0);
+	}
+	//$filename = public_path() . '/documents/'.$this->entry->diary->patient->doc.'-'.$valor->id.'.pdf';
+	$filename = public_path() . '/documents/'.$this->entry->id.'.pdf';
+	$pdf->Output($filename,'F');
     }
 }

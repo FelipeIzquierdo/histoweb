@@ -118,8 +118,8 @@ class AssistanceController extends Controller {
 
 	public function getPdf($id)
 	{	
-		$filename = public_path().'documents/'.$id;
-		return Response::download($filename);
+		$filename = public_path().'/documents/'.$id.'.pdf';
+		return Response::download($filename,'Procedimientos.pdf');
 	}
 
 	public function getFormulate($id)
