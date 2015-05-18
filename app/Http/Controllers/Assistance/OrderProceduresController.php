@@ -32,6 +32,7 @@ class OrderProceduresController extends Controller {
 	public function findGroup(Route $route)
 	{
 		$this->entry = Entry::findOrFail($route->getParameter('one'));
+		$this->order_procedure = Procedure::getProceduresNotIn($route->getParameter('one'));
 		$this->procedure = Procedure::allLists();
 		$this->procedure_type = ProcedureType::allLists();
 	}
@@ -41,7 +42,7 @@ class OrderProceduresController extends Controller {
         $form_data = ['route' => [self::$prefixRoute . 'store',$this->entry->id], 'method' => 'POST', 'id' => 'entryForm'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['procedure' => $this->procedure,
+        	->with(['procedure' => $this->order_procedure,
         			'procedure_type' => $this->procedure_type,
         			'entry' => $this->entry]);
 	}
@@ -51,6 +52,7 @@ class OrderProceduresController extends Controller {
     {
     	$rta = Procedure::getProceduresAll(array_map('intval', $request->get('procedure_id')));
     	$this->pdf($rta);
+    	$rta = Procedure::getProceduresInsert(array_map('intval', $request->get('procedure_id')));
     	foreach ($rta as $key => $value) {
     		$value->entry_id = $this->entry->id;
     		OrderProcedure::create(json_decode($value, true));
@@ -66,7 +68,6 @@ class OrderProceduresController extends Controller {
 
     public function pdf($rta)
     {
-    	return "asds";
 	$patientcc = $this->entry->diary->patient->doc_type_doc;
 	$patientname = $this->entry->diary->patient->name;
 	$patientdoc = $this->entry->diary->patient->doc;
@@ -94,7 +95,7 @@ class OrderProceduresController extends Controller {
 	$pdf->Ln(10);
 	$pdf->Write(0, 'Procedimiento : '.$procedurename, '', 0, '', 0, 0, false, false, 0);
 	}
-	//$filename = public_path() . '/documents/'.$this->entry->diary->patient->doc.'-'.$valor->id.'.pdf';
+	
 	$filename = public_path() . '/documents/'.$this->entry->id.'.pdf';
 	$pdf->Output($filename,'F');
     }
