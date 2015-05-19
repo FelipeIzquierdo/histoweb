@@ -48,8 +48,6 @@ class ReceptionController extends Controller {
         $url = route('admin.company.doctors.diaries.json', 1);
         return view('dashboard.pages.reception.home', compact('doctors','url', 'diaryTypes','occupations', 'doc_types', 'genders', 'doctor','eps', 'membershipTypes'));
 
-
-
 	}
 
 	public function getActivateDiary(Request $request, $diary_id)
