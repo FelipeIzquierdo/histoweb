@@ -18,10 +18,6 @@ class ReceptionController extends Controller {
 	private $patient;
 	private $diary;
 
-
-
-
-
 	/**
 	 * Display a listing of functions that admin can execute
 	 *

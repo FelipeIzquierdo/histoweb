@@ -17,6 +17,7 @@
 @endsection
 
 @section('dashboard_body')
+<iframe width="420" height="315" src="{!! $pdf !!}" frameborder="0" allowfullscreen></iframe>
  		<div class="block">
 			<div class="block-title clearfix">
 				<h2><span class="hidden-xs">Lista de</span> Procedimientos</h2>

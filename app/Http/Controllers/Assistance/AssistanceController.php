@@ -112,7 +112,8 @@ class AssistanceController extends Controller {
 			'doctor'	=> $this->doctor,
 			'entry' 	=> $this->entry,
 			'order_procedure' => $order_procedure,
-			'id'		=> $id
+			'id'		=> $id,
+            'pdf'       =>'http://www.yopalenlinea.gov.co/hacienda/documentos/39839.pdf'
 		]);
 	}
 
