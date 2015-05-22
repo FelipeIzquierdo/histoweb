@@ -29,13 +29,15 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 	Route::post('options/{one}/order-procedures/create', ['uses' => 'OrderProceduresController@store', 'as' => 'assistance.options.order-procedures.store']);
 	Route::get('jsonProcedure/{id}', 'OrderProceduresController@jsonProcedure');
 
+	Route::post('options/{one}/removeprocedure', ['uses' => 'AssistanceController@getRemoveProcedure', 'as' => 'assistance.entries.removeprocedure']);
 	Route::controller('/', 'AssistanceController', [
-		'getIndex' => 'assistance', 
-		'getEntries' => 'assistance.entries',
-		'getHistory'	=> 'assistance.entries.history',
-		'postHistory'	=> 'assistance.entries.history',
-		'getOptions'	=> 'assistance.entries.options',
-		'getPdf'		=> 'assistance.entries.pdf',
+		'getIndex' 			=> 'assistance', 
+		'getEntries' 		=> 'assistance.entries',
+		'getExit'	 		=> 'assistance.exit',
+		'getHistory'		=> 'assistance.entries.history',
+		'postHistory'		=> 'assistance.entries.history',
+		'getOptions'		=> 'assistance.entries.options',
+		'getPdf'			=> 'assistance.entries.pdf',
 	]);
 });
 

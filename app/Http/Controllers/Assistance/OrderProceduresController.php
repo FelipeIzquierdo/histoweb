@@ -1,5 +1,6 @@
 <?php namespace Histoweb\Http\Controllers\Assistance;
 
+use Histoweb\Components\Pdf\PdfBuilder as MyPdf;
 use Histoweb\Http\Requests\OrderProcedure\CreateRequest;
 use Histoweb\Http\Requests\OrderProcedure\EditRequest;
 use Histoweb\Http\Controllers\Controller;
@@ -12,8 +13,6 @@ use Histoweb\Entities\Formulate;
 
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\Request;
-
-use PDF;
 
 class OrderProceduresController extends Controller {
 
@@ -34,6 +33,7 @@ class OrderProceduresController extends Controller {
 	public function findGroup(Route $route)
 	{
 		$this->entry = Entry::findOrFail($route->getParameter('one'));
+		$this->order_procedure = Procedure::getProceduresNotIn($route->getParameter('one'));
 		$this->procedure = Procedure::allLists();
 		$this->procedure_type = ProcedureType::allLists();
 	}
@@ -43,7 +43,7 @@ class OrderProceduresController extends Controller {
         $form_data = ['route' => [self::$prefixRoute . 'store',$this->entry->id], 'method' => 'POST', 'id' => 'entryForm'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['procedure' => $this->procedure,
+        	->with(['procedure' => $this->order_procedure,
         			'procedure_type' => $this->procedure_type,
         			'entry' => $this->entry]);
 	}
@@ -52,14 +52,13 @@ class OrderProceduresController extends Controller {
     public function store(CreateRequest $request,$id)
     {
     	$rta = Procedure::getProceduresAll(array_map('intval', $request->get('procedure_id')));
-
+        $pdf = new MyPdf();
+        $pdf->orderProceduresPdf($rta,$this->entry);
+    	$rta = Procedure::getProceduresInsert(array_map('intval', $request->get('procedure_id')));
     	foreach ($rta as $key => $value) {
     		$value->entry_id = $this->entry->id;
-    		$proc = Procedure::findOrFail($value->procedure_id);
-    		//$this->pdf($proc);
     		OrderProcedure::create(json_decode($value, true));
     	}
-		
         return redirect()->route('assistance.entries.options', $id);
     }
 
@@ -69,25 +68,5 @@ class OrderProceduresController extends Controller {
     	return response($rta);
     }
 
-    public function pdf($valor)
-    {
-	$html = '<h1>Solicitud de Procedimiento - HISTOWEB</h1>
-	<h2>'.$this->entry->diary->patient->doc_type_doc .' - '. $this->entry->diary->patient->name .'</h2>
-	Tipo de procedimiento:
-	<ol>
-	<li><b>'.$valor->procedure_type_name.'</b></li>
-	</ol>
-	Procedimiento:
-	<ol>
-	<li><b>'.$valor->name.'</b></li>
-	</ol>';
 
-	PDF::SetTitle('Reporte');
-	PDF::SetAuthor('Histoweb');
-	PDF::AddPage();
-	PDF::Write(0, 'Hello World');
-	//PDF::writeHTML( $html, true, false, true, false, '');
-	$filename = public_path() . '/documents/'.$this->entry->diary->patient->doc.'-'.$valor->id.'.pdf';
-	PDF::Output($filename,'F');
-    }
 }

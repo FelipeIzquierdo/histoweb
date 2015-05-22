@@ -33,6 +33,10 @@ class CreateDiariesTable extends Migration {
 
             $table->timestamp('start');
             $table->timestamp('end');
+
+            $table->timestamp('entered_at')->nullable();
+            $table->timestamp('exit_at')->nullable();
+
             
             $table->timestamps();
         });

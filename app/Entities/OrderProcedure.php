@@ -31,4 +31,8 @@ class OrderProcedure extends Model
     	return $this->procedure->name;	
     }
 
+    public static function removeProcedure($entry,$id)
+    {
+        return self::where('entry_id','=',$entry)->where('procedure_id','=',$id)->delete();
+    }
 }

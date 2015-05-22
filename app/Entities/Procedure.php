@@ -15,6 +15,16 @@ class Procedure extends Model {
         return self::lists('name', 'id');
     }
 
+    public static function getProceduresNotIn($id)
+    {
+        return self::whereNotIn('id',function($query){
+            $query->select('procedure_id')
+                  ->from('order_procedures')
+                  ->where('order_procedures.entry_id','=','6');
+        })
+        ->lists('name', 'id');  
+    }
+
    public function procedureType()
     {
         return $this->belongsTo('Histoweb\Entities\ProcedureType');
@@ -36,6 +46,19 @@ class Procedure extends Model {
 
     public static function getProceduresAll($ids)
     {
+        return self::whereIn('id',function($query){
+            $query->select('procedure_id')
+                  ->from('order_procedures')
+                  ->where('order_procedures.entry_id','=','6');
+        })
+        ->orWhereIn('id',$ids)
+        ->select('procedure_type_id', 'id as procedure_id')
+        ->get();  
+    }
+
+    public static function getProceduresInsert($ids)
+    {
         return self::whereIn('id',$ids)->select('procedure_type_id', 'id as procedure_id')->get();
     }
+
 }
