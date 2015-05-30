@@ -73,7 +73,8 @@
                     <p id="eventEnd"></p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" id="eventDelete">Borrar</a>
+                    <a href="#" class="btn btn-effect-ripple btn-primary" data-dismiss="modal" id="eventActivate">Activar Paciente</a>
+                    <a href="#" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" id="eventCancel">Cancelar cita</a>
                 </div>
             </div>
         </div>

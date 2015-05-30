@@ -17,7 +17,7 @@ use Histoweb\Entities\OrderProcedure;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 
-use Response;
+use Response, Input, DateTime;
 class AssistanceController extends Controller {
 
 	private $diaries;
@@ -39,7 +39,7 @@ class AssistanceController extends Controller {
 	{
 		$this->beforeFilter('@findDoctor');
 		$this->beforeFilter('@findDiaries', ['only' => ['getIndex', 'getEntries', 'getOptions']]);
-		$this->beforeFilter('@findEntry', ['only' => ['getEntries', 'postHistory', 'getOptions']]);
+		$this->beforeFilter('@findEntry', ['only' => ['getEntries', 'getExit','postHistory', 'getOptions','getRemoveProcedure']]);
 		//$this->beforeFilter('@verificActiveEntry', ['only' => ['getEntries', 'postHistory']]);
 		$this->beforeFilter('@loadPatientRelations', ['only' => ['getEntries']]);
 	}
@@ -86,6 +86,11 @@ class AssistanceController extends Controller {
 
 	public function getEntries($id)
 	{
+		$dt = new DateTime();
+		$d = $this->entry->diary;
+		$d->entered_at = $dt->format('Y-m-d H:i:s');
+		$d->save();
+
 		return view('dashboard.pages.assistance.entry')->with([
 			'diaries'			=> $this->diaries, 
 			'entry' 			=> $this->entry,
@@ -95,6 +100,14 @@ class AssistanceController extends Controller {
 			'diagnoses'			=> $this->diagnoses,
 			'historyTypes'		=> $this->historyTypes
 		]);
+	}
+	public function getExit()
+	{
+		$dt = new DateTime();
+		$d = $this->entry->diary;
+		$d->exit_at = $dt->format('Y-m-d H:i:s');
+		$d->save();
+		return redirect()->route('assistance');
 	}
 
 	public function postHistory(CreateRequest $request, $id)
@@ -106,8 +119,9 @@ class AssistanceController extends Controller {
 
 	public function getOptions($id)
 	{	
-		$order_procedure = OrderProcedure::orderBy('updated_at', 'desc')->paginate(12);
-		return view('dashboard.pages.assistance.options')->with([
+		$form_data = ['route' => ['assistance.entries.removeprocedure',$this->entry->id], 'method' => 'POST', 'id' => 'entryForm'];
+		$order_procedure = OrderProcedure::where('entry_id','=',$this->entry->id)->orderBy('updated_at', 'desc')->paginate(12);
+		return view('dashboard.pages.assistance.options',compact('form_data'))->with([
 			'diaries' 	=> $this->diaries,
 			'doctor'	=> $this->doctor,
 			'entry' 	=> $this->entry,
@@ -118,8 +132,15 @@ class AssistanceController extends Controller {
 
 	public function getPdf($id)
 	{	
-		$filename = public_path().'documents/'.$id;
-		return Response::download($filename);
+		$filename = public_path().'/documents/'.$id.'.pdf';
+		return Response::download($filename,'Procedimientos.pdf');
+	}
+
+	public function getRemoveProcedure($entry)
+	{	
+		$id = Input::get('procedure');
+		OrderProcedure::removeProcedure($this->entry->id,$id);
+		return redirect()->route('assistance.entries.options', $this->entry->id);
 	}
 
 	public function getFormulate($id)

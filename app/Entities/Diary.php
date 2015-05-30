@@ -9,11 +9,16 @@ class Diary extends Model
 	public $errors;
 
 
-    protected $fillable = ['type_id', 'start','end', 'patient_id', 'doctor_id', 'eps_id'];
+    protected $fillable = ['type_id', 'start','end','entered_at','exit_at','patient_id', 'doctor_id', 'eps_id', 'membership_types_id'];
     
     public function getTitleAttribute()
     {
         return Patient::find($this->attributes['patient_id'])->name;
+    }
+
+    public static function  findByPatient($patient)
+    {
+        return self::where('patient_id',$patient)->orderBy('id','desc')->first();
     }
 
     public function getNameDoctorAttribute()
@@ -41,21 +46,19 @@ class Diary extends Model
 
     public function getClassAttribute()
     {
-    	if($entry = $this->entry)
-    	{
-    		if($entry->active)
-    		{
-    			return 'text-info';
-    		}
-    		else
-    		{
-    			return 'text-success';
-    		}
-    	}
-    	else
-    	{
-    		return 'text-warning';
-    	}
+        if(isset($this->exit_at))
+        {
+            return 'text-warning';
+        }
+		if(isset($this->entered_at))
+		{
+			return 'text-success';
+		}
+		else
+		{
+			return 'text-info';
+		}
+    	
     }
 
     public function createEntry($data = null)
