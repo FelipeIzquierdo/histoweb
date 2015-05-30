@@ -1,6 +1,15 @@
-<?php namespace Histoweb\Http\Controllers\Assistance;
+<?php namespace Histoweb\Components\Pdf;
 
 class Pdf extends \TCPDF {
+
+    protected  $titleHeader = '';
+
+
+    public function  setTitleHeader($titleHeader)
+    {
+        $this->titleHeader = $titleHeader;
+    }
+
 
     //Page header
     public function Header() {
@@ -9,8 +18,12 @@ class Pdf extends \TCPDF {
         $this->Image($image_file, 10, 10, 15, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         // Set font
         $this->SetFont('helvetica', 'B', 13);
-        $this->Cell(0, 15, 'Histoweb
-            Solicitud de Procedimiento', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        $txt = 'Histoweb
+         '.$this->titleHeader;
+        $this->MultiCell(0, 15,$txt, 0, 'C', 0, 0, '', '', true);
+        $this->SetY(25);
+        $this->Cell(0,15,'','T');
+
     }
 
     // Page footer
@@ -19,6 +32,7 @@ class Pdf extends \TCPDF {
         $this->SetY(-15);
         // Set font
         $this->SetFont('helvetica', 'I', 8);
+        $this->Cell(10,10,('Fecha realizado:'.date("Y-m-d H:i:s")),0,'','L');
         // Page number
         $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }

@@ -3,6 +3,7 @@
 use Histoweb\Http\Requests;
 use Histoweb\Http\Controllers\Controller;
 use Histoweb\Http\Requests\Entry\History\CreateRequest;
+use Histoweb\Components\Pdf\PdfBuilder as MyPdf;
 
 use Histoweb\Entities\Diary;
 use Histoweb\Entities\Entry;
@@ -113,7 +114,8 @@ class AssistanceController extends Controller {
 	public function postHistory(CreateRequest $request, $id)
 	{
 		$this->entry->saveHistory($request->all());
-
+        $pdf = new MyPdf();
+        $pdf->historyPdf($this->entry,$request->all());
 		return redirect()->route('assistance.entries.options', $id);
 	}
 
@@ -126,7 +128,8 @@ class AssistanceController extends Controller {
 			'doctor'	=> $this->doctor,
 			'entry' 	=> $this->entry,
 			'order_procedure' => $order_procedure,
-			'id'		=> $id
+			'id'		=> $id,
+            'pdf'       => '/documents/historyClinic/'.$id.'.pdf'
 		]);
 	}
 

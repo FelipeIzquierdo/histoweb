@@ -1,5 +1,6 @@
 <?php namespace Histoweb\Http\Controllers\Assistance;
 
+use Histoweb\Components\Pdf\PdfBuilder as MyPdf;
 use Histoweb\Http\Requests\OrderProcedure\CreateRequest;
 use Histoweb\Http\Requests\OrderProcedure\EditRequest;
 use Histoweb\Http\Controllers\Controller;
@@ -51,7 +52,8 @@ class OrderProceduresController extends Controller {
     public function store(CreateRequest $request,$id)
     {
     	$rta = Procedure::getProceduresAll(array_map('intval', $request->get('procedure_id')));
-    	$this->pdf($rta);
+        $pdf = new MyPdf();
+        $pdf->orderProceduresPdf($rta,$this->entry);
     	$rta = Procedure::getProceduresInsert(array_map('intval', $request->get('procedure_id')));
     	foreach ($rta as $key => $value) {
     		$value->entry_id = $this->entry->id;
@@ -66,37 +68,5 @@ class OrderProceduresController extends Controller {
     	return response($rta);
     }
 
-    public function pdf($rta)
-    {
-	$patientcc = $this->entry->diary->patient->doc_type_doc;
-	$patientname = $this->entry->diary->patient->name;
-	$patientdoc = $this->entry->diary->patient->doc;
 
-	$pdf = new Pdf;
-
-	$pdf->SetTitle('Reporte');
-	$pdf->SetAuthor('Histoweb');
-	$pdf->SetTitle('Lista de Procedimientos, Paciente '.$patientcc .' - '. $patientname);
-
-	foreach ($rta as $key => $value) {
-	$value->entry_id = $this->entry->id;
-	$proc = Procedure::findOrFail($value->procedure_id);
-	$proceduretypename = $proc->procedure_type_name;
-	$procedurename = $proc->name;
-
-	$pdf->AddPage();
-	$pdf->Ln(20);
-	$pdf->SetFont('helvetica', 'B', 17);
-	$pdf->MultiCell(0, 0, 'Lista de Procedimientos, Paciente '.$patientcc .' - '. $patientname, 0, 'C', 0, 1, '', '', true, 0);
-	$pdf->Ln(10);
-	$pdf->SetFont('times', '', 14);
-	$pdf->Write(0, 'Tipo de Procedimiento : '.$proceduretypename, '', 0, '', 0, 0, false, false, 0);
-	$pdf->SetFont('times', '', 12);
-	$pdf->Ln(10);
-	$pdf->Write(0, 'Procedimiento : '.$procedurename, '', 0, '', 0, 0, false, false, 0);
-	}
-	
-	$filename = public_path() . '/documents/'.$this->entry->id.'.pdf';
-	$pdf->Output($filename,'F');
-    }
 }

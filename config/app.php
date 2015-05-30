@@ -142,8 +142,6 @@ return [
 		'Collective\Html\HtmlServiceProvider',
         'Histoweb\Providers\FieldServiceProvider',
         'Histoweb\Providers\CalendarServiceProvider',
-
-
 		/*
 		 * Application Service Providers...
 		 */
@@ -210,7 +208,7 @@ return [
         'Form' 		=> 'Collective\Html\FormFacade',
     	'Html' 		=> 'Collective\Html\HtmlFacade',
         'Field'		=> 'Histoweb\Components\Field\FieldFacade',
-        'Calendar'	=> 'Histoweb\Components\Calendar\CalendarFacade'
+        'Calendar'	=> 'Histoweb\Components\Calendar\CalendarFacade',
 	],
 
 ];
