@@ -18,6 +18,7 @@ class CreateEntriesTable extends Migration {
             $table->boolean('active')->default(true);
             $table->text('present_illness');
             $table->text('management_plan');
+
             $table->integer('diary_id')->unsigned();
             $table->foreign('diary_id')->references('id')->on('diaries');
 

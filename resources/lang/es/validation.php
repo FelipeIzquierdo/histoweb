@@ -171,7 +171,8 @@ return array(
     'photo'                 => 'foto',
 	'description'			=> 'Descripción',
     // Membreship
-    'cod'				=> 'Código',
+    'cod'					=> 'Código',
+    'membershipTypes'		=> 'Tipo de afiliación',
     //medicament
     'presentation_id'	=> 'Presentación',
     //viamedicaments
