@@ -2,17 +2,7 @@
 
 @section('dashboard_title')
     <h1>Paciente: {{ $entry->diary->patient->name }}</h1>
-        <h1>
-		<a href="{{ route('assistance.options.formulate.create', $id) }}" class="btn btn-info">
-			Formular
-		</a>
-		<a href="{{ route('assistance.options.order-procedures.create', $id) }}" class="btn btn-info">
-			Solicitar procedimiento
-		</a>
-		<a href="{{ route('assistance.exit', $id) }}" class="btn btn-warning">
-			Dar salida
-		</a>
-	</h1>
+
 @endsection
 
 @section('sidebar_menu')
@@ -20,12 +10,28 @@
 @endsection
 
 @section('dashboard_body')
-<iframe width="600" height="450" src="{!! $pdf !!}" frameborder="0" allowfullscreen></iframe>
+<div class="col-md-9">
+    <iframe width="800" height="400" src="{!! $pdf !!}" frameborder="0" allowfullscreen></iframe>
+</div>
+<div class="col-md-3">
+    <h1>
+        <a href="{{ route('assistance.options.formulate.create', $id) }}" class="btn btn-info">
+            Formular
+        </a>
+        <a href="{{ route('assistance.options.order-procedures.create', $id) }}" class="btn btn-info">
+            Solicitar procedimiento
+        </a>
+        <a href="{{ route('assistance.exit', $id) }}" class="btn btn-warning">
+            Dar salida
+        </a>
+    </h1>
+
+</div>
  		<div class="block">
-			<div class="block-title clearfix">
-				<h2><span class="hidden-xs">Lista de</span> Procedimientos</h2>
-			</div>
 			<div class="table-responsive">
+			<div class="block-title clearfix">
+                <h2><span class="hidden-xs">Lista de</span> Procedimientos</h2>
+            </div>
 				<table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
 					<thead>
 						<tr>
