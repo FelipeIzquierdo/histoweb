@@ -16,13 +16,14 @@ class CreateAvailabilitiesTable extends Migration {
             $table->timestamp('start');
             $table->timestamp('end');
 
-
             $table->integer('doctor_id')->unsigned();
             $table->foreign('doctor_id')->references('id')->on('doctors');
-            $table->enum('state',['available','used', 'discarded'])->default('available');
+            
+            $table->enum('type',['telemedicine','personal'])->default('personal');
 
+            $table->integer('surgery_id')->unsigned()->nullable();
+			$table->foreign('surgery_id')->references('id')->on('surgeries');
 
-			
 			$table->timestamps();
 		});
 	}
