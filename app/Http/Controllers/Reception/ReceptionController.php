@@ -39,15 +39,32 @@ class ReceptionController extends Controller {
         return view('dashboard.pages.reception.home', compact('doctors','url', 'diaryTypes','occupations', 'doc_types', 'genders', 'doctor','eps', 'membershipTypes'));
 	}
 
+	public function postCancelDiary(Request $request, $diary_id)
+	{
+		if($request->ajax())
+		{  
+			$diary = Diary::find($diary_id); 
+        	
+    			$diary->delete();
+    		 	
+	        return response()->json([
+	            'message' =>     'evento eliminado',
+	        ]);
+	    }
+	}	
+
 	public function postActivateDiary(Request $request, $diary_id)
 	{
-        $diary = Diary::find($diary_id);
-        $diary->createEntry();
-
 		if($request->ajax())
-		{   	
+		{  
+			$diary = Diary::find($diary_id); 
+        	if(is_null($diary->entered_at))
+    		{
+    			$diary->entered_at = date('Y-m-d H:i:s');
+    			$diary->save();
+    		}  	
 	        return response()->json([
-	            'message' =>     $diary->id,
+	            'entered_at' =>     $diary->entered_at,
 	        ]);
 	    }
 	}

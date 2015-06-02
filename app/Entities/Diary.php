@@ -1,13 +1,16 @@
 <?php namespace Histoweb\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Diary extends Model
-{
-	public $timestamps = true;
-	public $increments = true;
-	public $errors;
+{    
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
+    public $timestamps = true;
+    public $increments = true;
+    public $errors;
 
     protected $fillable = ['availability_id', 'type_id', 'start','end','entered_at','exit_at','patient_id', 'eps_id', 'membership_types_id'];
     
@@ -50,29 +53,16 @@ class Diary extends Model
         {
             return 'text-warning';
         }
-		if(isset($this->entered_at))
-		{
-			return 'text-success';
-		}
-		else
-		{
-			return 'text-info';
-		}
-    	
-    }
-
-    public function createEntry($data = null)
-    {
-    	if(!is_null($data))
-    	{
-    		$this->fill($data);
-    		$this->save();
-    	}
-    	
-    	return Entry::create([
-    		'diary_id' 	=> $this->id
-    	]);
-    }
+        if(isset($this->entered_at))
+        {
+            return 'text-success';
+        }
+        else
+        {
+            return 'text-info';
+        }
+        
+    }    
 
     public function IsCanAttend()
     {

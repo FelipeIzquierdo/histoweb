@@ -77,8 +77,8 @@
                     <p id="eventEnd"></p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-effect-ripple btn-primary" data-dismiss="modal" id="eventActivate">Activar Paciente</a>
-                    <a href="#" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" id="eventCancel">Cancelar cita</a>
+                    <a href="#" class="btn btn-effect-ripple btn-primary" data-dismiss="modal" id="eventActivate"><i class="fa fa-check-square-o"></i> Activar Consulta</a>
+                    <a href="#" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" id="eventCancel"><i class="fa fa-times"></i> Cancelar cita</a>
                 </div>
             </div>
         </div>

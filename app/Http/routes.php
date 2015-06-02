@@ -10,7 +10,6 @@ use Histoweb\Entities\Surgery;
 | and give it the controller to call when that URI is requested.
 |
 */
-
 Route::get('/', 'HomeController@index');
 
 Route::controllers([
@@ -49,8 +48,9 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 
 Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => 'auth'], function() {
 	Route::controller('/', 'ReceptionController', [
-		'getIndex' => 'reception',
+		'getIndex' => 'reception',		
 		'postActivateDiary' => 'reception.activate-diary'
+		
 	]);
 });
 

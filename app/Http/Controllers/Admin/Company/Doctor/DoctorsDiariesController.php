@@ -86,15 +86,15 @@ class DoctorsDiariesController extends Controller {
         if($request->ajax())
         {
             $events =[
-                'type'          => 'diary',
-                'start'         => $diary->start,
-                'end'           => $diary->end,
-                'id'            => $diary->id,
-                'title'         => $diary->title,
-                'availability'  => $diary->availability->id,
-                'nameDoctor'    => $diary->nameDoctor,
-                'diaryType'     => $diary->diaryType,
-                'constraint'    => 'availableForMeeting',
+                'type'  => 'diary',
+                'start' => $diary->start,
+                'end'   => $diary->end,
+                'id'    => $diary->id,
+                'title' => $diary->title,
+                'nameDoctor' => $diary->nameDoctor,
+                'diaryType' => $diary->diaryType,
+                'entered_at' => $diary->entered_at,
+                'constraint'    => 'availableForMeeting'
             ];
 
             return $events;

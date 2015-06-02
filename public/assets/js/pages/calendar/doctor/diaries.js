@@ -13,6 +13,27 @@ function changeTest(){
     $("#calendar").fullCalendar('rerenderEvents');
 }
 
+
+function cancelDiaries (event)
+{
+    $.ajax({
+        data:  {
+
+        },
+        url:   'reception/cancel-diary/'+ event.id,
+        type:  'post',
+        beforeSend: function(request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+        },
+        success:  function (data) {
+            $('#calendar').fullCalendar('removeEvents', event.id);
+            console.log(data.message);
+            event.entered_at = data.entered_at;
+        }
+    });
+}
+
+
 function activatePatient (event)
 {
     $.ajax({
@@ -25,7 +46,8 @@ function activatePatient (event)
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
         },
         success:  function (data) {
-            console.log(data.message);
+            console.log(data.entered_at);
+            event.entered_at = data.entered_at;
         }
     });
 }
@@ -281,7 +303,7 @@ var CompCalendar = function()
                     copiedEventObject.end = ret;
                     createDiary(copiedEventObject, $(this));
                 },
-                eventClick: function(event, delta, jsEvent, view) {
+                eventClick: function(event, delta, jsEvent, view) {                    
                     $("#eventPatient").html(event.title);
                     $("#eventDoctor").html(event.nameDoctor);
                     $("#eventDiaryType").html(event.diaryType);
@@ -292,11 +314,26 @@ var CompCalendar = function()
                     $('#modalDataEvent .modal-dialog') .css({
                         width: '450px'
                     });
-                    $("#eventActivate").unbind("click");
-                    $("#eventActivate").click(function() {
-                        activatePatient(event);
-                    });
-                    $('#modalDataEvent').modal('show');
+                    $("#eventActivate").unbind("click");                         
+                    if(event.start.format('DD / MM / YYYY')  == moment().format('DD / MM / YYYY')){  
+                        if(event.entered_at == null){
+                            $("#eventActivate").removeAttr('disabled');                            
+                        }else{
+                            $("#eventActivate").attr('disabled','disabled');
+                        } 
+                        console.log(event.entered_at );       
+                        $("#eventActivate").click(function() {                            
+                            activatePatient(event);
+                        });                                              
+                    }
+                    else{
+                        $("#eventActivate").attr('disabled','disabled');                        
+                    }
+                    $("#eventCancel").unbind("click");
+                    $("#eventCancel").click(function() {                            
+                            cancelDiaries(event);
+                        }); 
+                    $('#modalDataEvent').modal('show');                     
                 },
                 eventDrop: function(event, delta, revertFunc) {
                         updateDiary(event);
