@@ -78,18 +78,20 @@ class CalendarBuilder {
                 'id' =>  'availableForMeeting',
                 'start'     => $availability->start,
                 'end'       => $availability->end,
-                'rendering' => 'background'
+                'rendering' => 'background',
+                'color'     => $availability->color_of_type
             ]);
         }
+
         foreach ($doctor->diaries as  $diary)
         {
             array_push($events,[
-                'type'  => 'diary',
-                'start' => $diary->start,
-                'end'   => $diary->end,
-                'id'    => $diary->id,
-                'title' => $diary->title,
-                'doctor'=> $diary->doctor_id,
+                'type'       => 'diary',
+                'start'      => $diary->start,
+                'end'        => $diary->end,
+                'id'         => $diary->id,
+                'title'      => $diary->title,
+                'doctor'     => $diary->doctor_id,
                 'entered_at' => $diary->entered_at,
                 'nameDoctor' => $diary->nameDoctor,
                 'diaryType'  => $diary->diaryType,

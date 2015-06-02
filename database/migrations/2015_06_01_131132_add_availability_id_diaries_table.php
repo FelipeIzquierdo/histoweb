@@ -16,6 +16,9 @@ class AddAvailabilityIdDiariesTable extends Migration {
 		{
 			$table->integer('availability_id')->unsigned();
             $table->foreign('availability_id')->references('id')->on('availabilities');
+
+            $table->integer('surgery_id')->unsigned()->nullable();
+            $table->foreign('surgery_id')->references('id')->on('surgeries');
 		});
 	}
 
@@ -30,6 +33,9 @@ class AddAvailabilityIdDiariesTable extends Migration {
 		{
 			$table->dropForeign('diaries_availability_id_foreign');
 			$table->dropColumn('availability_id');
+
+			$table->dropForeign('diaries_surgery_id_foreign');
+			$table->dropColumn('surgery_id');
 		});
 	}
 

@@ -116,7 +116,7 @@ class SurgeriesAvailabilitiesController extends Controller {
 
         foreach ($events as $event)
         {
-            array_push($availabilities, new Availability($event + ['doctor_id' => $doctor, 'surgery_id' => $surgery_id]));
+            array_push($availabilities, new Availability($event + ['doctor_id' => $doctor, 'surgery_id' => $surgery_id, 'group_id' => Availability::nextGroupId()]));
         }
         $this->surgery->availabilities()->saveMany($availabilities);
         return redirect()->route(self::$prefixRoute . 'index', $this->surgery->id);

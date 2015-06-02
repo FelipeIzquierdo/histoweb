@@ -16,7 +16,7 @@ class Doctor extends Model
 
     public static function allLists()
     {
-        return self::get()->lists('name' ,'id' );
+        return self::get()->lists('name_specialty_telemedicine' ,'id' );
     }
 
     public function findAvailability($start, $end)
@@ -38,6 +38,23 @@ class Doctor extends Model
     public function getNameAttribute()
     {
     	return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getNameSpecialtyTelemedicineAttribute()
+    {
+        $text = $this->first_name . ' ' . $this->last_name;
+        
+        if($this->specialty)
+        {
+            $text .= ' - ' . $this->specialty->name;
+        }
+
+        if($this->telemedicine)
+        {
+            $text .= ' - Telemedicina';
+        }
+
+        return $text;
     }
 
     public function getNamePhotoAttribute()
