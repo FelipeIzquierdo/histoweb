@@ -19,9 +19,6 @@ class CreateDiariesTable extends Migration {
             $table->integer('patient_id')->unsigned();
             $table->foreign('patient_id')->references('id')->on('patients');
 
-            $table->integer('doctor_id')->unsigned();
-            $table->foreign('doctor_id')->references('id')->on('doctors');
-
             $table->integer('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('diary_types');
 
@@ -35,7 +32,6 @@ class CreateDiariesTable extends Migration {
             $table->timestamp('end');
 
             $table->timestamp('entered_at')->nullable();
-            $table->timestamp('exit_at')->nullable();
 
             $table->softDeletes();
             

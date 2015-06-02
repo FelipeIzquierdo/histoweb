@@ -4,6 +4,10 @@
     <h1>Institución</h1>
 @endsection
 
+@section('breadcrumbs')
+	{!! Breadcrumbs::render('company') !!}
+@endsection
+
 @section('dashboard_body')
     @include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.company.surgeries.index'), 'icon_widget' => 'img/placeholders/icons/build.png', 'title_widget' => 'Consultorios'])
 

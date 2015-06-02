@@ -22,6 +22,7 @@ use Response, Input, DateTime;
 class AssistanceController extends Controller {
 
 	private $diaries;
+	private $diary;
 	private $entry;
 	private $reasons;
 	private $systemRevisions;
@@ -39,10 +40,11 @@ class AssistanceController extends Controller {
 	public function __construct() 
 	{
 		$this->beforeFilter('@findDoctor');
-		$this->beforeFilter('@findDiaries', ['only' => ['getIndex', 'getEntries', 'getOptions']]);
-		$this->beforeFilter('@findEntry', ['only' => ['getEntries', 'getExit','postHistory', 'getOptions','getRemoveProcedure']]);
+		$this->beforeFilter('@findDiaries', ['only' => ['getIndex', 'getCreateEntry',  'getOptions']]);
+		$this->beforeFilter('@findEntry', ['only' => [ 'getExit', 'getOptions','getRemoveProcedure']]);
+		$this->beforeFilter('@findDiary', ['only' => ['getCreateEntry', 'postHistory']]);
 		//$this->beforeFilter('@verificActiveEntry', ['only' => ['getEntries', 'postHistory']]);
-		$this->beforeFilter('@loadPatientRelations', ['only' => ['getEntries']]);
+		$this->beforeFilter('@loadPatientRelations', ['only' => ['getCreateEntry']]);
 	}
 
 	public function findDoctor()
@@ -58,6 +60,11 @@ class AssistanceController extends Controller {
 	public function findEntry(Route $route)
 	{
 		$this->entry = Entry::findOrFail($route->getParameter('one'));
+	}
+
+	public function findDiary(Route $route)
+	{
+		$this->diary = Diary::findOrFail($route->getParameter('one'));
 	}
 
 	public function verificActiveEntry(Route $route)
@@ -85,38 +92,36 @@ class AssistanceController extends Controller {
 		]);
 	}
 
-	public function getEntries($id)
+	public function getCreateEntry($diary_id)
 	{
-		$dt = new DateTime();
-		$d = $this->entry->diary;
-		$d->entered_at = $dt->format('Y-m-d H:i:s');
-		$d->save();
-
 		return view('dashboard.pages.assistance.entry')->with([
 			'diaries'			=> $this->diaries, 
-			'entry' 			=> $this->entry,
 			'reasons'			=> $this->reasons,
 			'system_revisions'	=> $this->systemRevisions,
 			'procedures'		=> $this->procedures,
 			'diagnoses'			=> $this->diagnoses,
-			'historyTypes'		=> $this->historyTypes
+			'historyTypes'		=> $this->historyTypes,
+			'diary'				=> $this->diary
 		]);
 	}
+
 	public function getExit()
 	{
 		$dt = new DateTime();
-		$d = $this->entry->diary;
-		$d->exit_at = $dt->format('Y-m-d H:i:s');
-		$d->save();
+		$this->entry->exit_at = $dt->format('Y-m-d H:i:s');
+		$this->entry->save();
+		
 		return redirect()->route('assistance');
 	}
 
 	public function postHistory(CreateRequest $request, $id)
 	{
-		$this->entry->saveHistory($request->all());
+		Entry::create(['diary_id' => $this->diary->id]);
+		$this->diary->entry->saveHistory($request->all());
+
         $pdf = new MyPdf();
-        $pdf->historyPdf($this->entry,$request->all());
-		return redirect()->route('assistance.entries.options', $id);
+        $pdf->historyPdf($this->diary->entry,$request->all());
+		return redirect()->route('assistance.entries.options', $this->diary->entry->id);
 	}
 
 	public function getOptions($id)

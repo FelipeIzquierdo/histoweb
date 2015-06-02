@@ -16,5 +16,10 @@
         </div>
     </div>
     <!-- END Blank Header -->
-    @yield('dashboard_body')
+    <div class="row">
+        <div class="col-md-12">
+            @yield('dashboard_body')
+        </div>
+    </div>
+    
 @stop

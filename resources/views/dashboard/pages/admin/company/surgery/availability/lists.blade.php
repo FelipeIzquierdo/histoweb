@@ -1,6 +1,6 @@
 @extends('dashboard.pages.layout')
 	@section('title') 
-	    Horarios
+	    {{ $surgery->name }}, Disponibilidad 
 	@endsection
 
 	@section('meta_extra') 
@@ -10,13 +10,17 @@
 	@section('dashboard_title')
 		<h1>
 			<i class="fa fa-calendar"></i>
-			Horarios
-			<a href="{{ route('admin.company.surgeries.schedules.create', $surgery->id) }}" class="btn btn-info" title="Agregar Disponibilidad">
+			{{ $surgery->name }}, Disponibilidad 
+			<a href="{{ route('admin.company.surgeries.availabilities.create', $surgery->id) }}" class="btn btn-info" title="Agregar Disponibilidad">
 				<i class="fa fa-plus"></i>
 			</a>
 		</h1>
 	@endsection
 	
+    @section('breadcrumbs')
+        {!! Breadcrumbs::render('surgeries.availabilities', $surgery) !!}
+    @endsection
+
 	@section('dashboard_body')
 		<div class="block full">
 	        <div class="row">
@@ -67,9 +71,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-effect-ripple btn-success" data-dismiss="modal" id="eventCreate">Asignar</a>
-                        <a href="#" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" id="eventDiscarded">Descartar</a>
-                        <a href="#" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" id="eventDelete">Eliminar</a>
+                        <a href="#" class="btn btn-effect-ripple btn-primary" data-dismiss="modal" id="eventCreate"><i class="fa fa-thumb-tack"></i> Asignar</a>
+                        <a href="#" class="btn btn-effect-ripple btn-warning" data-dismiss="modal" id="eventDiscarded"><i class="fa fa-thumbs-down"></i> Descartar</a>
+                        <a href="#" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" id="eventDelete"><i class="fa fa-trash"></i> Eliminar</a>
                     </div>
                 </div>
             </div>

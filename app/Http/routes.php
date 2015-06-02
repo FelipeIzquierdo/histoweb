@@ -1,5 +1,5 @@
 <?php 
-use Histoweb\Entities\Doctor;
+use Histoweb\Entities\Surgery;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -17,6 +17,12 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::get('deprueba', function(){
+	$surgery = Surgery::find(1);
+	dd($surgery->diaries);
+});
+
+
 Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function() {
 
 	Route::get('options/{one}/formulate/create', ['uses' => 'FormulateController@create', 'as' => 'assistance.options.formulate.create']);
@@ -31,7 +37,7 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 	Route::post('options/{one}/removeprocedure', ['uses' => 'AssistanceController@getRemoveProcedure', 'as' => 'assistance.entries.removeprocedure']);
 	Route::controller('/', 'AssistanceController', [
 		'getIndex' 			=> 'assistance', 
-		'getEntries' 		=> 'assistance.entries',
+		'getCreateEntry' 	=> 'assistance.create-entry',
 		'getExit'	 		=> 'assistance.exit',
 		'getHistory'		=> 'assistance.entries.history',
 		'postHistory'		=> 'assistance.entries.history',
@@ -86,13 +92,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
         Route::get('patients/{doc}/find', ['uses' => 'PatientsController@find', 'as' => 'admin.company.patients.find']);
 
 		Route::group(['namespace' => 'Surgery'], function() {
-			Route::resource('surgeries.schedules', 'SurgeriesSchedulesController');
+			Route::resource('surgeries.availabilities', 'SurgeriesAvailabilitiesController');
 			Route::resource('surgeries.diaries', 'SurgeriesDiariesController');
 
 			Route::group(['prefix' => 'surgeries'], function() {
-				Route::get('{surgeries}/schedules-json', ['uses' => 'SurgeriesSchedulesController@json', 'as' => 'admin.company.surgeries.schedules.json']);
-				Route::post('{surgeries}/schedules-massive', ['uses' => 'SurgeriesSchedulesController@storeMassive', 'as' => 'admin.company.surgeries.schedules.storeMassive']);
-				Route::post('{surgeries}/availabilities/{availabilities}', ['uses' => 'SurgeriesSchedulesController@discard', 'as' => 'admin.company.surgeries.schedules.discard']);
+				Route::get('{surgeries}/availabilities-json', ['uses' => 'SurgeriesAvailabilitiesController@json', 'as' => 'admin.company.surgeries.availabilities.json']);
+				Route::post('{surgeries}/availabilities-massive', ['uses' => 'SurgeriesAvailabilitiesController@storeMassive', 'as' => 'admin.company.surgeries.availabilities.storeMassive']);
+				Route::post('{surgeries}/availabilities/{availabilities}', ['uses' => 'SurgeriesAvailabilitiesController@discard', 'as' => 'admin.company.surgeries.availabilities.discard']);
 				
 				Route::get('{surgeries}/diaries-json', ['uses' => 'SurgeriesDiariesController@json', 'as' => 'admin.company.surgeries.diaries.json']);
 			});
@@ -103,13 +109,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 
 		Route::group(['namespace' => 'Doctor'], function() {
 			Route::resource('doctors.availabilities', 'DoctorsAvailabilitiesController');
-			Route::resource('doctors.schedules', 'DoctorsSchedulesController');
 			Route::resource('doctors.diaries', 'DoctorsDiariesController');
 
 
 			Route::group(['prefix' => 'doctors'], function() {
 				Route::get('{doctors}/availabilities-json', ['uses' => 'DoctorsAvailabilitiesController@json', 'as' => 'admin.company.doctors.availabilities.json']);
-				Route::get('{doctors}/schedules-json', ['uses' => 'DoctorsSchedulesController@json', 'as' => 'admin.company.doctors.schedules.json']);
 				Route::get('{doctors}/diaries-json', ['uses' => 'DoctorsDiariesController@json', 'as' => 'admin.company.doctors.diaries.json']);
                 Route::get('{doctors}/new-diary/{patients}/{diary_types}', ['uses' => 'DoctorsDiariesController@newDiary', 'as' => 'admin.company.doctors.diaries.new']);
 			});

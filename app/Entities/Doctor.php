@@ -19,6 +19,14 @@ class Doctor extends Model
         return self::get()->lists('name' ,'id' );
     }
 
+    public function findAvailability($start, $end)
+    {
+        return $this->availabilities()
+            ->where('start', '<=', $start)
+            ->where('end', '>=', $end)
+            ->first();
+    }
+
     public function getDiariesToday()
     {
         return $this->diaries->sortBy('start')->filter(function($diary)
@@ -54,14 +62,9 @@ class Doctor extends Model
         return $this->hasMany('Histoweb\Entities\Availability');
     }
 
-    public function schedules()
-    {
-        return $this->hasMany('Histoweb\Entities\Schedule');
-    }
-
     public function diaries()
     {
-        return $this->hasMany('Histoweb\Entities\Diary');
+        return $this->hasManyThrough('Histoweb\Entities\Diary', 'Histoweb\Entities\Availability');
     }
 
     public function specialty()

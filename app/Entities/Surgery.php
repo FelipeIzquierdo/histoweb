@@ -17,14 +17,19 @@ class Surgery extends Model {
         return $this->belongsToMany('Histoweb\Entities\Tool')->withTimestamps();
     }
 
-    public function schedules()
+    public function availabilities()
     {
-        return $this->hasMany('Histoweb\Entities\Schedule');
+        return $this->hasMany('Histoweb\Entities\Availability');
     }
 
     public function doctors()
     {
         return $this->hasMany('Histoweb\Entities\Doctor');
+    }
+
+    public function diaries()
+    {
+        return $this->hasManyThrough('Histoweb\Entities\Diary', 'Histoweb\Entities\Availability');
     }
 
     public function discardedAvailabilities()

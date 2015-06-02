@@ -9,6 +9,10 @@
 			Administración
 		</h1>
 	@endsection
+
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('admin') !!}
+	@endsection
 	
 	@section('dashboard_body')
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system'), 'icon_widget' => 'img/placeholders/icons/system.png', 'title_widget' => 'Sistema'])

@@ -12,6 +12,10 @@
 			</a>
 		</h1>
 	@endsection
+
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('doctors') !!}
+	@endsection
 	
 	@section('dashboard_body')
 		@foreach($doctors as $doctor)
@@ -29,9 +33,8 @@
 						</div>
 					<div class="widget-content themed-background-muted text-center">
 						<div class="btn-group">
-							<a href="{{ route('admin.company.doctors.availabilities.index', $doctor->id) }}" title="Dispoinibilidad" class="btn btn-effect-ripple btn-warning"><i class="fa fa-calendar"></i></a>
-							<a href="{{ route('admin.company.doctors.schedules.index', $doctor->id) }}" title="Horario" class="btn btn-effect-ripple btn-success"><i class="fa fa-suitcase"></i></a>
-							<a href="{{ route('admin.company.doctors.diaries.index', $doctor->id) }}" title="Citas" class="btn btn-effect-ripple btn-info"><i class="fa fa-phone"></i></a>
+							<a href="{{ route('admin.company.doctors.availabilities.index', $doctor->id) }}" title="Dispoinibilidad" class="btn btn-effect-ripple btn-success"><i class="fa fa-calendar"></i> Disponibilidad</a>
+							<a href="{{ route('admin.company.doctors.diaries.index', $doctor->id) }}" title="Citas" class="btn btn-effect-ripple btn-info"><i class="fa fa-phone"></i> Horario y Citas</a>
 						</div>
 					</div>
 				</div>

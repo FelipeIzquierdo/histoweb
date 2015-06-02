@@ -13,7 +13,7 @@
 			Horario
 		</h1>
 	@endsection
-	
+
 	@section('dashboard_body')
 		<div class="block full">
 	        <div class="row">

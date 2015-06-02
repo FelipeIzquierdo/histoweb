@@ -140,6 +140,7 @@ return [
 		 * Me Providers...
 		 */
 		'Collective\Html\HtmlServiceProvider',
+		'DaveJamesMiller\Breadcrumbs\ServiceProvider',
         'Histoweb\Providers\FieldServiceProvider',
         'Histoweb\Providers\CalendarServiceProvider',
 		/*
@@ -150,8 +151,8 @@ return [
 		'Histoweb\Providers\ConfigServiceProvider',
 		'Histoweb\Providers\EventServiceProvider',
 		'Histoweb\Providers\RouteServiceProvider',
-
 		'Elibyy\TCPDF\ServiceProvider',
+
 
 	],
 
@@ -207,8 +208,10 @@ return [
 
         'Form' 		=> 'Collective\Html\FormFacade',
     	'Html' 		=> 'Collective\Html\HtmlFacade',
+    	'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
         'Field'		=> 'Histoweb\Components\Field\FieldFacade',
         'Calendar'	=> 'Histoweb\Components\Calendar\CalendarFacade',
+
 	],
 
 ];

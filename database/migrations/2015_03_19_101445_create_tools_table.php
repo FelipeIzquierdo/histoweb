@@ -12,7 +12,8 @@ class CreateToolsTable extends Migration {
         {
             $table->increments('id');
             $table->string('name');
-            $table->softDeletes();            
+            $table->timestamps();
+            $table->softDeletes();
         });
 	}
 
