@@ -12,6 +12,10 @@
 			</a>
 		</h1>
 	@endsection
+
+	@section('breadcrumbs')
+    	{!! Breadcrumbs::render('specialties') !!}
+  	@endsection
 	
 	@section('dashboard_body')
 		@foreach($specialties as $specialty)

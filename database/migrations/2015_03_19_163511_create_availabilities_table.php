@@ -18,11 +18,11 @@ class CreateAvailabilitiesTable extends Migration {
 
             $table->integer('doctor_id')->unsigned();
             $table->foreign('doctor_id')->references('id')->on('doctors');
-            
-            $table->enum('type',['telemedicine','personal'])->default('personal');
 
             $table->integer('surgery_id')->unsigned()->nullable();
 			$table->foreign('surgery_id')->references('id')->on('surgeries');
+
+			$table->enum('type',['telemedicine','personal'])->default('personal');
 
 			$table->timestamps();
 		});

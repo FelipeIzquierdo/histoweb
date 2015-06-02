@@ -9,6 +9,10 @@
 			{{ $surgery->name }}: Citas asignadas 
 		</h1>
 	@endsection
+
+	@section('breadcrumbs')
+    	{!! Breadcrumbs::render('surgeries.diaries', $surgery) !!}
+  	@endsection
 	
 	@section('dashboard_body')
 		<div class="block full">

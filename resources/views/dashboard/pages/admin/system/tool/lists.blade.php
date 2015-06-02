@@ -10,6 +10,10 @@
 			</a>
 		</h1>
 	@endsection
+
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('tools') !!}
+	@endsection
 	
 	@section('dashboard_body')
 

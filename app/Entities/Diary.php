@@ -9,7 +9,7 @@ class Diary extends Model
 	public $errors;
 
 
-    protected $fillable = ['type_id', 'start','end','entered_at','exit_at','patient_id', 'doctor_id', 'eps_id', 'membership_types_id'];
+    protected $fillable = ['availability_id', 'type_id', 'start','end','entered_at','exit_at','patient_id', 'eps_id', 'membership_types_id'];
     
     public function getTitleAttribute()
     {
@@ -23,7 +23,7 @@ class Diary extends Model
 
     public function getNameDoctorAttribute()
     {
-        return Doctor::find($this->attributes['doctor_id'])->name;
+        return $this->availability->doctor->name;
     }
 
     public function getDiaryTypeAttribute()
@@ -74,6 +74,16 @@ class Diary extends Model
     	]);
     }
 
+    public function IsCanAttend()
+    {
+        if($this->entered_at && !$this->entry)
+        {
+            return $true;
+        }
+
+        return false;
+    }
+
     public function hasActiveEntry()
     {
         if($this->entry && $this->entry->isActive())
@@ -107,5 +117,10 @@ class Diary extends Model
     public function patient()
     {
         return $this->belongsTo('Histoweb\Entities\Patient');
+    }
+
+    public function availability()
+    {
+        return $this->belongsTo('Histoweb\Entities\Availability');
     }
 }

@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder {
 		$this->call('DocTypesTableSeeder');
 		$this->call('DiaryTypesTableSeeder');
 		$this->call('HistoryTypesTableSeeder');
+
+		$this->call('EpsTableSeeder');
+		$this->call('MembershipTypesTableSeeder');
+
 		$this->call('HistoriesTableSeeder');
 		$this->call('OccupationsTableSeeder');
 		$this->call('ReasonsTableSeeder');

@@ -7,7 +7,7 @@
     <ul>
         @foreach($diaries as $d)
 	    	<li style="font-size:12px;">
-                @if($entry = $d->hasActiveEntry())
+                @if($entry = $d->IsCanAttend())
                     <a href="{{ route('assistance.entries', $entry->id)}}">
                         <span class="sidebar-nav-mini-hide {{$d->class}}"> {{ $d->time_start }} {{ $d->patient->short_name }}</span>
                     </a>

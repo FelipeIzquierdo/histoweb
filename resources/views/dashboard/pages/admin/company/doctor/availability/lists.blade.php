@@ -17,6 +17,10 @@
 		</h1>
 	@endsection
 	
+	@section('breadcrumbs')
+    	{!! Breadcrumbs::render('doctors.availabilities', $doctor) !!}
+  	@endsection
+
 	@section('dashboard_body')
 		<div class="block full">
 	        <div class="row">

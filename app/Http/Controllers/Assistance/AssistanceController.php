@@ -60,6 +60,11 @@ class AssistanceController extends Controller {
 		$this->entry = Entry::findOrFail($route->getParameter('one'));
 	}
 
+	public function findDiary(Route $route)
+	{
+		$this->diary = Diary::findOrFail($route->getParameter('one'));
+	}
+
 	public function verificActiveEntry(Route $route)
 	{	
 		if(!$this->entry->isActive())
@@ -85,13 +90,16 @@ class AssistanceController extends Controller {
 		]);
 	}
 
+	public function getCreateEntry($diary_id)
+	{
+		$entry = Entry::create(['diary_id' => $this->diary->id]);
+		$entry->save();
+
+		return redirect()->route('assistance.entries', $entry->id);
+	}
+
 	public function getEntries($id)
 	{
-		$dt = new DateTime();
-		$d = $this->entry->diary;
-		$d->entered_at = $dt->format('Y-m-d H:i:s');
-		$d->save();
-
 		return view('dashboard.pages.assistance.entry')->with([
 			'diaries'			=> $this->diaries, 
 			'entry' 			=> $this->entry,
@@ -102,12 +110,14 @@ class AssistanceController extends Controller {
 			'historyTypes'		=> $this->historyTypes
 		]);
 	}
+
+
 	public function getExit()
 	{
 		$dt = new DateTime();
-		$d = $this->entry->diary;
-		$d->exit_at = $dt->format('Y-m-d H:i:s');
-		$d->save();
+		$this->entry->exit_at = $dt->format('Y-m-d H:i:s');
+		$this->entry->save();
+		
 		return redirect()->route('assistance');
 	}
 

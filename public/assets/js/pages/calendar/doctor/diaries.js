@@ -162,17 +162,16 @@ function newDiary(doctorId, patientId, diaryTypeId)
     });
 }
 
-function createDiary(copiedEventObject)
+function createDiary(copiedEventObject, $dropEvent)
 {
     $.ajax({
-        data:  {
+        data: {
             'patient_id': parseInt(copiedEventObject.patientId),
             'type_id': parseInt(copiedEventObject.typeDiary),
             'start': copiedEventObject.start.format('YYYY-MM-DD hh:mm:ss'),
             'end': copiedEventObject.time,
             'eps_id': copiedEventObject.eps,
             'membership_types_id': copiedEventObject.membership
-
         },
         url:   '/admin/company/doctors/' + doctorId + '/diaries',
         type:  'POST',
@@ -180,14 +179,12 @@ function createDiary(copiedEventObject)
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
         },
         success:  function (data) {
+            $dropEvent.remove();
             $("#calendar").fullCalendar("renderEvent",data,!0);
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
-            if(jqXHR)
-            {
-                console.log(jqXHR);
-            }
+            console.log('El envento solo puede ser asignado en la disponibilidad correcta');
         }
     });
 }
@@ -282,9 +279,7 @@ var CompCalendar = function()
                     ret.setTime(ret.getTime() + copiedEventObject.time*60000);
                     copiedEventObject.start = date;
                     copiedEventObject.end = ret;
-                    console.log();
-                    createDiary(copiedEventObject);
-                    $(this).remove();
+                    createDiary(copiedEventObject, $(this));
                 },
                 eventClick: function(event, delta, jsEvent, view) {
                     $("#eventPatient").html(event.title);

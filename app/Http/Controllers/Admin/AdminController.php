@@ -15,6 +15,7 @@ class AdminController extends Controller {
 	public function getIndex()
 	{
 		return view('dashboard.pages.admin.home');
+		//dd(__DIR__ . '/../config/breadcrumbs.php');
 	}
 
 }

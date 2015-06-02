@@ -8,6 +8,10 @@
     <meta name="_token" content="{{ csrf_token() }}"/>
 @endsection
 
+@section('breadcrumbs')
+        {!! Breadcrumbs::render('reception') !!}
+    @endsection
+
 @section('dashboard_body')
 	<div class="block full" style="margin: 5px 0px; padding: 13px 0px;">
 		<div class="row">

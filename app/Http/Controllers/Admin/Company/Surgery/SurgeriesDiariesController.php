@@ -17,7 +17,7 @@ class SurgeriesDiariesController extends Controller {
 	public function __construct() 
 	{
 		$this->middleware('auth');
-		$this->beforeFilter('@findDoctor');
+		$this->beforeFilter('@finSurgery');
 	}
 
 
@@ -25,7 +25,7 @@ class SurgeriesDiariesController extends Controller {
 	 * Find a specified Surgery resource
 	 *
 	 */
-	public function findDoctor(Route $route)
+	public function finSurgery(Route $route)
 	{
 		$this->surgery = Surgery::find($route->getParameter('surgeries'));
 	}
@@ -48,6 +48,6 @@ class SurgeriesDiariesController extends Controller {
 	 */
 	public function json($surgery_id)
 	{
-		return \Calendar::diariesAndAvailableSchedule($this->doctor->diaries, $this->doctor->schedules);
+		return \Calendar::getSurgeryDiaries($this->surgery);
 	}
 }

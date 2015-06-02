@@ -78,7 +78,7 @@ class DoctorsAvailabilitiesController extends Controller {
 		$availability  = new Availability ;
         $form_data = ['route' => [self::$prefixRoute . 'store', $this->doctor->id], 'method' => 'POST'];
 
-        return view(self::$prefixView . 'form', compact('availability', 'form_data'))->with('days', $this->days);
+        return view(self::$prefixView . 'form', compact('availability', 'form_data'))->with(['days' => $this->days, 'doctor' => $this->doctor]);
 	}
 
 	/**
