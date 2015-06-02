@@ -88,6 +88,7 @@ class DoctorsDiariesController extends Controller {
                 'doctor'=> $diary->doctor_id,
                 'nameDoctor' => $diary->nameDoctor,
                 'diaryType' => $diary->diaryType,
+                'entered_at' => $diary->entered_at,
                 'constraint'    => 'availableForMeeting'
             ];
 

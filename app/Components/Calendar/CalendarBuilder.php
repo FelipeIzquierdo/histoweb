@@ -70,9 +70,10 @@ class CalendarBuilder {
                 'id'    => $diary->id,
                 'title' => $diary->title,
                 'doctor'=> $diary->doctor_id,
+                'entered_at' => $diary->entered_at,
                 'nameDoctor' => $diary->nameDoctor,
-                'diaryType' => $diary->diaryType,
-                'constraint'    => 'availableForMeeting'
+                'diaryType'  => $diary->diaryType,
+                'constraint' => 'availableForMeeting'
             ]);
         }
         return $events;

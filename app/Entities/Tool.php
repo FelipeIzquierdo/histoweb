@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tool extends Model {
+
+class Tool extends Model {	
 
 	protected $fillable = ['name'];
 	public static function allLists()

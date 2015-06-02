@@ -37,6 +37,7 @@ class CreateDiariesTable extends Migration {
             $table->timestamp('entered_at')->nullable();
             $table->timestamp('exit_at')->nullable();
 
+            $table->softDeletes();
             
             $table->timestamps();
         });
