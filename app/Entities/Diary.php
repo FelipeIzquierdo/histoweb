@@ -49,30 +49,51 @@ class Diary extends Model
 
     public function getClassAttribute()
     {
-        if(isset($this->exit_at))
+        if($this->isCanAttend())
         {
-            return 'text-warning';
+            return 'text-success';
         }
-        if(isset($this->entered_at))
+        else if($this->entry)
+        {
+            if(isset($this->entry->exit_at))
+            {
+                return 'text-info';
+            }
+            else
+            {
+                return 'text-warning';
+            }
+        }
+        else if($this->entered_at)
         {
             return 'text-success';
         }
         else
         {
-            return 'text-info';
-        }
-        
+            return 'text-muted';
+        }    
     }    
 
-    public function IsCanAttend()
+    public function isCanAttend()
     {
         if($this->entered_at && !$this->entry)
         {
-            return $true;
+            return true;
         }
 
         return false;
     }
+
+    public function isBeingTreated()
+    {
+        if($this->entry && !isset($this->entry->exit_at))
+        {
+            return true;
+        }
+
+        return false;
+    }
+    
 
     public function hasActiveEntry()
     {

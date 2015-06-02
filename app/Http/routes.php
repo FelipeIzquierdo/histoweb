@@ -37,7 +37,7 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 	Route::post('options/{one}/removeprocedure', ['uses' => 'AssistanceController@getRemoveProcedure', 'as' => 'assistance.entries.removeprocedure']);
 	Route::controller('/', 'AssistanceController', [
 		'getIndex' 			=> 'assistance', 
-		'getEntries' 		=> 'assistance.entries',
+		'getCreateEntry' 	=> 'assistance.create-entry',
 		'getExit'	 		=> 'assistance.exit',
 		'getHistory'		=> 'assistance.entries.history',
 		'postHistory'		=> 'assistance.entries.history',

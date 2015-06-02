@@ -5,15 +5,19 @@
     	<span class="sidebar-nav-mini-hide">Pacientes</span>
     </a>
     <ul>
-        @foreach($diaries as $d)
+        @foreach($diaries as $di)
 	    	<li style="font-size:12px;">
-                @if($entry = $d->IsCanAttend())
-                    <a href="{{ route('assistance.entries', $entry->id)}}">
-                        <span class="sidebar-nav-mini-hide {{$d->class}}"> {{ $d->time_start }} {{ $d->patient->short_name }}</span>
+                @if($di->isCanAttend())
+                    <a href="{{ route('assistance.create-entry', $di->id)}}">
+                        <span class="sidebar-nav-mini-hide {{$di->class}}"> {{ $di->time_start }} {{ $di->patient->short_name }}</span>
+                    </a>
+                @elseif($di->isBeingTreated())
+                    <a href="{{ route('assistance.entries.options', $di->entry->id)}}">
+                        <span class="sidebar-nav-mini-hide {{$di->class}}"> {{ $di->time_start }} {{ $di->patient->short_name }}</span>
                     </a>
                 @else
                     <a href="#">
-                        <span class="sidebar-nav-mini-hide {{$d->class}}"> {{ $d->time_start }} {{ $d->patient->short_name }}</span>
+                        <span class="sidebar-nav-mini-hide {{$di->class}}"> {{ $di->time_start }} {{ $di->patient->short_name }}</span>
                     </a>
                 @endif
 	        </li> 
