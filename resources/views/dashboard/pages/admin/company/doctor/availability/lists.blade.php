@@ -40,6 +40,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="modal-body form-group">
+                            <label class="col-md-4 control-label" for="example-progress-username">Tipo:</label>
+                            <div class="col-md-6">
+                                <p><spam id="eventType"></spam></p>
+                            </div>
+                        </div>
+                        <div class="modal-body form-group">
                             <label class="col-md-4 control-label" for="example-progress-username">Fecha:</label>
                             <div class="col-md-6">
                                 <p><spam id="eventDate"></spam></p>

@@ -117,6 +117,10 @@ class DoctorsController extends Controller {
     public function update(EditRequest $request, $id)
     {
         $this->doctor->fill($request->all());
+        if(!$request->get('telemedicine'))
+        {
+        	$this->doctor->telemedicine = false;
+        }
         $this->doctor->save();
 
         if ($photo = $request->hasFile('photo'))

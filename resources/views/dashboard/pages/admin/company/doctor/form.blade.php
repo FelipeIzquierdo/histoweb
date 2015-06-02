@@ -28,6 +28,8 @@
                   {!! Field::text( 'last_name', null, ['placeholder' => 'Apellidos', 'template' => 'horizontal']) !!}
                   {!! Field::select('specialty_id', $specialties, null, ['data-placeholder' => 'Seleccione una especialidad', 'template' => 'horizontal']) !!}
                   {!! Field::file('photo', null, [ 'template' => 'horizontal']) !!}
+                  {!! Field::checkbox('telemedicine', 1, ['template' => 'switche']) !!}
+
                   <div class="form-group form-actions">
                     <div class="col-md-9 col-md-offset-3">
                         <button type="submit" class="btn btn-effect-ripple btn-primary">Guardar</button>

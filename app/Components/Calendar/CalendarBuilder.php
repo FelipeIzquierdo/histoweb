@@ -22,7 +22,6 @@ class CalendarBuilder {
                 'type'      => 'schedule',
                 'start'     => $u->start,
                 'end'       => $u->end,
-                'color'     => '#5cafde',
                 'title'     => $u->title,
                 'id'        => 'sch-' . $u->id,
                 'doctor_id'  => $u->doctor_id,
@@ -36,12 +35,33 @@ class CalendarBuilder {
                 'type'  => 'availability',
                 'start' => $a->start,
                 'end'   => $a->end,
-                'color' => $a->color,
+                'color' => $a->doctor->color,
                 'state' => $a->state,
                 'title' => $a->title,
                 'id' => 'ava-' . $a->id,
                 'doctor_id' => $a->doctor_id,
                 'group_id' => $a->group_id
+            ]);
+        }
+        return $events;
+    }
+
+    public function getDoctorAvailabilities($doctor)
+    {
+        $events = array();
+
+        foreach ($doctor->availabilities as  $availability)
+        {
+            array_push($events,[
+                'type'          => $availability->type,
+                'start'         => $availability->start,
+                'end'           => $availability->end,
+                'id'            => $availability->id,
+                'typeName'      => $availability->type_name,
+                'color'         => $availability->color_of_type,
+                'surgery_id'    => $availability->surgery_id,
+                'doctor_id'     => $availability->doctor_id,
+                'constraint'    => 'availableForMeeting'
             ]);
         }
         return $events;

@@ -12,7 +12,7 @@ class Doctor extends Model
     public static $pathPhoto = 'img/placeholders/photos/doctors/';
     private static $defaultPhoto = 'img/placeholders/icons/doctor.png';
 
-    protected $fillable = ['cc','first_name','last_name','color','specialty_id'];
+    protected $fillable = ['cc','first_name','last_name','color','specialty_id', 'telemedicine'];
 
     public static function allLists()
     {

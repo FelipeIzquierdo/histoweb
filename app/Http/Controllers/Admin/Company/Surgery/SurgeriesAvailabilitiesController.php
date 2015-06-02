@@ -67,7 +67,7 @@ class SurgeriesAvailabilitiesController extends Controller {
     {
         return \Calendar::getAvailabilities(
             $this->surgery->availabilities, 
-            Availability::allAvailable($this->surgery->id)
+            Availability::allPersonalAvailable($this->surgery->id)
         );
     }
 
