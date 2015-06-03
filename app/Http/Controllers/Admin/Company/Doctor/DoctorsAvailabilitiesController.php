@@ -44,7 +44,7 @@ class DoctorsAvailabilitiesController extends Controller {
 	 */
 	public function findDoctor(Route $route)
 	{
-		$this->doctor = Doctor::find($route->getParameter('doctors'));
+		$this->doctor = Doctor::findOrFail($route->getParameter('doctors'));
 	}
 
 	/**
@@ -65,7 +65,7 @@ class DoctorsAvailabilitiesController extends Controller {
 	 */
 	public function json($doctor_id)
 	{
-		return $this->doctor->availabilities->toJson();
+		return \Calendar::getDoctorAvailabilities($this->doctor);
 	}
 
 	/**
@@ -78,7 +78,8 @@ class DoctorsAvailabilitiesController extends Controller {
 		$availability  = new Availability ;
         $form_data = ['route' => [self::$prefixRoute . 'store', $this->doctor->id], 'method' => 'POST'];
 
-        return view(self::$prefixView . 'form', compact('availability', 'form_data'))->with('days', $this->days);
+        return view(self::$prefixView . 'form', compact('availability', 'form_data'))
+        	->with(['days' => $this->days, 'doctor' => $this->doctor, 'types' => Availability::$types]);
 	}
 
 	/**
@@ -94,7 +95,7 @@ class DoctorsAvailabilitiesController extends Controller {
 		
 		foreach ($events as $event) 
 		{
-			array_push($availabilities, new Availability($event + ['group_id' => $nextGroupId]));
+			array_push($availabilities, new Availability($event + ['group_id' => $nextGroupId, 'type' => $request->get('type')]));
 		}
 
 		$this->doctor->availabilities()->saveMany($availabilities);
@@ -130,12 +131,19 @@ class DoctorsAvailabilitiesController extends Controller {
 	 */
 	public function destroy(Request $request, $doctor_id, $id)
 	{
-		$this->availability->delete();
+		if(!$this->availability->surgery)
+		{
+			$this->availability->delete();
+			$response = ['result' => true, 'message' => 'Evento eliminado con exito'];
+		}
+		else
+		{
+			$response = ['result' => false, 'message' => 'La disponibilidad ya está siendo usada'];
+		}
+		
 		if($request->ajax())
 		{   
-	        return response()->json([
-	            'message' =>     'Evento eliminado con exito',
-	        ]);
+	        return response()->json($response);
 	    }
 	}
 

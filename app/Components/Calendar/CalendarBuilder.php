@@ -12,56 +12,111 @@ class CalendarBuilder {
         $this->session = $session;
     }
 
-    public function getSchedulesAvailabilities($schedules, $availabilities)
+    public function getAvailabilities($used, $availables)
     {
         $events = array();
 
-        foreach ($schedules as  $schedule)
+        foreach ($used as  $u)
         {
             array_push($events,[
                 'type'      => 'schedule',
-                'start'     => $schedule->start,
-                'end'       => $schedule->end,
-                'color'     => '#5cafde',
-                'title'     => $schedule->title,
-                'id'        => 'sch-' . $schedule->id,
-                'doctor_id'  => $schedule->doctor_id,
-                'surgery_id' => $schedule->surgery_id
+                'start'     => $u->start,
+                'end'       => $u->end,
+                'title'     => $u->title,
+                'id'        => 'sch-' . $u->id,
+                'doctor_id'  => $u->doctor_id,
+                'surgery_id' => $u->surgery_id
             ]);
         }
         
-        foreach ($availabilities as  $availability)
+        foreach ($availables as  $a)
         {
             array_push($events,[
                 'type'  => 'availability',
-                'start' => $availability->start,
-                'end'   => $availability->end,
-                'color' => $availability->color,
-                'state' => $availability->state,
-                'title' => $availability->title,
-                'id' => 'ava-' . $availability->id,
-                'doctor_id' => $availability->doctor_id,
-                'group_id' => $availability->group_id
+                'start' => $a->start,
+                'end'   => $a->end,
+                'color' => $a->doctor->color,
+                'state' => $a->state,
+                'title' => $a->title,
+                'id' => 'ava-' . $a->id,
+                'doctor_id' => $a->doctor_id,
+                'group_id' => $a->group_id
             ]);
         }
         return $events;
     }
 
-    public function getSchedulesDiaries($doctor)
+    public function getDoctorAvailabilities($doctor)
     {
         $events = array();
 
-        foreach ($doctor->schedules as  $schedule)
+        foreach ($doctor->availabilities as  $availability)
+        {
+            array_push($events,[
+                'type'          => $availability->type,
+                'start'         => $availability->start,
+                'end'           => $availability->end,
+                'id'            => $availability->id,
+                'typeName'      => $availability->type_name,
+                'color'         => $availability->color_of_type,
+                'surgery_id'    => $availability->surgery_id,
+                'doctor_id'     => $availability->doctor_id,
+                'constraint'    => 'availableForMeeting'
+            ]);
+        }
+        return $events;
+    }
+
+    public function getDoctorDiaries($doctor)
+    {
+        $events = array();
+
+        foreach ($doctor->availabilities as  $availability)
         {
             array_push($events,[
                 'type'  => 'schedule',
                 'id' =>  'availableForMeeting',
-                'start'     => $schedule->start,
-                'end'       => $schedule->end,
+                'start'     => $availability->start,
+                'end'       => $availability->end,
+                'rendering' => 'background',
+                'color'     => $availability->color_of_type
+            ]);
+        }
+
+        foreach ($doctor->diaries as  $diary)
+        {
+            array_push($events,[
+                'type'       => 'diary',
+                'start'      => $diary->start,
+                'end'        => $diary->end,
+                'id'         => $diary->id,
+                'title'      => $diary->title,
+                'doctor'     => $diary->doctor_id,
+                'entered_at' => $diary->entered_at,
+                'nameDoctor' => $diary->nameDoctor,
+                'diaryType'  => $diary->diaryType,
+                'constraint' => 'availableForMeeting'
+            ]);
+        }
+        return $events;
+    }
+
+    public function getSurgeryDiaries($surgery)
+    {
+        $events = array();
+
+        foreach ($surgery->availabilities as  $availability)
+        {
+            array_push($events,[
+                'type'      => 'schedule',
+                'id'        =>  'availableForMeeting',
+                'start'     => $availability->start,
+                'end'       => $availability->end,
                 'rendering' => 'background'
             ]);
         }
-        foreach ($doctor->diaries as  $diary)
+
+        foreach ($surgery->diaries as  $diary)
         {
             array_push($events,[
                 'type'  => 'diary',
@@ -70,12 +125,12 @@ class CalendarBuilder {
                 'id'    => $diary->id,
                 'title' => $diary->title,
                 'doctor'=> $diary->doctor_id,
-                'entered_at' => $diary->entered_at,
                 'nameDoctor' => $diary->nameDoctor,
                 'diaryType'  => $diary->diaryType,
                 'constraint' => 'availableForMeeting'
             ]);
         }
+
         return $events;
     }
 

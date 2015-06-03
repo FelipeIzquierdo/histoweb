@@ -9,10 +9,15 @@
 
 		public function run()
 	    {
-	    	\DB::table('diary_types')->insert([
-                'name'	=> 'Rutina',
-                'time'	=> 30
-            ]);
+	    	DiaryType::create([
+	    		'name'	=> 'Rutina',
+	    		'time'	=> 30
+	    	]);
+
+	    	DiaryType::create([
+	    		'name'	=> 'Nueva consulta',
+	    		'time'	=> 60
+	    	]);
 
 	    }
 	}

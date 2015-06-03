@@ -1,7 +1,7 @@
 @extends('dashboard.pages.layout')
 
 @section('dashboard_title')
-    <h1>Paciente: {{ $entry->diary->patient->name }}</h1>
+    <h1>Paciente: {{ $diary->patient->name }}</h1>
 @endsection
 
 @section('sidebar_menu')
@@ -10,7 +10,7 @@
 
 @section('dashboard_body')
     
-    {!! Form::open(['route' => ['assistance.entries.history', $entry->id], 'method' => 'POST', 'id' => 'entryForm']) !!}
+    {!! Form::open(['route' => ['assistance.entries.history', $diary->id], 'method' => 'POST', 'id' => 'entryForm']) !!}
     
         <div class="block">
             <div class="block-title clearfix">
@@ -106,7 +106,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title"><strong>Historia Clinica,</strong> {!! $entry->diary->patient->doc_type_doc !!} - {!! $entry->diary->patient->name !!} </h3>
+                    <h3 class="modal-title"><strong>Historia Clinica,</strong> {!! $diary->patient->doc_type_doc !!} - {!! $diary->patient->name !!} </h3>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal form-bordered">

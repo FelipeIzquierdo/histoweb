@@ -9,9 +9,14 @@
 
 		public function run()
 	    {
-	    	\DB::table('eps')->insert([
-                'name'	=> 'Eps 1',
+	    	Eps::create([
+                'name'	=> 'Nueva EPS',
                 'code'	=>  1
+            ]);
+
+            Eps::create([
+                'name'	=> 'Coomeva',
+                'code'	=>  2
             ]);
 
 	    }

@@ -17,6 +17,10 @@
 		</h1>
 	@endsection
 	
+	@section('breadcrumbs')
+    	{!! Breadcrumbs::render('doctors.availabilities', $doctor) !!}
+  	@endsection
+
 	@section('dashboard_body')
 		<div class="block full">
 	        <div class="row">
@@ -35,6 +39,12 @@
                         <h3 class="modal-title"><strong>Dispoibilidad</strong></h3>
                     </div>
                     <div class="modal-body">
+                        <div class="modal-body form-group">
+                            <label class="col-md-4 control-label" for="example-progress-username">Tipo:</label>
+                            <div class="col-md-6">
+                                <p><spam id="eventType"></spam></p>
+                            </div>
+                        </div>
                         <div class="modal-body form-group">
                             <label class="col-md-4 control-label" for="example-progress-username">Fecha:</label>
                             <div class="col-md-6">

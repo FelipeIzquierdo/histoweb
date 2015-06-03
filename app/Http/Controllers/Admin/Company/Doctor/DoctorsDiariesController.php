@@ -57,10 +57,7 @@ class DoctorsDiariesController extends Controller {
 
 		$url = route(self::$prefixRoute . 'json', $this->doctor->id);
 		return view(self::$prefixView . 'diaries', compact('url', 'diaryTypes','occupations', 'doc_types', 'genders', 'eps', 'membershipTypes'))->with('doctor', $this->doctor);
-
 	}
-
-
 
     /**
      * Display a listing of the resource in JSON.
@@ -69,11 +66,20 @@ class DoctorsDiariesController extends Controller {
      */
     public function store(CreateRequest $request, $doctor_id)
     {
-        $data = ($request->all()+ ['doctor_id' => $this->doctor->id]) ;
+        $data = ($request->all()) ;
         $timestamp = strtotime($data['start']);
         $time = $data['end'];
         $addTime = "+$time minutes";
-        $data ['end'] = date('Y-m-d H:i:s', strtotime($addTime, $timestamp));
+        $data['end'] = date('Y-m-d H:i:s', strtotime($addTime, $timestamp));
+
+        $availability = $this->doctor->findAvailability($data['start'], $data['end']);
+
+        if(!$availability)
+        {
+           \App::abort('404'); 
+        }
+
+        $data['availability_id'] = $availability->id;
         $diary = new Diary($data);
         $diary->save();
 
@@ -85,7 +91,6 @@ class DoctorsDiariesController extends Controller {
                 'end'   => $diary->end,
                 'id'    => $diary->id,
                 'title' => $diary->title,
-                'doctor'=> $diary->doctor_id,
                 'nameDoctor' => $diary->nameDoctor,
                 'diaryType' => $diary->diaryType,
                 'entered_at' => $diary->entered_at,
@@ -93,7 +98,6 @@ class DoctorsDiariesController extends Controller {
             ];
 
             return $events;
-
         }
 
 
@@ -106,7 +110,7 @@ class DoctorsDiariesController extends Controller {
 	 */
 	public function json($doctor_id)
 	{
-		return \Calendar::getSchedulesDiaries($this->doctor);
+		return \Calendar::getDoctorDiaries($this->doctor);
 	}
 
     public function newDiary($doctor_id, $patient_id, $diary_type_id){

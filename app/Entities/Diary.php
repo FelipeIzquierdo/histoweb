@@ -12,7 +12,7 @@ class Diary extends Model
     public $increments = true;
     public $errors;
 
-    protected $fillable = ['type_id', 'start','end','entered_at','exit_at','patient_id', 'doctor_id', 'eps_id', 'membership_types_id'];
+    protected $fillable = ['availability_id', 'type_id', 'start','end','entered_at','exit_at','patient_id', 'eps_id', 'membership_types_id'];
     
     public function getTitleAttribute()
     {
@@ -26,7 +26,7 @@ class Diary extends Model
 
     public function getNameDoctorAttribute()
     {
-        return Doctor::find($this->attributes['doctor_id'])->name;
+        return $this->availability->doctor->name;
     }
 
     public function getDiaryTypeAttribute()
@@ -49,21 +49,47 @@ class Diary extends Model
 
     public function getClassAttribute()
     {
-        if(isset($this->exit_at))
-        {
-            return 'text-warning';
-        }
-        if(isset($this->entered_at))
+        if($this->isCanAttend())
         {
             return 'text-success';
         }
+        else if($this->entry)
+        {
+            if(isset($this->entry->exit_at))
+            {
+                return 'text-info';
+            }
+            else
+            {
+                return 'text-warning';
+            }
+        }
         else
         {
-            return 'text-info';
-        }
-        
+            return 'text-muted';
+        }    
     }    
 
+    public function isCanAttend()
+    {
+        if($this->entered_at && !$this->entry)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isBeingTreated()
+    {
+        if($this->entry && !isset($this->entry->exit_at))
+        {
+            return true;
+        }
+
+        return false;
+    }
+    
     public function hasActiveEntry()
     {
         if($this->entry && $this->entry->isActive())
@@ -97,5 +123,10 @@ class Diary extends Model
     public function patient()
     {
         return $this->belongsTo('Histoweb\Entities\Patient');
+    }
+
+    public function availability()
+    {
+        return $this->belongsTo('Histoweb\Entities\Availability');
     }
 }

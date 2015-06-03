@@ -9,6 +9,10 @@
 			Administración del Sistema
 		</h1>
 	@endsection
+
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('system') !!}
+	@endsection
 	
 	@section('dashboard_body')
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.tools.index'), 'icon_widget' => 'img/placeholders/icons/tool.png', 'title_widget' => 'Herramientas'])

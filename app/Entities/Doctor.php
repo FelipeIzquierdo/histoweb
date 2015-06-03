@@ -12,11 +12,19 @@ class Doctor extends Model
     public static $pathPhoto = 'img/placeholders/photos/doctors/';
     private static $defaultPhoto = 'img/placeholders/icons/doctor.png';
 
-    protected $fillable = ['cc','first_name','last_name','color','specialty_id'];
+    protected $fillable = ['cc','first_name','last_name','color','specialty_id', 'telemedicine'];
 
     public static function allLists()
     {
-        return self::get()->lists('name' ,'id' );
+        return self::get()->lists('name_specialty_telemedicine' ,'id' );
+    }
+
+    public function findAvailability($start, $end)
+    {
+        return $this->availabilities()
+            ->where('start', '<=', $start)
+            ->where('end', '>=', $end)
+            ->first();
     }
 
     public function getDiariesToday()
@@ -30,6 +38,23 @@ class Doctor extends Model
     public function getNameAttribute()
     {
     	return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getNameSpecialtyTelemedicineAttribute()
+    {
+        $text = $this->first_name . ' ' . $this->last_name;
+        
+        if($this->specialty)
+        {
+            $text .= ' - ' . $this->specialty->name;
+        }
+
+        if($this->telemedicine)
+        {
+            $text .= ' - Telemedicina';
+        }
+
+        return $text;
     }
 
     public function getNamePhotoAttribute()
@@ -54,14 +79,9 @@ class Doctor extends Model
         return $this->hasMany('Histoweb\Entities\Availability');
     }
 
-    public function schedules()
-    {
-        return $this->hasMany('Histoweb\Entities\Schedule');
-    }
-
     public function diaries()
     {
-        return $this->hasMany('Histoweb\Entities\Diary');
+        return $this->hasManyThrough('Histoweb\Entities\Diary', 'Histoweb\Entities\Availability');
     }
 
     public function specialty()

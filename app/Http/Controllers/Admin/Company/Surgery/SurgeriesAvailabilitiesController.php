@@ -1,34 +1,32 @@
 <?php namespace Histoweb\Http\Controllers\Admin\Company\Surgery;
 
-
-use Histoweb\Entities\Availability;
-use Histoweb\Http\Requests\Schedule\CreateMassiveRequest;
-use Histoweb\Http\Requests\Schedule\CreateRequest;
-use Histoweb\Http\Requests\Schedule\EditRequest;
+use Histoweb\Http\Requests\Availability\CreateMassiveRequest;
+use Histoweb\Http\Requests\Availability\CreateRequest;
+use Histoweb\Http\Requests\Availability\EditRequest;
 use Histoweb\Http\Controllers\Controller;
 
 use Histoweb\Entities\Surgery;
-use Histoweb\Entities\Schedule;
+use Histoweb\Entities\Availability;
 use Histoweb\Entities\Doctor;
 
 use Illuminate\Routing\Route;
 use Illuminate\Http\Request;
 
-class SurgeriesSchedulesController extends Controller {
+class SurgeriesAvailabilitiesController extends Controller {
 
 	private $surgery;
-    protected $schedule;
+    protected $availability;
 	private $days = ['monday' => 'Lunes', 'tuesday' => 'Martes', 'wednesday' => 'Miercoles', 
 		'thursday' => 'Jueves', 'friday' => 'Viernes', 'saturday' => 'Sábado'];
 
-    private static $prefixRoute = 'admin.company.surgeries.schedules.';
-    private static $prefixView = 'dashboard.pages.admin.company.surgery.schedule.';
+    private static $prefixRoute = 'admin.company.surgeries.availabilities.';
+    private static $prefixView = 'dashboard.pages.admin.company.surgery.availability.';
 
 	public function __construct() 
 	{
 		$this->middleware('auth');
 		$this->beforeFilter('@findSurgery');
-        $this->beforeFilter('@findSchedules', ['only' => ['update', 'destroy']]);
+        $this->beforeFilter('@findAvailability', ['only' => ['update', 'destroy']]);
 	}
 
 	/**
@@ -37,16 +35,16 @@ class SurgeriesSchedulesController extends Controller {
 	 */
 	public function findSurgery(Route $route)
 	{
-		$this->surgery = Surgery::find($route->getParameter('surgeries'));
+		$this->surgery = Surgery::findOrFail($route->getParameter('surgeries'));
 	}
 
     /**
-     * Find a specified Schedules resource
+     * Find a specified Availabilitys resource
      *
      */
-    public function findSchedules(Route $route)
+    public function findAvailability(Route $route)
     {
-        $this->schedule = $this->surgery->schedules()->find($route->getParameter('schedules'));
+        $this->availability = $this->surgery->availabilities()->findOrFail($route->getParameter('availabilities'));
     }
 
 	/**
@@ -67,7 +65,10 @@ class SurgeriesSchedulesController extends Controller {
      */
     public function json($surgery_id)
     {
-        return \Calendar::getSchedulesAvailabilities($this->surgery->schedules, Availability::allStateAvailable($this->surgery->id));
+        return \Calendar::getAvailabilities(
+            $this->surgery->availabilities, 
+            Availability::allPersonalAvailable($this->surgery->id)
+        );
     }
 
 	/**
@@ -77,10 +78,10 @@ class SurgeriesSchedulesController extends Controller {
 	 */
 	public function create()
 	{
-        $schedule  = new Schedule ;
+        $availability  = new Availability;
         $form_data = ['route' => [self::$prefixRoute . 'store', $this->surgery->id], 'method' => 'POST'];
         $doctors = Doctor::allLists();
-        return view(self::$prefixView . 'form', compact('schedule', 'form_data','doctors'))->with('days', $this->days);
+        return view(self::$prefixView . 'form', compact('availability', 'form_data','doctors'))->with(['days' => $this->days, 'surgery' => $this->surgery]);
 	}
 
     /**
@@ -90,8 +91,9 @@ class SurgeriesSchedulesController extends Controller {
      */
     public function storeMassive(CreateMassiveRequest $request, $surgery_id)
     {
-        $schedule = new Schedule($request->all());
-        $schedule->save();
+        $availability = new Availability($request->all() + ['surgery_id' => $surgery_id]);
+        $availability->save();
+
         if($request->ajax())
         {
             return response()->json([
@@ -110,13 +112,13 @@ class SurgeriesSchedulesController extends Controller {
 	{
         $doctor = $request->input('doctor_id');
         $events = \Calendar::eventsOfData($request->all());
-        $schedules = array();
+        $availabilities = array();
 
         foreach ($events as $event)
         {
-            array_push($schedules, new Schedule($event + ['doctor_id' => $doctor]));
+            array_push($availabilities, new Availability($event + ['doctor_id' => $doctor, 'surgery_id' => $surgery_id, 'group_id' => Availability::nextGroupId()]));
         }
-        $this->surgery->schedules()->saveMany($schedules);
+        $this->surgery->availabilities()->saveMany($availabilities);
         return redirect()->route(self::$prefixRoute . 'index', $this->surgery->id);
 	}
 
@@ -129,8 +131,8 @@ class SurgeriesSchedulesController extends Controller {
 	 */
 	public function update(EditRequest $request, $doctor_id, $id)
 	{
-        $this->schedule->fill($request->all());
-        $this->schedule->save();
+        $this->availability->fill($request->all());
+        $this->availability->save();
 
         if($request->ajax())
         {
@@ -166,7 +168,8 @@ class SurgeriesSchedulesController extends Controller {
 	 */
 	public function destroy(Request $request, $surgery_id, $id)
 	{
-        $this->schedule->delete();
+        $this->availability->delete();
+        
         if($request->ajax())
         {
             return response()->json([

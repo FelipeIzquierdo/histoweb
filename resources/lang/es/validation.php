@@ -129,7 +129,9 @@ return array(
 	'time'					=> 'tiempo',
 	'doc_type_id'			=> 'tipo de documento',
 	'diaryTypes'			=> 'tipo de cita',
-	'name_system'			=> 'Nombre de Sistema',
+	'name_system'			=> 'nombre de sistema',
+	'type'					=> 'tipo',
+	'telemedicine'			=> 'telemedicina',
 
 	// Patient History
 	'reasons'						=> 'motivos de consulta',

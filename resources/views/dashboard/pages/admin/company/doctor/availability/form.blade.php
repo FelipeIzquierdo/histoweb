@@ -9,6 +9,10 @@
     </h1> 
   @endsection 
 
+  @section('breadcrumbs')
+    {!! Breadcrumbs::render('doctors.availabilities.create', $doctor) !!}
+  @endsection
+
   @section('dashboard_body') 
     <div class="row">
       <div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
@@ -18,6 +22,9 @@
               </div>
               <div class="form-horizontal form-bordered">               
                 {!! Form::model($availability, $form_data) !!}  
+                  @if($doctor->telemedicine)
+                    {!! Field::select('type', $types, null, ['data-placeholder' => 'Seleccione el tipo de Disponibilidad', 'template' => 'horizontal']) !!}
+                  @endif
                   {!! Field::dateRange('start_date', 'end_date', null, null, ['placeholder' => 'Desde'], ['placeholder' => 'Hasta']) !!}
                   {!! Field::select('days[]', $days, $availability->days_id, ['data-placeholder' => 'Seleccione los Días', 'template' => 'horizontal', 'multiple']) !!}
                   {!! Field::time('start_time', null) !!}

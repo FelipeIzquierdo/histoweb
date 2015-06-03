@@ -29,8 +29,11 @@ function deleteAvailability(event) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
         },
         success:  function (data) {
-            $('#calendar').fullCalendar('removeEvents', event.id);
-            console.log('evento ' + event.id + ' eliminado');
+            if(data.result)
+            {
+                $('#calendar').fullCalendar('removeEvents', event.id);
+            }
+            console.log(data.message);
         }
     });
 }
@@ -44,6 +47,7 @@ var CompCalendar = function() {
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
+            var types = {'personal':'Presencial', 'telemedicine':'Telemedicina'};
 
             $('#calendar').fullCalendar({
                 header: {
@@ -80,6 +84,7 @@ var CompCalendar = function() {
                     $("#eventId").html(event.id);
                     $("#eventDate").html(event.start.format('YYYY-MM-DD'));
                     $("#eventStart").html(event.start.format('h(:mm)a'));
+                    $("#eventType").html(types[event.type]);
                     if(event.end)
                     {
                         $("#eventEnd").html(event.end.format('h(:mm)a'));    
@@ -88,10 +93,19 @@ var CompCalendar = function() {
                     {
                         $("#eventEnd").html(event.start.format('h(:mm)a'));       
                     }
-                    $("#eventDelete").unbind("click");
-                    $("#eventDelete").click(function() {
-                      deleteAvailability(event);
-                    });
+                    if(event.surgery_id)
+                    {
+                        $("#eventDelete").attr('disabled','disabled');
+                    }
+                    else
+                    {
+                        $("#eventDelete").unbind("click");
+                        $("#eventDelete").click(function() {
+                          deleteAvailability(event);
+                        });
+                        $("#eventDelete").removeAttr('disabled');   
+                    }
+                    
                     $('#modalFade').modal('show');
                 }       
             });

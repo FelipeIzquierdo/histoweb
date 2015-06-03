@@ -1,10 +1,10 @@
-<?php namespace Histoweb\Http\Requests\Schedule;
+<?php namespace Histoweb\Http\Requests\availability;
 
 use Histoweb\Http\Requests\Request;
 use Illuminate\Routing\Route;
 
-class EditRequest extends Request {
-
+class CreateMassiveRequest extends Request {
+	
 	/**
 	 * @var Route
 	 */
@@ -24,7 +24,6 @@ class EditRequest extends Request {
 	{
 		return true;
 	}
-
 	/**
 	 * Get the validation rules that apply to the request.
 	 *
@@ -34,8 +33,10 @@ class EditRequest extends Request {
 	{
 		return [
 			'start' => 'required',
-			'end'	=> 'required'
+			'end' => 'required',
+			'surgery_id' => 'required',
+			'doctor_id' => 'required'
+
 		];
 	}
-
 }

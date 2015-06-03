@@ -9,6 +9,10 @@
     </h1> 
   @endsection 
 
+  @section('breadcrumbs')
+    {!! Breadcrumbs::render('doctors.create', $doctor) !!}
+  @endsection
+
   @section('dashboard_body') 
     <div class="row">
       <div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
@@ -24,6 +28,8 @@
                   {!! Field::text( 'last_name', null, ['placeholder' => 'Apellidos', 'template' => 'horizontal']) !!}
                   {!! Field::select('specialty_id', $specialties, null, ['data-placeholder' => 'Seleccione una especialidad', 'template' => 'horizontal']) !!}
                   {!! Field::file('photo', null, [ 'template' => 'horizontal']) !!}
+                  {!! Field::checkbox('telemedicine', 1, ['template' => 'switche']) !!}
+
                   <div class="form-group form-actions">
                     <div class="col-md-9 col-md-offset-3">
                         <button type="submit" class="btn btn-effect-ripple btn-primary">Guardar</button>

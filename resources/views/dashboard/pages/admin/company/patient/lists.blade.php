@@ -12,6 +12,10 @@
 			</a>
 		</h1>
 	@endsection
+
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('patients') !!}
+	@endsection
 	
 	@section('dashboard_body')
 		<div class="block">

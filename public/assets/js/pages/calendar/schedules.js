@@ -3,12 +3,12 @@
  *  Author     : pixelcave
  *  Description: Custom javascript code used in Calendar page
  */
-function updateAvailability (event, state) {
+function updateAvailability (event) {
     $.ajax({
         data:  {
             'start': event.start.format('YYYY-MM-DD H:mm:ss'),
             'end': event.end.format('YYYY-MM-DD H:mm:ss'),
-            'state': state
+            'surgery_id': surgery_id
         },
         url:   '/admin/company/doctors/' + event.doctor_id + '/availabilities/' + event.id.substring(4),
         type:  'PUT',
@@ -16,6 +16,8 @@ function updateAvailability (event, state) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
         },
         success:  function (data) {
+            console.log(surgery_id);
+            
             $('#calendar').fullCalendar( 'refetchEvents' )
 
         }
@@ -74,7 +76,7 @@ function updateSchedule (event) {
 
 function deleteSchedule(event) {
     $.ajax({
-        url:   '/admin/company/surgeries/' + event.surgery_id + '/schedules/' + event.id.substring(4),
+        url:   '/admin/company/surgeries/' + event.surgery_id + '/availabilities/' + event.id.substring(4),
         type:  'DELETE',
         beforeSend: function(request) {
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
@@ -154,15 +156,14 @@ var CompCalendar = function() {
                             deleteSchedule(event);
                         });
                     }else{
-                        var color = {available:'Disponible',used:'Usado',discarded:'Descartado'};
+                        var state = {available:'Disponible',used:'Usado',discarded:'Descartado'};
                         $("#title").html('Disponibilidad');
-                        $("#eventStateTex").html(color[event.state]);
+                        $("#eventStateTex").html(state[event.state]);
                         $("#eventState").show();
                         $("#eventCreate").show();
                         $("#eventCreate").unbind("click");
                         $("#eventCreate").click(function() {
-                            createSchedule(event);
-                            updateAvailability(event,'used');
+                            updateAvailability(event);
                         });
                         $("#eventDiscarded").show();
                         $("#eventDelete").hide();
