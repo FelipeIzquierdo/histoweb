@@ -52,6 +52,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	
 	Route::group(['prefix' => 'system', 'namespace' => 'System'], function() {
 
+		Route::resource('implementers', 'ImplementerController');
 		Route::resource('diary-types', 'DiaryTypesController');
 		Route::resource('diagnoses', 'DiagnosesController');
 		Route::resource('histories', 'HistoriesController');
@@ -122,3 +123,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 
 	Route::controller('/', 'AdminController', ['getIndex' => 'admin']);
 });
+
+
+

@@ -27,8 +27,7 @@ function cancelDiaries (event)
         },
         success:  function (data) {
             $('#calendar').fullCalendar('removeEvents', event.id);
-            console.log(data.message);
-            event.entered_at = data.entered_at;
+            console.log(data.message);            
         }
     });
 }
