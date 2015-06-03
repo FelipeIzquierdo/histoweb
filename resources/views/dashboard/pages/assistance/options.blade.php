@@ -10,21 +10,31 @@
 @endsection
 
 @section('dashboard_body')
-<div class="col-md-9">
-    <iframe width="800" height="400" src="{!! $pdf !!}" frameborder="0" allowfullscreen></iframe>
+<div class="col-sm-9">
+    <iframe width="100%" height="460" src="{!! $pdf !!}" frameborder="0" allowfullscreen></iframe>
 </div>
-<div class="col-md-3">
-    <h1>
-        <a href="{{ route('assistance.options.formulate.create', $id) }}" class="btn btn-info">
-            Formular
-        </a>
-        <a href="{{ route('assistance.options.order-procedures.create', $id) }}" class="btn btn-info">
-            Solicitar procedimiento
-        </a>
-        <a href="{{ route('assistance.exit', $id) }}" class="btn btn-warning">
-            Dar salida
-        </a>
-    </h1>
+<div class="col-sm-3">
+	<h4 class="sub-header">Opciones de Historia</h4>
+    <a href="{{ route('assistance.options.formulate.create', $id) }}" class="btn btn-block btn-info">
+        Formular
+    </a>
+    <a href="{{ route('assistance.options.order-procedures.create', $id) }}" class="btn btn-block btn-info">
+        Solicitar procedimiento
+    </a>
+    <a href="{{ route('assistance.options.order-procedures.create', $id) }}" class="btn btn-block btn-info">
+        Describir procedimiento
+    </a>
+    <h4 class="sub-header">Reportes</h4>
+    <a href="{{ route('assistance.entries.pdf', $entry->id) }}" class="btn btn-effect-ripple btn-block btn-primary" title="Nueva formula">
+		Lista de Procedimientos
+	</a>
+	<a href="{{ route('assistance.entries.pdf', $entry->id) }}" class="btn btn-effect-ripple btn-block btn-primary" title="Nueva formula">
+		Descripción de Procedimientos
+	</a>
+	<hr>
+    <a href="{{ route('assistance.exit', $id) }}" class="btn btn-block btn-warning">
+        Dar salida
+    </a>
 
 </div>
  		<div class="block">
@@ -64,9 +74,6 @@
 <div class="block">
 
 	<div class="block-title clearfix">
-		<a href="{{ route('assistance.entries.pdf', $entry->id) }}" class="btn btn-effect-ripple btn-md btn-primary" title="Nueva formula">
-			Descargar Reporte
-		</a><br>
 		<h2><span class="hidden-xs">Lista de</span> Procedimientos</h2>
 	</div>
 {!! Form::open($form_data) !!}

@@ -116,8 +116,8 @@ class AssistanceController extends Controller {
 
 	public function postHistory(CreateRequest $request, $id)
 	{
-		Entry::create(['diary_id' => $this->diary->id]);
-		$this->diary->entry->saveHistory($request->all());
+		$entry = new Entry;
+		$entry->saveHistory($request->all() + ['diary_id' => $this->diary->id]);
 
         $pdf = new MyPdf();
         $pdf->historyPdf($this->diary->entry,$request->all());
