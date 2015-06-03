@@ -214,11 +214,9 @@ return [
     	'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
         'Field'		=> 'Histoweb\Components\Field\FieldFacade',
         'Calendar'	=> 'Histoweb\Components\Calendar\CalendarFacade',
-<<<<<<< HEAD
-        'Flash' 	=> 'Laracasts\Flash\Flash'
-=======
 
->>>>>>> 3fadd84581d7c7971c3f077246186c1176b49c8e
+        'Flash' 	=> 'Laracasts\Flash\Flash'
+
 	],
 
 ];
