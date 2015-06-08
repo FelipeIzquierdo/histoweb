@@ -51,7 +51,7 @@ class OrderProceduresController extends Controller {
 
     public function store(CreateRequest $request,$id)
     {
-    	$rta = Procedure::getProceduresAll(array_map('intval', $request->get('procedure_id')));
+    	$rta = Procedure::getProceduresAll(array_map('intval', $request->get('procedure_id')),$id);
         $pdf = new MyPdf();
         $pdf->orderProceduresPdf($rta,$this->entry);
     	$rta = Procedure::getProceduresInsert(array_map('intval', $request->get('procedure_id')));
