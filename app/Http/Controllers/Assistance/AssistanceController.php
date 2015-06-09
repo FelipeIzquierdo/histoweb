@@ -40,8 +40,8 @@ class AssistanceController extends Controller {
 	public function __construct() 
 	{
 		$this->beforeFilter('@findDoctor');
-		$this->beforeFilter('@findDiaries', ['only' => ['getIndex', 'getCreateEntry',  'getOptions']]);
-		$this->beforeFilter('@findEntry', ['only' => [ 'getExit', 'getOptions','getRemoveProcedure']]);
+		$this->beforeFilter('@findDiaries', ['only' => ['getIndex', 'getCreateEntry','getOptions']]);
+		$this->beforeFilter('@findEntry', ['only' => [ 'getExit', 'getOptions','getRemoveProcedure','getPdf']]);
 		$this->beforeFilter('@findDiary', ['only' => ['getCreateEntry', 'postHistory']]);
 		//$this->beforeFilter('@verificActiveEntry', ['only' => ['getEntries', 'postHistory']]);
 		$this->beforeFilter('@loadPatientRelations', ['only' => ['getCreateEntry']]);
@@ -141,13 +141,19 @@ class AssistanceController extends Controller {
 	public function getPdf($id)
 	{	
 		$filename = public_path().'/documents/'.$id.'.pdf';
-		return Response::download($filename,'Procedimientos.pdf');
+		if(\File::exists($filename))
+			return Response::download($filename,'Procedimientos.pdf');
+		return redirect()->route('assistance.entries.options', $this->entry->id);
 	}
 
 	public function getRemoveProcedure($entry)
 	{	
 		$id = Input::get('procedure');
 		OrderProcedure::removeProcedure($this->entry->id,$id);
+		$rta = Procedure::getOrderProceduresAll($this->entry->id);
+        $pdf = new MyPdf();
+        $pdf->orderProceduresPdf($rta,$this->entry);
+
 		return redirect()->route('assistance.entries.options', $this->entry->id);
 	}
 

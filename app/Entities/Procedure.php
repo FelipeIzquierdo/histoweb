@@ -17,10 +17,10 @@ class Procedure extends Model {
 
     public static function getProceduresNotIn($id)
     {
-        return self::whereNotIn('id',function($query){
+        return self::whereNotIn('id',function($query) use ($id) {
             $query->select('procedure_id')
                   ->from('order_procedures')
-                  ->where('order_procedures.entry_id','=','6');
+                  ->where('order_procedures.entry_id','=',$id);
         })
         ->lists('name', 'id');  
     }
@@ -44,18 +44,28 @@ class Procedure extends Model {
         return $rta;
     }
 
-    public static function getProceduresAll($ids)
+    public static function getProceduresAll($ids,$id)
     {
-        return self::whereIn('id',function($query){
+        return self::whereIn('id',function($query) use ($id){
             $query->select('procedure_id')
                   ->from('order_procedures')
-                  ->where('order_procedures.entry_id','=','6');
+                  ->where('order_procedures.entry_id','=',$id);
         })
         ->orWhereIn('id',$ids)
         ->select('procedure_type_id', 'id as procedure_id')
         ->get();  
     }
 
+    public static function getOrderProceduresAll($id)
+    {
+        return self::whereIn('id',function($query) use ($id){
+            $query->select('procedure_id')
+                  ->from('order_procedures')
+                  ->where('order_procedures.entry_id','=',$id);
+        })
+        ->select('procedure_type_id', 'id as procedure_id')
+        ->get();  
+    }
     public static function getProceduresInsert($ids)
     {
         return self::whereIn('id',$ids)->select('procedure_type_id', 'id as procedure_id')->get();
