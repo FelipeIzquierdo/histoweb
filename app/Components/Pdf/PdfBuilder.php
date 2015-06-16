@@ -102,25 +102,33 @@ class PdfBuilder {
         $this->pdf->SetAuthor('Histoweb');
         $this->pdf->SetTitle('Lista de Procedimientos, Paciente '.$patientcc .' - '. $patientname);
 
-        foreach ($rta as $key => $value) {
-            $value->entry_id = $entry->id;
-            $proc = Procedure::findOrFail($value->procedure_id);
-            $proceduretypename = $proc->procedure_type_name;
-            $procedurename = $proc->name;
-
-            $this->pdf->AddPage();
-            $this->pdf->Ln(20);
-            $this->pdf->SetFont('helvetica', 'B', 17);
-            $this->pdf->MultiCell(0, 0, 'Lista de Procedimientos, Paciente '.$patientcc .' - '. $patientname, 0, 'C', 0, 1, '', '', true, 0);
-            $this->pdf->Ln(10);
-            $this->pdf->SetFont('times', '', 14);
-            $this->pdf->Write(0, 'Tipo de Procedimiento : '.$proceduretypename, '', 0, '', 0, 0, false, false, 0);
-            $this->pdf->SetFont('times', '', 12);
-            $this->pdf->Ln(10);
-            $this->pdf->Write(0, 'Procedimiento : '.$procedurename, '', 0, '', 0, 0, false, false, 0);
-        }
-
         $filename = public_path() . '/documents/'.$entry->id.'.pdf';
-        $this->pdf->Output($filename,'F');
+        if(!isset($rta[0]))
+        {
+            \File::delete($filename);
+        }
+        else
+        {
+
+            foreach ($rta as $key => $value) {
+                $value->entry_id = $entry->id;
+                $proc = Procedure::findOrFail($value->procedure_id);
+                $proceduretypename = $proc->procedure_type_name;
+                $procedurename = $proc->name;
+
+                $this->pdf->AddPage();
+                $this->pdf->Ln(20);
+                $this->pdf->SetFont('helvetica', 'B', 17);
+                $this->pdf->MultiCell(0, 0, 'Lista de Procedimientos, Paciente '.$patientcc .' - '. $patientname, 0, 'C', 0, 1, '', '', true, 0);
+                $this->pdf->Ln(10);
+                $this->pdf->SetFont('times', '', 14);
+                $this->pdf->Write(0, 'Tipo de Procedimiento : '.$proceduretypename, '', 0, '', 0, 0, false, false, 0);
+                $this->pdf->SetFont('times', '', 12);
+                $this->pdf->Ln(10);
+                $this->pdf->Write(0, 'Procedimiento : '.$procedurename, '', 0, '', 0, 0, false, false, 0);
+            }
+
+            $this->pdf->Output($filename,'F');
+        }
     }
 } 

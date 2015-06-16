@@ -183,7 +183,7 @@ function newDiary(doctorId, patientId, diaryTypeId)
     });
 }
 
-function createDiary(copiedEventObject, $dropEvent)
+function createDiary(copiedEventObject, dropEvent)
 {
     $.ajax({
         data: {
@@ -200,11 +200,12 @@ function createDiary(copiedEventObject, $dropEvent)
             return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
         },
         success:  function (data) {
-            $dropEvent.remove();
             $("#calendar").fullCalendar("renderEvent",data,!0);
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
+            $("#external-events").append(dropEvent);
+            initializeExternalEvent();
             console.log('El envento solo puede ser asignado en la disponibilidad correcta');
         }
     });
@@ -232,8 +233,8 @@ function initializeExternalEvent ()
         $(this).data("eventObject", eventObject),
             $(this).draggable({
                 zIndex:999,
-                revert:!0,
-                revertDuration:0})
+                revert:true,
+                revertDuration:10})
     })
 };
 
@@ -300,7 +301,9 @@ var CompCalendar = function()
                     ret.setTime(ret.getTime() + copiedEventObject.time*60000);
                     copiedEventObject.start = date;
                     copiedEventObject.end = ret;
-                    createDiary(copiedEventObject, $(this));
+                    var cloned = $(this);
+                    createDiary(copiedEventObject, cloned);
+                    $(this).remove();
                 },
                 eventClick: function(event, delta, jsEvent, view) {                    
                     $("#eventPatient").html(event.title);
@@ -335,7 +338,7 @@ var CompCalendar = function()
                     $('#modalDataEvent').modal('show');                     
                 },
                 eventDrop: function(event, delta, revertFunc) {
-                        updateDiary(event);
+                    updateDiary(event);
                 }
             });
         }

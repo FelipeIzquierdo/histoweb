@@ -93,7 +93,7 @@
                 
                 <div class="form-group form-actions">
                     <div class="col-md-9 col-md-offset-3">
-                        {!! Form::button('Guardar', ['class' => 'btn btn-primary', 'type' => 'submit', 'id' => 'submitEntry']) !!}
+                        {!! Form::button('Vista previa', ['class' => 'btn btn-primary', 'type' => 'submit', 'id' => 'submitEntry']) !!}
                     </div>
                 </div>
             </div>

@@ -95,7 +95,7 @@ class Entry extends Model
 
     public function reasons()
     {
-        return $this->belongsToMany('Histoweb\Entities\Reason');
+        return $this->belongsToMany('Histoweb\Entities\Reason')->withTimestamps();;
     }
 
     public function systemRevisions()
