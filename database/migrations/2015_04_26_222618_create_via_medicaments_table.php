@@ -33,3 +33,4 @@ class CreateViaMedicamentsTable extends Migration {
 	}
 
 }
+

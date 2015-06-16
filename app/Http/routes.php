@@ -58,6 +58,24 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	
 	Route::group(['prefix' => 'system', 'namespace' => 'System'], function() {
 
+		Route::resource('anesthesiaTypes', 'AnesthesiaTypesController');
+		Route::get('anesthesiaTypes/{anesthesiaTypes}/delete', [
+		    'as' => 'anesthesiaTypes.delete',
+		    'uses' => 'AnesthesiaTypesController@destroy',
+		]);
+
+		Route::resource('stateWays', 'StateWayController');
+		Route::get('stateWays/{stateWays}/delete', [
+		    'as' => 'stateWays.delete',
+		    'uses' => 'StateWayController@destroy',
+		]);
+
+		Route::resource('wayEntries', 'WayEntryController');
+		Route::get('wayEntries/{wayEntries}/delete', [
+		    'as' => 'wayEntries.delete',
+		    'uses' => 'WayEntryController@destroy',
+		]);
+
 		Route::resource('implementers', 'ImplementerController');
 		Route::resource('diary-types', 'DiaryTypesController');
 		Route::resource('diagnoses', 'DiagnosesController');
@@ -127,6 +145,5 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 
 	Route::controller('/', 'AdminController', ['getIndex' => 'admin']);
 });
-
 
 

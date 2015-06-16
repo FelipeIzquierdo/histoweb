@@ -43,9 +43,8 @@ class ReceptionController extends Controller {
 	{
 		if($request->ajax())
 		{  
-			$diary = Diary::find($diary_id); 
-        	
-    			$diary->delete();
+			$diary = Diary::find($diary_id);        	
+			$diary->delete();
     		 	
 	        return response()->json([
 	            'message' =>     'evento eliminado',

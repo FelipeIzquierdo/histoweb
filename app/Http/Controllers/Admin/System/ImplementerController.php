@@ -1,11 +1,10 @@
 <?php namespace Histoweb\Http\Controllers\Admin\System;
 
-use Histoweb\Http\Requests;
+use Histoweb\Http\Controllers\Controller;
 use Histoweb\Http\Requests\Implementer\CreateRequest;
 use Histoweb\Http\Requests\Implementer\EditRequest;
 use Histoweb\Entities\Implementer;
 use Illuminate\Http\Request;
-use Mitul\Controller\AppBaseController;
 use Response;
 use Flash;
 use Schema;

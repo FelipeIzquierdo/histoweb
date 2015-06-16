@@ -20,7 +20,8 @@ class CreateRequest extends Request {
 	public function rules()
 	{
 		return [
-			'name'  => 'required|max:100|unique:specialties,name'
+			'name'  => 'required|max:100|unique:specialties,name',
+			'code' 	=> 'required'
 		];
 	}
 }

@@ -6,7 +6,7 @@
 	@section('dashboard_title')
 		<h1>
 			<i class="fa fa-check-square-o"></i>
-			Tipos de citas
+			Instrumentadores
 			<a href="{{ route('admin.system.implementers.create') }}" class="btn btn-info" title="Nuevo Instrumentador">
 				<i class="fa fa-plus"></i>
 			</a>

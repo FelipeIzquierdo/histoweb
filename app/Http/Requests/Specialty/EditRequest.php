@@ -33,7 +33,8 @@ class EditRequest extends Request {
 	public function rules()
 	{
 		return [
-			'name'  => 'required|max:100|unique:specialties,name,' . $this->route->getParameter('specialties')
+			'name'  => 'required|max:100|unique:specialties,name,' . $this->route->getParameter('specialties'),
+			'code' 	=> 'required'
 		];
 	}
 

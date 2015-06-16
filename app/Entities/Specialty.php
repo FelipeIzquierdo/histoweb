@@ -7,7 +7,7 @@ class Specialty extends Model {
     protected $table = 'specialties';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','code'];
 
     public $timestamps = true;
     public $increments = true;

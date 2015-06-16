@@ -40,4 +40,12 @@
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.medicament'), 'icon_widget' => 'img/placeholders/icons/medicament.png', 'title_widget' => 'Medicamentos'])
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.eps.index'), 'icon_widget' => 'img/placeholders/icons/eps.png', 'title_widget' => 'EPS'])
+
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.implementers.index'), 'icon_widget' => 'img/placeholders/icons/implementer.png', 'title_widget' => 'Instrumentadores'])
+
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.anesthesiaTypes.index'), 'icon_widget' => 'img/placeholders/icons/anesthesiaType.png', 'title_widget' => 'Tipos de Anestesia'])
+
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.stateWays.index'), 'icon_widget' => 'img/placeholders/icons/stateWay.png', 'title_widget' => 'Estados de via'])
+
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.wayEntries.index'), 'icon_widget' => 'img/placeholders/icons/wayEntry.png', 'title_widget' => 'Vias de entrada'])
 	@endsection
