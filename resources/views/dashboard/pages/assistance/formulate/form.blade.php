@@ -22,12 +22,12 @@
               </div>
               <div class="form-horizontal form-bordered">
                 {!! Form::model($formulate, $form_data) !!}
-                  {!! Field::select( 'medicament_id', $medicament, null, ['data-placeholder' => 'Medicamento', 'template' => 'horizontal']) !!}
+                  {!! Field::select( 'commercial_medication_id', $commercial_medication, null, ['data-placeholder' => 'Medicamento Comercial', 'template' => 'horizontal']) !!}
                   {!! Field::select( 'presentation_id', $presentation, null, ['data-placeholder' => 'Presentación', 'template' => 'horizontal']) !!}
-                  {!! Field::select( 'via_medicament_id', $viamedicament, null, ['data-placeholder' => 'Vía del medicamento', 'template' => 'horizontal']) !!}
+                  {!! Field::select( 'administration_route_id', $administration_route, null, ['data-placeholder' => 'Vía de administración', 'template' => 'horizontal']) !!}
                   {!! Field::number( 'concentration', null , ['min' => '0', 'template' => 'horizontal']) !!}
-                  {!! Field::select( 'measure_id', $measure, null, ['data-placeholder' => 'Medida', 'template' => 'horizontal']) !!}
-                  {!! Field::number( 'quantity', null , ['min' => '0', 'template' => 'horizontal']) !!}
+                  {!! Field::select( 'concentration_id', $concentration, null, ['data-placeholder' => 'Médidad de concentración', 'template' => 'horizontal']) !!}
+                  {!! Field::number( 'dose', null , ['min' => '0', 'template' => 'horizontal']) !!}
                   {!! Field::number( 'interval', null , ['min' => '0' , 'template' => 'horizontal']) !!}
                   {!! Field::number( 'limit', null , ['min' => '0' , 'template' => 'horizontal']) !!}
                   <div class="form-group form-actions">

@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Formulate extends Model
 {
-	protected $fillable = [ 'limit' ,'interval','quantity', 'measure_id' ,'concentration' ,'via_medicament_id', 'presentation_id','entry_id' ,'medicament_id'];
+	protected $fillable = [ 'limit' ,'interval','dose', 'concentration_id' ,'concentration' ,'administration_route_id', 'presentation_id','entry_id' ,'commercial_medication_id'];
 
     protected $table = 'formulate';
 	public $timestamps = true;
@@ -27,34 +27,34 @@ class Formulate extends Model
         return $this->presentation->name;   
     }
 
-    public function medicament()
+    public function commercialMedication()
     {
-        return $this->belongsTo('Histoweb\Entities\Medicament', 'medicament_id');
+        return $this->belongsTo('Histoweb\Entities\CommercialMedication', 'commercial_medication_id');
     }
 
-    public function getMedicamentNameAttribute()
+    public function getCommercialMedicationNameAttribute()
     {
-        return $this->medicament->name;   
+        return $this->commercialMedication->name;   
     }
 
-    public function viaMedicament()
+    public function AdministrationRoute()
     {
-        return $this->belongsTo('Histoweb\Entities\viaMedicament', 'via_medicament_id');
+        return $this->belongsTo('Histoweb\Entities\AdministrationRoutes', 'administration_route_id');
     }
 
-    public function getViaMedicamentNameAttribute()
+    public function getViaAdministrationRouteNameAttribute()
     {
-        return $this->viaMedicament->name;   
+        return $this->AdministrationRoute->name;   
     }
 
-    public function measure()
+    public function Concentration()
     {
-        return $this->belongsTo('Histoweb\Entities\Measure', 'measure_id');
+        return $this->belongsTo('Histoweb\Entities\Concentration', 'concentration_id');
     }
 
-    public function getMeasureNameAttribute()
+    public function getConcentrationNameAttribute()
     {
-        return $this->measure->name;   
+        return $this->Concentration->name;   
     }
 
 }

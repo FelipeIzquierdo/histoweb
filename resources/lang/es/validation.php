@@ -187,7 +187,15 @@ return array(
     'limit' => 'Límite (Días)',
    	//Procedure
    	'procedure_type_id' => 'Tipo de procedimiento',
-   	'procedure_id' => 'Procedimiento'
+   	'procedure_id' => 'Procedimiento',
+   	'value' => 'valor',
+   	'generic_medication_id' => 'Medicamento genérico',
+   	'lab_id' => 'Laboratorio',
+   	'commercial_medication_id' => 'Medicamento Comercial',
+   	'administration_route_id' => 'Vía de administración',
+   	'concentration' => 'Concentración',
+   	'concentration_id' => 'Médidad de concentración',
+   	'dose' => 'Dosis',
 
 ]
 

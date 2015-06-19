@@ -20,12 +20,12 @@ class CreateRequest extends Request {
 	public function rules()
 	{
 		return [
-            'medicament_id'				=> 	'required|integer|exists:medicaments,id',
+            'commercial_medication_id'	=> 	'required|integer|exists:commercial_medications,id',
             'presentation_id'			=> 	'required|integer|exists:presentations,id',
-            'via_medicament_id'			=> 	'required|integer|exists:via_medicaments,id',
+            'administration_route_id'	=> 	'required|integer|exists:administration_routes,id',
             'concentration'				=>  'required|integer',
-            'measure_id'				=> 	'required|integer|exists:measures,id',
-            'quantity'					=>  'required|integer',
+            'concentration_id'			=> 	'required|integer|exists:concentrations,id',
+            'dose'						=>  'required|integer',
             'interval'					=>  'required|integer',
             'limit'						=>  'required|integer'
 		];

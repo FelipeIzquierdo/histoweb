@@ -17,16 +17,16 @@ class CreateFormulateTable extends Migration {
 			$table->increments('id');		
 			$table->integer('entry_id')->unsigned();
             $table->foreign('entry_id')->references('id')->on('entries');
-            $table->integer('medicament_id')->unsigned();
-            $table->foreign('medicament_id')->references('id')->on('medicaments');
+            $table->integer('commercial_medication_id')->unsigned();
+            $table->foreign('commercial_medication_id')->references('id')->on('commercial_medications');
             $table->integer('presentation_id')->unsigned();
             $table->foreign('presentation_id')->references('id')->on('presentations');	
-            $table->integer('via_medicament_id')->unsigned();
-            $table->foreign('via_medicament_id')->references('id')->on('via_medicaments');
+            $table->integer('concentration_id')->unsigned();
+            $table->foreign('concentration_id')->references('id')->on('concentrations');
+            $table->integer('administration_route_id')->unsigned();
+            $table->foreign('administration_route_id')->references('id')->on('administration_routes');
             $table->integer('concentration')->unsigned();
-            $table->integer('measure_id')->unsigned();
-            $table->foreign('measure_id')->references('id')->on('measures');
-            $table->integer('quantity')->unsigned();
+            $table->integer('dose')->unsigned();
             $table->string('interval');
             $table->string('limit');
 

@@ -1,6 +1,6 @@
 <?php  
 	use \Illuminate\Database\Seeder;
-	use Histoweb\Entities\AnesthesiaType;
+	//use Histoweb\Entities\AnesthesiaType;
 	/**
 	* 
 	*/
@@ -9,6 +9,7 @@
 
 		public function run()
 	    {
+	    	
 	    	 AnesthesiaType::create([
                 'name'	=> 'Local',
                 'description' => 'Local',
@@ -26,7 +27,7 @@
                 'description' => 'Endovenosa',
                 'code'	=>  3,
             ]);
-
+			
 
 
 	    }

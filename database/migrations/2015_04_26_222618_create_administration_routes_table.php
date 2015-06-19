@@ -1,9 +1,9 @@
-	<?php
+<?php
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePresentationsTable extends Migration {
+class CreateAdministrationRoutesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,14 @@ class CreatePresentationsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('presentations', function(Blueprint $table)
+		Schema::create('administration_routes', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name')->unique();
 			$table->string('description')->nullable();
+
+			$table->integer('presentation_id')->unsigned();
+            $table->foreign('presentation_id')->references('id')->on('presentations');
 
             $table->timestamps();
 		});
@@ -29,7 +32,8 @@ class CreatePresentationsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('presentations');
+		Schema::drop('administration_routes');
 	}
 
 }
+

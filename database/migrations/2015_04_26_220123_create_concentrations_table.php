@@ -1,9 +1,9 @@
-	<?php
+<?php
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePresentationsTable extends Migration {
+class CreateConcentrationsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,11 @@ class CreatePresentationsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('presentations', function(Blueprint $table)
+		Schema::create('concentrations', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name')->unique();
-			$table->string('description')->nullable();
+			$table->double('value')->unsigned();
 
             $table->timestamps();
 		});
@@ -29,7 +29,7 @@ class CreatePresentationsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('presentations');
+		Schema::drop('concentrations');
 	}
 
 }
