@@ -91,9 +91,9 @@ class FormulateController extends Controller {
         return view(self::$prefixView . 'form', compact('form_data','formulate_e'))
         	->with(['formulate' => $this->formulate,
         			'presentation' => $this->presentation,
-        			'medicament' => $this->medicament,
-        			'measure' => $this->measure,
-        			'viamedicament' => $this->viamedicament,
+        			'commercial_medication' => $this->commercial_medication,
+        			'concentration' => $this->concentration,
+        			'administration_route' => $this->administration_route,
         			'entry' => $this->entry]);
 	}
 

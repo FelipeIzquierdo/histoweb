@@ -39,10 +39,10 @@ class Formulate extends Model
 
     public function AdministrationRoute()
     {
-        return $this->belongsTo('Histoweb\Entities\AdministrationRoutes', 'administration_route_id');
+        return $this->belongsTo('Histoweb\Entities\AdministrationRoute', 'administration_route_id');
     }
 
-    public function getViaAdministrationRouteNameAttribute()
+    public function getAdministrationRouteNameAttribute()
     {
         return $this->AdministrationRoute->name;   
     }

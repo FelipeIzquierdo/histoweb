@@ -13,7 +13,7 @@
 				'description'	=> ''
 			],
 			[
-				'name' 			=> 'Pantillas',
+				'name' 			=> 'Tabletas',
 				'description'	=> '',
 			],
 			[

@@ -20,6 +20,10 @@
 				'name' 			=> 'Cucharada mediana',
 				'value'			=> 500
 			],
+			[
+				'name' 			=> 'Centimetros cúbicos (cc)',
+				'value'			=> 500
+			],
 		];
 		
 		public function run()

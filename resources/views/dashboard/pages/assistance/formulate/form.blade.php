@@ -15,7 +15,7 @@
 
   @section('dashboard_body') 
     <div class="row">
-      <div class="col-sm-8 col-md-8 col-lg-8">
+      <div class="col-sm-7 col-md-7 col-lg-7">
           <div class="block">
               <div class="block-title">
                   <h2>Datos de la Formula</h2>
@@ -40,7 +40,7 @@
           </div>
       </div>
 
-      <div class="col-sm-4 col-md-4 col-lg-4">
+      <div class="col-sm-5 col-md-5 col-lg-5">
           <div class="block">
             <div class="block-title clearfix">
               <h2><span class="hidden-xs">Lista de</span> Lista de Formulación</h2>
@@ -49,16 +49,18 @@
               <table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
                 <thead>
                   <tr>
-                    <th>Medicamento</th>
-                    <th>Intervalo</th>
+                    <th>Descripción</th>
                     <th style="min-width: 50px;" class="text-center"><i class="fa fa-flash"></i></th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach($formulate_e as $formulate_ee)
                     <tr>
-                      <td>{{ $formulate_ee->medicament_name }}</td>
-                      <td>{{ $formulate_ee->interval }}</td>
+                      <td>
+                        {{ $formulate_ee->commercial_medication_name }} x {{ $formulate_ee->concentration }} {{ $formulate_ee->concentration_name }} vía {{ $formulate_ee->administration_route_name }} ,
+                        Tomar {{ $formulate_ee->dose }} {{ $formulate_ee->presentation_name }} cada {{ $formulate_ee->interval }} horas durante {{ $formulate_ee->limit }} días.
+
+                      </td>
                       <td class="text-center">
                         <a href="{{ route('assistance.options.formulate.edit', [$entry->id,$formulate_ee->id]) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
                       </td>
