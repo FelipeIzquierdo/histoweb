@@ -34,6 +34,9 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 	Route::post('options/{one}/order-procedures/create', ['uses' => 'OrderProceduresController@store', 'as' => 'assistance.options.order-procedures.store']);
 	Route::get('jsonProcedure/{id}', 'OrderProceduresController@jsonProcedure');
 
+    Route::get('options/{one}/describeProcedures/create', ['uses' => 'DescribeProceduresController@create', 'as' => 'assistance.options.describeProcedures.create']);
+    Route::post('options/{one}/describeProcedures/create', ['uses' => 'DescribeProceduresController@store', 'as' => 'assistance.options.describeProcedures.store']);
+
 	Route::post('options/{one}/removeprocedure', ['uses' => 'AssistanceController@getRemoveProcedure', 'as' => 'assistance.entries.removeprocedure']);
 	Route::controller('/', 'AssistanceController', [
 		'getIndex' 			=> 'assistance', 
@@ -58,6 +61,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	
 	Route::group(['prefix' => 'system', 'namespace' => 'System'], function() {
 
+		Route::resource('professions', 'ProfessionController');
+		Route::get('professions/{professions}/delete', [
+		'as' => 'professions.delete',
+		'uses' => 'ProfessionController@destroy',
+		]);
+
 		Route::resource('anesthesiaTypes', 'AnesthesiaTypesController');
 		Route::get('anesthesiaTypes/{anesthesiaTypes}/delete', [
 		    'as' => 'anesthesiaTypes.delete',
@@ -76,7 +85,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		    'uses' => 'WayEntryController@destroy',
 		]);
 
-		Route::resource('implementers', 'ImplementerController');
+		Route::resource('staff', 'StaffController');
+		Route::get('staff/{id}/delete', [
+		    'as' => 'staff.delete',
+		    'uses' => 'StaffController@destroy',
+		]);
+		
 		Route::resource('diary-types', 'DiaryTypesController');
 		Route::resource('diagnoses', 'DiagnosesController');
 		Route::resource('histories', 'HistoriesController');
@@ -145,5 +159,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 
 	Route::controller('/', 'AdminController', ['getIndex' => 'admin']);
 });
+
+
+
+
+
+
 
 

@@ -1,15 +1,15 @@
 <?php  
 	use \Illuminate\Database\Seeder;
-	use Histoweb\Entities\Implementer;
+	use Histoweb\Entities\Staff;
 	/**
 	* 
 	*/
-	class ImplemeterTableSeeder extends Seeder
+	class StaffTableSeeder extends Seeder
 	{
 
 		public function run()
 	    {
-	    	 Implementer::create([
+	    	 Staff::create([
                 'name'	=> 'Julio Naranjas',
                 'description' => 'intrumentador',
                 'code'	=>  1,

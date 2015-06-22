@@ -187,7 +187,18 @@ return array(
     'limit' => 'Límite (Días)',
    	//Procedure
    	'procedure_type_id' => 'Tipo de procedimiento',
-   	'procedure_id' => 'Procedimiento'
+   	'procedure_id' => 'Procedimiento',
+
+    //DescribeProcedures
+
+    'surgery_id'                => 'consultorio o quirófano',
+    "doctor_id"                 => 'anestesiólogo',
+    "anesthesia_type_id"        => 'tipo de anestesia',
+    "staff_id"                  => 'instrumentador',
+    "way_entry_id"              => 'vía de entrada',
+    "state_way_id"              => 'estado de vía',
+    "complications"             => 'complicaciones'
+
 
 ]
 

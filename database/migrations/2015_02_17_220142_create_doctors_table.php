@@ -19,7 +19,7 @@ class CreateDoctorsTable extends Migration {
             $table->string('color', 8)->nullable();
             $table->boolean('telemedicine')->default(false);
             
-            $table->integer('specialty_id')->unsigned();
+            $table->integer('specialty_id');
             $table->foreign('specialty_id')->references('id')->on('specialties');
             
             $table->timestamps();

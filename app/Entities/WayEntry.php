@@ -17,6 +17,11 @@ class WayEntry extends Model
 		"code"
 	];
 
+    public static function allLists()
+    {
+        return self::lists('name', 'id' );
+    }
+
 	
 
 }

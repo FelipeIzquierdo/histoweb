@@ -158,7 +158,7 @@
                     <button type="button" class="btn btn-effect-ripple btn-warning" data-dismiss="modal" id="edit"> 
                         <i class="fa fa-pencil"></i> Seguir editando
                     </button>
-                    <button type="button" class="btn btn-effect-ripple btn-primary" data-dismiss="modal" id="confirm">Confirmar</a>
+                    <button type="button" class="btn btn-effect-ripple btn-primary" data-dismiss="modal" id="confirm">Confirmar</a></button>
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
-<?php namespace Histoweb\Http\Requests\Implementer;
+<?php namespace Histoweb\Http\Requests\DescribeProcedure;
 
+//use CreateRequest;
 use Histoweb\Http\Requests\Request;
 use Illuminate\Routing\Route;
 
@@ -9,10 +10,12 @@ class EditRequest extends Request {
 	 * @var Route
 	 */
 	private $route;
+	private $createRequest;
 
 	public function __construct(Route $route) 
 	{
 		$this->route = $route;
+		$this->createRequest = new CreateRequest;
 	}
 
 	/**
@@ -32,11 +35,9 @@ class EditRequest extends Request {
 	 */
 	public function rules()
 	{
-		return [
-			'name'  => 'required|max:100|unique:implementers,name,' . $this->route->getParameter('implementers'),
-            'code'  => 'required',
-            'description'  => 'required'
-		];
+		$rules = $this->createRequest->rules();
+
+		return $rules;
 	}
 
 }

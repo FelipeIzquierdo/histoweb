@@ -41,7 +41,9 @@
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.eps.index'), 'icon_widget' => 'img/placeholders/icons/eps.png', 'title_widget' => 'EPS'])
 
-		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.implementers.index'), 'icon_widget' => 'img/placeholders/icons/implementer.png', 'title_widget' => 'Instrumentadores'])
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.professions.index'), 'icon_widget' => 'img/placeholders/icons/profession.png', 'title_widget' => 'Profesiones'])
+
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.staff.index'), 'icon_widget' => 'img/placeholders/icons/staff.png', 'title_widget' => 'Personal'])
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.anesthesiaTypes.index'), 'icon_widget' => 'img/placeholders/icons/anesthesiaType.png', 'title_widget' => 'Tipos de Anestesia'])
 

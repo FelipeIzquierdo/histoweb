@@ -12,6 +12,11 @@ class Surgery extends Model {
     	return $this->tools->lists('id');
     }
 
+    public static function allLists()
+    {
+        return self::lists('name', 'id' );
+    }
+
     public function tools()
     {
         return $this->belongsToMany('Histoweb\Entities\Tool')->withTimestamps();

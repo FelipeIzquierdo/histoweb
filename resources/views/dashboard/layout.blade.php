@@ -51,4 +51,5 @@
 	@section('js')
 		@include('dashboard.includes.js')
 		@yield('js_extra')
+        @include('flash::message')
 	@endsection

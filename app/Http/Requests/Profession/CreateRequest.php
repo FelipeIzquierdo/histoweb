@@ -1,4 +1,4 @@
-<?php namespace Histoweb\Http\Requests\Implementer;
+<?php namespace Histoweb\Http\Requests\Profession;
 
 use Histoweb\Http\Requests\Request;
 
@@ -20,7 +20,7 @@ class CreateRequest extends Request {
 	public function rules()
 	{
 		return [
-			'name'  => 'required|max:100|unique:implementers,name',
+			'name'  => 'required|max:100|unique:professions,name',
 			'description'  => 'required',
             'code'  => 'required'
 		];

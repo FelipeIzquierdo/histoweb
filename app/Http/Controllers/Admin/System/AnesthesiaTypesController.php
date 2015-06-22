@@ -42,12 +42,14 @@ class AnesthesiaTypesController extends Controller
         $columns = Schema::getColumnListing('$TABLE_NAME$');
         $attributes = array();
 
-        foreach($columns as $attribute){
+        foreach($columns as $attribute) {
             if($request[$attribute] == true)
             {
                 $query->where($attribute, $request[$attribute]);
                 $attributes[$attribute] =  $request[$attribute];
-            }else{
+            }
+            else
+            {
                 $attributes[$attribute] =  null;
             }
         };

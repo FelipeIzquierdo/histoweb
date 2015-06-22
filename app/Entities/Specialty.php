@@ -13,6 +13,13 @@ class Specialty extends Model {
     public $increments = true;
     public $errors;
 
+    public static $codes = ['anesthesiology' => 2];
+
+    public static function getCode($name)
+    {
+        return self::$codes[$name];
+    }
+
     public static function allLists()
     {
     	return self::lists('name', 'id' );

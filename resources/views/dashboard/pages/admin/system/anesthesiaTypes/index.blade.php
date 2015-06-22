@@ -15,7 +15,6 @@
     
     @section('dashboard_body')
         <div class="block">
-            @include('flash::message')
             <div class="block-title clearfix">
                 <h2><span class="hidden-xs">Lista de</span> Tipos de Anestesia</h2>
             </div>

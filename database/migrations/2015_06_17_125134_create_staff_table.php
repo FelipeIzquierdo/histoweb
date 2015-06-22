@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImplementersTable extends Migration
+class CreateStaffTable extends Migration
 {
 
 	/**
@@ -13,12 +13,12 @@ class CreateImplementersTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('implementers', function(Blueprint $table)
+		Schema::create('staff', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name')->nullable();
+			$table->string('name')->unique();
 			$table->string('description')->nullable();
-			$table->string('code')->nullable();
+			$table->string('code')->unique();
 			$table->timestamps();
 		});
 	}
@@ -30,7 +30,7 @@ class CreateImplementersTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('implementers');
+		Schema::drop('staff');
 	}
 
 }

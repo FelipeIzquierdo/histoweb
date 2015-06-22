@@ -16,6 +16,11 @@ class StateWay extends Model
 		"description",
 		"code"
 	];
+
+    public static function allLists()
+    {
+        return self::lists('name', 'id' );
+    }
 	
 
 }

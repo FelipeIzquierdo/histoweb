@@ -19,6 +19,21 @@ class Doctor extends Model
         return self::get()->lists('name_specialty_telemedicine' ,'id' );
     }
 
+    public static function allListSpecialty($specialty_id)
+    {
+        return self::whereSpecialtyId($specialty_id)->get()->lists('full_name', 'id');
+    }
+
+    public static function allListSpecialtyName($specialty_name)
+    {
+        return self::allListSpecialty(Specialty::getCode($specialty_name));
+    }
+
+    public static function allListsAnesthesiologist()
+    {
+        return self::allListSpecialtyName('anesthesiology');
+    }
+
     public function findAvailability($start, $end)
     {
         return $this->availabilities()
