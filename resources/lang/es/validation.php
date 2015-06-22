@@ -189,6 +189,7 @@ return array(
    	'procedure_type_id' => 'Tipo de procedimiento',
    	'procedure_id' => 'Procedimiento',
 
+
     //DescribeProcedures
 
     'surgery_id'                => 'consultorio o quirófano',
@@ -197,7 +198,17 @@ return array(
     "staff_id"                  => 'instrumentador',
     "way_entry_id"              => 'vía de entrada',
     "state_way_id"              => 'estado de vía',
-    "complications"             => 'complicaciones'
+    "complications"             => 'complicaciones',
+
+
+   	'value' => 'valor',
+   	'generic_medication_id' => 'Medicamento genérico',
+   	'lab_id' => 'Laboratorio',
+   	'commercial_medication_id' => 'Medicamento Comercial',
+   	'administration_route_id' => 'Vía de administración',
+   	'concentration' => 'Concentración',
+   	'concentration_id' => 'Médidad de concentración',
+   	'dose' => 'Dosis'
 
 
 ]

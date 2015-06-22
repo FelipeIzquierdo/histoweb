@@ -15,19 +15,19 @@
 
   @section('dashboard_body') 
     <div class="row">
-      <div class="col-sm-8 col-md-8 col-lg-8">
+      <div class="col-sm-7 col-md-7 col-lg-7">
           <div class="block">
               <div class="block-title">
                   <h2>Datos de la Formula</h2>
               </div>
               <div class="form-horizontal form-bordered">
                 {!! Form::model($formulate, $form_data) !!}
-                  {!! Field::select( 'medicament_id', $medicament, null, ['data-placeholder' => 'Medicamento', 'template' => 'horizontal']) !!}
+                  {!! Field::select( 'commercial_medication_id', $commercial_medication, null, ['data-placeholder' => 'Medicamento Comercial', 'template' => 'horizontal']) !!}
                   {!! Field::select( 'presentation_id', $presentation, null, ['data-placeholder' => 'Presentación', 'template' => 'horizontal']) !!}
-                  {!! Field::select( 'via_medicament_id', $viamedicament, null, ['data-placeholder' => 'Vía del medicamento', 'template' => 'horizontal']) !!}
+                  {!! Field::select( 'administration_route_id', $administration_route, null, ['data-placeholder' => 'Vía de administración', 'template' => 'horizontal']) !!}
                   {!! Field::number( 'concentration', null , ['min' => '0', 'template' => 'horizontal']) !!}
-                  {!! Field::select( 'measure_id', $measure, null, ['data-placeholder' => 'Medida', 'template' => 'horizontal']) !!}
-                  {!! Field::number( 'quantity', null , ['min' => '0', 'template' => 'horizontal']) !!}
+                  {!! Field::select( 'concentration_id', $concentration, null, ['data-placeholder' => 'Médidad de concentración', 'template' => 'horizontal']) !!}
+                  {!! Field::number( 'dose', null , ['min' => '0', 'template' => 'horizontal']) !!}
                   {!! Field::number( 'interval', null , ['min' => '0' , 'template' => 'horizontal']) !!}
                   {!! Field::number( 'limit', null , ['min' => '0' , 'template' => 'horizontal']) !!}
                   <div class="form-group form-actions">
@@ -40,7 +40,7 @@
           </div>
       </div>
 
-      <div class="col-sm-4 col-md-4 col-lg-4">
+      <div class="col-sm-5 col-md-5 col-lg-5">
           <div class="block">
             <div class="block-title clearfix">
               <h2><span class="hidden-xs">Lista de</span> Lista de Formulación</h2>
@@ -49,16 +49,18 @@
               <table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
                 <thead>
                   <tr>
-                    <th>Medicamento</th>
-                    <th>Intervalo</th>
+                    <th>Descripción</th>
                     <th style="min-width: 50px;" class="text-center"><i class="fa fa-flash"></i></th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach($formulate_e as $formulate_ee)
                     <tr>
-                      <td>{{ $formulate_ee->medicament_name }}</td>
-                      <td>{{ $formulate_ee->interval }}</td>
+                      <td>
+                        {{ $formulate_ee->commercial_medication_name }} x {{ $formulate_ee->concentration }} {{ $formulate_ee->concentration_name }} vía {{ $formulate_ee->administration_route_name }} ,
+                        Tomar {{ $formulate_ee->dose }} {{ $formulate_ee->presentation_name }} cada {{ $formulate_ee->interval }} horas durante {{ $formulate_ee->limit }} días.
+
+                      </td>
                       <td class="text-center">
                         <a href="{{ route('assistance.options.formulate.edit', [$entry->id,$formulate_ee->id]) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
                       </td>

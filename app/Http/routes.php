@@ -107,10 +107,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		Route::group(['prefix' => 'medicament', 'namespace' => 'Medicament'], function() {
 
 			Route::resource('inventaries', 'InventariesController');
-			Route::resource('measures', 'MeasuresController');
-			Route::resource('medicaments', 'MedicamentsController');
+			Route::resource('concentrations', 'ConcentrationsController');
+			Route::resource('generic-medications', 'GenericMedicationsController');
 			Route::resource('presentations', 'PresentationsController');
-			Route::resource('via-medicaments', 'ViaMedicamentsController');
+			Route::resource('administration-routes', 'AdministrationRoutesController');
+			Route::resource('labs', 'LabsController');
+			Route::resource('commercial-medications', 'CommercialMedicationsController');
 
 			Route::controller('/', 'MedicamentController', ['getIndex' => 'admin.system.medicament']);
 

@@ -6,9 +6,9 @@ use Histoweb\Http\Controllers\Controller;
 
 use Histoweb\Entities\Formulate;
 use Histoweb\Entities\Presentation;
-use Histoweb\Entities\Medicament;
-use Histoweb\Entities\Measure;
-use Histoweb\Entities\ViaMedicament;
+use Histoweb\Entities\CommercialMedication;
+use Histoweb\Entities\Concentration;
+use Histoweb\Entities\AdministrationRoute;
 use Histoweb\Entities\Entry;
 
 use Illuminate\Routing\Route;
@@ -19,9 +19,9 @@ class FormulateController extends Controller {
 	private $formulate;
 	private $entry;
 	private $presentation;
-	private $medicament;
-	private $measure;
-	private $viamedicament;
+	private $commercial_medication;
+	private $concentration;
+	private $administration_route;
 	private static $prefixRoute = 'assistance.options.formulate.';
 	private static $prefixView = 'dashboard.pages.assistance.formulate.';
 
@@ -46,9 +46,9 @@ class FormulateController extends Controller {
 
 	public function findGroup()
 	{
-		$this->viamedicament = ViaMedicament::allLists();
-		$this->measure = Measure::allLists();
-		$this->medicament = Medicament::allLists();
+		$this->administration_route = AdministrationRoute::allLists();
+		$this->concentration = Concentration::allLists();
+		$this->commercial_medication = CommercialMedication::allLists();
 		$this->presentation = Presentation::allLists();
 	}
 
@@ -62,9 +62,9 @@ class FormulateController extends Controller {
         return view(self::$prefixView . 'form', compact('form_data','formulate_e'))
         	->with(['formulate' => $this->formulate,
         			'presentation' => $this->presentation,
-        			'medicament' => $this->medicament,
-        			'measure' => $this->measure,
-        			'viamedicament' => $this->viamedicament,
+        			'commercial_medication' => $this->commercial_medication,
+        			'concentration' => $this->concentration,
+        			'administration_route' => $this->administration_route,
         			'entry' => $this->entry]);
 	}
 
@@ -91,9 +91,9 @@ class FormulateController extends Controller {
         return view(self::$prefixView . 'form', compact('form_data','formulate_e'))
         	->with(['formulate' => $this->formulate,
         			'presentation' => $this->presentation,
-        			'medicament' => $this->medicament,
-        			'measure' => $this->measure,
-        			'viamedicament' => $this->viamedicament,
+        			'commercial_medication' => $this->commercial_medication,
+        			'concentration' => $this->concentration,
+        			'administration_route' => $this->administration_route,
         			'entry' => $this->entry]);
 	}
 
