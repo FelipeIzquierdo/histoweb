@@ -37,41 +37,8 @@
     </a>
 
 </div>
- 		<div class="block">
-			<div class="table-responsive">
-			<div class="block-title clearfix">
-                <h2><span class="hidden-xs">Lista de</span> Procedimientos</h2>
-            </div>
-				<table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
-					<thead>
-						<tr>
-							<th>Procedimiento</th>
-							<th>Tipo</th>
-							<th style="min-width: 50px;" class="text-center"><i class="fa fa-file-pdf-o"></i></th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach($order_procedure as $order_procedures)
-							<tr>
-								<td><strong>{{ $order_procedures->procedure_name }}</strong></td>
-								<td>{{ $order_procedures->procedure_type_name }}</td>
-								<td class="text-center">
-									<a href="{{ route('assistance.entries.pdf', $order_procedures->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Descargar procedimiento"><i class="fa fa-cloud-download"></i></a>
-								</td>
-							</tr>
-						@endforeach
-					</tbody>
-				</table>
-
-			</div>
-			<div class="row">
-			    <div class="col-xs-12">
-	                {!! $order_procedure->render() !!}
-	            </div>
-			</div>
-		</div>
-
-<div class="block">
+<div class="col-sm-12">
+    <div class="block">
 
 	<div class="block-title clearfix">
 		<h2><span class="hidden-xs">Lista de</span> Procedimientos</h2>
@@ -87,7 +54,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			
+
 				@foreach($order_procedure as $order_procedures)
 					<tr>
 						<td><strong>{{ $order_procedures->procedure_name }}</strong></td>
@@ -109,6 +76,43 @@
 	</div>
 </div>
 
+    <div class="block">
+
+    <div class="block-title clearfix">
+        <h2><span class="hidden-xs">Lista de</span>Descripción Procedimiento</h2>
+    </div>
+    <div class="table-responsive">
+        <table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
+            <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Nombre Doctor</th>
+                <th style="min-width: 50px;" class="text-center"><i class="fa fa-file-pdf-o"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach($describe_procedures as $describe_procedure)
+            <tr>
+                <td><strong>{{ $describe_procedure->description }}</strong></td>
+                <td>{{ $describe_procedure->doctor->first_name }}</td>
+                <td class="text-center">
+                    <a href="/documents/describeProcedure/{!! $entry->diary->patient->doc !!}-{!! $describe_procedure->id !!}.pdf">
+                    <button type="submit" data-toggle="tooltip" class="btn btn-success" data-original-title="Ver Descripción de procedimiento"><i class="fa fa-download"></i></button>
+                    </a>
+                </td>
+            </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            {!! $order_procedure->render() !!}
+        </div>
+    </div>
+</div>
+</div>
 <!-- Regular Fade -->
 <div id="entryModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">

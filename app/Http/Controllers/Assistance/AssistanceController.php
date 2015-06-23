@@ -1,5 +1,6 @@
 <?php namespace Histoweb\Http\Controllers\Assistance;
 
+use Histoweb\Entities\DescribeProcedure;
 use Histoweb\Http\Requests;
 use Histoweb\Http\Controllers\Controller;
 use Histoweb\Http\Requests\Entry\History\CreateRequest;
@@ -128,11 +129,13 @@ class AssistanceController extends Controller {
 	{	
 		$form_data = ['route' => ['assistance.entries.removeprocedure',$this->entry->id], 'method' => 'POST', 'id' => 'entryForm'];
 		$order_procedure = OrderProcedure::where('entry_id','=',$this->entry->id)->orderBy('updated_at', 'desc')->paginate(12);
+        $describe_procedures = DescribeProcedure::getDescribeProcedures($this->entry->id);
 		return view('dashboard.pages.assistance.options',compact('form_data'))->with([
 			'diaries' 	=> $this->diaries,
 			'doctor'	=> $this->doctor,
 			'entry' 	=> $this->entry,
 			'order_procedure' => $order_procedure,
+            'describe_procedures' => $describe_procedures,
 			'id'		=> $id,
             'pdf'       => '/documents/historyClinic/'.$id.'.pdf'
 		]);

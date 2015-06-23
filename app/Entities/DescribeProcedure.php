@@ -26,6 +26,12 @@ class DescribeProcedure extends Model {
         "complications"
     ];
 
+    public static  function getDescribeProcedures($entry_id)
+    {
+        return self::where('entry_id','=',$entry_id)->orderBy('updated_at', 'desc')->paginate(12);
+    }
+
+
     public function surgery()
     {
         return $this->belongsTo('Histoweb\Entities\Surgery');
