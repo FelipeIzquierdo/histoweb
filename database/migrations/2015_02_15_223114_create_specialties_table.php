@@ -10,7 +10,7 @@ class CreateSpecialtiesTable extends Migration {
 	{
 		Schema::create('specialties',function(Blueprint $table)
         {
-            $table->primary('id');
+        	$table->integer('id')->primary();
             $table->string('name');
             $table->timestamps();
         });

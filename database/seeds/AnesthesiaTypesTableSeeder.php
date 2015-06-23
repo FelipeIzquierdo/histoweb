@@ -1,6 +1,7 @@
 <?php  
 	use \Illuminate\Database\Seeder;
-	//use Histoweb\Entities\AnesthesiaType;
+	use Histoweb\Entities\AnesthesiaType;
+	
 	/**
 	* 
 	*/
