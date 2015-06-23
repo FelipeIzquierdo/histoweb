@@ -12,139 +12,139 @@
 	    {
 	        Specialty::create(array(
 	            'name'  => 'Alergología',
-                'code'  => '1',
+                'id'  => '1',
 	        ));
             Specialty::create(array(
                 'name'  => 'Anestesiología y reanimación',
-                'code'  => '2',
+                'id'  => '2',
             ));
             Specialty::create(array(
                 'name'  => 'Cardiología',
-                'code'  => '3',
+                'id'  => '3',
             ));
             Specialty::create(array(
                 'name'  => 'Gastroenterología',
-                'code'  => '4',
+                'id'  => '4',
             ));
             Specialty::create(array(
                 'name'  => 'Endocrinología',
-                'code'  => '5',
+                'id'  => '5',
             ));
             Specialty::create(array(
                 'name'  => 'Geriatría',
-                'code'  => '6',
+                'id'  => '6',
             ));
             Specialty::create(array(
                 'name'  => 'Hematología y hemoterapia',
-                'code'  => '7',
+                'id'  => '7',
             ));
             Specialty::create(array(
                 'name'  => 'Hidrología médica',
-                'code'  => '8',
+                'id'  => '8',
             ));
             Specialty::create(array(
                 'name'  => 'Infectología',
-                'code'  => '9',
+                'id'  => '9',
             ));
             Specialty::create(array(
                 'name'  => 'Medicina aeroespacial',
-                'code'  => '10',
+                'id'  => '10',
             ));
             Specialty::create(array(
                 'name'  => 'Medicina del deporte',
-                'code'  => '11',
+                'id'  => '11',
             ));
             Specialty::create(array(
                 'name'  => 'Medicina del trabajo',
-                'code'  => '12',
+                'id'  => '12',
             ));
             Specialty::create(array(
                 'name'  => 'Medicina de urgencias',
-                'code'  => '13',
+                'id'  => '13',
             ));
             Specialty::create(array(
                 'name'  => 'Medicina familiar y comunitaria',
-                'code'  => '14',
+                'id'  => '14',
             ));
             Specialty::create(array(
                 'name'  => 'Medicina intensiva',
-                'code'  => '15',
+                'id'  => '15',
             ));
             Specialty::create(array(
                 'name'  => 'Medicina interna',
-                'code'  => '16',
+                'id'  => '16',
             ));
             Specialty::create(array(
                 'name'  => 'Medicina legal y forense',
-                'code'  => '17',
+                'id'  => '17',
             ));
             Specialty::create(array(
                 'name'  => 'Medicina preventiva y salud pública',
-                'code'  => '18',
+                'id'  => '18',
             ));
             Specialty::create(array(
                 'name'  => 'Neumología',
-                'code'  => '19',
+                'id'  => '19',
             ));
             Specialty::create(array(
                 'name'  => 'Neurología',
-                'code'  => '20',
+                'id'  => '20',
             ));
             Specialty::create(array(
                 'name'  => 'Nutriología',
-                'code'  => '21',
+                'id'  => '21',
             ));
             Specialty::create(array(
                 'name'  => 'Odontología',
-                'code'  => '22',
+                'id'  => '22',
             ));
             Specialty::create(array(
                 'name'  => 'Oftalmología',
-                'code'  => '23',
+                'id'  => '23',
             ));
             Specialty::create(array(
                 'name'  => 'Oncología médica',
-                'code'  => '24',
+                'id'  => '24',
             ));            
             Specialty::create(array(
                 'name'  => 'Otorrinolaringología',
-                'code'  => '25',
+                'id'  => '25',
             ));
             Specialty::create(array(
                 'name'  => 'Pediatría',
-                'code'  => '26',
+                'id'  => '26',
             ));
             Specialty::create(array(
                 'name'  => 'Proctología',
-                'code'  => '27',
+                'id'  => '27',
             ));
             Specialty::create(array(
                 'name'  => 'Psiquiatría',
-                'code'  => '28',
+                'id'  => '28',
             ));
             Specialty::create(array(
                 'name'  => 'Rehabilitación',
-                'code'  => '29',
+                'id'  => '29',
             ));
             Specialty::create(array(
                 'name'  => 'Reumatología',
-                'code'  => '30',
+                'id'  => '30',
             ));
             Specialty::create(array(
                 'name'  => 'Traumatología',
-                'code'  => '31',
+                'id'  => '31',
             ));
             Specialty::create(array(
                 'name'  => 'Toxicología',
-                'code'  => '32',
+                'id'  => '32',
             ));
             Specialty::create(array(
                 'name'  => 'Urología',
-                'code'  => '33',
+                'id'  => '33',
             ));
             Specialty::create(array(
                 'name'  => 'Oncología radioterápica',
-                'code'  => '34',
+                'id'  => '34',
             ));
 
 

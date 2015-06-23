@@ -9,7 +9,7 @@
 
 		public function run()
 	    {
-	    	 Profession::create([
+	    	Profession::create([
                 'name'	=> 'Ingeneria de Sistemas',
                 'description' => 'Ingeniero de Sistema',
                 'code'	=>  1,
@@ -21,6 +21,11 @@
                 'code'	=>  2,
             ]);
 
+            Profession::create([
+                'name'	=> 'Instrumentador',
+                'description' => 'Instrumentador',
+                'code'	=>  3,
+            ]);
 
 
 	    }

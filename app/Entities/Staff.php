@@ -24,8 +24,15 @@ class Staff extends Model
 
     public static function allListsImplementers()
     {
-        return Profession::whereName('Instrumentador')->with('staff')
-            ->first()->staff->lists('name', 'id');
+        $profession = Profession::whereName('Instrumentador')->with('staff')->first();
+
+        if($profession)
+        {            
+            return $profession->staff->lists('name', 'id');
+        }
+
+        return array();
+        
     }
 
     public function professions()
