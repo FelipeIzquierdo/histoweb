@@ -21,8 +21,8 @@ class CreateRequest extends Request {
 	{
 		return [
 			'name'  => 'required|max:100|unique:professions,name',
-			'description'  => 'required',
-            'code'  => 'required'
+			'description'  => 'max:255',
+            'id'  => 'required'
 		];
 	}
 }

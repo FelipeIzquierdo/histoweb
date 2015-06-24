@@ -199,6 +199,10 @@ return array(
     "way_entry_id"              => 'vía de entrada',
     "state_way_id"              => 'estado de vía',
     "complications"             => 'complicaciones',
+    "id"                        => 'Código ',
+    'code'                      => 'Código ',
+    'professions'               => 'profesiones',
+
 
 
    	'value' => 'valor',

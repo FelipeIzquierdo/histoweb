@@ -21,7 +21,6 @@ class CreateRequest extends Request {
 	{
 		return [
 			'name'  => 'required|max:100|unique:state_ways,name',
-			'description'  => 'required',
             'code'  => 'required'
 		];
 	}

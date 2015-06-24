@@ -16,9 +16,9 @@ class CreateStateWaysTable extends Migration
 		Schema::create('state_ways', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->string('code')->unique();
 			$table->string('name')->unique();
-			$table->string('description')->nullable();
-			$table->string('code')->unique();
+			$table->text('description')->nullable();
 			$table->timestamps();
 		});
 	}

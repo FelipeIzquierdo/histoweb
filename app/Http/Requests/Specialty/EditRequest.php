@@ -34,7 +34,7 @@ class EditRequest extends Request {
 	{
 		return [
 			'name'  => 'required|max:100|unique:specialties,name,' . $this->route->getParameter('specialties'),
-			'code' 	=> 'required'
+			'id' 	=> 'required|max:10|unique:specialties,id,' . $this->route->getParameter('specialties')
 		];
 	}
 

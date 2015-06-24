@@ -35,7 +35,7 @@ class EditRequest extends Request {
 		return [
 			'name'  => 'required|max:100|unique:anesthesia_types,name,' . $this->route->getParameter('anesthesiaTypes'),
             'code'  => 'required',
-            'description'  => 'required'
+
 		];
 	}
 

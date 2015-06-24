@@ -21,7 +21,6 @@ class CreateRequest extends Request {
 	{
 		return [
 			'name'  => 'required|max:100|unique:anesthesia_types,name',
-			'description'  => 'required',
             'code'  => 'required'
 		];
 	}

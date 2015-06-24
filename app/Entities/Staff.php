@@ -22,6 +22,23 @@ class Staff extends Model
         return self::lists('name', 'id' );
     }
 
+    public static function allListProfession($profession_id)
+    {
+        return self::whereProfessionId($profession_id)->get()->lists('name', 'id');
+    }
+
+    public static function allListProfessionName($profession_name)
+    {
+        return self::allListProfession(Profession::getCode($profession_name));
+    }
+
+    public static function allListsAnesthesiologist()
+    {
+        return self::allListProfessionName('implementers');
+    }
+
+
+
     public static function allListsImplementers()
     {
         $profession = Profession::whereName('Instrumentador')->with('staff')->first();

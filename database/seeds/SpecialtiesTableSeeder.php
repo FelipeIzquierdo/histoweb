@@ -15,7 +15,7 @@
                 'id'  => '1',
 	        ));
             Specialty::create(array(
-                'name'  => 'Anestesiología y reanimación',
+                'name'  => 'Anestesiología',
                 'id'  => '2',
             ));
             Specialty::create(array(

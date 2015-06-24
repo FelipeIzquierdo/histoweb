@@ -21,7 +21,7 @@ class CreateRequest extends Request {
 	{
 		return [
 			'name'  => 'required|max:100|unique:specialties,name',
-			'code' 	=> 'required'
+			'id' 	=> 'required|max:10|unique:specialties,id'
 		];
 	}
 }

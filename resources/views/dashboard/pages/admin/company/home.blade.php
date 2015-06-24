@@ -15,6 +15,8 @@
 
     @include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.company.patients.index'), 'icon_widget' => 'img/placeholders/icons/patient.png', 'title_widget' => 'Pacientes'])
 
+    @include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.company.staff.index'), 'icon_widget' => 'img/placeholders/icons/staff.png', 'title_widget' => 'Personal'])
+
 @endsection
 
 

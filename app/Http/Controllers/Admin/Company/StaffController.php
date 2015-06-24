@@ -1,4 +1,4 @@
-<?php namespace Histoweb\Http\Controllers\Admin\System;
+<?php namespace Histoweb\Http\Controllers\Admin\company;
 
 use Histoweb\Entities\Profession;
 use Histoweb\Http\Requests;
@@ -17,8 +17,8 @@ class StaffController extends Controller
 
 
 	private $staff;
-	private static $prefixRoute = 'admin.system.staff.';
-	private static $prefixView = 'dashboard.pages.admin.system.staff.';
+	private static $prefixRoute = 'admin.company.staff.';
+	private static $prefixView = 'dashboard.pages.admin.company.staff.';
 
 	public function __construct() 
 	{

@@ -28,9 +28,6 @@
     <a href="{{ route('assistance.entries.pdf', $entry->id) }}" class="btn btn-effect-ripple btn-block btn-primary" title="Nueva formula">
 		Lista de Procedimientos
 	</a>
-	<a href="{{ route('assistance.entries.pdf', $entry->id) }}" class="btn btn-effect-ripple btn-block btn-primary" title="Nueva formula">
-		Descripción de Procedimientos
-	</a>
 	<hr>
     <a href="{{ route('assistance.exit', $id) }}" class="btn btn-block btn-warning">
         Dar salida
@@ -95,7 +92,7 @@
             @foreach($describe_procedures as $describe_procedure)
             <tr>
                 <td><strong>{{ $describe_procedure->description }}</strong></td>
-                <td>{{ $describe_procedure->doctor->first_name }}</td>
+                <td>{{ $describe_procedure->doctor->name }}</td>
                 <td class="text-center">
                     <a href="/documents/describeProcedure/{!! $entry->diary->patient->doc !!}-{!! $describe_procedure->id !!}.pdf">
                     <button type="submit" data-toggle="tooltip" class="btn btn-success" data-original-title="Ver Descripción de procedimiento"><i class="fa fa-download"></i></button>

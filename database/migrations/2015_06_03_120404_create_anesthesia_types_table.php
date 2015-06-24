@@ -16,9 +16,9 @@ class CreateAnesthesiaTypesTable extends Migration
 		Schema::create('anesthesia_types', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name')->nullable();
-			$table->string('description')->nullable();
-			$table->string('code')->nullable();
+            $table->string('code')->unique();
+			$table->string('name')->unique();
+			$table->text('description')->nullable();
 			$table->timestamps();
 		});
 	}

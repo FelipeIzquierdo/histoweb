@@ -21,7 +21,7 @@ class Doctor extends Model
 
     public static function allListSpecialty($specialty_id)
     {
-        return self::whereSpecialtyId($specialty_id)->get()->lists('full_name', 'id');
+        return self::whereSpecialtyId($specialty_id)->get()->lists('name', 'id');
     }
 
     public static function allListSpecialtyName($specialty_name)

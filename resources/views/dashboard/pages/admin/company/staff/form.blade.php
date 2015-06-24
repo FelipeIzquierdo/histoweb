@@ -18,8 +18,8 @@
               </div>
               <div class="form-horizontal form-bordered">
                 {!! Form::model($staff, $form_data) !!}
-                  {!! Field::text('name', null, ['placeholder' => 'Nombre', 'template' => 'horizontal']) !!}
                   {!! Field::text('code', null, ['placeholder' => 'Codigo', 'template' => 'horizontal']) !!}
+                  {!! Field::text('name', null, ['placeholder' => 'Nombre', 'template' => 'horizontal']) !!}
                   {!! Field::text('description', null, ['placeholder' => 'Descripción', 'template' => 'horizontal']) !!}
                   {!! Field::select('professions[]', $professions, $staff->professions_id, ['data-placeholder' => 'Seleccione la(s) profesione(s)', 'template' => 'horizontal', 'multiple']) !!}
 

@@ -17,7 +17,7 @@ class CreateWayEntriesTable extends Migration
 		{
 			$table->increments('id');
 			$table->string('name')->unique();
-			$table->string('description')->nullable();
+			$table->text('description')->nullable();
 			$table->string('code')->unique();
 			$table->timestamps();
 		});

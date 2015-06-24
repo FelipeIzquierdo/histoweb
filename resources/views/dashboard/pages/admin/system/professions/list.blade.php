@@ -25,18 +25,18 @@
                     <table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
                         <thead>
                             <tr>
+                                <th>Código</th>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
-                                <th>Código</th>
                                 <th width="50px">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($professions as $profession)
                                 <tr>
+                                    <td>{!! $profession->id !!}</td>
                                     <td>{!! $profession->name !!}</td>
                                     <td>{!! $profession->description !!}</td>
-                                    <td>{!! $profession->code !!}</td>
                                     <td>
                                         <a href="{!! route('admin.system.professions.edit', [$profession->id]) !!}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar Profesión"><i class="fa fa-pencil"></i></a>
                                         <a href="{!! route('professions.delete', [$profession->id]) !!}" onclick="return confirm('Are you sure wants to delete this AnesthesiaTypes?')" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-danger" data-original-title="Eliminar Profesión"><i class="fa fa-times"></i></a>                                    

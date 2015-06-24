@@ -85,11 +85,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		    'uses' => 'WayEntryController@destroy',
 		]);
 
-		Route::resource('staff', 'StaffController');
-		Route::get('staff/{id}/delete', [
-		    'as' => 'staff.delete',
-		    'uses' => 'StaffController@destroy',
-		]);
 		
 		Route::resource('diary-types', 'DiaryTypesController');
 		Route::resource('diagnoses', 'DiagnosesController');
@@ -123,6 +118,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	});
 
 	Route::group(['prefix' => 'company', 'namespace' => 'Company'], function() {
+
+        Route::resource('staff', 'StaffController');
+        Route::get('staff/{id}/delete', [
+            'as' => 'staff.delete',
+            'uses' => 'StaffController@destroy',
+        ]);
+
 		Route::resource('patients', 'PatientsController');
         Route::get('patients/{doc}/find', ['uses' => 'PatientsController@find', 'as' => 'admin.company.patients.find']);
 

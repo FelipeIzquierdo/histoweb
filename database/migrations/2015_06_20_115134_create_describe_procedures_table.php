@@ -38,8 +38,8 @@ class CreateDescribeProceduresTable extends Migration {
             $table->integer('state_way_id')->unsigned();
             $table->foreign('state_way_id')->references('id')->on('state_ways');
 
-            $table->string('description')->nullable();
-            $table->string('complications')->nullable();
+            $table->text('description')->nullable();
+            $table->text('complications')->nullable();
             $table->timestamps();
 		});
 	}

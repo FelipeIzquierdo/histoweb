@@ -12,19 +12,19 @@
 	    	Profession::create([
                 'name'	=> 'Ingeneria de Sistemas',
                 'description' => 'Ingeniero de Sistema',
-                'code'	=>  1,
+                'id'	=>  1,
             ]);
 
             Profession::create([
                 'name'	=> 'Ingeneria  Mecanica',
                 'description' => 'Ingeneria  Mecanica',
-                'code'	=>  2,
+                'id'	=>  2,
             ]);
 
             Profession::create([
                 'name'	=> 'Instrumentador',
                 'description' => 'Instrumentador',
-                'code'	=>  3,
+                'id'	=>  3,
             ]);
 
 

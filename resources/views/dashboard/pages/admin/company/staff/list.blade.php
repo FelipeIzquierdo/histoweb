@@ -7,7 +7,7 @@
 		<h1>
 			<i class="fa fa-check-square-o"></i>
 			Personal
-			<a href="{{ route('admin.system.staff.create') }}" class="btn btn-info" title="Nuevo Personal">
+			<a href="{{ route('admin.company.staff.create') }}" class="btn btn-info" title="Nuevo Personal">
 				<i class="fa fa-plus"></i>
 			</a>
 		</h1>
@@ -19,7 +19,7 @@
 	    @else
 			@foreach($staff as $staffs)
 				<div class="col-sm-3">
-					<a href="{{ route('admin.system.staff.edit', $staffs->id) }}" class="widget text-center">
+					<a href="{{ route('admin.company.staff.edit', $staffs->id) }}" class="widget text-center">
 						<div class="widget-content">
 							<i class="fa fa-3x fa-check-square-o text-dark"></i>
 						</div>

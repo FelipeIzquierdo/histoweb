@@ -34,8 +34,7 @@ class EditRequest extends Request {
 	{
 		return [
 			'name'  => 'required|max:100|unique:state_ways,name,' . $this->route->getParameter('stateWays'),
-            'code'  => 'required',
-            'description'  => 'required'
+            'code'  => 'required'
 		];
 	}
 

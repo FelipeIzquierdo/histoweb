@@ -43,8 +43,6 @@
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.professions.index'), 'icon_widget' => 'img/placeholders/icons/profession.png', 'title_widget' => 'Profesiones'])
 
-		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.staff.index'), 'icon_widget' => 'img/placeholders/icons/staff.png', 'title_widget' => 'Personal'])
-
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.anesthesiaTypes.index'), 'icon_widget' => 'img/placeholders/icons/anesthesiaType.png', 'title_widget' => 'Tipos de Anestesia'])
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.stateWays.index'), 'icon_widget' => 'img/placeholders/icons/stateWay.png', 'title_widget' => 'Estados de via'])

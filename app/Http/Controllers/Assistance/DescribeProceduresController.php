@@ -31,11 +31,11 @@ class DescribeProceduresController extends Controller {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->beforeFilter('@findGroup', ['only' => ['create','store']]);
+        $this->beforeFilter('@findLoadForm', ['only' => ['create','store']]);
     }
 
 
-    public function findGroup(Route $route)
+    public function findLoadForm(Route $route)
     {
         $this->entry = Entry::findOrFail($route->getParameter('one'));
         $this->doctors = Doctor::allListsAnesthesiologist();
@@ -66,7 +66,6 @@ class DescribeProceduresController extends Controller {
     public function store(CreateRequest $request,$id)
     {
         $data = ['entry_id' => $this->entry->id]+$request->all();
-        //dd($data);
         $this->describe_procedure = DescribeProcedure::create($data);
         $pdf = new MyPdf();
         $pdf->describeProcedurePdf($this->describe_procedure,$this->entry);

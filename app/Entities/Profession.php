@@ -14,12 +14,18 @@ class Profession extends Model
 	public $fillable = [
 	    "name",
 		"description",
-		"code"
+		"id"
 	];
+    public static $codes = ['implementers' => 3];
 
     public static function allLists()
     {
         return self::lists('name', 'id');
+    }
+
+    public static function getCode($name)
+    {
+        return self::$codes[$name];
     }
 
     public function staff()

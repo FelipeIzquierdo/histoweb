@@ -7,10 +7,10 @@ class Specialty extends Model {
     protected $table = 'specialties';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name','code'];
+    protected $fillable = ['name','id'];
 
     public $timestamps = true;
-    public $increments = true;
+    public $increments = false;
     public $errors;
 
     public static $codes = ['anesthesiology' => 2];

@@ -18,7 +18,7 @@ class CreateStaffProfessionTable extends Migration {
             $table->integer('staff_id')->unsigned();
             $table->foreign('staff_id')->references('id')->on('staff');
 
-            $table->integer('profession_id')->unsigned();
+            $table->string('profession_id',12);
             $table->foreign('profession_id')->references('id')->on('professions');
 
             $table->timestamps();
