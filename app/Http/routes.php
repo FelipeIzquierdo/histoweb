@@ -34,8 +34,10 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 	Route::post('options/{one}/order-procedures/create', ['uses' => 'OrderProceduresController@store', 'as' => 'assistance.options.order-procedures.store']);
 	Route::get('jsonProcedure/{id}', 'OrderProceduresController@jsonProcedure');
 
-    Route::get('options/{one}/describeProcedures/create', ['uses' => 'DescribeProceduresController@create', 'as' => 'assistance.options.describeProcedures.create']);
-    Route::post('options/{one}/describeProcedures/create', ['uses' => 'DescribeProceduresController@store', 'as' => 'assistance.options.describeProcedures.store']);
+    Route::get('options/{entries}/describeProcedures/create', ['uses' => 'DescribeProceduresController@create', 'as' => 'assistance.options.describeProcedures.create']);
+    Route::post('options/{entries}/describeProcedures/create', ['uses' => 'DescribeProceduresController@store', 'as' => 'assistance.options.describeProcedures.store']);
+    Route::get('options/{entries}/describeProcedures/{describeProcedures}/edit', ['uses' => 'DescribeProceduresController@edit', 'as' => 'assistance.options.describeProcedures.edit']);
+    Route::put('options/{entries}/describeProcedures/{describeProcedures}/update', ['uses' => 'DescribeProceduresController@update', 'as' => 'assistance.options.describeProcedures.update']);
 
 	Route::post('options/{one}/removeprocedure', ['uses' => 'AssistanceController@getRemoveProcedure', 'as' => 'assistance.entries.removeprocedure']);
 	Route::controller('/', 'AssistanceController', [

@@ -84,7 +84,8 @@
             <tr>
                 <th>Descripción</th>
                 <th>Nombre Doctor</th>
-                <th style="min-width: 50px;" class="text-center"><i class="fa fa-file-pdf-o"></i></th>
+                <th style="min-width: 25px;" class="text-center"><i class="fa fa-user-md"></i></th>
+                <th style="min-width: 25px;" class="text-center"><i class="fa fa-file-pdf-o"></i></th>
             </tr>
             </thead>
             <tbody>
@@ -94,7 +95,12 @@
                 <td><strong>{{ $describe_procedure->description }}</strong></td>
                 <td>{{ $describe_procedure->doctor->name }}</td>
                 <td class="text-center">
-                    <a href="/documents/describeProcedure/{!! $entry->diary->patient->doc !!}-{!! $describe_procedure->id !!}.pdf">
+                    <a href="{{ route('assistance.options.describeProcedures.edit', [$entry->id,$describe_procedure->id]) }}">
+                        <button type="submit" data-toggle="tooltip" class="btn btn-warning" data-original-title="Editar Descripción de procedimiento"><i class="fa fa-pencil-square-o"></i></button>
+                    </a>
+                </td>
+                <td class="text-center">
+                    <a href="/documents/describeProcedure/{!! $entry->diary->patient->doc !!}-{!! $describe_procedure->id !!}.pdf" target="_blank">
                     <button type="submit" data-toggle="tooltip" class="btn btn-success" data-original-title="Ver Descripción de procedimiento"><i class="fa fa-download"></i></button>
                     </a>
                 </td>

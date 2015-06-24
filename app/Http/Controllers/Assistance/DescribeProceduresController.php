@@ -3,6 +3,7 @@
 use Histoweb\Components\Pdf\PdfBuilder as MyPdf;
 use Histoweb\Entities\DescribeProcedure;
 use Histoweb\Http\Requests\DescribeProcedure\CreateRequest;
+use Histoweb\Http\Requests\DescribeProcedure\EditRequest;
 use Histoweb\Entities\AnesthesiaType;
 use Histoweb\Entities\Doctor;
 use Histoweb\Entities\Entry;
@@ -31,13 +32,20 @@ class DescribeProceduresController extends Controller {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->beforeFilter('@findLoadForm', ['only' => ['create','store']]);
+        $this->beforeFilter('@findLoadForm', ['only' => ['create','store','edit', 'update']]);
+        $this->beforeFilter('@findDescribeProcedure', ['only' => ['edit','update']]);
+    }
+
+
+    public function findDescribeProcedure(Route $route)
+    {
+        $this->describe_procedure = DescribeProcedure::findOrFail($route->getParameter('describeProcedures'));
     }
 
 
     public function findLoadForm(Route $route)
     {
-        $this->entry = Entry::findOrFail($route->getParameter('one'));
+        $this->entry = Entry::findOrFail($route->getParameter('entries'));
         $this->doctors = Doctor::allListsAnesthesiologist();
         $this->anesthesia_types = AnesthesiaType::allLists();
         $this->staff = Staff::allListsImplementers();
@@ -48,10 +56,12 @@ class DescribeProceduresController extends Controller {
 
     public function create()
     {
+        $describe_procedure = new DescribeProcedure;
         $form_data = ['route' => [self::$prefixRoute . 'store',$this->entry->id], 'method' => 'POST', 'id' => 'entryForm'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
             ->with([
+                'describe_procedures' => $describe_procedure,
                 'entry'             => $this->entry,
                 'doctors'           => $this->doctors,
                 'anesthesia_types'  => $this->anesthesia_types,
@@ -70,6 +80,37 @@ class DescribeProceduresController extends Controller {
         $pdf = new MyPdf();
         $pdf->describeProcedurePdf($this->describe_procedure,$this->entry);
         return redirect()->route('assistance.entries.options', $id);
+    }
+
+
+    public function edit($id)
+    {
+        $form_data = ['route' => [self::$prefixRoute . 'update',$this->entry->id,$this->describe_procedure->id], 'method' => 'PUT', 'id' => 'entryForm'];
+
+        return view(self::$prefixView . 'form', compact('form_data'))
+            ->with([
+                'describe_procedures' => $this->describe_procedure,
+                'entry'             => $this->entry,
+                'doctors'           => $this->doctors,
+                'anesthesia_types'  => $this->anesthesia_types,
+                'staff'             => $this->staff,
+                'way_entries'       => $this->way_entries,
+                'state_ways'        => $this->state_ways,
+                'surgeries'         => $this->surgeries
+            ]);
+    }
+
+
+    public function update($id, EditRequest $request)
+    {
+
+        $this->describe_procedure->fill($request->all());
+        $this->describe_procedure->save();
+        $pdf = new MyPdf();
+        $pdf->describeProcedurePdf($this->describe_procedure,$this->entry);
+
+
+        return redirect()->route('assistance.entries.options', $this->entry->id);
     }
 
 }

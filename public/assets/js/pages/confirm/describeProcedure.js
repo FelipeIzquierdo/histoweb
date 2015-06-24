@@ -3,14 +3,16 @@ $(document).ready(function () {
     $('button[id="submitDescribeProcedure"]').on('click', function(e){
         var $form = $(this).closest('form');
         e.preventDefault();
-
-        /*$("#modal_reasons").html(reasons.join( ", " ));
-        $("#modal_system_revisions").html(system_revisions.join( ", " ));
-        $("#modal_procedures").html(procedures.join( ", " ));
-        $("#modal_diagnostics").html(diagnostics.join( ", " ));
-
-        $("#modal_present_illness").html($('textarea[name="present_illness"]').val());
-        $("#modal_management_plan").html($('textarea[name="management_plan"]').val());*/
+        $("#dateStart").html($("#start_date").val());
+        $("#dateEnd").html($("#end_date").val());
+        $("#surgery").html($("#surgery_id option:selected").text()," ");
+        $("#doctor").html($("#doctor_id option:selected").text()," ");
+        $("#staff").html($("#staff_id option:selected").text()," ");
+        $("#anesthesiaType").html($("#anesthesia_type_id option:selected").text()," ");
+        $("#wayEntry").html($("#way_entry_id option:selected").text()," ");
+        $("#stateWay").html($("#state_way_id option:selected").text()," ");
+        $("#descriptionText").html($("#description").val());
+        $("#complicationsText").html($("#complications").val());
         
 
         $('#entryModal').modal({ backdrop: 'static', keyboard: false })

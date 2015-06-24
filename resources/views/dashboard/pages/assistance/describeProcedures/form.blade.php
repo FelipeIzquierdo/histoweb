@@ -10,8 +10,8 @@
 
 @section('dashboard_body')
 
-    
-    {!! Form::open($form_data) !!}
+
+    {!! Form::model($describe_procedures, $form_data) !!}
     
         <div class="block">
             <div class="block-title clearfix">
@@ -19,15 +19,15 @@
             </div>
             <div class="form-horizontal form-bordered">
 
-                {!! Field::dateRange('start_date', 'end_date', null, null, ['placeholder' => 'Desde'], ['placeholder' => 'Hasta']) !!}
-                {!! Field::select('surgery_id', $surgeries, null, ['data-placeholder' => 'Seleccione consultorio', 'template' => 'horizontal']) !!}
-                {!! Field::select('doctor_id', $doctors, null, ['data-placeholder' => 'Seleccione Doctor', 'template' => 'horizontal']) !!}
-                {!! Field::select('staff_id', $staff, null, ['data-placeholder' => 'Seleccione Instrumentador', 'template' => 'horizontal']) !!}
-                {!! Field::select('anesthesia_type_id', $anesthesia_types, null, ['data-placeholder' => 'Seleccione Tipo de anestesia', 'template' => 'horizontal']) !!}
-                {!! Field::select('way_entry_id', $way_entries, null, ['data-placeholder' => 'Seleccione Via de entrada', 'template' => 'horizontal']) !!}
-                {!! Field::select('state_way_id', $state_ways, null, ['data-placeholder' => 'Seleccione Estado de via', 'template' => 'horizontal']) !!}
-                {!! Field::textarea( 'description', null, ['placeholder' => 'Descripcion', 'template' => 'horizontal', 'rows' => '3']) !!}
-                {!! Field::textarea( 'complications', null, ['placeholder' => 'Descripcion', 'template' => 'horizontal', 'rows' => '3']) !!}
+                {!! Field::dateRange('start_date', 'end_date', null, null, ['placeholder' => 'Desde', 'id' =>'start_date'], ['placeholder' => 'Hasta', 'id' =>'end_date']) !!}
+                {!! Field::select('surgery_id', $surgeries, null, ['data-placeholder' => 'Seleccione consultorio', 'template' => 'horizontal', 'id' =>'surgery_id']) !!}
+                {!! Field::select('doctor_id', $doctors, null, ['data-placeholder' => 'Seleccione Doctor', 'template' => 'horizontal', 'id' =>'doctor_id']) !!}
+                {!! Field::select('staff_id', $staff, null, ['data-placeholder' => 'Seleccione Instrumentador', 'template' => 'horizontal', 'id' =>'staff_id']) !!}
+                {!! Field::select('anesthesia_type_id', $anesthesia_types, null, ['data-placeholder' => 'Seleccione Tipo de anestesia', 'template' => 'horizontal', 'id' =>'anesthesia_type_id']) !!}
+                {!! Field::select('way_entry_id', $way_entries, null, ['data-placeholder' => 'Seleccione Via de entrada', 'template' => 'horizontal', 'id' =>'way_entry_id']) !!}
+                {!! Field::select('state_way_id', $state_ways, null, ['data-placeholder' => 'Seleccione Estado de via', 'template' => 'horizontal', 'id' =>'state_way_id']) !!}
+                {!! Field::textarea( 'description', null, ['placeholder' => 'Descripcion', 'template' => 'horizontal', 'rows' => '3', 'id' =>'description']) !!}
+                {!! Field::textarea( 'complications', null, ['placeholder' => 'Descripcion', 'template' => 'horizontal', 'rows' => '3', 'id' =>'complications']) !!}
             </div>
         </div>
         <div class="form-group form-actions">
@@ -48,7 +48,70 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h3 class="modal-title"><strong>Describir Procedimiento,</strong> {!! $entry->diary->patient->doc_type_doc !!} - {!! $entry->diary->patient->name !!} </h3>
                 </div>
-                <div id="append"> </div>
+                <div class="modal-body">
+                    <div class="form-horizontal form-bordered">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Fecha Inicio:</label>
+                            <div class="col-md-9">
+                                <p id="dateStart"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Fecha Fin:</label>
+                            <div class="col-md-9">
+                                <p id="dateEnd"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Consultorio o Quirofano:</label>
+                            <div class="col-md-9">
+                                <p id="surgery"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Anestesiólogo:</label>
+                            <div class="col-md-9">
+                                <p id="doctor"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Instrumentador:</label>
+                            <div class="col-md-9">
+                                <p id="staff"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Tipo de anestesia:</label>
+                            <div class="col-md-9">
+                                <p id="anesthesiaType"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Vía de entrada:</label>
+                            <div class="col-md-9">
+                                <p id="wayEntry"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Estado de vía:</label>
+                            <div class="col-md-9">
+                                <p id="stateWay"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Descripción:</label>
+                            <div class="col-md-9">
+                                <p id="descriptionText"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Complicaiones:</label>
+                            <div class="col-md-9">
+                                <p id="complicationsText"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-effect-ripple btn-warning" data-dismiss="modal" id="edit"> 
                         <i class="fa fa-pencil"></i> Seguir editando

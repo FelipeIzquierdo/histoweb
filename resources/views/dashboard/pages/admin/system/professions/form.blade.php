@@ -1,5 +1,5 @@
 @extends('dashboard.pages.layout')
-  @section('title') 
+  @section('title')
     @if($profession->exists) Editar {{$profession->code}} @else Nueva Profesión @endif
   @endsection
   
