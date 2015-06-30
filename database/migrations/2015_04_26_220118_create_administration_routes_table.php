@@ -18,9 +18,6 @@ class CreateAdministrationRoutesTable extends Migration {
 			$table->string('name')->unique();
 			$table->string('description')->nullable();
 
-			$table->integer('presentation_id')->unsigned();
-            $table->foreign('presentation_id')->references('id')->on('presentations');
-
             $table->timestamps();
 		});
 	}

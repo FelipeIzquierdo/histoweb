@@ -29,6 +29,8 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 	Route::post('options/{one}/formulate/create', ['uses' => 'FormulateController@store', 'as' => 'assistance.options.formulate.store']);
 	Route::get('options/{one}/formulate/{two}/edit', ['uses' => 'FormulateController@edit', 'as' => 'assistance.options.formulate.edit']);
 	Route::post('options/{one}/formulate/{two}/edit', ['uses' => 'FormulateController@update', 'as' => 'assistance.options.formulate.update']);
+	Route::get('options/formulate/presentations/{one}', ['uses' => 'FormulateController@getPresentations']);
+	Route::get('options/formulate/administration-routes/{one}/{two}', ['uses' => 'FormulateController@getAdministrationRoutes']);
 
 	Route::get('options/{one}/order-procedures/create', ['uses' => 'OrderProceduresController@create', 'as' => 'assistance.options.order-procedures.create']);
 	Route::post('options/{one}/order-procedures/create', ['uses' => 'OrderProceduresController@store', 'as' => 'assistance.options.order-procedures.store']);
@@ -104,7 +106,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		Route::group(['prefix' => 'medicament', 'namespace' => 'Medicament'], function() {
 
 			Route::resource('inventaries', 'InventariesController');
-			Route::resource('concentrations', 'ConcentrationsController');
+			Route::resource('units', 'UnitsController');
+			Route::resource('diluents', 'DiluentsController');
 			Route::resource('generic-medications', 'GenericMedicationsController');
 			Route::resource('presentations', 'PresentationsController');
 			Route::resource('administration-routes', 'AdministrationRoutesController');

@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Concentration extends Model {
+class Unit extends Model {
 
-	protected $fillable = ['id','name','value'];
+	protected $fillable = ['id','name'];
 
 	public $timestamps = true;
 	public $increments = true;

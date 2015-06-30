@@ -20,7 +20,6 @@
                 {!! Form::model($route, $form_data) !!}
                   {!! Field::text( 'name', null, ['placeholder' => 'Nombres', 'template' => 'horizontal']) !!}
                   {!! Field::text( 'description', null, ['placeholder' => 'Descripción', 'template' => 'horizontal']) !!}
-                  {!! Field::select( 'presentation_id', $presentation, null, ['data-placeholder' => 'Presentación', 'template' => 'horizontal']) !!}
                   <div class="form-group form-actions">
                     <div class="col-md-9 col-md-offset-3">
                         <button type="submit" class="btn btn-effect-ripple btn-primary">Guardar</button>

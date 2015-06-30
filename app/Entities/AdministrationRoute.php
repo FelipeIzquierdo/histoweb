@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AdministrationRoute extends Model
 {
-	protected $fillable = ['name', 'description','presentation_id'];
+	protected $fillable = ['name', 'description'];
 
 	public $timestamps = true;
 	public $increments = true;
@@ -16,17 +16,6 @@ class AdministrationRoute extends Model
     {
         return self::lists('name', 'id');
     }
-
-    public function presentation()
-    {
-        return $this->belongsTo('Histoweb\Entities\Presentation', 'presentation_id');
-    }
-
-    public function getPresentationNameAttribute()
-    {
-        return $this->presentation->name;   
-    }
-
 }
 
 

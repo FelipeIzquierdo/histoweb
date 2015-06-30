@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Formulate extends Model
 {
-	protected $fillable = [ 'limit' ,'interval','dose', 'concentration_id' ,'concentration' ,'administration_route_id', 'presentation_id','entry_id' ,'commercial_medication_id'];
+	protected $fillable = [ 'limit' ,'interval','dose', 'unit_id' , 'diluent_id' ,'concentration' , 'administration_route_presentation_id','entry_id' ,'commercial_medication_id','generic_medication_id'];
 
     protected $table = 'formulate';
 	public $timestamps = true;
@@ -16,17 +16,7 @@ class Formulate extends Model
     {
         return self::get()->lists( 'id' );
     }
-
-    public function presentation()
-    {
-        return $this->belongsTo('Histoweb\Entities\Presentation', 'presentation_id');
-    }
-
-    public function getPresentationNameAttribute()
-    {
-        return $this->presentation->name;   
-    }
-
+    
     public function commercialMedication()
     {
         return $this->belongsTo('Histoweb\Entities\CommercialMedication', 'commercial_medication_id');
@@ -37,24 +27,43 @@ class Formulate extends Model
         return $this->commercialMedication->name;   
     }
 
-    public function AdministrationRoute()
+    public function genericMedication()
     {
-        return $this->belongsTo('Histoweb\Entities\AdministrationRoute', 'administration_route_id');
+        return $this->belongsTo('Histoweb\Entities\GenericMedication', 'generic_medication_id');
+    }
+
+    public function getGenericMedicationNameAttribute()
+    {
+        return $this->genericMedication->name;   
     }
 
     public function getAdministrationRouteNameAttribute()
     {
-        return $this->AdministrationRoute->name;   
+        return $this->genericMedication->administration_route_name;   
     }
 
-    public function Concentration()
+    public function getPresentationNameAttribute()
     {
-        return $this->belongsTo('Histoweb\Entities\Concentration', 'concentration_id');
+        return $this->genericMedication->presentation_name;   
     }
 
-    public function getConcentrationNameAttribute()
+    public function unit()
     {
-        return $this->Concentration->name;   
+        return $this->belongsTo('Histoweb\Entities\Unit', 'unit_id');
     }
 
+    public function getUnitNameAttribute()
+    {
+        return $this->unit->name;   
+    }
+
+    public function diluent()
+    {
+        return $this->belongsTo('Histoweb\Entities\Diluent', 'diluent_id');
+    }
+
+    public function getDiluentNameAttribute()
+    {
+        return $this->diluent->name;   
+    }
 }

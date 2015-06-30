@@ -13,12 +13,12 @@
 				'description'	=> ''
 			],
 			[
-				'name' 			=> 'Tabletas',
-				'description'	=> '',
+				'name' 			=> 'Tableta',
+				'description'	=> ''
 			],
 			[
 				'name' 			=> 'Pomada',
-				'description'	=> '',
+				'description'	=> ''
 			],
 		];
 		
@@ -28,6 +28,7 @@
 	    		Presentation::create([
 	                'name'			=> $type['name'],
 	                'description'	=> $type['description'],
+	                
 	            ]);
 	    	}
 	    }

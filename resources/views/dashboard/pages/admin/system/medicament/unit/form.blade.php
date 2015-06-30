@@ -1,11 +1,11 @@
 @extends('dashboard.pages.layout')
   @section('title') 
-    @if($concentration->exists) Editar {{$concentration->id}} @else Nueva Concentración @endif
+    @if($unit->exists) Editar {{$unit->id}} @else Nueva Unidad @endif
   @endsection
   
   @section('dashboard_title') 
     <h1>
-      @if($concentration->exists) Editar Concentración: {{$concentration->name}} @else Nueva Concentración @endif
+      @if($unit->exists) Editar Unidad: {{$unit->name}} @else Nueva Unidad @endif
     </h1> 
   @endsection 
 
@@ -14,12 +14,11 @@
       <div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
           <div class="block">
               <div class="block-title">
-                  <h2>Datos de la Concentración</h2>
+                  <h2>Datos de la Unidad</h2>
               </div>
               <div class="form-horizontal form-bordered">
-                {!! Form::model($concentration, $form_data) !!}
+                {!! Form::model($unit, $form_data) !!}
                   {!! Field::text( 'name', null, ['placeholder' => 'Nombres', 'template' => 'horizontal']) !!}
-                  {!! Field::double( 'value', null , ['min' => '0', 'template' => 'horizontal']) !!}
                   <div class="form-group form-actions">
                     <div class="col-md-9 col-md-offset-3">
                         <button type="submit" class="btn btn-effect-ripple btn-primary">Guardar</button>

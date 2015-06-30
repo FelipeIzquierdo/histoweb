@@ -1,4 +1,4 @@
-<?php namespace Histoweb\Http\Requests\Concentration;
+<?php namespace Histoweb\Http\Requests\Unit;
 
 //use CreateRequest;
 use Histoweb\Http\Requests\Request;
@@ -37,7 +37,7 @@ class EditRequest extends Request {
 	{
 		$rules = $this->createRequest->rules();
 
-		$rules['name'] = $rules['name'] . ',' . $this->route->getParameter('concentrations');
+		$rules['name'] = $rules['name'] . ',' . $this->route->getParameter('units');
 
 		return $rules;
 	}

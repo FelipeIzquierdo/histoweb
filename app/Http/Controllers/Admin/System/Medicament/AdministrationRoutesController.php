@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 class AdministrationRoutesController extends Controller {
 
 	private $route;
-	private $presentation;
 	private static $prefixRoute = 'admin.system.medicament.administration-routes.';
 	private static $prefixView = 'dashboard.pages.admin.system.medicament.administration_route.';
 
@@ -21,7 +20,6 @@ class AdministrationRoutesController extends Controller {
 	{
 		$this->middleware('auth');
 		$this->beforeFilter('@findAdministrationRoutes', ['only' => ['show', 'edit', 'update', 'destroy']]);
-		$this->beforeFilter('@findPresentation', ['only' => ['create', 'edit']]);
 	}
 
 	/**
@@ -32,13 +30,6 @@ class AdministrationRoutesController extends Controller {
 	{
 		$this->route = AdministrationRoute::findOrFail($route->getParameter('administration_routes'));
 	}
-
-	public function findPresentation()
-	{
-		$this->presentation = Presentation::allLists();
-	}
-
-
 
 	public function index()
 	{
@@ -57,7 +48,7 @@ class AdministrationRoutesController extends Controller {
         $form_data = ['route' => self::$prefixRoute . 'store', 'method' => 'POST'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['route' => $this->route, 'presentation' => $this->presentation]);
+        	->with(['route' => $this->route]);
 	}
 
 	/**
@@ -100,7 +91,7 @@ class AdministrationRoutesController extends Controller {
         $form_data = ['route' => [self::$prefixRoute . 'update', $this->route->id], 'method' => 'PUT'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['route' => $this->route, 'presentation' => $this->presentation]);
+        	->with(['route' => $this->route]);
 	}
 
 	/**
