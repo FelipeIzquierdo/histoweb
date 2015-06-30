@@ -7,8 +7,11 @@ use Histoweb\Http\Controllers\Controller;
 use Histoweb\Entities\Formulate;
 use Histoweb\Entities\Presentation;
 use Histoweb\Entities\CommercialMedication;
-use Histoweb\Entities\Concentration;
+use Histoweb\Entities\GenericMedication;
+use Histoweb\Entities\Unit;
+use Histoweb\Entities\Diluent;
 use Histoweb\Entities\AdministrationRoute;
+use Histoweb\Entities\AdministrationRoutePresentation;
 use Histoweb\Entities\Entry;
 
 use Illuminate\Routing\Route;
@@ -18,9 +21,10 @@ class FormulateController extends Controller {
 
 	private $formulate;
 	private $entry;
-	private $presentation;
 	private $commercial_medication;
-	private $concentration;
+	private $generic_medication;
+	private $unit;
+	private $diluent;
 	private $administration_route;
 	private static $prefixRoute = 'assistance.options.formulate.';
 	private static $prefixView = 'dashboard.pages.assistance.formulate.';
@@ -47,11 +51,21 @@ class FormulateController extends Controller {
 	public function findGroup()
 	{
 		$this->administration_route = AdministrationRoute::allLists();
-		$this->concentration = Concentration::allLists();
+		$this->unit = Unit::allLists();
 		$this->commercial_medication = CommercialMedication::allLists();
-		$this->presentation = Presentation::allLists();
+		$this->generic_medication = GenericMedication::allLists();
+		$this->diluent = Diluent::allLists();
 	}
 
+	public function getPresentations(Route $route)
+	{
+		return \Response::json(GenericMedication::getPresentationMedicamentAttribute($route->getParameter('one')));
+	}
+
+	public function getAdministrationRoutes(Route $route)
+	{
+		return \Response::json(GenericMedication::getAdministrationRouteMedicamentAttribute($route->getParameter('one'),$route->getParameter('two')));
+	}
 	public function create($one)
 	{
 		$formulate_e = Formulate::orderBy('updated_at', 'desc')->paginate(12);
@@ -59,11 +73,12 @@ class FormulateController extends Controller {
         $this->formulate = new Formulate;
         $form_data = ['route' => [self::$prefixRoute . 'store',$this->entry->id], 'method' => 'POST'];
 
-        return view(self::$prefixView . 'form', compact('form_data','formulate_e'))
+        return view(self::$prefixView . 'formm', compact('form_data','formulate_e'))
         	->with(['formulate' => $this->formulate,
-        			'presentation' => $this->presentation,
         			'commercial_medication' => $this->commercial_medication,
-        			'concentration' => $this->concentration,
+        			'generic_medication' => $this->generic_medication,
+        			'diluent' => $this->diluent,
+        			'unit' => $this->unit,
         			'administration_route' => $this->administration_route,
         			'entry' => $this->entry]);
 	}
@@ -75,8 +90,19 @@ class FormulateController extends Controller {
 	 */
     public function store(CreateRequest $request,$id)
     {
-    	$dates = $request->all();
+    	$medicamento = [];
+    	$val = [GenericMedication::findOrFail($request->get('generic_medication_id'))->AdministrationRoutePresentation];
+        foreach ($val as $key => $value) {
+          	$object = $value->whereRaw('presentation_id = ? and route_id = ?',[ $request->get('presentation_id') , $request->get('route_id') ])->first();
+        	if(isset($object)){
+        		$medicamento = $object;
+        		break;
+        	}
+        }
+    	
+    	$dates = $request->except('presentation_id','route_id');
     	$dates['entry_id'] = $this->entry->id;
+    	$dates['administration_route_presentation_id'] = $medicamento->id;
         $this->formulate = Formulate::create($dates);
 		
         return redirect()->route(self::$prefixRoute . 'create', $id);
@@ -88,11 +114,12 @@ class FormulateController extends Controller {
 		
         $form_data = ['route' => [self::$prefixRoute . 'update', $this->entry->id,$this->formulate->id], 'method' => 'POST'];
         
-        return view(self::$prefixView . 'form', compact('form_data','formulate_e'))
+        return view(self::$prefixView . 'formm', compact('form_data','formulate_e'))
         	->with(['formulate' => $this->formulate,
-        			'presentation' => $this->presentation,
         			'commercial_medication' => $this->commercial_medication,
-        			'concentration' => $this->concentration,
+        			'generic_medication' => $this->generic_medication,
+        			'diluent' => $this->diluent,
+        			'unit' => $this->unit,
         			'administration_route' => $this->administration_route,
         			'entry' => $this->entry]);
 	}

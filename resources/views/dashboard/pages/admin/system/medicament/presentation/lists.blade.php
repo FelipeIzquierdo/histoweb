@@ -7,7 +7,7 @@
 		<h1>
 			<i class="gi gi-user_add"></i>
 			Presentaciones
-			<a href="{{ route('admin.system.medicament.presentations.create') }}" class="btn btn-info" title="Nueva Presentación">
+			<a href="{{ route('admin.system.medicament.presentations.create') }}" class="btn btn-info" title="Nueva presentación">
 				<i class="fa fa-plus"></i>
 			</a>
 		</h1>
@@ -33,7 +33,7 @@
 								<td>{{ $presentation->name }}</td>
 								<td><strong>{{ $presentation->description }}</strong></td>
 								<td class="text-center">
-									<a href="{{ route('admin.system.medicament.presentations.edit', $presentation->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar Presentación"><i class="fa fa-pencil"></i></a>
+									<a href="{{ route('admin.system.medicament.presentations.edit', $presentation->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar presentación"><i class="fa fa-pencil"></i></a>
 								</td>
 							</tr>
 						@endforeach

@@ -1,4 +1,4 @@
-<?php namespace Histoweb\Http\Requests\Concentration;
+<?php namespace Histoweb\Http\Requests\Unit;
 
 use Histoweb\Http\Requests\Request;
 
@@ -20,8 +20,7 @@ class CreateRequest extends Request {
 	public function rules()
 	{
 		return [			
-            'name'            => 	'required|max:100|unique:concentrations,name',
-            'value'	 		  =>    'required|numeric',
+            'name'            => 	'required|max:100|unique:units,name',
 		];
 	}
 }

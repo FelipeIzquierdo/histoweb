@@ -21,8 +21,7 @@ class CreateRequest extends Request {
 	{
 		return [
 			'name'              => 	'required|max:50|unique:administration_routes,name',
-			'description'        => 'max:100',
-			'presentation_id'	 => 	'required|integer|exists:presentations,id',
+			'description'        => 'max:100'
 		];
 	}
 }

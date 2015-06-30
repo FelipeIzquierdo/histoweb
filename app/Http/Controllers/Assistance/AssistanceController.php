@@ -15,6 +15,7 @@ use Histoweb\Entities\Procedure;
 use Histoweb\Entities\Diagnosis;
 use Histoweb\Entities\HistoryType;
 use Histoweb\Entities\OrderProcedure;
+use Histoweb\Entities\Formulate;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -127,10 +128,12 @@ class AssistanceController extends Controller {
 
 	public function getOptions($id)
 	{	
+		$formulate_e = Formulate::orderBy('updated_at', 'desc')->paginate(12);
+
 		$form_data = ['route' => ['assistance.entries.removeprocedure',$this->entry->id], 'method' => 'POST', 'id' => 'entryForm'];
 		$order_procedure = OrderProcedure::where('entry_id','=',$this->entry->id)->orderBy('updated_at', 'desc')->paginate(12);
         $describe_procedures = DescribeProcedure::getDescribeProcedures($this->entry->id);
-		return view('dashboard.pages.assistance.options',compact('form_data'))->with([
+		return view('dashboard.pages.assistance.options',compact('form_data','formulate_e'))->with([
 			'diaries' 	=> $this->diaries,
 			'doctor'	=> $this->doctor,
 			'entry' 	=> $this->entry,

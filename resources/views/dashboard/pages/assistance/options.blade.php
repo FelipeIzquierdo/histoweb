@@ -34,7 +34,8 @@
     </a>
 
 </div>
-<div class="col-sm-12">
+
+<div class="col-sm-7">
     <div class="block">
 
 	<div class="block-title clearfix">
@@ -115,6 +116,46 @@
         </div>
     </div>
 </div>
+</div>
+
+<div class="col-sm-5">
+    <div class="block">
+            <div class="block-title clearfix">
+              <h2><span class="hidden-xs">Lista de</span> Lista de Formulación</h2>
+            </div>
+            <div class="table-responsive">
+              <table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
+                <thead>
+                  <tr>
+                    <th>Descripción</th>
+                    <th style="min-width: 50px;" class="text-center"><i class="fa fa-flash"></i></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($formulate_e as $formulate_ee)
+                    <tr>
+                      <td>
+                        {{ $formulate_ee->generic_medication_name }} - {{ $formulate_ee->concentration }} {{ $formulate_ee->unit_name }} x  {{ $formulate_ee->diluent_name }} - vía {{ $formulate_ee->administration_route_name }} ,
+                        Tomar {{ $formulate_ee->dose }} {{ $formulate_ee->presentation_name }} cada {{ $formulate_ee->interval }} horas durante {{ $formulate_ee->limit }} días.
+                      </td>
+                      <td class="text-center">
+                        <a href="{{ route('assistance.options.formulate.edit', [$entry->id,$formulate_ee->id]) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+                <h1><a href="{{ route('assistance.entries.options', $entry->id) }}" class="btn btn-info" title="Nueva formula">
+                    Finalizar Formulación
+                    </a>
+                </h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                        {!! $formulate_e->render() !!}
+                    </div>
+            </div>
+    </div>
 </div>
 <!-- Regular Fade -->
 <div id="entryModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
