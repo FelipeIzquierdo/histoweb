@@ -1,6 +1,6 @@
 
 <!-- Bootstrap.js, Jquery plugins and Custom JS code -->
-{!! Html::script('assets/js/vendor/jquery-2.1.4.min.js') !!}
+{!! Html::script('assets/js/vendor/jquery-2.1.3.min.js') !!}
 {!! Html::script('assets/js/vendor/bootstrap.min.js') !!}
 
 
