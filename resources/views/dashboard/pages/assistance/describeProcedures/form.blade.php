@@ -4,10 +4,6 @@
     <h1>Paciente: {{ $entry->diary->patient->name }}</h1>
 @endsection
 
-@section('css_extra')
-{!! Html::style('assets/css/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') !!}
-@endsection
-
 @section('dashboard_body')
 
 
@@ -134,18 +130,6 @@
 @endsection
 
 @section('js_extra')
-
 {!! Html::script('assets/js/pages/confirm/describeProcedure.js') !!}
-{!! Html::script('assets/js/moment/moment.js') !!}
-{!! Html::script('assets/js/bootstrap/js/transition.js') !!}
-{!! Html::script('assets/js/bootstrap/js/collapse.js') !!}
-{!! Html::script('assets/js/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') !!}
-<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker11').datetimepicker({
-            daysOfWeekDisabled: [0, 6]
-        });
-    });
-</script>
 @endsection
 
