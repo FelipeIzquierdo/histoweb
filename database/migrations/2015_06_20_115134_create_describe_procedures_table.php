@@ -17,8 +17,9 @@ class CreateDescribeProceduresTable extends Migration {
 			$table->increments('id');
             $table->integer('entry_id')->unsigned();
             $table->foreign('entry_id')->references('id')->on('entries');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->date('start_date');
+            $table->time('start_time');
+            $table->time('end_time');
 
             $table->integer('surgery_id')->unsigned();
             $table->foreign('surgery_id')->references('id')->on('surgeries');

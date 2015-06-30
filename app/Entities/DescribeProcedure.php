@@ -15,7 +15,8 @@ class DescribeProcedure extends Model {
     public $fillable = [
         "entry_id",
         "start_date",
-        "end_date",
+        "start_time",
+        "end_time",
         "surgery_id",
         "doctor_id",
         "anesthesia_type_id",

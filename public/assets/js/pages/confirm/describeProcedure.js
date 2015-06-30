@@ -4,7 +4,8 @@ $(document).ready(function () {
         var $form = $(this).closest('form');
         e.preventDefault();
         $("#dateStart").html($("#start_date").val());
-        $("#dateEnd").html($("#end_date").val());
+        $("#timeEnd").html($("#end_time").val());
+        $("#timeStart").html($("#start_time").val());
         $("#surgery").html($("#surgery_id option:selected").text()," ");
         $("#doctor").html($("#doctor_id option:selected").text()," ");
         $("#staff").html($("#staff_id option:selected").text()," ");

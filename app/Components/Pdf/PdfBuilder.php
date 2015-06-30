@@ -153,15 +153,21 @@ class PdfBuilder {
         $this->pdf->Ln(10);
 
         $this->pdf->SetFont('times', 'B', 14);
-        $this->pdf->Write(0, 'Fecha de Inicio : ', '', 0, '', 0, 0, false, false, 0);
+        $this->pdf->Write(0, 'Fecha Procedimiento : ', '', 0, '', 0, 0, false, false, 0);
         $this->pdf->SetFont('times', '', 14);
         $this->pdf->Write(0, $describeProcedure->start_date, '', 0, '', 0, 0, false, false, 0);
         $this->pdf->Ln(10);
 
         $this->pdf->SetFont('times', 'B', 14);
-        $this->pdf->Write(0, 'Fecha de Fin : ', '', 0, '', 0, 0, false, false, 0);
+        $this->pdf->Write(0, 'Hora Inicio : ', '', 0, '', 0, 0, false, false, 0);
         $this->pdf->SetFont('times', '', 14);
-        $this->pdf->Write(0, $describeProcedure->end_date, '', 0, '', 0, 0, false, false, 0);
+        $this->pdf->Write(0, $describeProcedure->start_time, '', 0, '', 0, 0, false, false, 0);
+        $this->pdf->Ln(10);
+
+        $this->pdf->SetFont('times', 'B', 14);
+        $this->pdf->Write(0, 'Hora Fin : ', '', 0, '', 0, 0, false, false, 0);
+        $this->pdf->SetFont('times', '', 14);
+        $this->pdf->Write(0, $describeProcedure->end_time, '', 0, '', 0, 0, false, false, 0);
         $this->pdf->Ln(10);
 
         $this->pdf->SetFont('times', 'B', 14);
