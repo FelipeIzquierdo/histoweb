@@ -22,11 +22,29 @@
               </div>
               <div class="form-horizontal form-bordered">
                 {!! Form::model($formulate, $form_data) !!}
-                  {!! Field::select( 'commercial_medication_id', $commercial_medication, null, ['data-placeholder' => 'Medicamento Comercial', 'template' => 'horizontal']) !!}
-                  {!! Field::select( 'presentation_id', $presentation, null, ['data-placeholder' => 'Presentación', 'template' => 'horizontal']) !!}
-                  {!! Field::select( 'administration_route_id', $administration_route, null, ['data-placeholder' => 'Vía de administración', 'template' => 'horizontal']) !!}
+                  {!! Field::select( 'generic_medication_id', $generic_medication, null, [ 'id' => 'generic_medication_id','data-placeholder' => 'Medicamento Generico', 'template' => 'horizontal','onchange' =>'generic_medication()']) !!}
+                  <!--{!! Field::select( 'commercial_medication_id', $commercial_medication, null, ['data-placeholder' => 'Medicamento Comercial', 'template' => 'horizontal']) !!}-->
+                  <div class="form-group">
+                    <label class="col-md-3 control-label" for="name">Presentación</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            {!! Form::select( 'presentation_id', [], null, ['id' => 'presentation_id', 'data-placeholder' => 'Presentación', 'template' => 'horizontal','class' => 'form-control','onclick' =>'presentation()']) !!}
+                            <span class="input-group-addon"><i class="fa fa-bars"></i></span>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-3 control-label" for="name">Vía de administración</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            {!! Form::select( 'route_id', [], null, ['id' => 'route_id','data-placeholder' => 'Vía de administración', 'template' => 'horizontal','class' => 'form-control']) !!}
+                            <span class="input-group-addon"><i class="fa fa-bars"></i></span>
+                        </div>
+                    </div>
+                  </div>    
                   {!! Field::number( 'concentration', null , ['min' => '0', 'template' => 'horizontal']) !!}
-                  {!! Field::select( 'concentration_id', $concentration, null, ['data-placeholder' => 'Médidad de concentración', 'template' => 'horizontal']) !!}
+                  {!! Field::select( 'unit_id', $unit, null, ['id' => 'unit_id','data-placeholder' => 'Unidad', 'template' => 'horizontal']) !!}
+                  {!! Field::select( 'diluent_id', $diluent, null, ['data-placeholder' => 'Diluyente', 'template' => 'horizontal']) !!}
                   {!! Field::number( 'dose', null , ['min' => '0', 'template' => 'horizontal']) !!}
                   {!! Field::number( 'interval', null , ['min' => '0' , 'template' => 'horizontal']) !!}
                   {!! Field::number( 'limit', null , ['min' => '0' , 'template' => 'horizontal']) !!}
@@ -57,7 +75,7 @@
                   @foreach($formulate_e as $formulate_ee)
                     <tr>
                       <td>
-                        {{ $formulate_ee->commercial_medication_name }} x {{ $formulate_ee->concentration }} {{ $formulate_ee->concentration_name }} vía {{ $formulate_ee->administration_route_name }} ,
+                        {{ $formulate_ee->generic_medication_name }} - {{ $formulate_ee->concentration }} {{ $formulate_ee->unit_name }} x  {{ $formulate_ee->diluent_name }} - vía {{ $formulate_ee->administration_route_name }} ,
                         Tomar {{ $formulate_ee->dose }} {{ $formulate_ee->presentation_name }} cada {{ $formulate_ee->interval }} horas durante {{ $formulate_ee->limit }} días.
 
                       </td>
@@ -85,5 +103,5 @@
   @endsection
 
 @section('js_extra')
-
+   {!! Html::script('assets/js/pages/formulate.js') !!}
 @stop

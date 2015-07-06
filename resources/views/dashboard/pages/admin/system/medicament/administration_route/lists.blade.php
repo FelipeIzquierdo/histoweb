@@ -24,7 +24,6 @@
 						<tr>
 							<th>Nombre</th>
 							<th>Descripción</th>
-							<th>Presentación</th>
 							<th style="min-width: 50px;" class="text-center"><i class="fa fa-flash"></i></th>
 						</tr>
 					</thead>
@@ -33,7 +32,6 @@
 							<tr>
 								<td>{{ $viamedicament->name }}</td>
 								<td><strong>{{ $viamedicament->description }}</strong></td>
-								<td><strong>{{ $viamedicament->presentation_name }}</strong></td>
 								<td class="text-center">
 									<a href="{{ route('admin.system.medicament.administration-routes.edit', $viamedicament->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar vía de administración"><i class="fa fa-pencil"></i></a>
 								</td>

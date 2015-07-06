@@ -1,19 +1,19 @@
 <?php namespace Histoweb\Http\Controllers\Admin\System\Medicament;
 
-use Histoweb\Http\Requests\Concentration\CreateRequest;
-use Histoweb\Http\Requests\Concentration\EditRequest;
+use Histoweb\Http\Requests\Unit\CreateRequest;
+use Histoweb\Http\Requests\Unit\EditRequest;
 use Histoweb\Http\Controllers\Controller;
 
-use Histoweb\Entities\Concentration;	
+use Histoweb\Entities\Unit;	
 
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class ConcentrationsController extends Controller {
+class UnitsController extends Controller {
 
-	private $concentration;
-	private static $prefixRoute = 'admin.system.medicament.concentrations.';
-	private static $prefixView = 'dashboard.pages.admin.system.medicament.concentration.';
+	private $unit;
+	private static $prefixRoute = 'admin.system.medicament.units.';
+	private static $prefixView = 'dashboard.pages.admin.system.medicament.unit.';
 
 	public function __construct() 
 	{
@@ -27,15 +27,15 @@ class ConcentrationsController extends Controller {
 	 */
 	public function findProcedures(Route $route)
 	{
-		$this->concentration = Concentration::findOrFail($route->getParameter('concentrations'));
+		$this->unit = Unit::findOrFail($route->getParameter('units'));
 	}
 
 
 
 	public function index()
 	{
-        $concentrations = Concentration::orderBy('updated_at', 'desc')->paginate(12);
-        return view(self::$prefixView . 'lists', compact('concentrations'));
+        $units = Unit::orderBy('updated_at', 'desc')->paginate(12);
+        return view(self::$prefixView . 'lists', compact('units'));
 	}
 
 	/**
@@ -45,11 +45,11 @@ class ConcentrationsController extends Controller {
 	 */
 	public function create()
 	{
-        $this->concentration = new Concentration;
+        $this->unit = new Unit;
         $form_data = ['route' => self::$prefixRoute . 'store', 'method' => 'POST'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['concentration' => $this->concentration]);
+        	->with(['unit' => $this->unit]);
 	}
 
 	/**
@@ -59,11 +59,11 @@ class ConcentrationsController extends Controller {
 	 */
     public function store(CreateRequest $request)
     {
-        $this->concentration = Concentration::create($request->all());
+        $this->unit = Unit::create($request->all());
 
         if($request->ajax())
         {
-            return $this->concentration;
+            return $this->unit;
         }
 		
         return redirect()->route(self::$prefixRoute . 'index');
@@ -77,8 +77,8 @@ class ConcentrationsController extends Controller {
 	 */
 	public function show($id)
 	{
-        $concentration = Concentration::find($id);
-        return view(self::$prefixView . 'show',compact('id', 'concentration'));
+        $unit = Unit::find($id);
+        return view(self::$prefixView . 'show',compact('id', 'unit'));
 	}
 
 	/**
@@ -89,10 +89,10 @@ class ConcentrationsController extends Controller {
 	 */
 	public function edit($id)
 	{
-        $form_data = ['route' => [self::$prefixRoute . 'update', $this->concentration->id], 'method' => 'PUT'];
+        $form_data = ['route' => [self::$prefixRoute . 'update', $this->unit->id], 'method' => 'PUT'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['concentration' => $this->concentration]);
+        	->with(['unit' => $this->unit]);
 	}
 
 	/**
@@ -103,12 +103,12 @@ class ConcentrationsController extends Controller {
 	 */
     public function update(EditRequest $request, $id)
     {
-        $this->concentration->fill($request->all());
-        $this->concentration->save();
+        $this->unit->fill($request->all());
+        $this->unit->save();
         
         if($request->ajax())
         {
-            return $this->concentration;
+            return $this->unit;
         }
 
         return redirect()->route(self::$prefixRoute . 'index');

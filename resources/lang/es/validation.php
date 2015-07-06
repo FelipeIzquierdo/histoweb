@@ -212,7 +212,9 @@ return array(
    	'administration_route_id' => 'Vía de administración',
    	'concentration' => 'Concentración',
    	'concentration_id' => 'Médidad de concentración',
-   	'dose' => 'Dosis'
+   	'dose' => 'Dosis',
+   	'unit_id' => 'Unidad',
+   	'diluent_id' => 'Diluyente'
 
 
 ]

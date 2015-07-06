@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateConcentrationsTable extends Migration {
+class CreateDiluentsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,10 @@ class CreateConcentrationsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('concentrations', function(Blueprint $table)
+		Schema::create('diluents', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name')->unique();
-			$table->double('value')->unsigned();
 
             $table->timestamps();
 		});
@@ -29,7 +28,7 @@ class CreateConcentrationsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('concentrations');
+		Schema::drop('diluents');
 	}
 
 }

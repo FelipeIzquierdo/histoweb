@@ -10,18 +10,15 @@
 		private static $route = [
 			[
 				'name' 			=> 'Oral',
-				'description'	=> '',
-				'presentation_id'	=> 1,
+				'description'	=> ''
 			],
 			[
 				'name' 			=> 'Sublingual',
-				'description'	=> '',
-				'presentation_id'	=> 2,
+				'description'	=> ''
 			],
 			[
 				'name' 			=> 'Rectal',
-				'description'	=> '',
-				'presentation_id'	=> 3,
+				'description'	=> ''
 			],
 		];
 		
@@ -30,8 +27,7 @@
 	    	foreach (self::$route as $type) {
 	    		AdministrationRoute::create([
 	                'name'			=> $type['name'],
-	                'description'	=> $type['description'],
-	                'presentation_id'	=> $type['presentation_id'],
+	                'description'	=> $type['description']
 	            ]);
 	    	}
 	    }
