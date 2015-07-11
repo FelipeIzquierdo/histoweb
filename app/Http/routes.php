@@ -30,7 +30,6 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 	Route::get('options/{one}/formulate/{two}/edit', ['uses' => 'FormulateController@edit', 'as' => 'assistance.options.formulate.edit']);
 	Route::post('options/{one}/formulate/{two}/edit', ['uses' => 'FormulateController@update', 'as' => 'assistance.options.formulate.update']);
 	Route::get('options/formulate/presentations/{one}', ['uses' => 'FormulateController@getPresentations']);
-	Route::get('options/formulate/administration-routes/{one}/{two}', ['uses' => 'FormulateController@getAdministrationRoutes']);
 
 	Route::get('options/{one}/order-procedures/create', ['uses' => 'OrderProceduresController@create', 'as' => 'assistance.options.order-procedures.create']);
 	Route::post('options/{one}/order-procedures/create', ['uses' => 'OrderProceduresController@store', 'as' => 'assistance.options.order-procedures.store']);

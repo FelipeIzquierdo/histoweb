@@ -6,17 +6,20 @@ use Histoweb\Http\Controllers\Controller;
 
 use Histoweb\Entities\GenericMedication;
 use Histoweb\Entities\Presentation;
-use Histoweb\Entities\AdministrationRoute;
-use Histoweb\Entities\AdministrationRoutePresentation;
+use Histoweb\Entities\Unit;
+use Histoweb\Entities\Diluent;
+use Histoweb\Entities\Concentration;
 
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 class GenericMedicationsController extends Controller {
 
+	private $concentration;
 	private $medicament;
 	private $presentation;
-	private $route;
+	private $diluent;
+	private $unit;
 	private static $prefixRoute = 'admin.system.medicament.generic-medications.';
 	private static $prefixView = 'dashboard.pages.admin.system.medicament.generic_medication.';
 
@@ -25,7 +28,8 @@ class GenericMedicationsController extends Controller {
 		$this->middleware('auth');
 		$this->beforeFilter('@findMedicament', ['only' => ['show', 'edit', 'update', 'destroy']]);
 		$this->presentation = Presentation::allLists();
-		$this->route = AdministrationRoute::allLists();
+		$this->diluent = Diluent::allLists();
+		$this->unit = Unit::allLists();
 	}
 
 	/**
@@ -34,7 +38,7 @@ class GenericMedicationsController extends Controller {
 	 */
 	public function findMedicament(Route $route)
 	{
-		$this->medicament = GenericMedication::findOrFail($route->getParameter('generic_medications'));
+		$this->concentration = Concentration::where('generic_medication_id','=',$route->getParameter('generic_medications'))->first();
 	}
 
 	/**
@@ -44,7 +48,7 @@ class GenericMedicationsController extends Controller {
 	 */
 	public function index()
 	{
-        $generic = GenericMedication::orderBy('updated_at', 'desc')->paginate(12);
+        $generic = Concentration::orderBy('updated_at', 'desc')->paginate(12);
         return view(self::$prefixView . 'listss', compact('generic'));
 	}
 
@@ -62,7 +66,8 @@ class GenericMedicationsController extends Controller {
         return view(self::$prefixView . 'formm', compact('form_data'))
         	->with(['medicament' => $this->medicament,
         			'presentation' => $this->presentation,
-        			'route' => $this->route]);
+        			'unit' => $this->unit,
+        			'diluent' => $this->diluent]);
 	}
 
 	/**
@@ -72,10 +77,10 @@ class GenericMedicationsController extends Controller {
 	 */
     public function store(CreateRequest $request)
     {
-    	$id = AdministrationRoutePresentation::create($request->only('presentation_id','route_id'));
-    	$value = $request->except('presentation_id','route_id');
-    	$value['administration_route_presentation_id'] = $id->id;
-        $this->medicament = GenericMedication::create($value);
+        $this->medicament = GenericMedication::create($request->only('cod','name','description'));
+        $create = $request->except('cod','name','description');
+        $create['generic_medication_id'] = $this->medicament->id; 
+        $this->concentration = Concentration::create($create);
 
         if($request->ajax())
         {
@@ -105,12 +110,13 @@ class GenericMedicationsController extends Controller {
 	 */
 	public function edit($id)
 	{
-        $form_data = ['route' => [self::$prefixRoute . 'update', $this->medicament->id], 'method' => 'PUT'];
+        $form_data = ['route' => [self::$prefixRoute . 'update', $this->concentration->generic_medication_id], 'method' => 'PUT'];
         
         return view(self::$prefixView . 'formm', compact('form_data'))
-        	->with(['medicament' => $this->medicament,
+        	->with(['medicament' => $this->concentration,
         			'presentation' => $this->presentation,
-        			'route' => $this->route]);
+        			'unit' => $this->unit,
+        			'diluent' => $this->diluent]);
 	}
 
 	/**
@@ -121,13 +127,13 @@ class GenericMedicationsController extends Controller {
 	 */
     public function update(EditRequest $request, $id)
     {
-    	$this->medicament->AdministrationRoutePresentation->fill($request->only('presentation_id','route_id'));
-    	$this->medicament->AdministrationRoutePresentation->save();
-    	$value = $request->except('presentation_id','route_id');
-    	$value['administration_route_presentation_id'] = $this->medicament->AdministrationRoutePresentation->id;
-        $this->medicament->fill($value);
-        $this->medicament->save();
-        
+        $this->concentration->genericMedication->fill($request->only('cod','name','description'));
+        $this->concentration->genericMedication->save();
+        $edit = $request->except('cod','name','description');
+        $edit['generic_medication_id'] = $this->concentration->genericMedication->id; 
+        $this->concentration = $this->concentration->fill($edit);
+        $this->concentration->save();
+
         if($request->ajax())
         {
             return $this->medicament;
