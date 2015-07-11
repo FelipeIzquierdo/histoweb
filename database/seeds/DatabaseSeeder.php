@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('GenericMedicationsTableSeeder');
         $this->call('ConcentrationsTableSeeder');
         $this->call('LabsTableSeeder');
-        $this->call('CommercialMedicationsTableSeeder');
+        //$this->call('CommercialMedicationsTableSeeder');
         $this->call('StaffTableSeeder');
 
 	}
