@@ -22,7 +22,11 @@
                   {!! Field::text( 'name', null, ['placeholder' => 'Nombre', 'template' => 'horizontal']) !!}
                   {!! Field::text( 'description', null, ['placeholder' => 'Descripción', 'template' => 'horizontal']) !!}
                   {!! Field::select( 'presentation_id', $presentation, null, ['data-placeholder' => 'Presentación', 'template' => 'horizontal']) !!}
-                  {!! Field::select( 'route_id', $route, null, ['data-placeholder' => 'Vía de administración', 'template' => 'horizontal']) !!}
+                  {!! Field::select( 'unit_id', $unit, null, ['id' => 'unit_id','data-placeholder' => 'Unidad', 'template' => 'horizontal']) !!}
+                  {!! Field::number( 'unit_amount', null , ['min' => '0', 'template' => 'horizontal']) !!}
+                  {!! Field::select( 'diluent_id', $diluent, null, ['data-placeholder' => 'Diluyente', 'template' => 'horizontal']) !!}
+                  {!! Field::number( 'diluent_amount', null , ['min' => '0', 'template' => 'horizontal']) !!}
+                  
                   <div class="form-group form-actions">
                     <div class="col-md-9 col-md-offset-3">
                         <button type="submit" class="btn btn-effect-ripple btn-primary">Guardar</button>

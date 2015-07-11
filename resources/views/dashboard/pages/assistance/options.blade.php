@@ -126,11 +126,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($formulate_e as $formulate_ee)
+                   @foreach($formulate_e as $formulate_ee)
                     <tr>
                       <td>
-                        {{ $formulate_ee->generic_medication_name }} - {{ $formulate_ee->concentration }} {{ $formulate_ee->unit_name }} x  {{ $formulate_ee->diluent_name }} - vía {{ $formulate_ee->administration_route_name }} ,
+                        {{ $formulate_ee->concentration->name }} - {{ $formulate_ee->concentration->unit_amount }} {{ $formulate_ee->concentration->unit_name }} x  {{ $formulate_ee->concentration->diluent_amount }} {{ $formulate_ee->concentration->diluent_name }} - vía {{ $formulate_ee->administrationRoute->name }} ,
                         Tomar {{ $formulate_ee->dose }} {{ $formulate_ee->presentation_name }} cada {{ $formulate_ee->interval }} horas durante {{ $formulate_ee->limit }} días.
+
                       </td>
                       <td class="text-center">
                         <a href="{{ route('assistance.options.formulate.edit', [$entry->id,$formulate_ee->id]) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
@@ -139,10 +140,6 @@
                   @endforeach
                 </tbody>
               </table>
-                <h1><a href="{{ route('assistance.entries.options', $entry->id) }}" class="btn btn-info" title="Nueva formula">
-                    Finalizar Formulación
-                    </a>
-                </h1>
             </div>
             <div class="row">
                 <div class="col-xs-12">

@@ -11,20 +11,7 @@
 			[
 				'cod' 			=> 'A10',
 				'name' 			=> 'Acetaminofén',
-				'description'	=> '',
-				'administration_route_presentation_id' => 1,
-			],
-			[
-				'cod' 			=> 'A11',
-				'name' 			=> 'Ácido acético',
-				'description'	=> '',
-				'administration_route_presentation_id' => 2,
-			],
-			[
-				'cod' 			=> 'A12',
-				'name' 			=> 'Ácido Acetilsalicílico',
-				'description'	=> '',
-				'administration_route_presentation_id' => 3,
+				'description'	=> ''
 			],
 		];
 		
@@ -34,8 +21,7 @@
 	    		GenericMedication::create([
 	    			'cod'			=> $type['cod'],
 	                'name'			=> $type['name'],
-	                'description'	=> $type['description'],
-	                'administration_route_presentation_id'=> $type['administration_route_presentation_id'],
+	                'description'	=> $type['description']
 	            ]);
 	    	}
 	    }

@@ -26,7 +26,8 @@
 							<th>Nombre</th>
 							<th>Descripción</th>
 							<th>Presentación</th>
-							<th>Vía de administración</th>
+							<th>Unidad</th>
+							<th>Diluyente</th>
 							<th style="min-width: 50px;" class="text-center"><i class="fa fa-flash"></i></th>
 						</tr>
 					</thead>
@@ -37,9 +38,10 @@
 								<td><strong>{{ $medicament->name }}</strong></td>
 								<td>{{ $medicament->description }}</td>
 								<td>{{ $medicament->presentation_name }}</td>
-								<td>{{ $medicament->administration_route_name }}</td>
+								<td>{{ $medicament->unit_amount }} {{ $medicament->unit_name }}</td>
+								<td>{{ $medicament->diluent_amount }} {{ $medicament->diluent_name }}</td>
 								<td class="text-center">
-									<a href="{{ route('admin.system.medicament.generic-medications.edit', $medicament->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar medicamento genérico"><i class="fa fa-pencil"></i></a>
+									<a href="{{ route('admin.system.medicament.generic-medications.edit', $medicament->generic_medication_id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar medicamento genérico"><i class="fa fa-pencil"></i></a>
 								</td>
 							</tr>
 						@endforeach

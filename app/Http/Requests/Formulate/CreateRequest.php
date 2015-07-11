@@ -21,11 +21,8 @@ class CreateRequest extends Request {
 	{
 		return [
             'generic_medication_id'		=> 	'required|integer|exists:generic_medications,id',
-            'presentation_id'			=> 	'required|integer|exists:presentations,id',
-            'route_id'	=> 	'required|integer|exists:administration_routes,id',
-            'concentration'				=>  'required|integer',
-            'unit_id'					=> 	'required|integer|exists:units,id',
-            'diluent_id'				=> 	'required|integer|exists:diluents,id',
+            //'concentration_id'			=> 	'required|integer|exists:concentrations,id',
+            'administration_route_id'	=> 	'required|integer|exists:administration_routes,id',
             'dose'						=>  'required|integer',
             'interval'					=>  'required|integer',
             'limit'						=>  'required|integer'

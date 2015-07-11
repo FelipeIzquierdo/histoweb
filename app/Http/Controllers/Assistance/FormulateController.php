@@ -13,6 +13,7 @@ use Histoweb\Entities\Diluent;
 use Histoweb\Entities\AdministrationRoute;
 use Histoweb\Entities\AdministrationRoutePresentation;
 use Histoweb\Entities\Entry;
+use Histoweb\Entities\Concentration;
 
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,13 +27,15 @@ class FormulateController extends Controller {
 	private $unit;
 	private $diluent;
 	private $administration_route;
+	private $concentration;
 	private static $prefixRoute = 'assistance.options.formulate.';
 	private static $prefixView = 'dashboard.pages.assistance.formulate.';
 
 	public function __construct() 
 	{
 		$this->middleware('auth');
-		$this->beforeFilter('@findFormulate', ['only' => ['edit', 'update']]);
+		$this->beforeFilter('@findFormulateGeneric', ['only' => ['edit']]);
+		$this->beforeFilter('@findFormulate', ['only' => ['update']]);
 		$this->beforeFilter('@findGroup', ['only' => ['create', 'edit']]);
 		$this->beforeFilter('@findEntry', ['only' => ['create','store', 'edit','update']]);
 	}
@@ -41,6 +44,12 @@ class FormulateController extends Controller {
 	public function findEntry(Route $route)
 	{
 		$this->entry = Entry::findOrFail($route->getParameter('one'));
+	}
+
+	public function findFormulateGeneric(Route $route)
+	{
+		$this->formulate = Formulate::findOrFail($route->getParameter('two'));
+		$this->formulate['generic_medication_id'] = $this->formulate->concentration->generic_medication_id;
 	}
 
 	public function findFormulate(Route $route)
@@ -52,21 +61,17 @@ class FormulateController extends Controller {
 	{
 		$this->administration_route = AdministrationRoute::allLists();
 		$this->unit = Unit::allLists();
-		$this->commercial_medication = CommercialMedication::allLists();
 		$this->generic_medication = GenericMedication::allLists();
 		$this->diluent = Diluent::allLists();
+		$this->concentration = Concentration::get();
 	}
 
 	public function getPresentations(Route $route)
 	{
-		return \Response::json(GenericMedication::getPresentationMedicamentAttribute($route->getParameter('one')));
+		return \Response::json(Concentration::getAllMedicamentAttribute($route->getParameter('one')));
 	}
 
-	public function getAdministrationRoutes(Route $route)
-	{
-		return \Response::json(GenericMedication::getAdministrationRouteMedicamentAttribute($route->getParameter('one'),$route->getParameter('two')));
-	}
-	public function create($one)
+	public function create()
 	{
 		$formulate_e = Formulate::orderBy('updated_at', 'desc')->paginate(12);
 
@@ -75,7 +80,6 @@ class FormulateController extends Controller {
 
         return view(self::$prefixView . 'formm', compact('form_data','formulate_e'))
         	->with(['formulate' => $this->formulate,
-        			'commercial_medication' => $this->commercial_medication,
         			'generic_medication' => $this->generic_medication,
         			'diluent' => $this->diluent,
         			'unit' => $this->unit,
@@ -88,24 +92,13 @@ class FormulateController extends Controller {
 	 *
 	 * @return Response
 	 */
-    public function store(CreateRequest $request,$id)
+    public function store(CreateRequest $request)
     {
-    	$medicamento = [];
-    	$val = [GenericMedication::findOrFail($request->get('generic_medication_id'))->AdministrationRoutePresentation];
-        foreach ($val as $key => $value) {
-          	$object = $value->whereRaw('presentation_id = ? and route_id = ?',[ $request->get('presentation_id') , $request->get('route_id') ])->first();
-        	if(isset($object)){
-        		$medicamento = $object;
-        		break;
-        	}
-        }
-    	
-    	$dates = $request->except('presentation_id','route_id');
-    	$dates['entry_id'] = $this->entry->id;
-    	$dates['administration_route_presentation_id'] = $medicamento->id;
-        $this->formulate = Formulate::create($dates);
+    	$create = $request->except('generic_medication_id');
+    	$create['entry_id'] = $this->entry->id;
+    	$this->formulate =  Formulate::create($create);
 		
-        return redirect()->route(self::$prefixRoute . 'create', $id);
+        return redirect()->route(self::$prefixRoute . 'create', $this->entry->id);
     }
 
 	public function edit($one,$two)
@@ -116,7 +109,6 @@ class FormulateController extends Controller {
         
         return view(self::$prefixView . 'formm', compact('form_data','formulate_e'))
         	->with(['formulate' => $this->formulate,
-        			'commercial_medication' => $this->commercial_medication,
         			'generic_medication' => $this->generic_medication,
         			'diluent' => $this->diluent,
         			'unit' => $this->unit,
@@ -130,19 +122,19 @@ class FormulateController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-    public function update(EditRequest $request, $id)
+    public function update(EditRequest $request)
     {
-    	$dates = $request->all();
-    	$dates['entry_id'] = $this->entry->id;
-        $this->formulate->fill($dates);
+    	$edit = $request->except('generic_medication_id');
+    	$edit['entry_id'] = $this->entry->id;
+        $this->formulate->fill($edit);
         $this->formulate->save();
-        
+
         if($request->ajax())
         {
             return $this->formulate;
         }
 
-        return redirect()->route(self::$prefixRoute . 'create',$id);
+        return redirect()->route(self::$prefixRoute . 'create',$this->entry->id);
     }
 
 }
