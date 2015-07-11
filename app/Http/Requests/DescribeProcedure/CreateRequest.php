@@ -21,7 +21,8 @@ class CreateRequest extends Request {
 	{
 		return [
             "start_date"            => 'required',
-            "end_date"              => 'required',
+            "start_time"            => 'required',
+            "end_time"              => 'required',
             "surgery_id"            => 'required|exists:surgeries,id',
             "doctor_id"             => 'required|exists:doctors,id',
             "anesthesia_type_id"    => 	'required|exists:anesthesia_types,id',

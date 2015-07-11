@@ -4,10 +4,6 @@
     <h1>Paciente: {{ $entry->diary->patient->name }}</h1>
 @endsection
 
-@section('css_extra')
-{!! Html::style('assets/css/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') !!}
-@endsection
-
 @section('dashboard_body')
 
 
@@ -18,8 +14,9 @@
                 <h2><span class="hidden-xs">Describir Procedimiento</h2>
             </div>
             <div class="form-horizontal form-bordered">
-
-                {!! Field::dateRange('start_date', 'end_date', null, null, ['placeholder' => 'Desde', 'id' =>'start_date'], ['placeholder' => 'Hasta', 'id' =>'end_date']) !!}
+                {!! Field::text( 'start_date', null, ['placeholder' => 'Fecha Procedimiento', 'class' => 'input-datepicker', 'template' => 'horizontal', 'data-date-format' => 'yyyy-mm-dd', 'id' => 'start_date']) !!}
+                {!! Field::time('start_time', null,[ 'id' => 'start_time']) !!}
+                {!! Field::time('end_time', null, ['id' => 'end_time']) !!}
                 {!! Field::select('surgery_id', $surgeries, null, ['data-placeholder' => 'Seleccione consultorio', 'template' => 'horizontal', 'id' =>'surgery_id']) !!}
                 {!! Field::select('doctor_id', $doctors, null, ['data-placeholder' => 'Seleccione Doctor', 'template' => 'horizontal', 'id' =>'doctor_id']) !!}
                 {!! Field::select('staff_id', $staff, null, ['data-placeholder' => 'Seleccione Instrumentador', 'template' => 'horizontal', 'id' =>'staff_id']) !!}
@@ -57,9 +54,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Fecha Fin:</label>
+                            <label class="col-md-3 control-label">Hora Inicio:</label>
                             <div class="col-md-9">
-                                <p id="dateEnd"></p>
+                                <p id="timeStart"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Hora Fin:</label>
+                            <div class="col-md-9">
+                                <p id="timeEnd"></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -127,18 +130,6 @@
 @endsection
 
 @section('js_extra')
-
 {!! Html::script('assets/js/pages/confirm/describeProcedure.js') !!}
-{!! Html::script('assets/js/moment/moment.js') !!}
-{!! Html::script('assets/js/bootstrap/js/transition.js') !!}
-{!! Html::script('assets/js/bootstrap/js/collapse.js') !!}
-{!! Html::script('assets/js/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') !!}
-<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker11').datetimepicker({
-            daysOfWeekDisabled: [0, 6]
-        });
-    });
-</script>
 @endsection
 
