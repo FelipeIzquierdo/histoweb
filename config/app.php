@@ -143,6 +143,7 @@ return [
 		'DaveJamesMiller\Breadcrumbs\ServiceProvider',
         'Histoweb\Providers\FieldServiceProvider',
         'Histoweb\Providers\CalendarServiceProvider',
+        Histoweb\Providers\ComposerServiceProvider::class,
 
 		'Laracasts\Flash\FlashServiceProvider',
 		'Mitul\Generator\GeneratorServiceProvider',

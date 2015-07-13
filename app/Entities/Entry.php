@@ -112,5 +112,10 @@ class Entry extends Model
     {
         return $this->belongsTo('Histoweb\Entities\Diary');
     }
+
+    public function formulates()
+    {
+        return $this->hasMany('Histoweb\Entities\Formulate');
+    }
     
 }

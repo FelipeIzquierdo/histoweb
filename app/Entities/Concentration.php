@@ -22,9 +22,17 @@ class Concentration extends Model
         return $val;
     }
 
-    public function getNameeAttribute()
+    public static function getAllList($medicament)
     {
-        return "$this->presentation->id : $this->presentation->name";
+        return self::whereGenericMedicationId($medicament)
+            ->with(['presentation', 'unit', 'diluent'])
+            ->get()->lists('detail', 'id');
+    }
+
+    public function getDetailAttribute()
+    {
+        return $this->presentation->name . ' > ' . $this->unit_amount . ' ' . $this->unit->name 
+            . ' en ' . $this->diluent_amount . ' ' . $this->diluent->name;
     }
 
     public function presentation()

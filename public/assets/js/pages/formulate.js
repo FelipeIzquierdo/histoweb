@@ -11,9 +11,8 @@
                 return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
             },
             success:  function (data) {
-               // console.log(data);
                 $.each(data, function(index, element){
-                      $('select#presentation_id').append('<option value="'+element.id+'" class="presentationItems">'+element.presentation.name+'> '+element.unit_amount +' '+element.unit.name+' en '+element.diluent_amount+' '+element.diluent.name+'</option>')
+                      $('select#presentation_id').append('<option value="'+index+'" class="presentationItems">'+element+'</option>')
                 });
                 }
         });

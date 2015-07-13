@@ -22,7 +22,7 @@
               </div>
               <div class="form-horizontal form-bordered">
                 {!! Form::model($formulate, $form_data) !!}
-                  {!! Field::select( 'generic_medication_id', $generic_medication, null, [ 'id' => 'generic_medication_id','data-placeholder' => 'Medicamento Generico', 'template' => 'horizontal','onchange' =>'generic_medication()']) !!}
+                  {!! Field::select( 'generic_medication_id', $generic_medications, null, [ 'id' => 'generic_medication_id','data-placeholder' => 'Medicamento Generico', 'template' => 'horizontal','onchange' =>'generic_medication()']) !!}
                   <div class="form-group">
                     <label class="col-md-3 control-label" for="name">Presentación</label>
                     <div class="col-md-8">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                   </div>
-                  {!! Field::select( 'administration_route_id', $administration_route , null, ['id' => 'administration_route_id','data-placeholder' => 'Vía de administración', 'template' => 'horizontal','class' => 'form-control']) !!}
+                  {!! Field::select( 'administration_route_id', $administration_routes , null, ['id' => 'administration_route_id','data-placeholder' => 'Vía de administración', 'template' => 'horizontal','class' => 'form-control']) !!}
                   {!! Field::number( 'dose', null , ['min' => '0', 'template' => 'horizontal']) !!}
                   {!! Field::number( 'interval', null , ['min' => '0' , 'template' => 'horizontal']) !!}
                   {!! Field::number( 'limit', null , ['min' => '0' , 'template' => 'horizontal']) !!}
@@ -60,15 +60,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($formulate_e as $formulate_ee)
+                  @foreach($formulations as $f)
                     <tr>
                       <td>
-                        {{ $formulate_ee->concentration->name }} - {{ $formulate_ee->concentration->unit_amount }} {{ $formulate_ee->concentration->unit_name }} x  {{ $formulate_ee->concentration->diluent_amount }} {{ $formulate_ee->concentration->diluent_name }} - vía {{ $formulate_ee->administrationRoute->name }} ,
-                        Tomar {{ $formulate_ee->dose }} {{ $formulate_ee->presentation_name }} cada {{ $formulate_ee->interval }} horas durante {{ $formulate_ee->limit }} días.
-
+                        {{ $f->for_humans }}
                       </td>
                       <td class="text-center">
-                        <a href="{{ route('assistance.options.formulate.edit', [$entry->id,$formulate_ee->id]) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
+                        <a href="{{ route('assistance.options.formulate.edit', [$entry->id,$f->id]) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
                       </td>
                     </tr>
                   @endforeach
@@ -81,7 +79,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                        {!! $formulate_e->render() !!}
+                        {!! $formulations->render() !!}
                     </div>
             </div>
           </div>

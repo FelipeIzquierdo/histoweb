@@ -15,14 +15,4 @@ class GenericMedication extends Model
     {
         return self::get()->lists('name' ,'id' );
     }
-
-  /*  public static function getPresentationMedicamentAttribute($medicament)
-    {
-        $val = [self::find($medicament)];
-        foreach ($val as $key => $value) {
-            $val[$key]->presentation = $value->presentation; 
-        }
-        return $val;
-    }
-    */
 }

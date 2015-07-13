@@ -129,9 +129,7 @@
                    @foreach($formulate_e as $formulate_ee)
                     <tr>
                       <td>
-                        {{ $formulate_ee->concentration->name }} - {{ $formulate_ee->concentration->unit_amount }} {{ $formulate_ee->concentration->unit_name }} x  {{ $formulate_ee->concentration->diluent_amount }} {{ $formulate_ee->concentration->diluent_name }} - vía {{ $formulate_ee->administrationRoute->name }} ,
-                        Tomar {{ $formulate_ee->dose }} {{ $formulate_ee->presentation_name }} cada {{ $formulate_ee->interval }} horas durante {{ $formulate_ee->limit }} días.
-
+                        {{ $formulate_ee->for_humans }}
                       </td>
                       <td class="text-center">
                         <a href="{{ route('assistance.options.formulate.edit', [$entry->id,$formulate_ee->id]) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
