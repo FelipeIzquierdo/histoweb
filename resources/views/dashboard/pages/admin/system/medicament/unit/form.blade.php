@@ -2,7 +2,11 @@
   @section('title') 
     @if($unit->exists) Editar {{$unit->id}} @else Nueva Unidad @endif
   @endsection
-  
+
+  @section('breadcrumbs')
+    {!! Breadcrumbs::render('unit.create',$unit) !!}
+  @endsection
+
   @section('dashboard_title') 
     <h1>
       @if($unit->exists) Editar Unidad: {{$unit->name}} @else Nueva Unidad @endif

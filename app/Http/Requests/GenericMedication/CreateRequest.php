@@ -22,12 +22,7 @@ class CreateRequest extends Request {
 		return [
 			'cod'						=> 	'required|max:50|unique:generic_medications,cod', 
 			'name'        		    	=> 	'required|max:50|unique:generic_medications,name',
-			'description'      			=>  'max:100',
-			'presentation_id'			=> 	'required|integer|exists:presentations,id',
-			'unit_id'					=> 	'required|integer|exists:units,id',
-            'diluent_id'				=> 	'required|integer|exists:diluents,id',
-            'diluent_amount'			=>  'required|integer',
-            'unit_amount'				=>  'required|integer',
+			'description'      			=>  'max:100'
 		];
 	}
 }

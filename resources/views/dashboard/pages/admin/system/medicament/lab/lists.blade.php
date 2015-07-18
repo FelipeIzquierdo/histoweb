@@ -3,6 +3,10 @@
 	    Laboratorios
 	@endsection
 
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('lab') !!}
+	@endsection
+
 	@section('dashboard_title')
 		<h1>
 			<i class="gi gi-user_add"></i>

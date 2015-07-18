@@ -3,6 +3,10 @@
 	    Medicamentos Comerciales
 	@endsection
 
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('commercial_medication') !!}
+	@endsection
+
 	@section('dashboard_title')
 		<h1>
 			<i class="gi gi-user_add"></i>

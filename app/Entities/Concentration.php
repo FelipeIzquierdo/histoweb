@@ -11,15 +11,9 @@ class Concentration extends Model
 	public $increments = true;
 	public $errors;
 
-    public static function getAllMedicamentAttribute($medicament)
+    public static function ListsViews()
     {
-        $val = self::where('generic_medication_id','=',$medicament)->get();
-        foreach ($val as $key => $value) {
-            $val[$key]->presentation = $value->presentation;
-            $val[$key]->unit = $value->unit;
-            $val[$key]->diluent = $value->diluent;
-        }
-        return $val;
+        return self::orderBy('updated_at', 'desc')->paginate(12);
     }
 
     public static function getAllList($medicament)

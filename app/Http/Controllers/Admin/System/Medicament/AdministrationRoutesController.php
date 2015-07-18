@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AdministrationRoutesController extends Controller {
 
-	private $route;
+	private $administration_route;
 	private static $prefixRoute = 'admin.system.medicament.administration-routes.';
 	private static $prefixView = 'dashboard.pages.admin.system.medicament.administration_route.';
 
@@ -28,13 +28,13 @@ class AdministrationRoutesController extends Controller {
 	 */
 	public function findAdministrationRoutes(Route $route)
 	{
-		$this->route = AdministrationRoute::findOrFail($route->getParameter('administration_routes'));
+		$this->administration_route = AdministrationRoute::findOrFail($route->getParameter('administration_routes'));
 	}
 
 	public function index()
 	{
-        $route = AdministrationRoute::orderBy('updated_at', 'desc')->paginate(12);
-        return view(self::$prefixView . 'lists', compact('route'));
+        $administration_route = AdministrationRoute::orderBy('updated_at', 'desc')->paginate(12);
+        return view(self::$prefixView . 'lists', compact('administration_route'));
 	}
 
 	/**
@@ -44,11 +44,11 @@ class AdministrationRoutesController extends Controller {
 	 */
 	public function create()
 	{
-        $this->route = new AdministrationRoute;
-        $form_data = ['route' => self::$prefixRoute . 'store', 'method' => 'POST'];
+        $this->administration_route = new AdministrationRoute;
+        $form_data = ['administration_route' => self::$prefixRoute . 'store', 'method' => 'POST'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['route' => $this->route]);
+        	->with(['administration_route' => $this->administration_route]);
 	}
 
 	/**
@@ -58,11 +58,11 @@ class AdministrationRoutesController extends Controller {
 	 */
     public function store(CreateRequest $request)
     {
-        $this->route = AdministrationRoute::create($request->all());
+        $this->administration_route = AdministrationRoute::create($request->all());
 
         if($request->ajax())
         {
-            return $this->route;
+            return $this->administration_route;
         }
 		
         return redirect()->route(self::$prefixRoute . 'index');
@@ -76,8 +76,8 @@ class AdministrationRoutesController extends Controller {
 	 */
 	public function show($id)
 	{
-        $route = AdministrationRoute::find($id);
-        return view(self::$prefixView . 'show',compact('id', 'route'));
+        $administration_route = AdministrationRoute::find($id);
+        return view(self::$prefixView . 'show',compact('id', 'administration_route'));
 	}
 
 	/**
@@ -88,10 +88,10 @@ class AdministrationRoutesController extends Controller {
 	 */
 	public function edit($id)
 	{
-        $form_data = ['route' => [self::$prefixRoute . 'update', $this->route->id], 'method' => 'PUT'];
+        $form_data = ['route' => [self::$prefixRoute . 'update', $this->administration_route->id], 'method' => 'PUT'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['route' => $this->route]);
+        	->with(['administration_route' => $this->administration_route]);
 	}
 
 	/**
@@ -102,12 +102,12 @@ class AdministrationRoutesController extends Controller {
 	 */
     public function update(EditRequest $request, $id)
     {
-        $this->route->fill($request->all());
-        $this->route->save();
+        $this->administration_route->fill($request->all());
+        $this->administration_route->save();
         
         if($request->ajax())
         {
-            return $this->route;
+            return $this->administration_route;
         }
 
         return redirect()->route(self::$prefixRoute . 'index');

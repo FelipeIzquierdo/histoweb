@@ -111,6 +111,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 			Route::resource('presentations', 'PresentationsController');
 			Route::resource('administration-routes', 'AdministrationRoutesController');
 			Route::resource('labs', 'LabsController');
+			Route::resource('concentrations', 'ConcentrationsController');
 			Route::resource('commercial-medications', 'CommercialMedicationsController');
 
 			Route::controller('/', 'MedicamentController', ['getIndex' => 'admin.system.medicament']);

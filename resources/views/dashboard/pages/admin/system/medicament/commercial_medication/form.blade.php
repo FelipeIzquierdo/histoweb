@@ -2,7 +2,8 @@
   @section('title') 
     @if($medicament->exists) Editar {{$medicament->cc}} @else Nuevo medicamento comercial @endif
   @endsection
-  
+
+
   @section('dashboard_title') 
     <h1>
       @if($medicament->exists) Editar medicamento comercial: {{$medicament->name}} @else Nuevo medicamento comercial @endif

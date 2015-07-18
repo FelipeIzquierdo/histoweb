@@ -15,4 +15,9 @@ class GenericMedication extends Model
     {
         return self::get()->lists('name' ,'id' );
     }
+
+    public static function ListsViews()
+    {
+    	return self::orderBy('updated_at', 'desc')->paginate(12);
+    }
 }

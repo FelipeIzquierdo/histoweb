@@ -1,11 +1,15 @@
 @extends('dashboard.pages.layout')
   @section('title') 
-    @if($medicament->exists) Editar {{$medicament->cc}} @else Nuevo medicamento genérico @endif
+    @if($generic_medication->exists) Editar {{$generic_medication->cc}} @else Nuevo medicamento genérico @endif
   @endsection
-  
+
+  @section('breadcrumbs')
+    {!! Breadcrumbs::render('generic_medication.create',$generic_medication) !!}
+  @endsection
+
   @section('dashboard_title') 
     <h1>
-      @if($medicament->exists) Editar medicamento genérico: {{$medicament->name}} @else Nuevo medicamento genérico @endif
+      @if($generic_medication->exists) Editar medicamento genérico: {{$generic_medication->name}} @else Nuevo medicamento genérico @endif
     </h1> 
   @endsection 
 
@@ -17,16 +21,10 @@
                   <h2>Datos del medicamento genérico</h2>
               </div>
               <div class="form-horizontal form-bordered">
-                {!! Form::model($medicament, $form_data) !!}
+                {!! Form::model($generic_medication, $form_data) !!}
                   {!! Field::text( 'cod', null, ['placeholder' => 'Código', 'template' => 'horizontal']) !!}
                   {!! Field::text( 'name', null, ['placeholder' => 'Nombre', 'template' => 'horizontal']) !!}
                   {!! Field::text( 'description', null, ['placeholder' => 'Descripción', 'template' => 'horizontal']) !!}
-                  {!! Field::select( 'presentation_id', $presentation, null, ['data-placeholder' => 'Presentación', 'template' => 'horizontal']) !!}
-                  {!! Field::select( 'unit_id', $unit, null, ['id' => 'unit_id','data-placeholder' => 'Unidad', 'template' => 'horizontal']) !!}
-                  {!! Field::number( 'unit_amount', null , ['min' => '0', 'template' => 'horizontal']) !!}
-                  {!! Field::select( 'diluent_id', $diluent, null, ['data-placeholder' => 'Diluyente', 'template' => 'horizontal']) !!}
-                  {!! Field::number( 'diluent_amount', null , ['min' => '0', 'template' => 'horizontal']) !!}
-                  
                   <div class="form-group form-actions">
                     <div class="col-md-9 col-md-offset-3">
                         <button type="submit" class="btn btn-effect-ripple btn-primary">Guardar</button>

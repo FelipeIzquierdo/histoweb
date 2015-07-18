@@ -3,6 +3,10 @@
 	    Diluyentes
 	@endsection
 
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('diluent') !!}
+	@endsection
+
 	@section('dashboard_title')
 		<h1>
 			<i class="gi gi-user_add"></i>
