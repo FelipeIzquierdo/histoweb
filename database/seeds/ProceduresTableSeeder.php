@@ -8,6 +8,18 @@ use Histoweb\Entities\Procedure;
 
 class ProceduresTableSeeder extends Seeder {
 	
+		private static $procedures = [	
+		['cod' => '010100', 'name'	=> 'PUNCION CISTERNAL SOD' , 'procedure_type_id' => 1],
+		['cod' => '010101', 'name'	=> 'PUNCION CISTERNAL, VlA LATERAL', 'procedure_type_id' => 1],
+		['cod' => '010102', 'name'	=> 'PUNCION CISTERNAL, VlA MEDIAL', 'procedure_type_id' => 1],
+		['cod' => '010200', 'name'	=> 'PUNCION [ASPIRACION DE LIQUIDO] VENTRICULAR SOD', 'procedure_type_id' => 1],
+		['cod' => '010201', 'name'	=> 'PUNCION [ASPIRACION DE LIQUIDO] VENTRICULAR A TRAVES DE CATETER PREVIAMENTE IMPLANTADO', 'procedure_type_id' => 1],
+		['cod' => '010202', 'name'	=> 'PUNCION [ASPIRACION DE LIQUIDO] VENTRICULAR POR  TREPANACION (SIN CATETER)', 'procedure_type_id' => 1],
+		['cod' => '010203', 'name'	=> 'PUNCION [ASPIRACION DE LIQUIDO] VENTRICULAR A TRAVES DE UN RESERVORIO', 'procedure_type_id' => 1],
+		['cod' => '010204', 'name'	=> 'PUNCION [ASPIRACION DE LIQUIDO] VENTRICULAR,  VIA TRANSFONTANELAR', 'procedure_type_id' => 1],
+		['cod' => '010901', 'name'	=> 'PUNCION SUBDURAL', 'procedure_type_id' => 1],
+		];
+	/*	
 	private static $procedures = [	
 		['cod' => '010100', 'name'	=> 'PUNCION CISTERNAL SOD'],
 		['cod' => '010101', 'name'	=> 'PUNCION CISTERNAL, VlA LATERAL'],
@@ -48,7 +60,7 @@ class ProceduresTableSeeder extends Seeder {
 		['cod' => '013105', 'name'	=> 'DRENAJE DE ESPACIO SUBARACNOIDEO, POR  DERIVACION CISTO PERITONEAL'],
 		['cod' => '013106', 'name'	=> 'DRENAJE DE ESPACIO SUBDURAL, POR  DERIVACION SUBDURO  PERITONEAL'],
 		['cod' => '013110', 'name'	=> 'DRENAJE DE ESPACIO SUBDURAL CON REPARO DE SENOS  DURALES ROTOS'],
-		/*['cod' => '013200', 'name'	=> 'SECCION DE TEJIDO CEREBRAL (TRACTOS CEREBRALES) SOD'],
+		['cod' => '013200', 'name'	=> 'SECCION DE TEJIDO CEREBRAL (TRACTOS CEREBRALES) SOD'],
 		['cod' => '013201', 'name'	=> 'SECCION DE TEJIDO CEREBRAL (TRACTOS CEREBRALES) POR ABLACION [TERMOLESION] ESTEREOTAXICA'],
 		['cod' => '013202', 'name'	=> 'SECCION DE TEJIDO CEREBRAL (TRACTOS CEREBRALES), POR CRANEOTOMIA'],
 		['cod' => '014101', 'name'	=> 'TALAMOTOMIA POR  ESTEREOTAXIA [ESTIMULACION Y O ABLACION DE UNO DE SUS NUCLEOS]'],
@@ -4541,18 +4553,20 @@ class ProceduresTableSeeder extends Seeder {
 		['cod' => '922438', 'name' =>	'TELETERAPIA CON ACELERADOR  LINEAL MAYOR DE 10 MV EN CARA, ENCEFALO, CUELLO, MEDIASTINO, GANGLIONAR SUPRA  E INFRADIA-FRAGMATICA,  MAMA, BAFO TORACCICO, ABDOMINAL TOTAL, RAQUI S, CORPORAL TOTAL (GRUPO  5) SIN SIMULADOR Y CON PLANEACION COMPUTARIZADA (TI'],
 		['cod' => '922439', 'name' =>	'TELETERAPIA CON ACELERADOR  LINEAL MAYOR DE 10 MV EN CARA, ENCEFALO, CUELLO, MEDIASTINO, GANGLIONAR SUPRA  E INFRADIA-FRAGMATICA,  MAMA, BAFO TORACCICO, ABDOMINAL TOTAL, RAQUIS, CORPORAL TOTAL (GRUPO  5) SIN SIMULADOR  Y CON PLANEACION  MANUAL (TIPO III'],
 		['cod' => '922440', 'name' =>	'TELETERAPIA CON ACELERADOR  LINEAL MAYOR DE 10 MV EN CARA, ENCEFALO, CUELLO, MEDIASTINO, GANGLIONAR SUPRA  E INFRADIA-FRAGMATICA,  MAMA, BAFO TORACCICO, ABDOMINAL TOTAL, RAQUIS, CORPORAL TOTAL (GRUPO  5) CON SIMULADOR  Y CON PLANEACION  MANUAL (TIPO IV)']
-		*/
+		
 	];
-
+*/
 
     public function run()
     {
-    /*	foreach (self::$procedures as $procedure) {
+    	
+    	foreach (self::$procedures as $procedure) {
 	    	Procedure::create([
 	            'cod' => $procedure['cod'],
-	            'name' => $procedure['name']
+	            'name' => $procedure['name'],
+	            'procedure_type_id' => $procedure['procedure_type_id'],
 	        ]);
-    	}	*/
+    	}	
     }
 }
 

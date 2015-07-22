@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEntryDiagnosesTable extends Migration {
+class CreateDiseaseEntryTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,16 +12,16 @@ class CreateEntryDiagnosesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('entry_diagnoses', function(Blueprint $table)
+		Schema::create('disease_entry', function(Blueprint $table)
         {
         	$table->integer('entry_id')->unsigned();
             $table->foreign('entry_id')->references('id')->on('entries');
 
-            $table->integer('diagnosis_id')->unsigned();
-            $table->foreign('diagnosis_id')->references('id')->on('diagnoses');
+            $table->integer('disease_id')->unsigned();
+            $table->foreign('disease_id')->references('id')->on('diseases');
             
             $table->timestamps();
-            $table->primary(['entry_id', 'diagnosis_id']);
+            $table->primary(['entry_id', 'disease_id']);
         });
 	}
 
@@ -32,7 +32,7 @@ class CreateEntryDiagnosesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('entry_diagnoses');
+		Schema::drop('disease_entry');
 	}
 
 }

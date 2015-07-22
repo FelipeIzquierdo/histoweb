@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Formulate extends Model
 {
-	protected $thisillable = [ 'administration_route_id','entry_id', 'concentration_id','dose','interval','limit'];
+	protected $fillable = [ 'administration_route_id','entry_id', 'concentration_id','dose','interval','limit'];
 
     protected $table = 'formulate';
 	public $timestamps = true;
@@ -17,6 +17,11 @@ class Formulate extends Model
         return self::get()->lists( 'id' );
     }
 
+    public static function ListsViews()
+    {
+        return self::orderBy('updated_at', 'desc')->paginate(12);
+    }
+    
     public function concentration()
     {
         return $this->belongsTo('Histoweb\Entities\Concentration','concentration_id');

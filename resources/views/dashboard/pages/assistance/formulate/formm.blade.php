@@ -2,7 +2,7 @@
   @section('title') 
     @if($formulate->exists) Editar formula @else Nueva formula @endif
   @endsection
-  
+
   @section('dashboard_title') 
     <h1>
       @if($formulate->exists) Editar formula, Paciente: {{ $entry->diary->patient->name }}  @else Nueva formula, Paciente: {{ $entry->diary->patient->name }}  @endif

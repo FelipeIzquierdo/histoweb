@@ -90,7 +90,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 
 		
 		Route::resource('diary-types', 'DiaryTypesController');
-		Route::resource('diagnoses', 'DiagnosesController');
+		Route::resource('diseases', 'DiseasesController');
 		Route::resource('histories', 'HistoriesController');
 		Route::resource('history-types', 'HistoryTypesController');
 		Route::resource('memberships', 'MembershipsController');

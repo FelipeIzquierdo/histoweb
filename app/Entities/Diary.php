@@ -129,4 +129,13 @@ class Diary extends Model
     {
         return $this->belongsTo('Histoweb\Entities\Availability');
     }
+
+    public function getNewOrFirstEntry()
+    {
+        if($this->entry)
+        {
+            return $this->entry;
+        }
+        return new Entry(['diary_id' => $this->id]);
+    }    
 }

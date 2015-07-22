@@ -36,26 +36,28 @@ class Entry extends Model
         $this->active = 0;
         $this->save();
 
-        $this->syncNewReasons($data['new_reasons']);
+        $new_reason_ids = $this->syncNewReasons($data['new_reasons']);
         if(array_key_exists('reasons', $data))
         {
-            $this->reasons()->sync($data['reasons']);
+            $all_reason_ids = array_merge($data['reasons'] , $new_reason_ids);
+            $this->reasons()->sync($all_reason_ids);
         }
         
-        $this->syncNewSystemRevisions($data['new_system_revisions']);
+        $new_system_revisions_ids = $this->syncNewSystemRevisions($data['new_system_revisions']);
         if(array_key_exists('system_revisions', $data))
         {
-            $this->systemRevisions()->sync($systemRevisions);
+            $all_system_revisions_ids = array_merge($data['system_revisions'] ,$new_system_revisions_ids);
+            $this->systemRevisions()->sync($all_system_revisions_ids);
         }
         
         if(array_key_exists('procedures', $data))
         {
-            $this->procedures()->sync($procedures);
+            $this->procedures()->sync($data['procedures']);
         }
 
-        if(array_key_exists('diagnostics', $data))
+        if(array_key_exists('diseases', $data))
         {
-            $this->diagnostics()->sync($diagnostics);
+            $this->diseases()->sync($data['diseases']);
         }
     } 
 
@@ -64,33 +66,41 @@ class Entry extends Model
         if (!empty($newReasons)) 
         {
             $newReasons = explode(",", $newReasons);
-            $this->saveNewReasons($newReasons);
+            return $this->saveNewReasons($newReasons);
         }
+        return [];
     }
 
     public function saveNewReasons($reasons)
     {
+        $reason_ids = [];
         foreach ($reasons as $name) {
             $reason = Reason::firstOrNew(['name' => $name]);
             $this->reasons()->save($reason);
+            array_push($reason_ids, $reason->id);
         }
+        return $reason_ids;
     }
 
-    public function syncNewSystemRevisions($systemRevisions, $newSystemRevisions = null)
+    public function syncNewSystemRevisions($newSystemRevisions)
     {
         if (!empty($newSystemRevisions)) 
         {
             $newSystemRevisions = explode(",", $newSystemRevisions);
-            $this->saveNewReasons($newSystemRevisions);
+            return $this->saveNewSystemRevisions($newSystemRevisions);
         }
+        return [];
     }
 
     public function saveNewSystemRevisions($systemRevisions)
     {
+        $system_revision_ids = [];
         foreach ($systemRevisions as $name) {
             $systemRevision = SystemRevision::firstOrNew(['name' => $name]);
             $this->systemRevisions()->save($systemRevision);
+            array_push($system_revision_ids, $systemRevision->id );
         }
+        return $system_revision_ids;
     }
 
     public function reasons()
@@ -100,12 +110,17 @@ class Entry extends Model
 
     public function systemRevisions()
     {
-        return $this->belongsToMany('Histoweb\Entities\SystemRevision');
+        return $this->belongsToMany('Histoweb\Entities\SystemRevision')->withTimestamps();
     }
 
     public function procedures()
     {
-        return $this->belongsToMany('Histoweb\Entities\Procedure');
+        return $this->belongsToMany('Histoweb\Entities\Procedure')->withTimestamps();
+    }
+
+    public function diseases()
+    {
+        return $this->belongsToMany('Histoweb\Entities\Disease')->withTimestamps();
     }
 
     public function diary()

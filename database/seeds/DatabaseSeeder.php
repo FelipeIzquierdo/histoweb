@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('OccupationsTableSeeder');
 		$this->call('ReasonsTableSeeder');
 		$this->call('SystemRevisionsTableSeeder');
+		$this->call('ProcedureTypesTableSeeder');
 		$this->call('ProceduresTableSeeder');
 		
 		$this->call('UserTableSeeder');
@@ -48,6 +49,8 @@ class DatabaseSeeder extends Seeder {
         $this->call('LabsTableSeeder');
         //$this->call('CommercialMedicationsTableSeeder');
         $this->call('StaffTableSeeder');
+
+        $this->call('DiseasesTableSeeder');
 
 	}
 

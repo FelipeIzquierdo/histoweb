@@ -9,9 +9,13 @@
     @include('dashboard.pages.assistance.menu') 
 @endsection
 
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('option',$id) !!}
+@endsection
+
 @section('dashboard_body')
 <div class="col-sm-9">
-    <iframe width="100%" height="460" src="{!! $pdf !!}" frameborder="0" allowfullscreen></iframe>
+    <iframe width="100%" height="460" src="{!! $pdf.$id.'.pdf' !!}" frameborder="0" allowfullscreen></iframe>
 </div>
 <div class="col-sm-3">
 	<h4 class="sub-header">Opciones de Historia</h4>
@@ -53,12 +57,12 @@
 			</thead>
 			<tbody>
 
-				@foreach($order_procedure as $order_procedures)
+				@foreach($order_procedures as $order_procedure)
 					<tr>
-						<td><strong>{{ $order_procedures->procedure_name }}</strong></td>
-						<td>{{ $order_procedures->procedure_type_name }}</td>
+						<td><strong>{{ $order_procedure->procedure_name }}</strong></td>
+						<td>{{ $order_procedure->procedure_type_name }}</td>
 						<td class="text-center">
-							<button type="submit" value="{{ $order_procedures->procedure_id }}" data-toggle="tooltip" id="submitOptions" class="btn btn-danger" data-original-title="Borrar procedimiento"><i class="fa fa-times"></i></button>
+							<button type="submit" value="{{ $order_procedure->procedure_id }}" data-toggle="tooltip" id="submitOptions" class="btn btn-danger" data-original-title="Borrar procedimiento"><i class="fa fa-times"></i></button>
 							{!! Form::hidden('procedure','') !!}
 						</td>
 					</tr>
@@ -69,7 +73,7 @@
 {!! Form::close() !!}
 	<div class="row">
 	    <div class="col-xs-12">
-            {!! $order_procedure->render() !!}
+            {!! $order_procedures->render() !!}
         </div>
 	</div>
 </div>
@@ -106,7 +110,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            {!! $order_procedure->render() !!}
+            {!! $describe_procedures->render() !!}
         </div>
     </div>
 </div>
@@ -126,13 +130,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                   @foreach($formulate_e as $formulate_ee)
+                   @foreach($list_formulates as $list_formulate)
                     <tr>
                       <td>
-                        {{ $formulate_ee->for_humans }}
+                        {{ $list_formulate->for_humans }}
                       </td>
                       <td class="text-center">
-                        <a href="{{ route('assistance.options.formulate.edit', [$entry->id,$formulate_ee->id]) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
+                        <a href="{{ route('assistance.options.formulate.edit', [$entry->id,$list_formulate->id]) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
                       </td>
                     </tr>
                   @endforeach
@@ -141,7 +145,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                        {!! $formulate_e->render() !!}
+                        {!! $list_formulates->render() !!}
                     </div>
             </div>
     </div>

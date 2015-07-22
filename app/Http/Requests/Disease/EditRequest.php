@@ -1,4 +1,4 @@
-<?php namespace Histoweb\Http\Requests\Diagnosis;
+<?php namespace Histoweb\Http\Requests\Disease;
 
 //use CreateRequest;
 use Histoweb\Http\Requests\Request;
@@ -36,7 +36,8 @@ class EditRequest extends Request {
 	public function rules()
 	{
 		$rules = $this->createRequest->rules();
-		$rules['name'] = $rules['name'] . ',' . $this->route->getParameter('diagnoses');
+		$rules['cod'] = $rules['cod'] . ',' . $this->route->getParameter('diseases');
+		$rules['name'] = $rules['name'] . ',' . $this->route->getParameter('diseases');
 
 		return $rules;
 	}

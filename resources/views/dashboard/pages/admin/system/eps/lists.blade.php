@@ -12,7 +12,11 @@
 			</a>
 		</h1>
 	@endsection
-	
+
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('eps') !!}
+	@endsection
+
 	@section('dashboard_body')
 		@foreach($eps as $t_eps)
 			<div class="col-sm-4">

@@ -62,6 +62,269 @@ Breadcrumbs::register('specialties.create', function($breadcrumbs, $specialty)
     }
 });
 
+// Inicio > Admin > Sistema > Tipos de citas
+Breadcrumbs::register('diary_types', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Tipos de citas', route('admin.system.diary-types.index'));
+});
+
+// Inicio > Admin > Sistema > Tipos de citas > Create or Edit
+Breadcrumbs::register('diary_types.create', function($breadcrumbs, $diary_types)
+{
+    $breadcrumbs->parent('diary_types');
+    if($diary_types->exists)
+    {
+        $breadcrumbs->push($diary_types->name, route('admin.system.diary-types.edit', $diary_types->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva', route('admin.system.diary-types.create'));
+    }
+});
+
+// Inicio > Admin > Sistema > Afiliaciones
+Breadcrumbs::register('membership', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Afiliaciones', route('admin.system.memberships.index'));
+    
+});
+
+// Inicio > Admin > Sistema > Afiliaciones > Create or Edit
+Breadcrumbs::register('membership.create', function($breadcrumbs, $membership)
+{
+    $breadcrumbs->parent('membership');
+    if($membership->exists)
+    {
+        $breadcrumbs->push($membership->name, route('admin.system.memberships.edit', $membership->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva', route('admin.system.memberships.create'));
+    }
+});
+
+// Inicio > Admin > Sistema > Tipos de procedimiento
+Breadcrumbs::register('procedure_type', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Tipos de procedimiento', route('admin.system.procedure-types.index'));
+    
+});
+
+// Inicio > Admin > Sistema > Tipos de procedimiento > Create or Edit
+Breadcrumbs::register('procedure_type.create', function($breadcrumbs, $procedure_type)
+{
+    $breadcrumbs->parent('procedure_type');
+    if($procedure_type->exists)
+    {
+        $breadcrumbs->push($procedure_type->name, route('admin.system.procedure-types.edit', $procedure_type->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva', route('admin.system.procedure-types.create'));
+    }
+});
+
+// Inicio > Admin > Sistema > Procedimientos
+Breadcrumbs::register('procedure', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Procedimientos', route('admin.system.procedures.index'));
+    
+});
+
+// Inicio > Admin > Sistema > Procedimientos > Create or Edit
+Breadcrumbs::register('procedure.create', function($breadcrumbs, $procedure)
+{
+    $breadcrumbs->parent('procedure');
+    if($procedure->exists)
+    {
+        $breadcrumbs->push($procedure->name, route('admin.system.procedures.edit', $procedure->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva', route('admin.system.procedures.create'));
+    }
+});
+
+// Inicio > Admin > Sistema > Enfermedades
+Breadcrumbs::register('disease', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Enfermedades', route('admin.system.diseases.index'));
+    
+});
+
+// Inicio > Admin > Sistema > Enfermedades > Create or Edit
+Breadcrumbs::register('disease.create', function($breadcrumbs, $disease)
+{
+    $breadcrumbs->parent('disease');
+    if($disease->exists)
+    {
+        $breadcrumbs->push($disease->name, route('admin.system.diseases.edit', $disease->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva', route('admin.system.diseases.create'));
+    }
+});
+
+// Inicio > Admin > Sistema > Revisión de sistemas
+Breadcrumbs::register('system_revision', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Revisión de sistemas', route('admin.system.system-revisions.index'));
+    
+});
+
+// Inicio > Admin > Sistema > Revisión de sistemas > Create or Edit
+Breadcrumbs::register('system_revision.create', function($breadcrumbs, $system_revision)
+{
+    $breadcrumbs->parent('system_revision');
+    if($system_revision->exists)
+    {
+        $breadcrumbs->push($system_revision->name, route('admin.system.system-revisions.edit', $system_revision->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva', route('admin.system.system-revisions.create'));
+    }
+});
+
+// Inicio > Admin > Sistema > Motivos de consulta
+Breadcrumbs::register('reason', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Motivos de consulta', route('admin.system.reasons.index'));
+    
+});
+
+// Inicio > Admin > Sistema > Motivos de consulta > Create or Edit
+Breadcrumbs::register('reason.create', function($breadcrumbs, $reason)
+{
+    $breadcrumbs->parent('reason');
+    if($reason->exists)
+    {
+        $breadcrumbs->push($reason->name, route('admin.system.reasons.edit', $reason->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva', route('admin.system.reasons.create'));
+    }
+});
+
+// Inicio > Admin > Sistema > Tipos de antecedentes
+Breadcrumbs::register('history_type', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Tipos de antecedentes', route('admin.system.history-types.index'));
+    
+});
+
+// Inicio > Admin > Sistema > Tipos de antecedentes > Create or Edit
+Breadcrumbs::register('history_type.create', function($breadcrumbs, $history_type)
+{
+    $breadcrumbs->parent('history_type');
+    if($history_type->exists)
+    {
+        $breadcrumbs->push($history_type->name, route('admin.system.history-types.edit', $history_type->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva', route('admin.system.history-types.create'));
+    }
+});
+
+// Inicio > Admin > Sistema > Antecendentes
+Breadcrumbs::register('history', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Antecendentes', route('admin.system.histories.index'));
+    
+});
+
+// Inicio > Admin > Sistema > Antecendentes > Create or Edit
+Breadcrumbs::register('history.create', function($breadcrumbs, $history)
+{
+    $breadcrumbs->parent('history');
+    if($history->exists)
+    {
+        $breadcrumbs->push($history->name, route('admin.system.histories.edit', $history->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva', route('admin.system.histories.create'));
+    }
+});
+
+// Inicio > Admin > Sistema > EPS
+Breadcrumbs::register('eps', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('EPS', route('admin.system.eps.index'));
+    
+});
+
+// Inicio > Admin > Sistema > EPS > Create or Edit
+Breadcrumbs::register('eps.create', function($breadcrumbs, $eps)
+{
+    $breadcrumbs->parent('eps');
+    if($eps->exists)
+    {
+        $breadcrumbs->push($eps->name, route('admin.system.eps.edit', $eps->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva', route('admin.system.eps.create'));
+    }
+});
+
+// Inicio > Admin > Sistema > Profesiones
+Breadcrumbs::register('profession', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Profesiones', route('admin.system.professions.index'));
+    
+});
+
+// Inicio > Admin > Sistema > Profesiones > Create or Edit
+Breadcrumbs::register('profession.create', function($breadcrumbs, $profession)
+{
+    $breadcrumbs->parent('profession');
+    if($profession->exists)
+    {
+        $breadcrumbs->push($profession->name, route('admin.system.professions.edit', $profession->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva', route('admin.system.professions.create'));
+    }
+});
+
+// Inicio > Admin > Sistema > Tipos de Anestesia
+Breadcrumbs::register('anesthesiaType', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Tipos de Anestesia', route('admin.system.anesthesiaTypes.index'));
+    
+});
+
+// Inicio > Admin > Sistema > Tipos de Anestesia > Create or Edit
+Breadcrumbs::register('anesthesiaType.create', function($breadcrumbs, $anesthesiaType)
+{
+    $breadcrumbs->parent('anesthesiaType');
+    if($anesthesiaType->exists)
+    {
+        $breadcrumbs->push($anesthesiaType->name, route('admin.system.anesthesiaTypes.edit', $anesthesiaType->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva', route('admin.system.anesthesiaTypes.create'));
+    }
+});
+
 // Inicio > Admin > Sistema > Medicamentos
 Breadcrumbs::register('medicament', function($breadcrumbs)
 {
@@ -357,7 +620,19 @@ Breadcrumbs::register('reception', function($breadcrumbs)
     $breadcrumbs->push('Recepción', route('reception'));
 });
 
+// Inicio > Admin > Asistencia
+Breadcrumbs::register('assistance', function($breadcrumbs)
+{
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Asistencia', route('assistance'));
+});
 
+// Inicio > Admin > Asistencia > Opciones
+Breadcrumbs::register('option', function($breadcrumbs,$id)
+{
+    $breadcrumbs->parent('assistance');
+    $breadcrumbs->push('Opciones', route('assistance.entries.options',$id));
+});
 
 
 

@@ -216,8 +216,8 @@ return array(
    	'unit_id' => 'Unidad',
    	'diluent_id' => 'Diluyente',
    	'diluent_amount' => 'Cantidad del diluyente',
-   	'unit_amount' => 'Cantidad de la unidad'
-
+   	'unit_amount' => 'Cantidad de la unidad',
+   	'diseases' => 'Diagnóstico'
 
 ]
 
