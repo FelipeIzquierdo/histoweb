@@ -5,19 +5,19 @@
     	<span class="sidebar-nav-mini-hide">Pacientes</span>
     </a>
     <ul>
-        @foreach($diaries as $di)
+        @foreach($doctor->getDiariesToday() as $diary)
 	    	<li style="font-size:12px;">
-                @if($di->isCanAttend())
-                    <a href="{{ route('assistance.create-entry', $di->id)}}">
-                        <span class="sidebar-nav-mini-hide {{$di->class}}"> {{ $di->time_start }} {{ $di->patient->short_name }}</span>
+                @if($diary->isCanAttend())
+                    <a href="{{ route('assistance.create-entry', $diary->id)}}">
+                        <span class="sidebar-nav-mini-hide {{$diary->class}}"> {{ $diary->time_start }} {{ $diary->patient->short_name }}</span>
                     </a>
-                @elseif($di->isBeingTreated())
-                    <a href="{{ route('assistance.entries.options', $di->entry->id)}}">
-                        <span class="sidebar-nav-mini-hide {{$di->class}}"> {{ $di->time_start }} {{ $di->patient->short_name }}</span>
+                @elseif($diary->isBeingTreated())
+                    <a href="{{ route('assistance.entries.options', $diary->entry->id)}}">
+                        <span class="sidebar-nav-mini-hide {{$diary->class}}"> {{ $diary->time_start }} {{ $diary->patient->short_name }}</span>
                     </a>
                 @else
                     <a href="#">
-                        <span class="sidebar-nav-mini-hide {{$di->class}}"> {{ $di->time_start }} {{ $di->patient->short_name }}</span>
+                        <span class="sidebar-nav-mini-hide {{$diary->class}}"> {{ $diary->time_start }} {{ $diary->patient->short_name }}</span>
                     </a>
                 @endif
 	        </li> 

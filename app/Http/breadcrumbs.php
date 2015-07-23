@@ -27,7 +27,7 @@ Breadcrumbs::register('tools', function($breadcrumbs)
     $breadcrumbs->push('Herramientas', route('admin.system.tools.index'));
 });
 
-// Inicio > Admin > Sistema > Herramientas > Create or Edit
+// Inicio > Admin > Sistema > Herramientas > Crear o Editar
 Breadcrumbs::register('tools.create', function($breadcrumbs, $tool)
 {
     $breadcrumbs->parent('tools');
@@ -48,7 +48,7 @@ Breadcrumbs::register('specialties', function($breadcrumbs)
     $breadcrumbs->push('Especialidades', route('admin.system.specialties.index'));
 });
 
-// Inicio > Admin > Sistema > Especialidades > Create or Edit
+// Inicio > Admin > Sistema > Especialidades > Crear o Editar
 Breadcrumbs::register('specialties.create', function($breadcrumbs, $specialty)
 {
     $breadcrumbs->parent('specialties');
@@ -69,7 +69,7 @@ Breadcrumbs::register('diary_types', function($breadcrumbs)
     $breadcrumbs->push('Tipos de citas', route('admin.system.diary-types.index'));
 });
 
-// Inicio > Admin > Sistema > Tipos de citas > Create or Edit
+// Inicio > Admin > Sistema > Tipos de citas > Crear o Editar
 Breadcrumbs::register('diary_types.create', function($breadcrumbs, $diary_types)
 {
     $breadcrumbs->parent('diary_types');
@@ -91,7 +91,7 @@ Breadcrumbs::register('membership', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Afiliaciones > Create or Edit
+// Inicio > Admin > Sistema > Afiliaciones > Crear o Editar
 Breadcrumbs::register('membership.create', function($breadcrumbs, $membership)
 {
     $breadcrumbs->parent('membership');
@@ -113,7 +113,7 @@ Breadcrumbs::register('procedure_type', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Tipos de procedimiento > Create or Edit
+// Inicio > Admin > Sistema > Tipos de procedimiento > Crear o Editar
 Breadcrumbs::register('procedure_type.create', function($breadcrumbs, $procedure_type)
 {
     $breadcrumbs->parent('procedure_type');
@@ -135,7 +135,7 @@ Breadcrumbs::register('procedure', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Procedimientos > Create or Edit
+// Inicio > Admin > Sistema > Procedimientos > Crear o Editar
 Breadcrumbs::register('procedure.create', function($breadcrumbs, $procedure)
 {
     $breadcrumbs->parent('procedure');
@@ -157,7 +157,7 @@ Breadcrumbs::register('disease', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Enfermedades > Create or Edit
+// Inicio > Admin > Sistema > Enfermedades > Crear o Editar
 Breadcrumbs::register('disease.create', function($breadcrumbs, $disease)
 {
     $breadcrumbs->parent('disease');
@@ -179,7 +179,7 @@ Breadcrumbs::register('system_revision', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Revisión de sistemas > Create or Edit
+// Inicio > Admin > Sistema > Revisión de sistemas > Crear o Editar
 Breadcrumbs::register('system_revision.create', function($breadcrumbs, $system_revision)
 {
     $breadcrumbs->parent('system_revision');
@@ -201,7 +201,7 @@ Breadcrumbs::register('reason', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Motivos de consulta > Create or Edit
+// Inicio > Admin > Sistema > Motivos de consulta > Crear o Editar
 Breadcrumbs::register('reason.create', function($breadcrumbs, $reason)
 {
     $breadcrumbs->parent('reason');
@@ -223,7 +223,7 @@ Breadcrumbs::register('history_type', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Tipos de antecedentes > Create or Edit
+// Inicio > Admin > Sistema > Tipos de antecedentes > Crear o Editar
 Breadcrumbs::register('history_type.create', function($breadcrumbs, $history_type)
 {
     $breadcrumbs->parent('history_type');
@@ -245,7 +245,7 @@ Breadcrumbs::register('history', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Antecendentes > Create or Edit
+// Inicio > Admin > Sistema > Antecendentes > Crear o Editar
 Breadcrumbs::register('history.create', function($breadcrumbs, $history)
 {
     $breadcrumbs->parent('history');
@@ -267,7 +267,7 @@ Breadcrumbs::register('eps', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > EPS > Create or Edit
+// Inicio > Admin > Sistema > EPS > Crear o Editar
 Breadcrumbs::register('eps.create', function($breadcrumbs, $eps)
 {
     $breadcrumbs->parent('eps');
@@ -289,7 +289,7 @@ Breadcrumbs::register('profession', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Profesiones > Create or Edit
+// Inicio > Admin > Sistema > Profesiones > Crear o Editar
 Breadcrumbs::register('profession.create', function($breadcrumbs, $profession)
 {
     $breadcrumbs->parent('profession');
@@ -311,7 +311,7 @@ Breadcrumbs::register('anesthesiaType', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Tipos de Anestesia > Create or Edit
+// Inicio > Admin > Sistema > Tipos de Anestesia > Crear o Editar
 Breadcrumbs::register('anesthesiaType.create', function($breadcrumbs, $anesthesiaType)
 {
     $breadcrumbs->parent('anesthesiaType');
@@ -340,7 +340,7 @@ Breadcrumbs::register('presentation', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Medicamentos > Presentaciones > Create or Edit
+// Inicio > Admin > Sistema > Medicamentos > Presentaciones > Crear o Editar
 Breadcrumbs::register('presentation.create', function($breadcrumbs, $presentation)
 {
     $breadcrumbs->parent('presentation');
@@ -362,7 +362,7 @@ Breadcrumbs::register('unit', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Medicamentos > Unidades > Create or Edit
+// Inicio > Admin > Sistema > Medicamentos > Unidades > Crear o Editar
 Breadcrumbs::register('unit.create', function($breadcrumbs, $unit)
 {
     $breadcrumbs->parent('unit');
@@ -384,7 +384,7 @@ Breadcrumbs::register('diluent', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Medicamentos > Diluyentes > Create or Edit
+// Inicio > Admin > Sistema > Medicamentos > Diluyentes > Crear o Editar
 Breadcrumbs::register('diluent.create', function($breadcrumbs, $diluent)
 {
     $breadcrumbs->parent('diluent');
@@ -406,7 +406,7 @@ Breadcrumbs::register('lab', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Medicamentos > Laboratorios > Create or Edit
+// Inicio > Admin > Sistema > Medicamentos > Laboratorios > Crear o Editar
 Breadcrumbs::register('lab.create', function($breadcrumbs, $lab)
 {
     $breadcrumbs->parent('lab');
@@ -428,7 +428,7 @@ Breadcrumbs::register('administration_route', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Medicamentos > Vía de administración > Create or Edit
+// Inicio > Admin > Sistema > Medicamentos > Vía de administración > Crear o Editar
 Breadcrumbs::register('administration_route.create', function($breadcrumbs, $administration_route)
 {
     $breadcrumbs->parent('administration_route');
@@ -450,7 +450,7 @@ Breadcrumbs::register('generic_medication', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Medicamentos > Medicamentos Genéricos  > Create or Edit
+// Inicio > Admin > Sistema > Medicamentos > Medicamentos Genéricos  > Crear o Editar
 Breadcrumbs::register('generic_medication.create', function($breadcrumbs, $generic_medication)
 {
     $breadcrumbs->parent('generic_medication');
@@ -472,7 +472,7 @@ Breadcrumbs::register('commercial_medication', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Medicamentos > Medicamentos Comerciales  > Create or Edit
+// Inicio > Admin > Sistema > Medicamentos > Medicamentos Comerciales  > Crear o Editar
 Breadcrumbs::register('commercial_medication.create', function($breadcrumbs, $commercial_medication)
 {
     $breadcrumbs->parent('commercial_medication');
@@ -494,7 +494,7 @@ Breadcrumbs::register('concentration', function($breadcrumbs)
     
 });
 
-// Inicio > Admin > Sistema > Medicamentos > Concentraciones  > Create or Edit
+// Inicio > Admin > Sistema > Medicamentos > Concentraciones  > Crear o Editar
 Breadcrumbs::register('concentration.create', function($breadcrumbs, $concentration)
 {
     $breadcrumbs->parent('concentration');
@@ -522,7 +522,7 @@ Breadcrumbs::register('surgeries', function($breadcrumbs)
     $breadcrumbs->push('Consultorios', route('admin.company.surgeries.index'));
 });
 
-// Inicio > Admin > Institución > Consultorios > Create or Edit
+// Inicio > Admin > Institución > Consultorios > Crear o Editar
 Breadcrumbs::register('surgeries.create', function($breadcrumbs, $surgery)
 {
     $breadcrumbs->parent('surgeries');
@@ -557,7 +557,7 @@ Breadcrumbs::register('doctors', function($breadcrumbs)
     $breadcrumbs->push('Doctores', route('admin.company.doctors.index'));
 });
 
-// Inicio > Admin > Institución > Doctores > Create or Edit
+// Inicio > Admin > Institución > Doctores > Crear o Editar
 Breadcrumbs::register('doctors.create', function($breadcrumbs, $doctor)
 {
     $breadcrumbs->parent('doctors');
@@ -599,7 +599,7 @@ Breadcrumbs::register('patients', function($breadcrumbs)
     $breadcrumbs->push('Pacientes', route('admin.company.patients.index'));
 });
 
-// Inicio > Admin > Institución > Pacientes > Create or Edit
+// Inicio > Admin > Institución > Pacientes > Crear o Editar
 Breadcrumbs::register('patients.create', function($breadcrumbs, $patient)
 {
     $breadcrumbs->parent('patients');
@@ -628,11 +628,60 @@ Breadcrumbs::register('assistance', function($breadcrumbs)
 });
 
 // Inicio > Admin > Asistencia > Opciones
-Breadcrumbs::register('option', function($breadcrumbs,$id)
+Breadcrumbs::register('option', function($breadcrumbs, $entry_id)
 {
     $breadcrumbs->parent('assistance');
-    $breadcrumbs->push('Opciones', route('assistance.entries.options',$id));
+    $breadcrumbs->push('Opciones', route('assistance.entries.options', $entry_id));
 });
 
+// Inicio > Admin > Asistencia > Opciones > Formular 
+Breadcrumbs::register('formulate', function($breadcrumbs, $entry_id, $formulate)
+{
+    $breadcrumbs->parent('option', $entry_id);
 
+    if($formulate->exists)
+    {
+        $breadcrumbs->push('Editar Formula', route('assistance.options.formulate.edit', $formulate->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva Formula', route('assistance.options.formulate.create'));
+    }
+});
 
+// Inicio > Admin > Asistencia > Opciones > Formular 
+Breadcrumbs::register('formulate', function($breadcrumbs, $entry_id, $formulate)
+{
+    $breadcrumbs->parent('option', $entry_id);
+
+    if($formulate->exists)
+    {
+        $breadcrumbs->push('Editar Formula', route('assistance.options.formulate.edit', $formulate->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nueva Formula', route('assistance.options.formulate.create'));
+    }
+});
+
+// Inicio > Admin > Asistencia > Opciones > Ordenar Procedimiento 
+Breadcrumbs::register('order_procedure', function($breadcrumbs, $entry_id)
+{
+    $breadcrumbs->parent('option', $entry_id);
+    $breadcrumbs->push('Ordenar Procedimiento', route('assistance.options.order-procedures.create'));
+});
+
+// Inicio > Admin > Asistencia > Opciones > Describir Procedimiento 
+Breadcrumbs::register('describe_procedure', function($breadcrumbs, $entry_id, $describe_procedure)
+{
+    $breadcrumbs->parent('option', $entry_id);
+
+    if($describe_procedure->exists)
+    {
+        $breadcrumbs->push('Editar Procedimiento', route('assistance.options.describeProcedures.edit', $describe_procedure->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nuevo Procedimiento', route('assistance.options.describeProcedures.create'));
+    }
+});

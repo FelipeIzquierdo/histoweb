@@ -9,6 +9,11 @@ class Disease extends Model {
 	public $timestamps = true;
 	public $increments = true;
 
+    public function getNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
     public static function allLists()
     {
         return self::lists('name', 'id');

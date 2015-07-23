@@ -10,6 +10,8 @@ class Entry extends Model
 	public $timestamps = true;
 	public $increments = true;
 
+    private static $routePdfHistoryClinic = '/documents/historyClinic/';
+
     private static function generateSerial($patient_id)
     {
         return self::where('patients_id', $patient_id)->count() + 1;
@@ -103,6 +105,27 @@ class Entry extends Model
         return $system_revision_ids;
     }
 
+    public function getSaveExit()
+    {
+        $data_time = new \DateTime(); 
+        $this->exit_at = $data_time->format('Y-m-d H:i:s');
+        $this->save();
+    }
+    public function getHistoryPdf()
+    {
+        return self::$routePdfHistoryClinic . $this->id . '.pdf';
+    }
+
+    public function getOrderProcedures()
+    {
+        return $this->orderProcedures->sortByDesc('updated_at');
+    }
+
+    public function getDescribeProcedures()
+    {
+        return $this->describeProcedures->sortByDesc('updated_at');
+    }
+
     public function reasons()
     {
         return $this->belongsToMany('Histoweb\Entities\Reason')->withTimestamps();
@@ -131,6 +154,16 @@ class Entry extends Model
     public function formulates()
     {
         return $this->hasMany('Histoweb\Entities\Formulate');
+    }
+
+    public function orderProcedures()
+    {
+        return $this->hasMany('Histoweb\Entities\OrderProcedure');
+    }
+
+    public function describeProcedures()
+    {
+        return $this->hasMany('Histoweb\Entities\DescribeProcedure');
     }
     
 }

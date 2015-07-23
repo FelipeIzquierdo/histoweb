@@ -14,7 +14,7 @@ class PdfBuilder {
     }
 
     public function historyPdf($entry, $data)
-    {
+    {        
         $this->pdf->setTitleHeader('Historia clinica');
         $patientDocType = $entry->diary->patient->doc_type_doc;
         $patientName = $entry->diary->patient->name;

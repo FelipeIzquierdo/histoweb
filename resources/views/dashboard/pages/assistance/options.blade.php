@@ -10,22 +10,22 @@
 @endsection
 
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('option',$id) !!}
+    {!! Breadcrumbs::render('option',$entry->id) !!}
 @endsection
 
 @section('dashboard_body')
 <div class="col-sm-9">
-    <iframe width="100%" height="460" src="{!! $pdf.$id.'.pdf' !!}" frameborder="0" allowfullscreen></iframe>
+    <iframe width="100%" height="460" src="{!! $entry->getHistoryPdf() !!}" frameborder="0" allowfullscreen></iframe>
 </div>
 <div class="col-sm-3">
 	<h4 class="sub-header">Opciones de Historia</h4>
-    <a href="{{ route('assistance.options.formulate.create', $id) }}" class="btn btn-block btn-info">
+    <a href="{{ route('assistance.options.formulate.create', $entry->id) }}" class="btn btn-block btn-info">
         Formular
     </a>
-    <a href="{{ route('assistance.options.order-procedures.create', $id) }}" class="btn btn-block btn-info">
+    <a href="{{ route('assistance.options.order-procedures.create', $entry->id) }}" class="btn btn-block btn-info">
         Solicitar procedimiento
     </a>
-    <a href="{{ route('assistance.options.describeProcedures.create', $id) }}" class="btn btn-block btn-info">
+    <a href="{{ route('assistance.options.describeProcedures.create', $entry->id) }}" class="btn btn-block btn-info">
         Describir procedimiento
     </a>
     <h4 class="sub-header">Reportes</h4>
@@ -33,7 +33,7 @@
 		Lista de Procedimientos
 	</a>
 	<hr>
-    <a href="{{ route('assistance.exit', $id) }}" class="btn btn-block btn-warning">
+    <a href="{{ route('assistance.exit', $entry->id) }}" class="btn btn-block btn-warning">
         Dar salida
     </a>
 
@@ -57,7 +57,7 @@
 			</thead>
 			<tbody>
 
-				@foreach($order_procedures as $order_procedure)
+				@foreach($entry->getOrderProcedures() as $order_procedure)
 					<tr>
 						<td><strong>{{ $order_procedure->procedure_name }}</strong></td>
 						<td>{{ $order_procedure->procedure_type_name }}</td>
@@ -71,55 +71,44 @@
 		</table>
 	</div>
 {!! Form::close() !!}
-	<div class="row">
-	    <div class="col-xs-12">
-            {!! $order_procedures->render() !!}
-        </div>
-	</div>
 </div>
-
     <div class="block">
 
-    <div class="block-title clearfix">
-        <h2><span class="hidden-xs">Procedimientos</span> solicitados</h2>
-    </div>
-    <div class="table-responsive">
-        <table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
-            <thead>
-            <tr>
-                <th>Descripción</th>
-                <th>Nombre Doctor</th>
-                <th style="min-width: 50px;" class="text-center"><i class="fa fa-file-pdf-o"></i></th>
-            </tr>
-            </thead>
-            <tbody>
+        <div class="block-title clearfix">
+            <h2><span class="hidden-xs">Procedimientos</span> solicitados</h2>
+        </div>
+        <div class="table-responsive">
+            <table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
+                <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Nombre Doctor</th>
+                    <th style="min-width: 50px;" class="text-center"><i class="fa fa-file-pdf-o"></i></th>
+                </tr>
+                </thead>
+                <tbody>
 
-            @foreach($describe_procedures as $describe_procedure)
-            <tr>
-                <td><strong>{{ $describe_procedure->description }}</strong></td>
-                <td>{{ $describe_procedure->doctor->name }}</td>
-                <td class="text-center">
-                    <a href="/documents/describeProcedure/{!! $entry->diary->patient->doc !!}-{!! $describe_procedure->id !!}.pdf">
-                    <button type="submit" data-toggle="tooltip" class="btn btn-success" data-original-title="Ver Descripción de procedimiento"><i class="fa fa-download"></i></button>
-                    </a>
-                </td>
-            </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            {!! $describe_procedures->render() !!}
+                @foreach($entry->getDescribeProcedures() as $describe_procedure)
+                <tr>
+                    <td><strong>{{ $describe_procedure->description }}</strong></td>
+                    <td>{{ $describe_procedure->doctor->name }}</td>
+                    <td class="text-center">
+                        <a href="/documents/describeProcedure/{!! $entry->diary->patient->doc !!}-{!! $describe_procedure->id !!}.pdf">
+                        <button type="submit" data-toggle="tooltip" class="btn btn-success" data-original-title="Ver Descripción de procedimiento"><i class="fa fa-download"></i></button>
+                        </a>
+                    </td>
+                </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
 </div>
 
 <div class="col-sm-5">
     <div class="block">
             <div class="block-title clearfix">
-              <h2><span class="hidden-xs">Lista de</span> Lista de Formulación</h2>
+              <h2><span class="hidden-xs">Lista de</span> Formulación</h2>
             </div>
             <div class="table-responsive">
               <table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">

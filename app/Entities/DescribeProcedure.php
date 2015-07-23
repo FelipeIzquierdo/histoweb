@@ -6,8 +6,6 @@ class DescribeProcedure extends Model {
 
     public $table = "describe_procedures";
 
-    public $primaryKey = "id";
-
     public $timestamps = true;
 
     public $increments = true;
@@ -26,11 +24,6 @@ class DescribeProcedure extends Model {
         "description",
         "complications"
     ];
-
-    public static  function getDescribeProcedures($entry_id)
-    {
-        return self::where('entry_id','=',$entry_id)->orderBy('updated_at', 'desc')->paginate(12);
-    }
 
 
     public function surgery()

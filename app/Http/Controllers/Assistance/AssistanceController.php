@@ -16,14 +16,13 @@ use Histoweb\Entities\Formulate;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 
-use Response, Input, DateTime;
+use Response, Input;
 class AssistanceController extends Controller {
 
 	private $diaries;
 	private $diary;
 	private $entry;
 	private $doctor;
-	private static $RoutePdfHistoryClinic = '/documents/historyClinic/';
 	private static $RoutePdfListsProcedures = '/documents/';
 
 	/**
@@ -35,7 +34,6 @@ class AssistanceController extends Controller {
 	public function __construct() 
 	{
 		$this->beforeFilter('@findDoctor');
-		$this->beforeFilter('@findDiaries', ['only' => ['getIndex', 'getCreateEntry','getOptions']]);
 		$this->beforeFilter('@findEntry', ['only' => [ 'getExit', 'getOptions','getRemoveProcedure','getPdf']]);
 		$this->beforeFilter('@findDiary', ['only' => ['getCreateEntry', 'postHistory']]);
 	}
@@ -43,11 +41,6 @@ class AssistanceController extends Controller {
 	public function findDoctor()
 	{
 		$this->doctor = Doctor::find(1);
-	}
-
-	public function findDiaries()
-	{
-		$this->diaries = $this->doctor->getDiariesToday();
 	}
 
 	public function findEntry(Route $route)
@@ -63,7 +56,6 @@ class AssistanceController extends Controller {
 	public function getIndex()
 	{	
 		return view('dashboard.pages.assistance.home')->with([
-			'diaries' 	=> $this->diaries,
 			'doctor'	=> $this->doctor
 		]);
 	}
@@ -75,59 +67,53 @@ class AssistanceController extends Controller {
 			return redirect()->route('assistance.entries.options', $this->diary->entry->id);
 		}
 		return view('dashboard.pages.assistance.entry')->with([
-			'diaries'			=> $this->diaries, 
-			'diary'				=> $this->diary
+			'diary'	=> $this->diary,
+			'doctor'	=> $this->doctor
 		]);
 	}
 
 	public function getExit()
 	{
-		$dt = new DateTime();
-		$this->entry->exit_at = $dt->format('Y-m-d H:i:s');
-		$this->entry->save();
-		
+		$this->entry->getSaveExit();
 		return redirect()->route('assistance');
 	}
 
 	public function postHistory(CreateRequest $request, $id)
 	{
 		$entry = $this->diary->getNewOrFirstEntry();
-		if(!$entry->exists)
+		if( ! $entry->exists )
 		{
 			$entry->saveHistory($request->all());
 			$pdf = new MyPdf();
-			$pdf->historyPdf($this->diary->entry,$request->all());
+			$pdf->historyPdf( $entry , $request->all() );
 		}
-		return redirect()->route('assistance.entries.options', $this->diary->entry->id);
+		return redirect()->route('assistance.entries.options', $entry->id);
 	}
 
 	public function getOptions($id)
 	{	
 		$list_formulates = Formulate::ListsViews();
 		$form_data = ['route' => ['assistance.entries.removeprocedure',$this->entry->id], 'method' => 'POST', 'id' => 'entryForm'];
-		$order_procedures = OrderProcedure::getListsOrderProcedures($this->entry->id);
-        $describe_procedures = DescribeProcedure::getDescribeProcedures($this->entry->id);
 		
 		return view('dashboard.pages.assistance.options',compact('form_data','list_formulates'))->with([
-			'diaries' 	=> $this->diaries,
-			'doctor'	=> $this->doctor,
-			'entry' 	=> $this->entry,
-			'order_procedures' => $order_procedures,
-            'describe_procedures' => $describe_procedures,
-			'id'		=> $id,
-            'pdf'       => self::$RoutePdfHistoryClinic
+			'doctor'				=> $this->doctor,
+			'entry' 				=> $this->entry
 		]);
 	}
 
 	public function getPdf($id)
 	{	
 		$filename = public_path().self::$RoutePdfListsProcedures.$id.'.pdf';
+		
 		if(\File::exists($filename))
-			return Response::download($filename,'Procedimientos.pdf');
+		{
+			return Response::download($filename,'Procedimientos.pdf');	
+		}
+			
 		return redirect()->route('assistance.entries.options', $this->entry->id);
 	}
 
-	public function getRemoveProcedure($entry)
+	public function getRemoveProcedure($entry_id)
 	{	
 		OrderProcedure::removeProcedure( $this->entry->id, Input::get('procedure') );
 		$rta = Procedure::getOrderProceduresAll($this->entry->id);
@@ -140,7 +126,6 @@ class AssistanceController extends Controller {
 	public function getFormulate($id)
 	{	
 		return view('dashboard.pages.assistance.options')->with([
-			'diaries' 	=> $this->diaries,
 			'doctor'	=> $this->doctor,
 			'entry' 	=> $this->entry
 		]);

@@ -4,8 +4,11 @@
     <h1>Paciente: {{ $entry->diary->patient->name }}</h1>
 @endsection
 
-@section('dashboard_body')
+@section('breadcrumbs')
+{!! Breadcrumbs::render('describe_procedure', $entry->id, $describe_procedures) !!}
+@endsection
 
+@section('dashboard_body')
 
     {!! Form::model($describe_procedures, $form_data) !!}
     
