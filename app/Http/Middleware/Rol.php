@@ -2,7 +2,7 @@
 
 use Closure;
 
-class ReceptionRole {
+class Rol {
 
 	/**
 	 * Handle an incoming request.
@@ -11,13 +11,12 @@ class ReceptionRole {
 	 * @param  \Closure  $next
 	 * @return mixed
 	 */
-	public function handle($request, Closure $next)
+	public function handle($request, Closure $next, $rolName)
 	{	
-		if ($request->user()->roles->name != 'Recepcion') {
+		if ($request->user()->roles->name != $rolName) {
             return redirect('/');
         }
 
 		return $next($request);
 	}
-
 }

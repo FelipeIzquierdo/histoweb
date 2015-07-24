@@ -36,4 +36,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsTo('Histoweb\Entities\Role', 'role_id');
     }
 
+    public function office()
+    {
+        return $this->morphTo();
+    }
+
 }

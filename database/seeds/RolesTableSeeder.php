@@ -9,21 +9,25 @@
 
 		private static $roles = [
 			[
-				'name' 			=> 'Administrador'
+				'name' 			=> 'admin',
+				'description'	=> 'Administrador'
 			],
 			[
-				'name' 			=> 'Recepcion'
+				'name' 			=> 'reception',
+				'description'	=> 'Recepcción'
 			],
 			[
-				'name' 			=> 'Medico'
+				'name' 			=> 'doctor',
+				'description'	=> 'Medico'
 			],
 		];
 		
 		public function run()
 	    {
-	    	foreach (self::$roles as $type) {
+	    	foreach (self::$roles as $rol) {
 	    		Role::create([
-	                'name'			=> $type['name']
+	                'name'			=> $rol['name'],
+	                'description'	=> $rol['description']
 	            ]);
 	    	}
 	    }
