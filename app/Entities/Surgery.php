@@ -9,12 +9,12 @@ class Surgery extends Model {
 
     public function getToolsIdAttribute()
     {
-    	return $this->tools->lists('id');
+    	return $this->tools->lists('id')->all();
     }
 
     public static function allLists()
     {
-        return self::lists('name', 'id' );
+        return self::lists('name', 'id' )->all();
     }
 
     public function tools()

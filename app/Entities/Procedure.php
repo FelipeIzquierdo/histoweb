@@ -17,7 +17,7 @@ class Procedure extends Model {
 
     public static function allLists()
     {
-        return self::lists('name', 'id');
+        return self::lists('name', 'id')->all();
     }
 
     public static function getProceduresNotIn($id)
@@ -27,7 +27,7 @@ class Procedure extends Model {
                   ->from('order_procedures')
                   ->where('order_procedures.entry_id','=',$id);
         })
-        ->lists('name', 'id');  
+        ->lists('name', 'id')->all();  
     }
 
    public function procedureType()

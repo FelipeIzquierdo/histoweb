@@ -31,7 +31,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
-    public function roles()
+	public function hasRol($rolName)
+	{
+		if($this->rol->name == $rolName)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+    public function rol()
     {
         return $this->belongsTo('Histoweb\Entities\Role', 'role_id');
     }

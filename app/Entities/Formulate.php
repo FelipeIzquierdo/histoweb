@@ -14,7 +14,7 @@ class Formulate extends Model
 
     public static function allLists()
     {
-        return self::get()->lists( 'id' );
+        return self::get()->lists( 'id' )->all();
     }
     
     public function concentration()

@@ -14,7 +14,7 @@ class Presentation extends Model
 
 	public static function allLists()
     {
-        return self::lists('name', 'id');
+        return self::lists('name', 'id')->all();
     }
 }
 

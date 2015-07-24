@@ -12,7 +12,7 @@ class HistoryType extends Model
 
 	public static function allLists()
     {
-        return self::lists('name' ,'id');
+        return self::lists('name' ,'id')->all();
     }
 
     public static function withHistories()
@@ -27,7 +27,7 @@ class HistoryType extends Model
 
     public function historyLists()
     {
-        return $this->histories->lists('name', 'id');
+        return $this->histories->lists('name', 'id')->all();
     }
 
 }

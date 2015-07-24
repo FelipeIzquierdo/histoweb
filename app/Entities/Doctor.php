@@ -16,12 +16,12 @@ class Doctor extends Model
 
     public static function allLists()
     {
-        return self::get()->lists('name_specialty_telemedicine' ,'id' );
+        return self::get()->lists('name_specialty_telemedicine' ,'id' )->all();
     }
 
     public static function allListSpecialty($specialty_id)
     {
-        return self::whereSpecialtyId($specialty_id)->get()->lists('name', 'id');
+        return self::whereSpecialtyId($specialty_id)->get()->lists('name', 'id')->all();
     }
 
     public static function allListSpecialtyName($specialty_name)

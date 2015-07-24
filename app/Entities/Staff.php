@@ -19,12 +19,12 @@ class Staff extends Model
 
     public static function allLists()
     {
-        return self::lists('name', 'id' );
+        return self::lists('name', 'id' )->all();
     }
 
     public static function allListProfession($profession_id)
     {
-        return self::whereProfessionId($profession_id)->get()->lists('name', 'id');
+        return self::whereProfessionId($profession_id)->get()->lists('name', 'id')->all();
     }
 
     public static function allListProfessionName($profession_name)
@@ -43,7 +43,7 @@ class Staff extends Model
 
         if($profession)
         {            
-            return $profession->staff->lists('name', 'id');
+            return $profession->staff->lists('name', 'id')->all();
         }
 
         return array();
@@ -57,7 +57,7 @@ class Staff extends Model
 
     public function getProfessionsIdAttribute()
     {
-        return $this->professions->lists('id');
+        return $this->professions->lists('id')->all();
     }
 
     public function users()

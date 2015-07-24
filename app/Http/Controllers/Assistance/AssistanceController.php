@@ -16,7 +16,7 @@ use Histoweb\Entities\Formulate;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 
-use Response, Input;
+use Response, Input, Auth;
 class AssistanceController extends Controller {
 
 	private $diaries;

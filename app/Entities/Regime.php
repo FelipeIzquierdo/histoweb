@@ -12,6 +12,6 @@ class Regime extends Eloquent
 
 	public static function allLists()
     {
-        return self::lists('type', 'code_regime');
+        return self::lists('type', 'code_regime')->all();
     }
 }

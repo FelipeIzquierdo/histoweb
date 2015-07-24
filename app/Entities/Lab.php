@@ -13,7 +13,7 @@ class Lab extends Model
 
     public static function allLists()
     {
-        return self::get()->lists('name' ,'id' );
+        return self::get()->lists('name' ,'id' )->all();
     }
 
 }

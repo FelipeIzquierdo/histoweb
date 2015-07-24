@@ -15,7 +15,7 @@ class Patient extends Model
 
     public static function allLists()
     {
-        return self::get()->lists('nameDoc' ,'id' );
+        return self::get()->lists('nameDoc' ,'id' )->all();
     }
 
     public static function allActived()

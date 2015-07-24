@@ -20,7 +20,7 @@ class Concentration extends Model
     {
         return self::whereGenericMedicationId($medicament)
             ->with(['presentation', 'unit', 'diluent'])
-            ->get()->lists('detail', 'id');
+            ->get()->lists('detail', 'id')->all();
     }
 
     public function getDetailAttribute()

@@ -40,6 +40,17 @@
 	            'created_at'    => 	new DateTime,
 	            'updated_at'    => 	new DateTime
 	        ));
+
+	        DB::table('users')->insert(array(
+	            'name'          => 	'Medico',
+	            'email'         =>	'medico2@histowebco.com',
+	            'role_id'		=> 	3,
+	            'office_type'	=>	'Histoweb\Entities\Doctor',
+	            'office_id'		=>	2,	
+	            'password'      =>  Hash::make('123'),
+	            'created_at'    => 	new DateTime,
+	            'updated_at'    => 	new DateTime
+	        ));
 	    }
 	}
 ?>
