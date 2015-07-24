@@ -15,6 +15,11 @@ class PdfBuilder {
 
     public function historyPdf($entry, $data)
     {        
+        $reasons = [];
+        $system_revisions = [];
+        $procedures = [];
+        $diseases = [];
+
         $this->pdf->setTitleHeader('Historia clinica');
         $patientDocType = $entry->diary->patient->doc_type_doc;
         $patientName = $entry->diary->patient->name;
@@ -23,20 +28,23 @@ class PdfBuilder {
         $this->pdf->SetTitle('Historia clinica');
         $this->pdf->SetAuthor('Histoweb');
         $this->pdf->SetTitle('Historia Clinica, '.$patientDocType.':' .$patientDoc .' - '. $patientName);
-        $reasons = '';
-        foreach ($data['reasons'] as $key )
-        {
-            if($reasons == ''){
-                $reasons = Reason::find($key)->name;
-            }
-            else{
-                $reasons = $reasons.', '. Reason::find($key)->name;
-            }
-        }
-        if($data['new_reasons'] != ''){
-            $reasons = $reasons.', '.$data['new_reasons'];
+        
+        foreach ($entry->reasons as $key => $value) {
+            $reasons[$key] = $value->name;
         }
 
+        foreach ($entry->systemRevisions as $key => $value) {
+            $system_revisions[$key] = $value->name;
+        }
+
+        foreach ($entry->procedures as $key => $value) {
+            $procedures[$key] = $value->name;
+        }
+
+        foreach ($entry->diseases as $key => $value) {
+            $diseases[$key] = $value->name;
+        }
+        
         $this->pdf->AddPage();
         $this->pdf->Ln(20);
         $this->pdf->SetFont('helvetica', 'B', 15);
@@ -48,13 +56,13 @@ class PdfBuilder {
         $this->pdf->SetFont('times', 'B', 14);
         $this->pdf->Write(0, 'Motivos de consulta : ', '', 0, '', 0, 0, false, false, 0);
         $this->pdf->SetFont('times', '', 14);
-        $this->pdf->Write(0, $reasons, '', 0, '', 0, 0, false, false, 0);
+        $this->pdf->Write(0, implode(",", $reasons) , '', 0, '', 0, 0, false, false, 0);
         $this->pdf->Ln(10);
 
         $this->pdf->SetFont('times', 'B', 14);
         $this->pdf->Write(0, 'Enfermedad actual : ', '', 0, '', 0, 0, false, false, 0);
         $this->pdf->SetFont('times', '', 14);
-        $this->pdf->Write(0, $data['present_illness'], '', 0, '', 0, 0, false, false, 0);
+        $this->pdf->Write(0, $entry->present_illness, '', 0, '', 0, 0, false, false, 0);
         $this->pdf->Ln(10);
 
         $this->pdf->SetFont('times', 'B', 14);
@@ -66,25 +74,25 @@ class PdfBuilder {
         $this->pdf->SetFont('times', 'B', 14);
         $this->pdf->Write(0, 'Revisión de sistemas : ', '', 0, '', 0, 0, false, false, 0);
         $this->pdf->SetFont('times', '', 14);
-        $this->pdf->Write(0,$data['new_system_revisions'] , '', 0, '', 0, 0, false, false, 0);
+        $this->pdf->Write(0, implode(",", $system_revisions) , '', 0, '', 0, 0, false, false, 0);
         $this->pdf->Ln(10);
 
         $this->pdf->SetFont('times', 'B', 14);
         $this->pdf->Write(0, 'Procedimientos : ', '', 0, '', 0, 0, false, false, 0);
         $this->pdf->SetFont('times', '', 14);
-        $this->pdf->Write(0,'' , '', 0, '', 0, 0, false, false, 0);
+        $this->pdf->Write(0, implode(",", $procedures) , '' , 0, '', 0, 0, false, false, 0);
         $this->pdf->Ln(10);
 
         $this->pdf->SetFont('times', 'B', 14);
         $this->pdf->Write(0, 'Diagnosticos : ', '', 0, '', 0, 0, false, false, 0);
         $this->pdf->SetFont('times', '', 14);
-        $this->pdf->Write(0,'' , '', 0, '', 0, 0, false, false, 0);
+        $this->pdf->Write(0, implode(",", $diseases) , '' , 0, '', 0, 0, false, false, 0);
         $this->pdf->Ln(10);
 
         $this->pdf->SetFont('times', 'B', 14);
         $this->pdf->Write(0, 'Plan de Manejo : ', '', 0, '', 0, 0, false, false, 0);
         $this->pdf->SetFont('times', '', 14);
-        $this->pdf->Write(0, $data['management_plan'], '', 0, '', 0, 0, false, false, 0);
+        $this->pdf->Write(0, $entry->management_plan, '', 0, '', 0, 0, false, false, 0);
         $this->pdf->Ln(10);
 
         $filename = public_path() . '/documents/historyClinic/'.$entry->id.'.pdf';

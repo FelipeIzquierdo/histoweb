@@ -119,13 +119,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                   @foreach($list_formulates as $list_formulate)
+                 @foreach($formulations as $f)
                     <tr>
                       <td>
-                        {{ $list_formulate->for_humans }}
+                        {{ $f->for_humans }}
                       </td>
                       <td class="text-center">
-                        <a href="{{ route('assistance.options.formulate.edit', [$entry->id,$list_formulate->id]) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
+                        <a href="{{ route('assistance.options.formulate.edit', [$entry->id,$f->id]) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
                       </td>
                     </tr>
                   @endforeach
@@ -134,7 +134,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                        {!! $list_formulates->render() !!}
+                        {!! $formulations->render() !!}
                     </div>
             </div>
     </div>

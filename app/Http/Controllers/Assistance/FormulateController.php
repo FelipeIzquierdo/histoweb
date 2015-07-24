@@ -43,7 +43,7 @@ class FormulateController extends Controller {
 
 	public function create()
 	{
-		$formulations = $this->entry->formulates()->orderBy('updated_at', 'desc')->paginate(12);
+		$formulations = $this->entry->getFormulatePaginate();
         $this->formulate = new Formulate;
 
         $form_data = ['route' => [self::$prefixRoute . 'store',$this->entry->id], 'method' => 'POST'];
@@ -67,7 +67,7 @@ class FormulateController extends Controller {
 
 	public function edit($one,$two)
 	{
-		$formulations = $this->entry->formulates()->orderBy('updated_at', 'desc')->paginate(12);
+		$formulations = $this->entry->getFormulatePaginate();
         $form_data = ['route' => [self::$prefixRoute . 'update', $this->entry->id,$this->formulate->id], 'method' => 'POST'];
         
         return view(self::$prefixView . 'formm', compact('form_data','formulations'))

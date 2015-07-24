@@ -74,7 +74,7 @@ class AssistanceController extends Controller {
 
 	public function getExit()
 	{
-		$this->entry->getSaveExit();
+		$this->entry->setExit();
 		return redirect()->route('assistance');
 	}
 
@@ -85,17 +85,17 @@ class AssistanceController extends Controller {
 		{
 			$entry->saveHistory($request->all());
 			$pdf = new MyPdf();
-			$pdf->historyPdf( $entry , $request->all() );
+			$pdf->historyPdf( $entry , $entry );
 		}
 		return redirect()->route('assistance.entries.options', $entry->id);
 	}
 
 	public function getOptions($id)
 	{	
-		$list_formulates = Formulate::ListsViews();
+		$formulations = $this->entry->getFormulatePaginate();
 		$form_data = ['route' => ['assistance.entries.removeprocedure',$this->entry->id], 'method' => 'POST', 'id' => 'entryForm'];
 		
-		return view('dashboard.pages.assistance.options',compact('form_data','list_formulates'))->with([
+		return view('dashboard.pages.assistance.options',compact('form_data','formulations'))->with([
 			'doctor'				=> $this->doctor,
 			'entry' 				=> $this->entry
 		]);

@@ -105,11 +105,15 @@ class Entry extends Model
         return $system_revision_ids;
     }
 
-    public function getSaveExit()
+    public function setExit()
     {
         $data_time = new \DateTime(); 
         $this->exit_at = $data_time->format('Y-m-d H:i:s');
         $this->save();
+    }
+    public function getFormulatePaginate ()
+    {
+        return $this->formulates()->orderBy('updated_at', 'desc')->paginate(12);
     }
     public function getHistoryPdf()
     {

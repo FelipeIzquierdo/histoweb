@@ -12,7 +12,7 @@ class SystemRevision extends Model
 
     public function getNameAttribute($value)
     {
-        return ucfirst($value);
+        return ucfirst(strtolower($value));
     }
 
     public function setNameAttribute($value)

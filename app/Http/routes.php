@@ -23,7 +23,7 @@ Route::get('deprueba', function(){
 });
 
 
-Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function() {
+Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware' => ['doctor_role']], function() {
 
 	Route::get('options/{one}/formulate/create', ['uses' => 'FormulateController@create', 'as' => 'assistance.options.formulate.create']);
 	Route::post('options/{one}/formulate/create', ['uses' => 'FormulateController@store', 'as' => 'assistance.options.formulate.store']);
@@ -52,7 +52,7 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 	]);
 });
 
-Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => 'auth'], function() {
+Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => ['auth','reception_role']], function() {
 	Route::controller('/', 'ReceptionController', [
 		'getIndex' => 'reception',		
 		'postActivateDiary' => 'reception.activate-diary'
@@ -62,7 +62,7 @@ Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' 
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function() {
 	
-	Route::group(['prefix' => 'system', 'namespace' => 'System'], function() {
+	Route::group(['prefix' => 'system', 'namespace' => 'System', 'middleware' => ['administrator_role']], function() {
 
 		Route::resource('professions', 'ProfessionController');
 		Route::get('professions/{professions}/delete', [
@@ -122,7 +122,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 
 	});
 
-	Route::group(['prefix' => 'company', 'namespace' => 'Company'], function() {
+	Route::group(['prefix' => 'company', 'namespace' => 'Company', 'middleware' => ['administrator_role']], function() {
 
         Route::resource('staff', 'StaffController');
         Route::get('staff/{id}/delete', [

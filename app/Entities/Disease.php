@@ -11,7 +11,7 @@ class Disease extends Model {
 
     public function getNameAttribute($value)
     {
-        return ucfirst($value);
+        return ucfirst(strtolower($value));
     }
 
     public static function allLists()

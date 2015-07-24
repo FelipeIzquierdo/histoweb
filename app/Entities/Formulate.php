@@ -16,11 +16,6 @@ class Formulate extends Model
     {
         return self::get()->lists( 'id' );
     }
-
-    public static function ListsViews()
-    {
-        return self::orderBy('updated_at', 'desc')->paginate(12);
-    }
     
     public function concentration()
     {
