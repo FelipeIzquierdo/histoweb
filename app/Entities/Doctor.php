@@ -14,16 +14,6 @@ class Doctor extends Model
 
     protected $fillable = ['cc','first_name','last_name','color','specialty_id', 'telemedicine'];
 
-    /*public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = strtolower($velue);
-    }
-
-    public function getNameAttribute($value)
-    {
-        return ucfirst($value);
-    }*/
-
     public static function allLists()
     {
         return self::get()->lists('name_specialty_telemedicine' ,'id' );
@@ -112,6 +102,11 @@ class Doctor extends Model
     public function specialty()
     {
         return $this->belongsTo('Histoweb\Entities\Specialty');
+    }
+
+    public function users()
+    {
+        return $this->morphMany('Histoweb\User', 'office');
     }
 
 }

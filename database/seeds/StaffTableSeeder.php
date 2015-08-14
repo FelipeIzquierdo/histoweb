@@ -21,6 +21,18 @@
                 'code'	=>  2,
             ]);
 
+            Staff::create([
+                'name'  => 'Ana Giraldo',
+                'description' => 'secretaria',
+                'code'  =>  3,
+            ]);
+
+            Staff::create([
+                'name'  => 'Andrés Pinzón',
+                'description' => 'jefe sistemas',
+                'code'  =>  4,
+            ]);
+
             \DB::table('profession_staff')->insertGetId(array(
                 'staff_id'              => 1,
                 'profession_id'      => 3,
