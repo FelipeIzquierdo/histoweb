@@ -21,8 +21,9 @@ Route::controllers([
 Route::get('deprueba', 'PruebaController@index');
 
 
-Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware' => ['rol:doctor']], function() {
-
+//Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware' => ['rol:doctor']], function() {
+Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function() {
+	
 	Route::get('options/{one}/formulate/create', ['uses' => 'FormulateController@create', 'as' => 'assistance.options.formulate.create']);
 	Route::post('options/{one}/formulate/create', ['uses' => 'FormulateController@store', 'as' => 'assistance.options.formulate.store']);
 	Route::get('options/{one}/formulate/{two}/edit', ['uses' => 'FormulateController@edit', 'as' => 'assistance.options.formulate.edit']);
@@ -51,7 +52,8 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware'
 });
 
 
-Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => ['auth','rol:reception']], function() {
+//Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => ['auth','rol:reception']], function() {
+Route::group(['prefix' => 'reception', 'namespace' => 'Reception'], function() {
 	Route::controller('/', 'ReceptionController', [
 		'getIndex' => 'reception',		
 		'postActivateDiary' => 'reception.activate-diary'
@@ -59,7 +61,8 @@ Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' 
 	]);
 });
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'rol:reception']], function() {
+//Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'rol:admin']], function() {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
 	
 	Route::group(['prefix' => 'system', 'namespace' => 'System'], function() {
 
