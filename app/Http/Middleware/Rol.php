@@ -13,6 +13,7 @@ class Rol {
 	 */
 	public function handle($request, Closure $next, $rolName)
 	{	
+		dd($rolName);
 		if ($request->user()->roles->name != $rolName) {
             return redirect('/');
         }

@@ -1,5 +1,5 @@
 <?php 
-use Histoweb\Entities\Surgery;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,6 +10,7 @@ use Histoweb\Entities\Surgery;
 | and give it the controller to call when that URI is requested.
 |
 */
+
 Route::get('/', 'HomeController@index');
 
 Route::controllers([
@@ -17,10 +18,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('deprueba', function(){
-	$surgery = Surgery::find(1);
-	dd($surgery->diaries);
-});
+Route::get('deprueba', 'PruebaController@index');
 
 
 Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware' => ['rol:doctor']], function() {
@@ -51,6 +49,7 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware'
 		'getPdf'			=> 'assistance.entries.pdf',
 	]);
 });
+
 
 Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => ['auth','rol:reception']], function() {
 	Route::controller('/', 'ReceptionController', [
@@ -100,7 +99,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		Route::resource('tools', 'ToolsController');
 		Route::resource('specialties', 'SpecialtiesController');
 		Route::resource('system-revisions', 'SystemRevisionsController');
-        Route::resource('eps', 'EpsController');
+	    Route::resource('eps', 'EpsController');
 
 		Route::group(['prefix' => 'medicament', 'namespace' => 'Medicament'], function() {
 
@@ -123,15 +122,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	});
 
 	Route::group(['prefix' => 'company', 'namespace' => 'Company', 'middleware' => ['role:admin']], function() {
-
-        Route::resource('staff', 'StaffController');
-        Route::get('staff/{id}/delete', [
-            'as' => 'staff.delete',
-            'uses' => 'StaffController@destroy',
-        ]);
+	    Route::resource('staff', 'StaffController');
+	    
+	    Route::get('staff/{id}/delete', [
+	        'as' => 'staff.delete',
+	        'uses' => 'StaffController@destroy',
+	    ]);
 
 		Route::resource('patients', 'PatientsController');
-        Route::get('patients/{doc}/find', ['uses' => 'PatientsController@find', 'as' => 'admin.company.patients.find']);
+	    Route::get('patients/{doc}/find', ['uses' => 'PatientsController@find', 'as' => 'admin.company.patients.find']);
 
 		Route::group(['namespace' => 'Surgery'], function() {
 			Route::resource('surgeries.availabilities', 'SurgeriesAvailabilitiesController');
@@ -157,7 +156,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 			Route::group(['prefix' => 'doctors'], function() {
 				Route::get('{doctors}/availabilities-json', ['uses' => 'DoctorsAvailabilitiesController@json', 'as' => 'admin.company.doctors.availabilities.json']);
 				Route::get('{doctors}/diaries-json', ['uses' => 'DoctorsDiariesController@json', 'as' => 'admin.company.doctors.diaries.json']);
-                Route::get('{doctors}/new-diary/{patients}/{diary_types}', ['uses' => 'DoctorsDiariesController@newDiary', 'as' => 'admin.company.doctors.diaries.new']);
+	            Route::get('{doctors}/new-diary/{patients}/{diary_types}', ['uses' => 'DoctorsDiariesController@newDiary', 'as' => 'admin.company.doctors.diaries.new']);
 			});
 
 			Route::resource('doctors', 'DoctorsController');
@@ -165,14 +164,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 
 		Route::controller('/', 'CompanyController', ['getIndex' => 'admin.company']);
 	});
-
+	
 	Route::controller('/', 'AdminController', ['getIndex' => 'admin']);
 });
 
+Route::group(['prefix' => 'videoconferencing', 'namespace' => 'Videoconferencing'], function() {
 
-
-
-
-
-
-
+	Route::controller('/', 'VideoconferencingController', [
+		'getIndex' 			=> 'videoconferencing', 
+	]);
+});

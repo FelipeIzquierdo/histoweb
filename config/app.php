@@ -145,7 +145,7 @@ return [
         'Histoweb\Providers\CalendarServiceProvider',
         Histoweb\Providers\ComposerServiceProvider::class,
 
-		//'Laracasts\Flash\FlashServiceProvider',
+		'Laracasts\Flash\FlashServiceProvider',
 		'Mitul\Generator\GeneratorServiceProvider',
 		/*
 		 * Application Service Providers...
@@ -216,7 +216,7 @@ return [
         'Field'		=> 'Histoweb\Components\Field\FieldFacade',
         'Calendar'	=> 'Histoweb\Components\Calendar\CalendarFacade',
 
-        //'Flash' 	=> 'Laracasts\Flash\Flash'
+        'Flash' 	=> 'Laracasts\Flash\Flash'
 
 	],
 
