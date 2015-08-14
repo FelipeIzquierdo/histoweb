@@ -1,5 +1,9 @@
 $(document).ready(function () {
     
+    $('#btn-video').on('click',function(){
+      $('#videoconferencing').toggle('slow');
+    });
+
     $('button[id="submitEntry"]').on('click', function(e){
         var $form = $(this).closest('form');
         e.preventDefault();

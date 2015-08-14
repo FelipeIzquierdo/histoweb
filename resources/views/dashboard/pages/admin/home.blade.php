@@ -22,4 +22,7 @@
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('reception'), 'icon_widget' => 'img/placeholders/icons/reception.png', 'title_widget' => 'Recepción'])
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('assistance'), 'icon_widget' => 'img/placeholders/icons/assistance.png', 'title_widget' => 'Asistencia'])
+
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('videoconferencing'), 'icon_widget' => 'img/placeholders/icons/videoconferencing.png', 'title_widget' => 'Videoconferencia'])
+
 	@endsection

@@ -217,7 +217,9 @@ return array(
    	'diluent_id' => 'Diluyente',
    	'diluent_amount' => 'Cantidad del diluyente',
    	'unit_amount' => 'Cantidad de la unidad',
-   	'diseases' => 'Diagnóstico'
+   	'diseases' => 'Diagnóstico',
+
+   	'user-connects' => 'Usuarios conectados',
 
 ]
 
