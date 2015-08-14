@@ -40,6 +40,15 @@
 	            'created_at'    => 	new DateTime,
 	            'updated_at'    => 	new DateTime
 	        ));
+
+	        DB::table('users')->insert(array(
+	            'name'          => 'Invitado',
+	            'email'         => 'invitado@histowebco.com',
+            	'password'      =>  Hash::make('123'),
+	            'created_at'    => new DateTime,
+	            'updated_at'    => new DateTime,
+	            'role_id'		=> '4' 
+	        ));
 	    }
 	}
 ?>

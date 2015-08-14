@@ -19,7 +19,11 @@
 			[
 				'name' 			=> 'doctor',
 				'description'	=> 'Medico'
-			]
+			],
+			[
+				'name' 			=> 'invitado',
+				'description'	=> 'Invitado'
+			],
 		];
 		
 		public function run()
