@@ -3,14 +3,25 @@ $('#btn-load').on('click',function(){
 });
 
 $('#connectLink').on('click',function(){
+    document.getElementById('disconnectLink').style.display = 'block';
+    document.getElementById('connectLink').style.display = 'none';
+
+    $('#VideoModal').modal({ backdrop: 'static', keyboard: false })
+        .one('click', '#confirm', function() {
+        $form.trigger('submit'); // submit the form
+    });
     toggleImages();
 });
 
 $('#disconnectLink').on('click',function(){
+    document.getElementById('connectLink').style.display = 'block';
+    document.getElementById('disconnectLink').style.display = 'none';
     toggleImages();
 }); 
 
 $('#videoexit').on('click',function(){
+    document.getElementById('connectLink').style.display = 'block';
+    document.getElementById('disconnectLink').style.display = 'none';
     toggleImages();
     disconnect();
 });
@@ -18,8 +29,8 @@ $('#videoexit').on('click',function(){
 var session;
 var publisher;
 		
-var VIDEO_WIDTH = 361;
-var VIDEO_HEIGHT = 347;
+var VIDEO_WIDTH = '100%';
+var VIDEO_HEIGHT = '300px';
 
 		 
 var _selfstream;
@@ -54,8 +65,6 @@ function connect() {
 function disconnect() {
     stopPublishing();
     session.disconnect() ;
-	
-    changeClassDisconnect();
 }
 
 // Called when user wants to start publishing to the session
@@ -65,7 +74,7 @@ function startPublishing() {
         var publisherDiv = document.createElement('div'); // Create a div for the publisher to replace
         publisherDiv.setAttribute('id', 'opentok_publisher');
         parentDiv.appendChild(publisherDiv);
-        var publisherProps = {width: VIDEO_WIDTH, height: VIDEO_HEIGHT, name: name};
+        var publisherProps = {width: VIDEO_WIDTH , height: VIDEO_HEIGHT, name: name};
         publisher = OT.initPublisher(apiKey, publisherDiv.id, publisherProps);  // Pass the replacement div id and properties
         session.publish(publisher);
         publisher.on("streamCreated", function (event) {  //access the self video 
@@ -86,9 +95,7 @@ function stopPublishing() {
 
 		
 function sessionConnectedHandler(event) {
-			 
     startPublishing();
-    changeClassConnect();
 }
 
 function streamCreatedHandler(event) {
@@ -202,7 +209,6 @@ function signalEventHandler(event) {
         document.getElementById('acceptCallBox').style.display = 'block';
         document.getElementById('acceptCallLabel').innerHTML = 'Llamando ' + _name;
 
-
         //***************************Accept Call*************************************//
         document.getElementById('callAcceptButton').onclick = function () {
 
@@ -265,7 +271,9 @@ function signalEventHandler(event) {
         _streamId = data[0];
         _name = data[1];
         _callaccepted = data[2];
-         
+
+        document.getElementById('name_doc').innerHTML = 'Dr. ' + _name;
+
         if (_callaccepted == 'yes') { 
 
             addStream(_streams[_streamId]);
@@ -312,14 +320,15 @@ function sessionDisconnectedHandler(event) {
     OT.off("exception", exceptionHandler);
     session.off('sessionDisconnected', sessionDisconnectedHandler);
     publisher = null;
-    changeClassConnect();
-			 
 }
 
 
 
 function connectionDestroyedHandler(event) {
     // This signals that connections were destroyed
+    document.getElementById('name_doc').innerHTML = '';
+    document.getElementById('acceptCallBox').style.display = 'none';
+    document.getElementById('acceptCallLabel').innerHTML = '';
 }
 
 function connectionCreatedHandler(event) {
@@ -355,27 +364,6 @@ function addStream(stream) {
 function removeStream(stream)
 {
     session.unsubscribe(subscribers[stream.streamId]);
-}
-
-function changeClassConnect() {
-    $('#connectLink').attr('onclick',"javascript:disconnect()");
-    document.getElementById('connectLink').innerHTML = '<i class="fa fa-fw fa-user-md"></i> Colgar';
-    document.getElementById('connectLink').className = 'btn btn-danger';
-    document.getElementById('connectLink').id = 'disconnectLink';
-
-    $('#VideoModal').modal({ backdrop: 'static', keyboard: false })
-        .one('click', '#confirm', function() {
-        $form.trigger('submit'); // submit the form
-    });
-        alert('cone');
-}
-
-function changeClassDisconnect() {
-    $('#disconnectLink').attr('onclick',"javascript:connect()");
-    document.getElementById('disconnectLink').innerHTML = '<i class="fa fa-fw fa-user-md"></i> Iniciar';
-    document.getElementById('disconnectLink').className = 'btn btn-success';
-    document.getElementById('disconnectLink').id = 'connectLink';
-    alert('dis');
 }
 
 function toggleImages(){

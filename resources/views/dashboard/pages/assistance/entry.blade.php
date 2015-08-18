@@ -2,7 +2,7 @@
 
 @section('dashboard_title')
     <h1>Paciente: {{ $diary->patient->name }}
-        <a id="btn-video" class="btn btn-info" title="Nuevo Doctor">
+        <a id="btn-video" class="btn btn-info" title="Videoconferencia">
                 <i class="fa fa-video-camera"></i>
         </a>
     </h1>
@@ -20,15 +20,15 @@
             <div class="block-title clearfix">
                 <h2><span class="hidden-xs">Videoconferencia</h2>
             </div>
-            <div class="form-horizontal form-bordered home-video clearfix center-all">
-                
-                <div class="row">
-                    <div class="col-md-offset-2 col-md-7 col-xs-6 doc-itemx">
 
-                            <button id="connectLink" type="button" class="btn btn-effect-ripple btn-success btn-growl" data-growl="success" onclick="javascript:connect()" ><i class="fa fa-fw fa-user-md"></i> Iniciar </button>
-
-                    </div>
+            <div class="row">
+                <div class="col-md-offset-5 col-md-7 col-xs-6 doc-itemx">
+                        <button id="connectLink" type="button" class="btn btn-effect-ripple btn-success btn-growl" onclick="javascript:connect();" ><i class="fa fa-fw fa-user-md"></i> Iniciar </button>
+                        <button id="disconnectLink" type="button" class="btn btn-effect-ripple btn-danger btn-growl" onclick="javascript:disconnect();" style="display : none;" ><i class="fa fa-fw fa-user-md"></i> Colgar </button>
                 </div>
+            </div>
+            
+            <div class="form-horizontal form-bordered home-video clearfix center-all">
 
                 <div class="row">
 
@@ -36,28 +36,30 @@
 
                         <div class="common-video animated fadeInUp clearfix ae-animation-fadeInUp">
 
-                            <div id="myCamera">
-                                <img id="imagen1" width="670" height="500" src="{{ URL::to('img/placeholders/icons/video.png') }}" class="doc-img animate attachment-gallery-post-single wp-post-image" alt="doctor-1"> 
-                            </div>
-
                             <div class="text-content">
                                 <h5>Dr. {!! $doctor->name !!}</h5>
                                 <h5><small>{!! $doctor->specialty->name !!}</small></h5>
                             </div>
+
+                            <img id="imagen1" width="670" height="500" src="{{ URL::to('img/placeholders/icons/video.png') }}" class="doc-img animate attachment-gallery-post-single wp-post-image" alt="doctor-1"> 
+
+                            <div id="myCamera"> </div>
+
                         </div>
                     </div>
 
                     <div class="col-md-offset-3 col-md-8 col-lg-4 text-center doc-item">
                         <div class="common-video animated fadeInUp clearfix ae-animation-fadeInUp">
 
-                            <div id="subscribers">
-                                <img id="imagen2" width="670" height="500" src="{{ URL::to('img/placeholders/icons/video.png') }}" class="doc-img animate attachment-gallery-post-single wp-post-image" alt="doctor-2"> 
-                            </div>
-                            
-
                             <div class="text-content">
-                                <h5 id="name_doc"></h5>
+                                <h5 id="name_doc">Dr.</h5>
+                                <h5><small></small></h5>
                             </div>
+
+                            <img id="imagen2" width="670" height="500" src="{{ URL::to('img/placeholders/icons/video.png') }}" class="doc-img animate attachment-gallery-post-single wp-post-image" alt="doctor-2"> 
+
+                            <div id="subscribers"> </div>
+                        
                         </div>
                     </div>
                 </div>
@@ -294,8 +296,8 @@
 @section('js_extra')
     <script type="text/javascript">
         var apiKey = '{{ $api_key }}'; 
-        var sessionId = '2_MX40NTMwNTQ2Mn5-MTQzOTE0MjA2Mzk0N35HUkdteEdlcVhGSFMrMkdZQ2kwckM2SWp-UH4'; 
-        var token = 'T1==cGFydG5lcl9pZD00NTMwNTQ2MiZzaWc9M2FmYjlmYTJjZTdlN2UyMzg1NzhmM2MxZWIwNjE1YmIwNWQyNWExNTpzZXNzaW9uX2lkPTJfTVg0ME5UTXdOVFEyTW41LU1UUXpPVEUwTWpBMk16azBOMzVIVWtkdGVFZGxjVmhHU0ZNck1rZFpRMmt3Y2tNMlNXcC1VSDQmY3JlYXRlX3RpbWU9MTQzOTE0MjA2NCZyb2xlPW1vZGVyYXRvciZub25jZT0xNDM5MTQyMDY0LjAyNzEzNTk4NTI4OTcmZXhwaXJlX3RpbWU9MTQzOTc0Njg2NCZjb25uZWN0aW9uX2RhdGE9bmFtZSUzREZlbGlwZQ==';  
+        var sessionId = '{{ $session_id }}'; 
+        var token = '{{ $token }}';  
         var name = '{{ $doctor->name }}';
         var invitado = false;
         var audio = new Audio("{{ URL::to('call.mp3') }}");

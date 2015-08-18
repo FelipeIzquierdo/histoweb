@@ -20,6 +20,9 @@
 			[
 				'name' 			=> 'Invitado'
 			],
+			[
+				'name' 			=> 'Centro médico'
+			],
 		];
 		
 		public function run()

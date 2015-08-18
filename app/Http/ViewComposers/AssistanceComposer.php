@@ -34,10 +34,10 @@ class AssistanceComposer {
         $opentok = new OpenTok($api_key, $apiSecret);
         
         $session = $opentok->createSession();
-        //$session_id = $session->getSessionId();
-        //$token = $opentok->generateToken($session_id);
-        $session_id ='';
-        $token = '';
+        
+        $session_id ='2_MX40NTMwNTQ2Mn5-MTQzOTg1MzI4MTY0NH5tQUtPSXB6NnczK0JxOWozWk1MbVNKSWh-UH4';
+        $token = 'T1==cGFydG5lcl9pZD00NTMwNTQ2MiZzaWc9MWRjZWVjODM5NGE3OTlmNzQyNmU1ZWFmMjYzMzljNjU2ZDgxZjM5MzpzZXNzaW9uX2lkPTJfTVg0ME5UTXdOVFEyTW41LU1UUXpPVGcxTXpJNE1UWTBOSDV0UVV0UFNYQjZObmN6SzBKeE9Xb3pXazFNYlZOS1NXaC1VSDQmY3JlYXRlX3RpbWU9MTQzOTg1MzI4MSZyb2xlPXB1Ymxpc2hlciZub25jZT0xNDM5ODUzMjgxLjc5MTIxOTg4MjQ4OTc4';
+
 		$view->with([
             'reasons'			=> $this->reasons,
 			'system_revisions'	=> $this->systemRevisions,

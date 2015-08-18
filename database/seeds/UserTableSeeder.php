@@ -44,6 +44,68 @@
 	            'role_id'		=> '4' 
 	        ));
 
+	        DB::table('users')->insert(array(
+	            'name'          => 'Miguel Mejia',
+	            'email'         => 'miguel.mejia@histowebco.com',
+	            'password'      =>  Hash::make('123'),
+	            'created_at'    => new DateTime,
+	            'updated_at'    => new DateTime,
+	            'role_id'		=> '3' 
+	        ));
+
+	        DB::table('users')->insert(array(
+	            'name'          => 'Darío Gomez',
+	            'email'         => 'dario.gomez@histowebco.com',
+	            'password'      =>  Hash::make('123'),
+	            'created_at'    => new DateTime,
+	            'updated_at'    => new DateTime,
+	            'role_id'		=> '4' 
+	        ));
+
+	        DB::table('users')->insert(array(
+	            'name'          => 'Andres Felipe Ardila',
+	            'email'         => 'andres.ardila@histowebco.com',
+	            'password'      =>  Hash::make('123'),
+	            'created_at'    => new DateTime,
+	            'updated_at'    => new DateTime,
+	            'role_id'		=> '1' 
+	        ));
+
+	        DB::table('users')->insert(array(
+	            'name'          => 'Puerto Lopez',
+	            'email'         => 'puertolopez@histowebco.com',
+	            'password'      =>  Hash::make('123'),
+	            'created_at'    => new DateTime,
+	            'updated_at'    => new DateTime,
+	            'role_id'		=> '5' 
+	        ));
+
+	        DB::table('users')->insert(array(
+	            'name'          => 'Acacias',
+	            'email'         => 'acacias@histowebco.com',
+	            'password'      =>  Hash::make('123'),
+	            'created_at'    => new DateTime,
+	            'updated_at'    => new DateTime,
+	            'role_id'		=> '5' 
+	        ));
+
+	        DB::table('users')->insert(array(
+	            'name'          => 'Puerto Gaitan',
+	            'email'         => 'puertogaitan@histowebco.com',
+	            'password'      =>  Hash::make('123'),
+	            'created_at'    => new DateTime,
+	            'updated_at'    => new DateTime,
+	            'role_id'		=> '5' 
+	        ));
+
+	       DB::table('users')->insert(array(
+	            'name'          => 'Bogota',
+	            'email'         => 'bogota@histowebco.com',
+	            'password'      =>  Hash::make('123'),
+	            'created_at'    => new DateTime,
+	            'updated_at'    => new DateTime,
+	            'role_id'		=> '5' 
+	        )); 
 	    }
 	}
 ?>
