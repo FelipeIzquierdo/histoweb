@@ -1,5 +1,5 @@
 <?php 
-use Histoweb\Entities\Surgery;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,6 +10,7 @@ use Histoweb\Entities\Surgery;
 | and give it the controller to call when that URI is requested.
 |
 */
+
 Route::get('/', 'HomeController@index');
 
 Route::controllers([
@@ -20,9 +21,9 @@ Route::controllers([
 Route::get('deprueba', 'PruebaController@index');
 
 
-//Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware' => ['doctor_role']], function() {
+//Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware' => ['rol:doctor']], function() {
 Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function() {
-
+	
 	Route::get('options/{one}/formulate/create', ['uses' => 'FormulateController@create', 'as' => 'assistance.options.formulate.create']);
 	Route::post('options/{one}/formulate/create', ['uses' => 'FormulateController@store', 'as' => 'assistance.options.formulate.store']);
 	Route::get('options/{one}/formulate/{two}/edit', ['uses' => 'FormulateController@edit', 'as' => 'assistance.options.formulate.edit']);
@@ -50,7 +51,8 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 	]);
 });
 
-//Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => ['auth','reception_role']], function() {
+
+//Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => ['auth','rol:reception']], function() {
 Route::group(['prefix' => 'reception', 'namespace' => 'Reception'], function() {
 	Route::controller('/', 'ReceptionController', [
 		'getIndex' => 'reception',		
@@ -59,15 +61,16 @@ Route::group(['prefix' => 'reception', 'namespace' => 'Reception'], function() {
 	]);
 });
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function() {
+//Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'rol:admin']], function() {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
 	
-	//Route::group(['prefix' => 'system', 'namespace' => 'System', 'middleware' => ['administrator_role']], function() {
 	Route::group(['prefix' => 'system', 'namespace' => 'System'], function() {
 
 		Route::resource('professions', 'ProfessionController');
+		
 		Route::get('professions/{professions}/delete', [
-		'as' => 'professions.delete',
-		'uses' => 'ProfessionController@destroy',
+			'as' => 'professions.delete',
+			'uses' => 'ProfessionController@destroy',
 		]);
 
 		Route::resource('anesthesiaTypes', 'AnesthesiaTypesController');
@@ -87,7 +90,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		    'as' => 'wayEntries.delete',
 		    'uses' => 'WayEntryController@destroy',
 		]);
-
 		
 		Route::resource('diary-types', 'DiaryTypesController');
 		Route::resource('diseases', 'DiseasesController');
@@ -100,7 +102,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 		Route::resource('tools', 'ToolsController');
 		Route::resource('specialties', 'SpecialtiesController');
 		Route::resource('system-revisions', 'SystemRevisionsController');
-        Route::resource('eps', 'EpsController');
+	    Route::resource('eps', 'EpsController');
 
 		Route::group(['prefix' => 'medicament', 'namespace' => 'Medicament'], function() {
 
@@ -122,17 +124,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 
 	});
 
-	//Route::group(['prefix' => 'company', 'namespace' => 'Company', 'middleware' => ['administrator_role']], function() {
-		Route::group(['prefix' => 'company', 'namespace' => 'Company'], function() {
-
-        Route::resource('staff', 'StaffController');
-        Route::get('staff/{id}/delete', [
-            'as' => 'staff.delete',
-            'uses' => 'StaffController@destroy',
-        ]);
+	Route::group(['prefix' => 'company', 'namespace' => 'Company'], function() {
+	    Route::resource('staff', 'StaffController');
+	    
+	    Route::get('staff/{id}/delete', [
+	        'as' => 'staff.delete',
+	        'uses' => 'StaffController@destroy',
+	    ]);
 
 		Route::resource('patients', 'PatientsController');
-        Route::get('patients/{doc}/find', ['uses' => 'PatientsController@find', 'as' => 'admin.company.patients.find']);
+	    Route::get('patients/{doc}/find', ['uses' => 'PatientsController@find', 'as' => 'admin.company.patients.find']);
 
 		Route::group(['namespace' => 'Surgery'], function() {
 			Route::resource('surgeries.availabilities', 'SurgeriesAvailabilitiesController');
@@ -158,7 +159,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 			Route::group(['prefix' => 'doctors'], function() {
 				Route::get('{doctors}/availabilities-json', ['uses' => 'DoctorsAvailabilitiesController@json', 'as' => 'admin.company.doctors.availabilities.json']);
 				Route::get('{doctors}/diaries-json', ['uses' => 'DoctorsDiariesController@json', 'as' => 'admin.company.doctors.diaries.json']);
-                Route::get('{doctors}/new-diary/{patients}/{diary_types}', ['uses' => 'DoctorsDiariesController@newDiary', 'as' => 'admin.company.doctors.diaries.new']);
+	            Route::get('{doctors}/new-diary/{patients}/{diary_types}', ['uses' => 'DoctorsDiariesController@newDiary', 'as' => 'admin.company.doctors.diaries.new']);
 			});
 
 			Route::resource('doctors', 'DoctorsController');
@@ -166,21 +167,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 
 		Route::controller('/', 'CompanyController', ['getIndex' => 'admin.company']);
 	});
-
+	
 	Route::controller('/', 'AdminController', ['getIndex' => 'admin']);
 });
 
-//Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware' => ['doctor_role']], function() {
-Route::group(['prefix' => 'videoconferencing', 'namespace' => 'Videoconferencing'], function() {
 
+Route::group(['prefix' => 'videoconferencing', 'namespace' => 'Videoconferencing'], function() {
+	
 	Route::controller('/', 'VideoconferencingController', [
 		'getIndex' 			=> 'videoconferencing', 
 	]);
-
 });
-
-
-
-
-
-

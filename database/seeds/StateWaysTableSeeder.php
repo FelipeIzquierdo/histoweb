@@ -9,9 +9,7 @@
 
 		public function run()
 	    { 	 
-
-
-	    	 StateWay::create([
+	    	StateWay::create([
                 'name'	=> 'Limpia',
                 'description' => 'Limpia',
                 'code'	=>  1,

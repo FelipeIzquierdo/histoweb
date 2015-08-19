@@ -37,8 +37,6 @@ class Staff extends Model
         return self::allListProfessionName('implementers');
     }
 
-
-
     public static function allListsImplementers()
     {
         $profession = Profession::whereName('Instrumentador')->with('staff')->first();
@@ -62,6 +60,9 @@ class Staff extends Model
         return $this->professions->lists('id');
     }
 
-	
+    public function users()
+    {
+        return $this->morphMany('Histoweb\User', 'office');
+    }
 
 }

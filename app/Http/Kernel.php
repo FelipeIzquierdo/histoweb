@@ -27,9 +27,7 @@ class Kernel extends HttpKernel {
 		'auth' 				=> 'Histoweb\Http\Middleware\Authenticate',
 		'auth.basic' 		=> 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' 			=> 'Histoweb\Http\Middleware\RedirectIfAuthenticated',
-		'reception_role' 	=> 'Histoweb\Http\Middleware\ReceptionRole',
-		'administrator_role'=> 'Histoweb\Http\Middleware\AdministratorRole',
-		'doctor_role'=> 'Histoweb\Http\Middleware\DoctorRole'
+		'rol' 				=> 'Histoweb\Http\Middleware\Rol'
 	];
 
 }
