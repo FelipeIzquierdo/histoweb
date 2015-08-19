@@ -40,7 +40,7 @@ class AssistanceController extends Controller {
 
 	public function findDoctor()
 	{
-		$this->doctor = Auth::user()->office;
+		$this->doctor = Doctor::find(1);
 	}
 
 	public function findEntry(Route $route)
