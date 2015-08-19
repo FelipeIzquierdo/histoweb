@@ -248,7 +248,7 @@
                     <ul class="list-group" id="contact-list">
                         <div id="onlineusers"> </div>
 
-                        <div id="acceptCallBox">
+                        <div id="acceptCallBox" style ="display : none;">
 
                              <div class="list-group">
                                 <a href="javascript:void(0)" class="list-group-item active">
@@ -261,11 +261,11 @@
                                 </a>
                             </div>
 
-                            <button id="callAcceptButton" type="button" class="btn btn-effect-ripple btn-success" style="margin-left :30px;">Contestar</button>
+                            <button id="callAcceptButton" type="button" class="btn btn-effect-ripple btn-success">Contestar</button>
                             <button id="callRejectButton"type="button" class="btn btn-effect-ripple btn-danger">Rechazar</button>
                         </div>
 
-                        <div id="calling">
+                        <div id="calling" style ="display : none;">
                             <div class="col-lg-12">
                               <p>
                                 <a href="#" class="btn btn-sq-lg">

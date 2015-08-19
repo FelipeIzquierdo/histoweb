@@ -152,7 +152,6 @@
     }
 #acceptCallBox {
     z-index: 2;
-    display: none;
     position: absolute;
     top: 15px;
     left: 20px;
@@ -164,7 +163,6 @@
 }
 
 #calling{
-    display: none;
     z-index: 2;
     position: absolute;
     top: 100px;

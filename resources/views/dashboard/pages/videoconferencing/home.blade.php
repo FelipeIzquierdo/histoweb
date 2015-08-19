@@ -59,25 +59,8 @@
             </div>
         </div>
 
-        <div id="acceptCallBox">
-	         <div class="list-group">
-	            <a href="javascript:void(0)" class="list-group-item active">
-	                <span class="badge fa fa-phone" style="float : right;"></span>
-	                <h4 class="list-group-item-heading"><strong>Llamando</strong></h4>
-	            </a>
-	            <a href="javascript:void(0)" class="list-group-item">
-	                <span class="fa fa-fw fa-user-md" style="float : right;"></span>
-	                <h4 id="acceptCallLabel" class="list-group-item-heading"> </h4>
-	            </a>
-	        </div>
-
-	        <button id="callAcceptButton" type="button" class="btn btn-effect-ripple btn-success" style="margin-left :30px;">Contestar</button>
-	        <button id="callRejectButton"type="button" class="btn btn-effect-ripple btn-danger">Rechazar</button>
-        </div>
-
-
     <!-- Regular Fade -->
-    <div id="VideoModall" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="VideoModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="block">
@@ -104,7 +87,7 @@
                     <ul class="list-group" id="contact-list">
                         <div id="onlineusers"> </div>
 
-                        <div id="acceptCallBox">
+                        <div id="acceptCallBox" style ="display : none;">
 
                              <div class="list-group">
                                 <a href="javascript:void(0)" class="list-group-item active">
@@ -117,11 +100,11 @@
                                 </a>
                             </div>
 
-                            <button id="callAcceptButton" type="button" class="btn btn-effect-ripple btn-success" style="margin-left :30px;">Contestar</button>
+                            <button id="callAcceptButton" type="button" class="btn btn-effect-ripple btn-success">Contestar</button>
                             <button id="callRejectButton"type="button" class="btn btn-effect-ripple btn-danger">Rechazar</button>
                         </div>
 
-                        <div id="calling">
+                        <div id="calling" style ="display : none;">
                             <div class="col-lg-12">
                               <p>
                                 <a href="#" class="btn btn-sq-lg">

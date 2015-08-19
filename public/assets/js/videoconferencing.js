@@ -328,7 +328,12 @@ function connectionDestroyedHandler(event) {
     // This signals that connections were destroyed
     document.getElementById('name_doc').innerHTML = '';
     document.getElementById('acceptCallBox').style.display = 'none';
+    document.getElementById('calling').style.display = 'none';
     document.getElementById('acceptCallLabel').innerHTML = '';
+    document.getElementById('connectLink').style.display = 'block';
+    document.getElementById('disconnectLink').style.display = 'none';
+    disconnect();
+    toggleImages();
 }
 
 function connectionCreatedHandler(event) {
