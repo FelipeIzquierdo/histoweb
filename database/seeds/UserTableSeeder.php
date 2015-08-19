@@ -49,7 +49,6 @@
 	            'updated_at'    => new DateTime,
 	            'role_id'		=> '4' 
 	        ));
-<<<<<<< HEAD
 
 	        DB::table('users')->insert(array(
 	            'name'          => 'Miguel Mejia',
@@ -113,8 +112,6 @@
 	            'updated_at'    => new DateTime,
 	            'role_id'		=> '5' 
 	        )); 
-=======
->>>>>>> 35fbb2e4c4ec1f9b07b62ae537673ec0f2863dac
 	    }
 	}
 ?>

@@ -10,8 +10,8 @@
 		private static $procedure_types = [
 			[
 				'name' 			=> 'PUNCION',
-				'description'	=> ''
-			]
+				'description'	=> ':)'
+			],
 		];
 		
 		public function run()

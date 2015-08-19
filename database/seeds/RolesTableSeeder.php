@@ -25,7 +25,8 @@
 				'description'	=> 'Invitado'
 			],
 			[
-				'name' 			=> 'Centro médico'
+				'name' 			=> 'Centro médico',
+				'description'	=> 'centro'
 			],
 		];
 		
