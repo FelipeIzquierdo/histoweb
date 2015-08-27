@@ -15,6 +15,7 @@
 	@endsection
 	
 	@section('dashboard_body')
+
         <div class="block" id="videoconferencing">
 
             <div class="row">
