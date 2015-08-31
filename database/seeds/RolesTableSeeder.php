@@ -9,24 +9,24 @@
 
 		private static $roles = [
 			[
-				'name' 			=> 'admin',
-				'description'	=> 'Administrador'
+				'name' 			=> 'Administrador',
+				'description'	=> ''
 			],
 			[
-				'name' 			=> 'reception',
-				'description'	=> 'Recepcción'
+				'name' 			=> 'Recepción',
+				'description'	=> ''
 			],
 			[
-				'name' 			=> 'doctor',
-				'description'	=> 'Medico'
+				'name' 			=> 'Médico',
+				'description'	=> ''
 			],
 			[
-				'name' 			=> 'invitado',
-				'description'	=> 'Invitado'
+				'name' 			=> 'Invitado',
+				'description'	=> ''
 			],
 			[
 				'name' 			=> 'Centro médico',
-				'description'	=> 'centro'
+				'description'	=> ''
 			],
 		];
 		

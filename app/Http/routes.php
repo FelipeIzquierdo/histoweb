@@ -66,8 +66,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
 	
 	Route::group(['prefix' => 'system', 'namespace' => 'System'], function() {
 
+		Route::resource('roles', 'RoleController');
+		Route::resource('users', 'UsersController');
 		Route::resource('professions', 'ProfessionController');
-		
+
 		Route::get('professions/{professions}/delete', [
 			'as' => 'professions.delete',
 			'uses' => 'ProfessionController@destroy',

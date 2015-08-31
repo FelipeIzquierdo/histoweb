@@ -20,6 +20,48 @@ Breadcrumbs::register('system', function($breadcrumbs)
     $breadcrumbs->push('Sistema', route('admin.system'));
 });
 
+// Inicio > Admin > Sistema > Usuarios
+Breadcrumbs::register('users', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Usuarios', route('admin.system.users.index'));
+});
+
+// Inicio > Admin > Sistema > Usuarios > Crear o Editar
+Breadcrumbs::register('users.create', function($breadcrumbs, $tool)
+{
+    $breadcrumbs->parent('users');
+    if($tool->exists)
+    {
+        $breadcrumbs->push($tool->name, route('admin.system.users.edit', $tool->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nuevo', route('admin.system.users.create'));
+    }
+});
+
+// Inicio > Admin > Sistema > Roles
+Breadcrumbs::register('roles', function($breadcrumbs)
+{
+    $breadcrumbs->parent('system');
+    $breadcrumbs->push('Roles', route('admin.system.roles.index'));
+});
+
+// Inicio > Admin > Sistema > Roles > Crear o Editar
+Breadcrumbs::register('roles.create', function($breadcrumbs, $tool)
+{
+    $breadcrumbs->parent('roles');
+    if($tool->exists)
+    {
+        $breadcrumbs->push($tool->name, route('admin.system.roles.edit', $tool->id));
+    }
+    else
+    {
+        $breadcrumbs->push('Nuevo', route('admin.system.roles.create'));
+    }
+});
+
 // Inicio > Admin > Sistema > Herramientas
 Breadcrumbs::register('tools', function($breadcrumbs)
 {

@@ -167,6 +167,8 @@ return array(
 	
     'username' 				=> 'usuario',
     'password' 				=> 'contraseña',
+    'repeat_password' 		=> 'repita contraseña',
+    'rol_id' 				=> 'Rol',
     'url_photo' 			=> 'foto de perfil',
     'url_logo' 				=> 'logo',
     'url_pdf' 				=> 'PDF',
