@@ -15,14 +15,27 @@
 	@endsection
 	
 	@section('dashboard_body')
+
+	@if ( Auth::user()->role_id == '2' || Auth::user()->role_id == '1' )
+
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system'), 'icon_widget' => 'img/placeholders/icons/system.png', 'title_widget' => 'Sistema'])
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.company'), 'icon_widget' => 'img/placeholders/icons/open.png', 'title_widget' => 'Institución'])
 
+	@endif
+
+	@if ( Auth::user()->role_id == '3' || Auth::user()->role_id == '1' )
+
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('reception'), 'icon_widget' => 'img/placeholders/icons/reception.png', 'title_widget' => 'Recepción'])
 
-		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('assistance'), 'icon_widget' => 'img/placeholders/icons/assistance.png', 'title_widget' => 'Asistencia'])
+	@endif
 
-		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('videoconferencing'), 'icon_widget' => 'img/placeholders/icons/videoconferencing.png', 'title_widget' => 'Videoconferencia'])
+	@if ( Auth::user()->role_id == '4' || Auth::user()->role_id == '6' || Auth::user()->role_id == '1' )
+
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('assistance'), 'icon_widget' => 'img/placeholders/icons/assistance.png', 'title_widget' => 'Asistencia'])
+		
+	@endif
+
+	@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('videoconferencing'), 'icon_widget' => 'img/placeholders/icons/videoconferencing.png', 'title_widget' => 'Videoconferencia'])
 
 	@endsection

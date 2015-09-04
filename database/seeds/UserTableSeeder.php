@@ -11,7 +11,7 @@
 	        DB::table('users')->insert(array(
 	            'name'          => 	'Admin',
 	            'email'         => 	'admin@histowebco.com',
-	            'role_id'		=> 	1,
+	            'role_id'		=> 	2,
 	            'office_type'	=>	'Histoweb\Staff',
 	            'office_id'		=>	4,	
 	            'password'      => 	Hash::make('123'),
@@ -22,7 +22,7 @@
 	        DB::table('users')->insert(array(
 	            'name'          => 	'Recepcionista',
 	            'email'         => 	'recepcion@histowebco.com',
-	            'role_id'		=> 	2, 
+	            'role_id'		=> 	3, 
 	            'office_type'	=>	'Histoweb\Entities\Staff',
 	            'office_id'		=>	3,	
 	            'password'      =>  Hash::make('123'),
@@ -33,7 +33,7 @@
 	        DB::table('users')->insert(array(
 	            'name'          => 	'Medico',
 	            'email'         =>	'medico@histowebco.com',
-	            'role_id'		=> 	3,
+	            'role_id'		=> 	4,
 	            'office_type'	=>	'Histoweb\Entities\Doctor',
 	            'office_id'		=>	1,	
 	            'password'      =>  Hash::make('123'),
@@ -47,7 +47,7 @@
             	'password'      =>  Hash::make('123'),
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
-	            'role_id'		=> '4' 
+	            'role_id'		=> 5 
 	        ));
 
 	        DB::table('users')->insert(array(
@@ -56,7 +56,7 @@
 	            'password'      =>  Hash::make('123'),
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
-	            'role_id'		=> '3' 
+	            'role_id'		=> 4
 	        ));
 
 	        DB::table('users')->insert(array(
@@ -65,7 +65,7 @@
 	            'password'      =>  Hash::make('123'),
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
-	            'role_id'		=> '4' 
+	            'role_id'		=> 5
 	        ));
 
 	        DB::table('users')->insert(array(
@@ -74,7 +74,16 @@
 	            'password'      =>  Hash::make('123'),
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
-	            'role_id'		=> '1' 
+	            'role_id'		=> 1 
+	        ));
+
+	        DB::table('users')->insert(array(
+	            'name'          => 'Andres Pinzon',
+	            'email'         => 'andres.pinzon@histowebco.com',
+	            'password'      =>  Hash::make('123'),
+	            'created_at'    => new DateTime,
+	            'updated_at'    => new DateTime,
+	            'role_id'		=> 1 
 	        ));
 
 	        DB::table('users')->insert(array(
@@ -83,7 +92,7 @@
 	            'password'      =>  Hash::make('123'),
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
-	            'role_id'		=> '5' 
+	            'role_id'		=> 6
 	        ));
 
 	        DB::table('users')->insert(array(
@@ -92,7 +101,7 @@
 	            'password'      =>  Hash::make('123'),
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
-	            'role_id'		=> '5' 
+	            'role_id'		=> 6
 	        ));
 
 	        DB::table('users')->insert(array(
@@ -101,7 +110,7 @@
 	            'password'      =>  Hash::make('123'),
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
-	            'role_id'		=> '5' 
+	            'role_id'		=> 6
 	        ));
 
 	       DB::table('users')->insert(array(
@@ -110,7 +119,7 @@
 	            'password'      =>  Hash::make('123'),
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
-	            'role_id'		=> '5' 
+	            'role_id'		=> 6
 	        )); 
 	    }
 	}

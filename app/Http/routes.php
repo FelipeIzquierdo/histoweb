@@ -21,8 +21,7 @@ Route::controllers([
 Route::get('deprueba', 'PruebaController@index');
 
 
-//Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware' => ['rol:doctor']], function() {
-Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function() {
+Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware' => ['role_doctor']], function() {
 	
 	Route::get('options/{one}/formulate/create', ['uses' => 'FormulateController@create', 'as' => 'assistance.options.formulate.create']);
 	Route::post('options/{one}/formulate/create', ['uses' => 'FormulateController@store', 'as' => 'assistance.options.formulate.store']);
@@ -52,8 +51,7 @@ Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance'], function()
 });
 
 
-//Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => ['auth','rol:reception']], function() {
-Route::group(['prefix' => 'reception', 'namespace' => 'Reception'], function() {
+Route::group(['prefix' => 'reception', 'namespace' => 'Reception', 'middleware' => ['auth','role_reception']], function() {
 	Route::controller('/', 'ReceptionController', [
 		'getIndex' => 'reception',		
 		'postActivateDiary' => 'reception.activate-diary'
@@ -61,10 +59,9 @@ Route::group(['prefix' => 'reception', 'namespace' => 'Reception'], function() {
 	]);
 });
 
-//Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'rol:admin']], function() {
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'  ] , function() {
 	
-	Route::group(['prefix' => 'system', 'namespace' => 'System'], function() {
+	Route::group(['prefix' => 'system', 'namespace' => 'System', 'middleware' => 'role_admin' ], function() {
 
 		Route::resource('roles', 'RoleController');
 		Route::resource('users', 'UsersController');
@@ -126,7 +123,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
 
 	});
 
-	Route::group(['prefix' => 'company', 'namespace' => 'Company'], function() {
+	Route::group(['prefix' => 'company', 'namespace' => 'Company', 'middleware' => 'role_admin' ], function() {
 	    Route::resource('staff', 'StaffController');
 	    
 	    Route::get('staff/{id}/delete', [

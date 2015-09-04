@@ -24,10 +24,12 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth' 				=> 'Histoweb\Http\Middleware\Authenticate',
-		'auth.basic' 		=> 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-		'guest' 			=> 'Histoweb\Http\Middleware\RedirectIfAuthenticated',
-		'rol' 				=> 'Histoweb\Http\Middleware\Rol'
+		'auth' 					=> 'Histoweb\Http\Middleware\Authenticate',
+		'auth.basic' 			=> 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+		'guest' 				=> 'Histoweb\Http\Middleware\RedirectIfAuthenticated',
+		'role_admin' 			=> 'Histoweb\Http\Middleware\Admin', 
+		'role_reception' 		=> 'Histoweb\Http\Middleware\Reception',
+		'role_doctor'	 		=> 'Histoweb\Http\Middleware\Doctor',
 	];
 
 }
