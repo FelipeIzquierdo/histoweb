@@ -62,6 +62,15 @@
             </div>
         </div>
         -->
+
+            <h1 id="title">Abrir sala (Nombre:)</h1>
+    <p id="subTitle"></p>
+    
+    <form id="createRoom">
+        <input id="sessionInput"/>
+        <button type="submit">Crear sala:</button>
+    </form>
+    
     <button id="hangupButton">Colgar</button>
 
 
