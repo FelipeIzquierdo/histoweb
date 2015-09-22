@@ -8,7 +8,7 @@
 			<i class="fa fa-desktop"></i>
 			Videoconferencia
 		</h1>
-        {!! Html::style('assets/css/simplewebrtc.css') !!}
+	{!! Html::style('assets/css/simplewebrtc.css') !!}
 	@endsection
 
 	@section('breadcrumbs')
