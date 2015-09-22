@@ -11,13 +11,12 @@ class Doctor extends Model
 	public $errors;
     public static $pathPhoto = 'img/placeholders/photos/doctors/';
     private static $defaultPhoto = 'img/placeholders/icons/doctor.png';
+    protected static $colorType = [
+        'personal'      => '#5cb85c',
+        'telemedicine'  => '#f0ad4e'
+    ];
 
-    protected $fillable = ['cc','first_name','last_name','color','specialty_id', 'telemedicine'];
-
-    public static function allLists()
-    {
-        return self::get()->lists('name_specialty_telemedicine' ,'id' );
-    }
+    protected $fillable = ['cc','first_name','last_name','color','telemedicine','user_id','specialty_id'];
 
     public static function allListSpecialty($specialty_id)
     {
@@ -55,21 +54,32 @@ class Doctor extends Model
     	return $this->first_name . ' ' . $this->last_name;
     }
 
-    public function getNameSpecialtyTelemedicineAttribute()
+    public static function allLists()
     {
-        $text = $this->first_name . ' ' . $this->last_name;
+        $data = [];
+        foreach (self::get() as $key => $value) 
+        {
+            $id = '';
+            $text = $value->first_name . ' ' . $value->last_name;
+
+            if($value->specialty)
+            {
+                $text .= ' - ' . $value->specialty->name;
+                $id = $value->id.'-personal';
+            }
+
+            $data[ $id ] = $text; // personal
+
+            if($value->telemedicine)
+            {
+                $text .= ' - Telemedicina';
+                $id = $value->id.'-telemedicine';
+                $data[ $id ] = $text;
+            }
+            
+        }
         
-        if($this->specialty)
-        {
-            $text .= ' - ' . $this->specialty->name;
-        }
-
-        if($this->telemedicine)
-        {
-            $text .= ' - Telemedicina';
-        }
-
-        return $text;
+        return $data;
     }
 
     public function getNamePhotoAttribute()
@@ -87,6 +97,26 @@ class Doctor extends Model
         }
 
         return self::$defaultPhoto;
+    }
+
+    public function getAvailabitiesType( $name_type )
+    {
+        return $this->availabilities()->where('type', $name_type )->get();
+    }
+
+    public function getAvailabitiesTypeAll()
+    {
+        return $this->availabilities();
+    }
+
+    public function getDiariesType( $name_type )
+    {
+        return $this->diaries()->where('diaries.type', $name_type )->get();
+    }
+
+    public function getDiariesTypeAll()
+    {
+        return $this->diaries();
     }
 
     public function availabilities()

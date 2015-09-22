@@ -24,7 +24,8 @@ class CreateRequest extends Request {
             'first_name'        => 'required',
             'last_name'         => 'required',
             'specialty_id'      => 'required',
-            'photo'             => 'required'
+            'photo'             => 'required',
+            'user_id'			=> 'required'
 		];
 	}
 }

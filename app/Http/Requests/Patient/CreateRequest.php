@@ -29,7 +29,7 @@ class CreateRequest extends Request {
             'sex'				=> 	'required|in:M,F',
             'email'				=>	'email|max:100|unique:patients,email',
             'tel'				=>	'numeric',
-            'address'           =>  'max:100'
+            'address'           =>  'max:100',
 		];
 	}
 }

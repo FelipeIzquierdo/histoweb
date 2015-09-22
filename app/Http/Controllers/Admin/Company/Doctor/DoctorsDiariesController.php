@@ -47,14 +47,13 @@ class DoctorsDiariesController extends Controller {
 	 */
 	public function index($doctor_id)
 	{
-
         $diaryTypes = DiaryType::allLists();
         $occupations = Occupation::allLists();
         $doc_types = DocType::allLists();
         $genders = Patient::$genders;
         $eps = Eps::allLists();
         $membershipTypes = MembershipType::allLists();
-
+        
 		$url = route(self::$prefixRoute . 'json', $this->doctor->id);
 		return view(self::$prefixView . 'diaries', compact('url', 'diaryTypes','occupations', 'doc_types', 'genders', 'eps', 'membershipTypes'))->with('doctor', $this->doctor);
 	}
@@ -78,6 +77,9 @@ class DoctorsDiariesController extends Controller {
         {
            \App::abort('404'); 
         }
+
+        $name_type = explode('-', $doctor_id)[1];
+        $data['type'] = $name_type;
 
         $data['availability_id'] = $availability->id;
         $diary = new Diary($data);
@@ -110,7 +112,7 @@ class DoctorsDiariesController extends Controller {
 	 */
 	public function json($doctor_id)
 	{
-		return \Calendar::getDoctorDiaries($this->doctor);
+        return \Calendar::getDoctorDiaries($doctor_id);
 	}
 
     public function newDiary($doctor_id, $patient_id, $diary_type_id){

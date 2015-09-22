@@ -6,18 +6,18 @@
     </a>
     <ul>
         @foreach($doctor->getDiariesToday() as $diary)
-	    	<li style="font-size:12px;">
+	    	<li style="font-size:11px;">
                 @if($diary->isCanAttend())
                     <a href="{{ route('assistance.create-entry', $diary->id)}}">
-                        <span class="sidebar-nav-mini-hide {{$diary->class}}"> {{ $diary->time_start }} {{ $diary->patient->short_name }}</span>
+                        <span class="sidebar-nav-mini-hide {{$diary->class}}"> {{ $diary->time_start }} {{ $diary->patient->short_name }} - {{ $diary->type_es }}</span>
                     </a>
                 @elseif($diary->isBeingTreated())
                     <a href="{{ route('assistance.entries.options', $diary->entry->id)}}">
-                        <span class="sidebar-nav-mini-hide {{$diary->class}}"> {{ $diary->time_start }} {{ $diary->patient->short_name }}</span>
+                        <span class="sidebar-nav-mini-hide {{$diary->class}}"> {{ $diary->time_start }} {{ $diary->patient->short_name }} - {{ $diary->type_es }}</span>
                     </a>
                 @else
                     <a href="#">
-                        <span class="sidebar-nav-mini-hide {{$diary->class}}"> {{ $diary->time_start }} {{ $diary->patient->short_name }}</span>
+                        <span class="sidebar-nav-mini-hide {{$diary->class}}"> {{ $diary->time_start }} {{ $diary->patient->short_name }} - {{ $diary->type_es }}</span>
                     </a>
                 @endif
 	        </li> 

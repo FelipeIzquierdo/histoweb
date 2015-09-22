@@ -31,6 +31,7 @@
 							<th>Genero</th>
 							<th>Email</th>
 							<th>Télefono</th>
+							<th>Usuario</th>
 							<th style="min-width: 50px;" class="text-center"><i class="fa fa-flash"></i></th>
 						</tr>
 					</thead>
@@ -42,6 +43,7 @@
 								<td>{{ $patient->gender }}</td>
 								<td>{{ $patient->email }}</td>
 								<td>{{ $patient->tel }}</td>
+								<td>{{ $patient->users->email }}</td>
 								<td class="text-center">
 									<a href="{{ route('admin.company.patients.edit', $patient->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar Paciente"><i class="fa fa-pencil"></i></a>
 								</td>

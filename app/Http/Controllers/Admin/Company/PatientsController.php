@@ -8,6 +8,7 @@ use Histoweb\Http\Controllers\Controller;
 use Histoweb\Entities\Patient;
 use Histoweb\Entities\Occupation;
 use Histoweb\Entities\DocType;
+use Histoweb\User;
 
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ class PatientsController extends Controller {
 	private $patient;
 	private $occupations;
 	private $genders;
+	private $users;
 	private $doc_types;
 	private static $prefixRoute = 'admin.company.patients.';
 	private static $prefixView = 'dashboard.pages.admin.company.patient.';
@@ -27,6 +29,7 @@ class PatientsController extends Controller {
 		$this->beforeFilter('@findPatient', ['only' => ['show', 'edit', 'update', 'destroy']]);
 		$this->beforeFilter('@findOccupations', ['only' => ['create', 'edit']]);
 		$this->beforeFilter('@findDocTypes', ['only' => ['create', 'edit']]);
+		$this->beforeFilter('@findUsers', ['only' => ['create', 'edit']]);
 		$this->genders = Patient::$genders;
 	}
 
@@ -46,6 +49,15 @@ class PatientsController extends Controller {
 	public function findDocTypes()
 	{
 		$this->doc_types = DocType::allLists();
+	}
+
+	/**
+	 * Find all docTypes
+	 *
+	 */
+	public function findUsers()
+	{
+		$this->users = User::allLists();
 	}
 
 	/**
@@ -80,7 +92,8 @@ class PatientsController extends Controller {
 
         return view(self::$prefixView . 'form', compact('form_data'))
         	->with(['patient' => $this->patient, 'occupations' => $this->occupations, 
-        		'genders' => $this->genders, 'doc_types' => $this->doc_types]);
+        		'genders' => $this->genders, 'doc_types' => $this->doc_types,
+        		'users' => $this->users ]);
 	}
 
 	/**
@@ -129,7 +142,8 @@ class PatientsController extends Controller {
 
         return view(self::$prefixView . 'form', compact('form_data'))
         	->with(['patient' => $this->patient, 'occupations' => $this->occupations,
-        		'genders' => $this->genders, 'doc_types' => $this->doc_types]);
+        		'genders' => $this->genders, 'doc_types' => $this->doc_types,
+        		'users' => $this->users ]);
 	}
 
 	/**

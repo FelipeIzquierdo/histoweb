@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
 	protected $fillable = ['doc', 'doc_type_id', 'first_name',
-        'last_name', 'sex', 'date_birth', 'tel', 'address', 'email', 'occupation_id'];
+        'last_name', 'sex', 'date_birth', 'tel', 'address', 'email', 'occupation_id','user_id'];
 
 	public $timestamps = true;
 	public $increments = true;
@@ -73,4 +73,8 @@ class Patient extends Model
         return $this->hasMany('Histoweb\Entities\Diary');
     }
 
+    public function users()
+    {
+        return $this->belongsTo('Histoweb\User','user_id');
+    }
 }

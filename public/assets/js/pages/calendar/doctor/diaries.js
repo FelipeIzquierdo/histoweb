@@ -4,7 +4,7 @@
  *  Description: Custom javascript code used in Calendar page
  */
 
-function changeTest(){
+function changeTest(){ // listo
     doctorId = $('#doctorSelect').val();
     url = '/admin/company/doctors/' + doctorId + '/diaries-json';
     //alert(url,doctorId);
@@ -14,7 +14,7 @@ function changeTest(){
 }
 
 
-function cancelDiaries (event)
+function cancelDiaries (event) //listo
 {
     $.ajax({
         data:  {
@@ -33,7 +33,7 @@ function cancelDiaries (event)
 }
 
 
-function activatePatient (event)
+function activatePatient (event) // listo
 {
     $.ajax({
         data:  {
@@ -84,7 +84,7 @@ function deleteAvailability(event)
     });
 }
 
-function findPatient(patientDoc)
+function findPatient(patientDoc) // listo
 {
     $.ajax({
         url:   '/admin/company/patients/' + patientDoc + '/find',
@@ -169,7 +169,7 @@ function createUpdatePatient(url, type)
     });
 }
 
-function newDiary(doctorId, patientId, diaryTypeId)
+function newDiary(doctorId, patientId, diaryTypeId) // listo
 {
     var eps = $('#eps').val();
     var membership = $('#membershipTypes').val();
@@ -183,7 +183,7 @@ function newDiary(doctorId, patientId, diaryTypeId)
     });
 }
 
-function createDiary(copiedEventObject, dropEvent)
+function createDiary(copiedEventObject, dropEvent) // listo
 {
     $.ajax({
         data: {
@@ -206,7 +206,7 @@ function createDiary(copiedEventObject, dropEvent)
         {
             $("#external-events").append(dropEvent);
             initializeExternalEvent();
-            console.log('El envento solo puede ser asignado en la disponibilidad correcta');
+            console.log('El evento solo puede ser asignado en la disponibilidad correcta');
         }
     });
 }

@@ -16,7 +16,7 @@ use Histoweb\Entities\Formulate;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 
-use Response, Input;
+use Response, Input,Auth;
 class AssistanceController extends Controller {
 
 	private $diaries;
@@ -40,7 +40,7 @@ class AssistanceController extends Controller {
 
 	public function findDoctor()
 	{
-		$this->doctor = Doctor::find(1);
+		$this->doctor = Doctor::find(Auth::user()->doctors->id);
 	}
 
 	public function findEntry(Route $route)

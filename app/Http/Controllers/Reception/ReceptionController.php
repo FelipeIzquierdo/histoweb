@@ -34,7 +34,7 @@ class ReceptionController extends Controller {
         $doctor = 1;
         $eps = Eps::allLists();
         $membershipTypes = MembershipType::allLists();
-
+        
         $url = route('admin.company.doctors.diaries.json', 1);
         return view('dashboard.pages.reception.home', compact('doctors','url', 'diaryTypes','occupations', 'doc_types', 'genders', 'doctor','eps', 'membershipTypes'));
 	}

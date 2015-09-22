@@ -7,7 +7,7 @@ use Histoweb\Entities\Diary;
 class PatientsTableSeeder extends Seeder{
 
     public function  run(){
-
+/*
         $faker = Faker::create();
 
         foreach(range(1, 30) as $index)
@@ -19,13 +19,13 @@ class PatientsTableSeeder extends Seeder{
                 'sex'               => 'M',
                 'tel'               => $faker->phoneNumber,
                 'email'             => $faker->email,
-                'date_birth'     => '01-10-1990',
+                'date_birth'        => '01-10-1990',
                 'doc_type_id'          =>  1,
                 'occupation_id'        =>  1,
                 'created_at'        => new DateTime,
                 'updated_at'        => new DateTime 
             ));
-/*
+
             $start = $faker->dateTimeBetween('-2 days', '+15 hours');
             $end = $start->add(new DateInterval('PT1H'));
 
@@ -38,10 +38,10 @@ class PatientsTableSeeder extends Seeder{
                 'created_at'        => new DateTime,
                 'updated_at'        => new DateTime 
             ));
-*/
+
             //Diary::find($diary_id)->createEntry();
 
-        }
+        }*/
     }
 
 } 

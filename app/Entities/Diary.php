@@ -12,8 +12,21 @@ class Diary extends Model
     public $increments = true;
     public $errors;
 
-    protected $fillable = ['availability_id', 'type_id', 'start','end','entered_at','exit_at','patient_id', 'eps_id', 'membership_types_id'];
-    
+    protected $fillable = ['availability_id', 'type_id', 'start','end','entered_at','exit_at','patient_id', 'eps_id', 'membership_types_id','type'];
+    protected static $colorType = [
+        'personal'      => '#0072C6',
+        'telemedicine'  => '#de815c'
+    ];
+    protected $typeEs = [
+        'personal'      => 'Personal',
+        'telemedicine'  => 'Telediagnósis'
+    ];
+
+    public function getTypeEsAttribute()
+    {
+        return $this->typeEs[ $this->type ];
+    }
+
     public function getTitleAttribute()
     {
         return Patient::find($this->attributes['patient_id'])->name;
@@ -108,6 +121,11 @@ class Diary extends Model
         }
 
         return false;
+    }
+
+    public function getColorOfTypeAttribute()
+    {
+        return self::$colorType[ $this->type ];
     }
 
     public function type()

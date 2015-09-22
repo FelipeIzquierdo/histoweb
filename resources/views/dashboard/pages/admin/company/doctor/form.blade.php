@@ -27,6 +27,7 @@
                   {!! Field::text( 'first_name', null, ['placeholder' => 'Nombres', 'template' => 'horizontal']) !!}
                   {!! Field::text( 'last_name', null, ['placeholder' => 'Apellidos', 'template' => 'horizontal']) !!}
                   {!! Field::select('specialty_id', $specialties, null, ['data-placeholder' => 'Seleccione una especialidad', 'template' => 'horizontal']) !!}
+                  {!! Field::select('user_id', $users, null, ['data-placeholder' => 'Seleccione un usuario', 'template' => 'horizontal']) !!}
                   {!! Field::file('photo', null, [ 'template' => 'horizontal']) !!}
                   {!! Field::checkbox('telemedicine', 1, ['template' => 'switche']) !!}
 

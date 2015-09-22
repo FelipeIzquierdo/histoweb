@@ -131,7 +131,7 @@ return array(
 	'diaryTypes'			=> 'tipo de cita',
 	'name_system'			=> 'nombre de sistema',
 	'type'					=> 'tipo',
-	'telemedicine'			=> 'telemedicina',
+	'telemedicine'			=> 'teleconsulta',
 
 	// Patient History
 	'reasons'						=> 'motivos de consulta',
@@ -169,6 +169,7 @@ return array(
     'password' 				=> 'contraseña',
     'repeat_password' 		=> 'repita contraseña',
     'rol_id' 				=> 'Rol',
+    'user_id' 				=> 'Usuario',
     'url_photo' 			=> 'foto de perfil',
     'url_logo' 				=> 'logo',
     'url_pdf' 				=> 'PDF',

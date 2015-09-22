@@ -22,28 +22,11 @@
               </div>
               <div class="form-horizontal form-bordered">
                 {!! Form::model($user, $form_data) !!}
+                  
                   {!! Field::text( 'name', null, ['placeholder' => 'Nombres', 'template' => 'horizontal']) !!}
                   {!! Field::text( 'email', null, ['placeholder' => 'Correo electrónico', 'template' => 'horizontal']) !!}
-                  
-                  <div class="form-group">
-                    <label class="col-md-3 control-label" for="description">Contraseña </label>
-                    <div class="col-md-8">
-                        <div class="input-group">
-                            {!! Form::password('password', array('class' => 'form-control')) !!}
-                            <span class="input-group-addon"><i class="fa fa-bars"></i></span>
-                        </div>
-                    </div>
-                  </div>    
-
-                  <div class="form-group">
-                    <label class="col-md-3 control-label" for="description">Repita Contraseña </label>
-                    <div class="col-md-8">
-                        <div class="input-group">
-                            {!! Form::password('repeat_password', array('class' => 'form-control')) !!}
-                            <span class="input-group-addon"><i class="fa fa-bars"></i></span>
-                        </div>
-                    </div>
-                  </div>  
+                  {!! Field::password('password', array('class' => 'form-control', 'template' => 'horizontal')) !!}
+                  {!! Field::password('repeat_password', array('class' => 'form-control', 'template' => 'horizontal')) !!}
                   {!! Field::select( 'role_id', $roles, null, ['data-placeholder' => 'Rol', 'template' => 'horizontal']) !!}
 
                   <div class="form-group form-actions">

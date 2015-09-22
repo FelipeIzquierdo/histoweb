@@ -123,7 +123,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 
 	});
 
-	Route::group(['prefix' => 'company', 'namespace' => 'Company', 'middleware' => 'role_admin' ], function() {
+	Route::group(['prefix' => 'company', 'namespace' => 'Company'], function() {
+
 	    Route::resource('staff', 'StaffController');
 	    
 	    Route::get('staff/{id}/delete', [
@@ -131,8 +132,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 	        'uses' => 'StaffController@destroy',
 	    ]);
 
-		Route::resource('patients', 'PatientsController');
-	    Route::get('patients/{doc}/find', ['uses' => 'PatientsController@find', 'as' => 'admin.company.patients.find']);
+	    Route::resource('patients', 'PatientsController');
+		Route::get('patients/{doc}/find', ['uses' => 'PatientsController@find', 'as' => 'admin.company.patients.find']);
 
 		Route::group(['namespace' => 'Surgery'], function() {
 			Route::resource('surgeries.availabilities', 'SurgeriesAvailabilitiesController');
@@ -145,7 +146,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 				
 				Route::get('{surgeries}/diaries-json', ['uses' => 'SurgeriesDiariesController@json', 'as' => 'admin.company.surgeries.diaries.json']);
 			});
-
 
 			Route::resource('surgeries', 'SurgeriesController');
 		});

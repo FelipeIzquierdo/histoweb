@@ -31,6 +31,7 @@
                   {!! Field::text( 'tel', null, ['placeholder' => 'Télefono', 'template' => 'horizontal']) !!}
                   {!! Field::email( 'email', null, ['placeholder' => 'Correo Electrónico', 'template' => 'horizontal']) !!}
                   {!! Field::select('occupation_id', $occupations, null, ['data-placeholder' => 'Seleccione una ocupación', 'template' => 'horizontal']) !!}
+                  {!! Field::select('user_id', $users, null, ['data-placeholder' => 'Seleccione el usuario', 'template' => 'horizontal']) !!}
                   <div class="form-group form-actions">
                     <div class="col-md-9 col-md-offset-3">
                         <button type="submit" class="btn btn-effect-ripple btn-primary">Guardar</button>

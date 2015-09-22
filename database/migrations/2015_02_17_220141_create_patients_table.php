@@ -32,6 +32,9 @@ class CreatePatientsTable extends Migration {
             $table->integer('occupation_id')->unsigned();
             $table->foreign('occupation_id')->references('id')->on('occupations');
 
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            
             $table->timestamps();
 		});
 	}

@@ -15,7 +15,6 @@ class ComposerServiceProvider extends ServiceProvider
         View::composers([
             'Histoweb\Http\ViewComposers\FormulateComposer' => 'dashboard.pages.assistance.formulate.formm',
             'Histoweb\Http\ViewComposers\AssistanceComposer' => 'dashboard.pages.assistance.entry',
-            'Histoweb\Http\ViewComposers\VideoconferencingComposer' => 'dashboard.pages.videoconferencing.home',
         ]);
     }
 

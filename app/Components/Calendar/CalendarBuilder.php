@@ -3,6 +3,8 @@
 use Illuminate\Session\Store as Session;
 use Carbon\Carbon; 
 
+use Histoweb\Entities\Doctor;
+
 class CalendarBuilder {
 
     protected $session;
@@ -67,15 +69,34 @@ class CalendarBuilder {
         return $events;
     }
 
-    public function getDoctorDiaries($doctor)
+    public function getDoctorDiaries($doctor_t_id)
     {
+        $availabilities;
+        $diaries;
         $events = array();
 
-        foreach ($doctor->availabilities as  $availability)
+        $doctor_all = explode('-', $doctor_t_id);
+        $doctor_id = $doctor_all[0];
+
+        $doctor = Doctor::find( $doctor_id );
+
+        if( count($doctor_all) == 2 )
+        {
+            $name_type = $doctor_all[1];
+            $availabilities = $doctor->getAvailabitiesType( $name_type );
+            $diaries = $doctor->getDiariesType( $name_type );
+        }
+        else
+        {
+            $availabilities = [];
+            $diaries = $doctor->getDiariesTypeAll;
+        }
+
+        foreach ($availabilities as  $availability)
         {
             array_push($events,[
-                'type'  => 'schedule',
-                'id' =>  'availableForMeeting',
+                'type'      => 'schedule',
+                'id'        => 'availableForMeeting',
                 'start'     => $availability->start,
                 'end'       => $availability->end,
                 'rendering' => 'background',
@@ -83,8 +104,8 @@ class CalendarBuilder {
             ]);
         }
 
-        foreach ($doctor->diaries as  $diary)
-        {
+        foreach ( $diaries as  $diary)
+        {   
             array_push($events,[
                 'type'       => 'diary',
                 'start'      => $diary->start,
@@ -95,9 +116,11 @@ class CalendarBuilder {
                 'entered_at' => $diary->entered_at,
                 'nameDoctor' => $diary->nameDoctor,
                 'diaryType'  => $diary->diaryType,
+                'color'      => $diary->color_of_type,
                 'constraint' => 'availableForMeeting'
             ]);
         }
+        
         return $events;
     }
 

@@ -628,7 +628,7 @@ a.sidebar-title:focus {
 }
 
 .sidebar-nav ul a {
-    margin: 0 0 0 19px;
+   /* margin: 0 0 0 19px; */
     padding-left: 19px;
     border-left: 1px solid #454e59;
     min-height: 34px;

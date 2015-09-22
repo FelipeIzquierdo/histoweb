@@ -21,7 +21,8 @@ class FieldBuilder {
         'default'           => 'form-control',
         'dateRange'         => 'form-control',
         'select'            => 'select-chosen',
-        'time'              => 'form-control input-timepicker'
+        'time'              => 'form-control input-timepicker',
+        'password'          => 'form-control'
     ];
 
     public function __construct(Form $form, View $view,  Session $session)

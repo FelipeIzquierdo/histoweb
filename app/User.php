@@ -31,6 +31,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+	public static function allLists()
+    {
+        return self::lists('email', 'id' );
+    }
+
     public function roles()
     {
         return $this->belongsTo('Histoweb\Entities\Role', 'role_id');
@@ -39,6 +44,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function office()
     {
         return $this->morphTo();
+    }
+
+    public function doctors()
+    {
+        return $this->hasOne('Histoweb\Entities\Doctor','user_id');
+    }
+
+    public function patients()
+    {
+        return $this->hasOne('Histoweb\Entities\Patient','user_id');
     }
 
 }

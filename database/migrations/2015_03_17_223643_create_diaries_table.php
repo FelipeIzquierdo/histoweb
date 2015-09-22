@@ -33,6 +33,8 @@ class CreateDiariesTable extends Migration {
 
             $table->timestamp('entered_at')->nullable();
 
+            $table->enum('type',['telemedicine','personal'])->default('personal');
+            
             $table->softDeletes();
             
             $table->timestamps();

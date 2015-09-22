@@ -6,6 +6,7 @@ use Histoweb\Http\Controllers\Controller;
 
 use Histoweb\Entities\Doctor;
 use Histoweb\Entities\Specialty;
+use Histoweb\User;
 
 use Illuminate\Routing\Route;
 
@@ -13,6 +14,7 @@ class DoctorsController extends Controller {
 
 	private $doctor;
 	private $specialties;
+	private $users;
 	private static $prefixRoute = 'admin.company.doctors.';
 	private static $prefixView = 'dashboard.pages.admin.company.doctor.';
 
@@ -20,6 +22,7 @@ class DoctorsController extends Controller {
 	{
 		$this->beforeFilter('@findDoctor', ['only' => ['show', 'edit', 'update', 'destroy']]);
 		$this->beforeFilter('@findSpecialties', ['only' => ['create', 'edit']]);
+		$this->beforeFilter('@findUsers', ['only' => ['create', 'edit']]);
 	}
 
 	/**
@@ -29,6 +32,15 @@ class DoctorsController extends Controller {
 	public function findSpecialties()
 	{
 		$this->specialties = Specialty::allLists();
+	}
+
+	/**
+	 * Find all specialties
+	 *
+	 */
+	public function findUsers()
+	{
+		$this->users = User::allLists();
 	}
 
 	/**
@@ -62,7 +74,7 @@ class DoctorsController extends Controller {
         $form_data = ['route' => self::$prefixRoute . 'store', 'method' => 'POST', 'files' => true];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['doctor' => $this->doctor, 'specialties' => $this->specialties]);
+        	->with(['doctor' => $this->doctor, 'specialties' => $this->specialties, 'users' => $this->users]);
 	}
 
 	/**
@@ -105,7 +117,7 @@ class DoctorsController extends Controller {
         $form_data = ['route' => [self::$prefixRoute . 'update', $this->doctor->id], 'method' => 'PUT', 'files' => 'true'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['doctor' => $this->doctor, 'specialties' => $this->specialties]);
+        	->with(['doctor' => $this->doctor, 'specialties' => $this->specialties, 'users' => $this->users]);
 	}
 
 	/**
