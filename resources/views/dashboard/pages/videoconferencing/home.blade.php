@@ -62,15 +62,6 @@
             </div>
         </div>
         -->
-
-            <h1 id="title">Abrir sala (Nombre:)</h1>
-    <p id="subTitle"></p>
-    
-    <form id="createRoom">
-        <input id="sessionInput"/>
-        <button type="submit">Crear sala:</button>
-    </form>
-
     <button id="hangupButton">Colgar</button>
 
 
@@ -83,8 +74,8 @@
           <video id="localVideo"></video>
 
           <div class="mediacall-controls l-flexbox l-flexbox_flexcenter">
-            <button class="btn_mediacall btn_camera_off" data-action="mute"><img class="btn-icon_mediacall" src="images/icon-camera-off.png" alt="camera"></button>
-            <button class="btn_mediacall btn_mic_off" data-action="mute"><img class="btn-icon_mediacall" src="images/icon-mic-off.png" alt="mic"></button>
+            <button class="btn_mediacall btn_camera_off" data-action="mute"><img class="btn-icon_mediacall" src="{{  URL::to('assets/js/plugins/simplewebrtc/images/icon-camera-off.png') }}" alt="camera"></button>
+            <button class="btn_mediacall btn_mic_off" data-action="mute"><img class="btn-icon_mediacall" src="{{  URL::to('assets/js/plugins/simplewebrtc/images/icon-mic-off.png') }}" alt="mic"></button>
           </div>
         </div>
 
@@ -98,18 +89,18 @@
     <div class="videoContainer"></div>
 
         <audio id="callingSignal" loop>
-            <source src="audio/calling.ogg"></source>
-            <source src="audio/calling.mp3"></source>
+            <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/calling.ogg') }}"></source>
+            <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/calling.mp3') }}"></source>
         </audio>
 
         <audio id="endCallSignal">
-            <source src="audio/end_of_call.ogg"></source>
-            <source src="audio/end_of_call.mp3"></source>
+            <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/end_of_call.ogg') }}"></source>
+            <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/end_of_call.mp3') }}"></source>
         </audio>
 
         <audio id="ringtoneSignal" loop>
-            <source src="audio/ringtone.ogg"></source>
-            <source src="audio/ringtone.mp3"></source>
+            <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/ringtone.ogg') }}"></source>
+            <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/ringtone.mp3') }}"></source>
         </audio>
 
 
