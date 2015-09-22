@@ -18,35 +18,28 @@
 	@section('dashboard_body')
 
 <div class="block" id="videoconferencing">
-    <!--
+
     <div class="row">
         <div class="col-sm-4 col-lg-push-4">
             <a href="javascript:void(0)" class="widget text-center">
-                <div class="widget-content themed-background-success text-light-op text-center">
-                    <strong> Conectar </strong> 
+                <div id="hangupButton" class="widget-content themed-background-danger text-light-op text-center">
+                    <strong> Colgar </strong> 
+                </div>
+                 <div id="init" class="widget-content themed-background-success text-light-op text-center" style="display:none;">
+                    <strong> Iniciar </strong> 
                 </div>
             </a>
         </div>
+    </div>
 
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="widget">
-                        <div class="widget-image widget-image-xs">
-                            <img src="img/placeholders/photos/photo18@2x.jpg" alt="image">
-                            <div class="widget-image-content">
-                                <h2 class="widget-heading text-light"><strong>{{ Auth::user()->patients->name }}</strong></h2>
-                                <h3 class="widget-heading text-light-op h4"> Invitado </h3>
-                            </div>
-                            <i class="fa fa-user"></i>
-                        </div>
-                    </div>                        
+    <div class="row">
+        <div class="col-lg-8 col-lg-push-2">
+
+                <div class="streams">
+                    <div id="remotes"></div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-lg-4 col-lg-push-4">
-            <div class="widget">
+            <div id="doctor_widget" class="widget">
                 <div class="widget-content themed-background-flat text-left clearfix">
                     <a href="javascript:void(0)" class="pull-right">
                         <img src="{{ URL::to('img/placeholders/icons/video.png') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar-2x">
@@ -61,38 +54,19 @@
                 </div>
             </div>
         </div>
-        -->
+    </div>
 
-            <h1 id="title">Abrir sala (Nombre:)</h1>
-    <p id="subTitle"></p>
-    
-    <form id="createRoom">
-        <input id="sessionInput"/>
-        <button type="submit">Crear sala:</button>
-    </form>
-    
-    <button id="hangupButton">Colgar</button>
-
-
-    <div class="streams">
-
-        <div class="localControls">
-
-          <span id="callerName"></span><br>
-
-          <video id="localVideo"></video>
-
-          <div class="mediacall-controls l-flexbox l-flexbox_flexcenter">
-            <button class="btn_mediacall btn_camera_off" data-action="mute"><img class="btn-icon_mediacall" src="{{  URL::to('assets/js/plugins/simplewebrtc/images/icon-camera-off.png') }}" alt="camera"></button>
-            <button class="btn_mediacall btn_mic_off" data-action="mute"><img class="btn-icon_mediacall" src="{{  URL::to('assets/js/plugins/simplewebrtc/images/icon-mic-off.png') }}" alt="mic"></button>
-          </div>
+    <div class="row">
+        <div class="col-lg-9 col-lg-push-4">
+                <div class="col-lg-12">
+                    <h2 class="widget-heading text-dark"><strong>{{ Auth::user()->patients->name }}</strong></h2>
+                    <video id="localVideo"></video>
+                    <div class="mediacall-controls l-flexbox l-flexbox_flexcenter">
+                        <button class="btn_mediacall btn_camera_off" data-action="mute"><img class="btn-icon_mediacall" src="{{  URL::to('assets/js/plugins/simplewebrtc/images/icon-camera-off.png') }}" alt="camera"></button>
+                        <button class="btn_mediacall btn_mic_off" data-action="mute"><img class="btn-icon_mediacall" src="{{  URL::to('assets/js/plugins/simplewebrtc/images/icon-mic-off.png') }}" alt="mic"></button>
+                    </div>
+                </div>
         </div>
-
-        <div class="remoteControls">
-          <span id="calleeName"></span><br>
-          <div id="remotes"></div>
-        </div>
-
     </div>
 
     <div class="videoContainer"></div>
@@ -120,9 +94,7 @@
 
 @section('js_extra')
     <script type="text/javascript">
-        var session_id = '{{ Auth::user()->patients->id }}';
-        var audio_boolean = true;
-        var audio = new Audio("{{ URL::to('call.mp3') }}");
+        var room = '{{ Auth::user()->patients->id }}';
     </script>
     {!! Html::script('assets/js/pages/confirm/entry.js') !!}
     {!! Html::script('assets/js/plugins/simplewebrtc/simplewebrtc.bundle.js') !!}

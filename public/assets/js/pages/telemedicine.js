@@ -1,18 +1,20 @@
-// grab the room from the URL
-var room = location.search && location.search.split('?')[1];
-
-// create our webrtc connection
-var webrtc = new SimpleWebRTC({
+function init()
+{
+    // create our webrtc connection
+    webrtc = new SimpleWebRTC({
     localVideoEl: 'localVideo',
     remoteVideosEl: '',
     autoRequestMedia: true,
     debug: false,
     detectSpeakingEvents: true,
     autoAdjustMic: false
-});
+    });
+}
+
+init();
 
 webrtc.on('videoAdded', function (video, peer) {
-    
+    $( "#doctor_widget" ).hide( "clip");
     var remotes = document.getElementById('remotes');
     if (remotes) {
         var d = document.createElement('div');
@@ -28,6 +30,7 @@ webrtc.on('videoAdded', function (video, peer) {
         };
         d.appendChild(vol);
         remotes.appendChild(d);
+
     }
 
     // show the ice connection state
@@ -65,6 +68,7 @@ webrtc.on('videoRemoved', function (video, peer) {
     var remotes = document.getElementById('remotes');
     var el = document.getElementById('container_' + webrtc.getDomId(peer));
     if (remotes && el) {
+        $( "#doctor_widget" ).show("clip");
         remotes.removeChild(el);
     }
 });
@@ -74,40 +78,19 @@ webrtc.on('readyToCall', function () {
     if (room) webrtc.joinRoom(room);
 });
 
-// Since we use this twice we put it here
-function setRoom(name) {
-    $('form').remove();
-    $('h1').text(name);
-    $('#subTitle').text('Link to join: ' + location.href);
-    $('body').addClass('active');
-}
-
-if (room) {
-    setRoom(room);
-} else {
-    $('form').submit(function () {
-        var val = $('#sessionInput').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
-        console.log(' Id de la sala : '+ val);
-        webrtc.createRoom(val, function (err, name) {
-            console.log(' create room cb', arguments);
-        
-            var newUrl = location.pathname + '?' + name;
-            if (!err) {
-                history.replaceState({foo: 'bar'}, null, newUrl);
-                setRoom(name);
-            } else {
-                console.log(err);
-            }
-        });
-        return false;          
-    });
-}
-
 // hangup
 //
 $('#hangupButton').click(function(){ 
     webrtc.stopLocalVideo();
     webrtc.leaveRoom();
+    document.getElementById("hangupButton").style.display = 'none';
+    document.getElementById("init").style.display = "block";
+});
+
+$('#init').click(function(){ 
+    init();
+    document.getElementById("init").style.display = 'none';
+    document.getElementById("hangupButton").style.display = "block";
 });
 
 // Mute camera
