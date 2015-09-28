@@ -1,3 +1,5 @@
+var container = document.getElementById('container');
+
 function init()
 {
     // create our webrtc connection
@@ -9,6 +11,8 @@ function init()
     detectSpeakingEvents: true,
     autoAdjustMic: false
     });
+
+    $( "#invited_widget" ).show("clip");
 }
 
 init();
@@ -85,6 +89,7 @@ $('#hangupButton').click(function(){
     webrtc.leaveRoom();
     document.getElementById("hangupButton").style.display = 'none';
     document.getElementById("init").style.display = "block";
+    $( "#invited_widget" ).hide("clip");
 });
 
 $('#init').click(function(){ 
@@ -92,6 +97,94 @@ $('#init').click(function(){
     document.getElementById("init").style.display = 'none';
     document.getElementById("hangupButton").style.display = "block";
 });
+
+$('#save_video').click(function(){ 
+        
+            preview.src = '';
+            fileName = Math.round(Math.random() * 99999999) + 99999999;
+            // Firefox even supports StereoAudioRecorder.js
+            // i.e.
+            // recorderType: StereoAudioRecorder
+           if (!isFirefox) {
+                recordAudio.stopRecording(function() {
+                    PostBlob(recordAudio.getBlob(), 'audio', fileName + '.wav');
+                });
+            } else {
+                recordAudio.stopRecording(function(url) {
+                    preview.src = url;
+                  //  PostBlob(recordAudio.getBlob(), 'video', fileName + '.webm');
+                });
+            }
+
+            if (!isFirefox && webrtcDetectedBrowser !== 'edge') {
+                recordVideo.stopRecording(function() {
+                    //PostBlob(recordVideo.getBlob(), 'video', fileName + '.webm');
+                });
+            }
+
+});
+
+function xhr(url, data, progress, percentage, callback) 
+{
+     var request = new XMLHttpRequest();
+
+        request.onreadystatechange = function() {
+            if (request.readyState == 4 && request.status == 200) {
+                callback(request.responseText);
+            }
+        };
+
+        request.upload.onloadstart = function() {
+            percentage.innerHTML = 'Upload started...';
+        };
+        request.upload.onprogress = function(event) {
+            console.log( 'evento total'+event.total );
+            progress.max = event.total;
+            progress.value = event.loaded;
+            percentage.innerHTML = 'Upload Progress ' + Math.round(event.loaded / event.total * 100) + "%";
+        };
+        request.upload.onload = function() {
+            percentage.innerHTML = 'Saved!';
+        };
+    
+    request.open('POST', url , true );
+    request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+    request.send(data);
+}
+
+function PostBlob(blob, fileType, fileName) {
+            // FormData
+            var formData = new FormData();
+            formData.append(fileType + '-filename', fileName);
+            formData.append(fileType + '-blob', blob);
+            // progress-bar
+            var hr = document.createElement('hr');
+            container.appendChild(hr);
+            var strong = document.createElement('strong');
+            strong.id = 'percentage';
+            strong.innerHTML = fileType + ' upload progress: ';
+            container.appendChild(strong);
+            var progress = document.createElement('progress');
+            container.appendChild(progress);
+            // POST the Blob using XHR2
+
+            xhr('deprueba', formData, progress, percentage, function(fileURL) {
+                container.appendChild(document.createElement('hr'));
+                var mediaElement = document.createElement(fileType);
+                var source = document.createElement('source');
+                var href = location.href.substr(0, location.href.lastIndexOf('/') + 1);
+                source.src = href + fileURL;
+                if (fileType == 'video' && webrtcDetectedBrowser !== 'edge') source.type = 'video/webm; codecs="vp8, vorbis"';
+                if (fileType == 'audio') source.type = !!navigator.mozGetUserMedia ? 'audio/ogg' : 'audio/wav';
+                mediaElement.appendChild(source);
+                mediaElement.controls = true;
+                container.appendChild(mediaElement);
+                mediaElement.play();
+                progress.parentNode.removeChild(progress);
+                strong.parentNode.removeChild(strong);
+                hr.parentNode.removeChild(hr);
+            });
+        }
 
 // Mute camera
 //
@@ -118,3 +211,4 @@ $('.btn_mic_off').on('click', function() {
       webrtc.unmute();
     }
 });
+            

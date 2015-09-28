@@ -18,7 +18,8 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('deprueba', 'PruebaController@index');
+Route::post('deprueba', 'PruebaController@index');
+Route::post('delete', 'PruebaController@delete');
 
 
 Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware' => ['role_doctor']], function() {

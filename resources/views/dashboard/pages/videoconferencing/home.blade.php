@@ -3,6 +3,10 @@
 	    Videoconferencia
 	@endsection
 
+    @section('meta_extra')
+        <meta name="_token" content="{{ csrf_token() }}"/>
+    @endsection
+
 	@section('dashboard_title')
 		<h1>
 			<i class="fa fa-desktop"></i>
@@ -27,6 +31,9 @@
                 </div>
                  <div id="init" class="widget-content themed-background-success text-light-op text-center" style="display:none;">
                     <strong> Iniciar </strong> 
+                </div>
+                <div id="save_video" class="widget-content themed-background-success text-light-op text-center">
+                    <strong> Guardar </strong> 
                 </div>
             </a>
         </div>
@@ -53,13 +60,14 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-9 col-lg-push-4">
-                <div class="col-lg-12">
-                    <h2 class="widget-heading text-dark"><strong>{{ Auth::user()->patients->name }}</strong></h2>
+                <h2 class="widget-heading text-dark"><strong>{{ Auth::user()->patients->name }}</strong></h2>
+                <div id="invited_widget" class="col-lg-12" style="display:none;">
                     <video id="localVideo"></video>
                     <div class="mediacall-controls l-flexbox l-flexbox_flexcenter">
                         <button class="btn_mediacall btn_camera_off" data-action="mute"><img class="btn-icon_mediacall" src="{{  URL::to('assets/js/plugins/simplewebrtc/images/icon-camera-off.png') }}" alt="camera"></button>
@@ -71,21 +79,22 @@
 
     <div class="videoContainer"></div>
 
-        <audio id="callingSignal" loop>
-            <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/calling.ogg') }}"></source>
-            <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/calling.mp3') }}"></source>
-        </audio>
+    <audio id="callingSignal" loop>
+        <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/calling.ogg') }}"></source>
+        <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/calling.mp3') }}"></source>
+    </audio>
 
-        <audio id="endCallSignal">
-            <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/end_of_call.ogg') }}"></source>
-            <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/end_of_call.mp3') }}"></source>
-        </audio>
+    <audio id="endCallSignal">
+        <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/end_of_call.ogg') }}"></source>
+        <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/end_of_call.mp3') }}"></source>
+    </audio>
 
-        <audio id="ringtoneSignal" loop>
-            <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/ringtone.ogg') }}"></source>
-            <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/ringtone.mp3') }}"></source>
-        </audio>
+    <audio id="ringtoneSignal" loop>
+        <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/ringtone.ogg') }}"></source>
+        <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/ringtone.mp3') }}"></source>
+    </audio>
 
+     <div id="container" style="padding:1em 2em;"></div>
 
     </div>
 </div>
@@ -96,8 +105,13 @@
     <script type="text/javascript">
         var room = '{{ Auth::user()->patients->id }}';
     </script>
+
+    {!! Html::script('https://cdn.rawgit.com/webrtc/adapter/master/adapter.js') !!}
+    {!! Html::script('assets/js/plugins/recordrtc/recordrtc.js') !!}
     {!! Html::script('assets/js/pages/confirm/entry.js') !!}
     {!! Html::script('assets/js/plugins/simplewebrtc/simplewebrtc.bundle.js') !!}
     {!! Html::script('assets/js/pages/telemedicine.js') !!}
+    <script src="https://cdn.webrtc-experiment.com/commits.js" async></script>
+    
 
 @endsection
