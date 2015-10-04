@@ -33,7 +33,7 @@
     </section>
 
     <div class="row">
-        <div class="col-sm-4 col-lg-push-4">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-push-2 col-sm-push-2 col-md-push-2 col-lg-push-2">
             <a href="javascript:void(0)" class="widget text-center">
                 <div id="leave-conference" class="widget-content themed-background-danger text-light-op text-center" style="display:none;">
                     <strong> Colgar </strong> 
@@ -46,7 +46,7 @@
     </div>
 
     <div class="row">
-        <div id="col-home" class="col-lg-8 col-lg-push-2">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-push-2 col-sm-push-2 col-md-push-2 col-lg-push-2">
 
             <div id="invited_widget" class="widget">
                 <div class="widget-content themed-background-flat text-left clearfix">
@@ -57,19 +57,13 @@
                 </div>
             </div>
 
-            <div id="video-home" style="display:none;" > </div>
-
         </div>
     </div>
 
-    <div class="row">
-        <div id="col-visit" class="col-lg-8 col-lg-push-2">
+    <div class="row">   
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-push-2 col-sm-push-2 col-md-push-2 col-lg-push-2">
 
-                <div class="streams">
-                    <div id="remotes"></div>
-                </div>
-
-            <div id="video-visit" style="display:none;" ></div>
+            <div id="sala" > </div>
 
             <div id="doctor_widget" class="widget">
                 <div class="widget-content themed-background-flat text-left clearfix">
@@ -81,7 +75,7 @@
                 </div>
                 <div class="widget-content themed-background-muted text-center">
                     <div class="btn-group">
-                        <a onclick="hola()" class="btn btn-effect-ripple btn-success"><i class="fa fa-share"></i> Disponible </a>
+                        <a class="btn btn-effect-ripple btn-success"><i class="fa fa-share"></i> Disponible </a>
                     </div>
                 </div>
             </div>
@@ -113,6 +107,7 @@
     <script type="text/javascript">
         var name = '{{ Auth::user()->patients->name }}'; 
         var room = '{{ Auth::user()->patients->id }}';
+        var image_record = "{{ URL::to('img/placeholders/icons/record.png') }}";
         var number_videos = 0;
     </script>
     
