@@ -26,8 +26,7 @@ function appendVideo(video, streamid)
         video = getVideo(video, streamid, video_element , number_videos );
         if ( number_videos == 2 )
         {
-            $('.video_2').addClass( 'col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xs-push-8 col-sm-push-8 col-md-push-8 col-lg-push-8' );
-            $('video').addClass( 'videos' );
+            $('.video_1').addClass( 'videos col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xs-push-8 col-sm-push-8 col-md-push-8 col-lg-push-8' );
         }
     }
 }
@@ -114,7 +113,7 @@ connection.onNewSession = function(session)
     joinRoomButton.setAttribute('data-sessionid', session.sessionid);
     joinRoomButton.onclick = function() {
         this.disabled = true;
-
+        
         var sessionid = this.getAttribute('data-sessionid');
         session = sessions[sessionid];
 
@@ -138,7 +137,9 @@ document.getElementById('init-conference').onclick = function()
 
 document.getElementById('leave-conference').onclick = function() 
 {
-    this.disabled = true;
+    enableId( "init-conference" , "leave-conference" );
+    enableId( videos_widget[0] , "sala" );
+    enableId( videos_widget[1] , "sala" );
     connection.close();
 };
 
