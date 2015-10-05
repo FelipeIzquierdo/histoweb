@@ -727,3 +727,10 @@ Breadcrumbs::register('describe_procedure', function($breadcrumbs, $entry_id, $d
         $breadcrumbs->push('Nuevo Procedimiento', route('assistance.options.describeProcedures.create'));
     }
 });
+
+// Inicio > Telemedicina
+Breadcrumbs::register('telemedicine', function($breadcrumbs)
+{
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Telemedicina', route('admin'));
+});

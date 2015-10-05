@@ -19,9 +19,9 @@ function appendVideo(video, streamid)
 {
     if( number_videos < 2 )
     {
+        enableId ( 'sala' , videos_widget[ number_videos ] );
         video.width = $( '#sala' ).parent().width();    
         video_element = document.getElementById( 'sala' ) || document.body;
-        enableId ( 'sala' , videos_widget[ number_videos ] );
         number_videos = number_videos + 1;
         video = getVideo(video, streamid, video_element , number_videos );
         if ( number_videos == 2 )
@@ -100,34 +100,29 @@ connection.onstreamended = function(e)
 };
 
 var sessions = {};
-connection.onNewSession = function(session) 
-{
-    if (sessions[session.sessionid]) return;
-    sessions[session.sessionid] = session;
-    var tr = document.createElement('tr');
-    tr.innerHTML = '<td><strong>' + session.extra['session-name'] + '</strong> is running a conference!</td>' +
-        '<td><button class="join">Join</button></td>';
-    roomsList.insertBefore(tr, roomsList.firstChild);
-
-    var joinRoomButton = tr.querySelector('.join');
-    joinRoomButton.setAttribute('data-sessionid', session.sessionid);
-    joinRoomButton.onclick = function() {
-        this.disabled = true;
-        
-        var sessionid = this.getAttribute('data-sessionid');
-        session = sessions[sessionid];
-
-        if (!session) throw 'No such session exists.';
-        console.log(  )
-        connection.join(session);
-    };
-};
+        connection.onNewSession = function(session) {
+            if (sessions[session.sessionid]) return;
+            sessions[session.sessionid] = session;
+            var tr = document.createElement('tr');
+            tr.innerHTML = '<td><strong>' + session.extra['session-name'] + '</strong> is running a conference!</td>' +
+                '<td><button class="join">Join</button></td>';
+            roomsList.insertBefore(tr, roomsList.firstChild);
+            var joinRoomButton = tr.querySelector('.join');
+            joinRoomButton.setAttribute('data-sessionid', session.sessionid);
+            joinRoomButton.onclick = function() {
+                this.disabled = true;
+                var sessionid = this.getAttribute('data-sessionid');
+                session = sessions[sessionid];
+                if (!session) throw 'No such session exists.';
+                connection.join(session);
+            };
+        };
 
 document.getElementById('init-conference').onclick = function() 
 {
     enableId( "leave-conference" , "init-conference" );
-    connection.sessionid = room;
-    this.disabled = true;
+    //connection.sessionid = room;
+    connection.sessionid = (Math.random() * 999999999999).toString().replace('.', '');
     connection.extra = {
         'session-name': name || 'Anonymous'
     };

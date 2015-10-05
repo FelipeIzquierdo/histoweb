@@ -36,6 +36,6 @@
 		
 	@endif
 
-	@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('videoconferencing'), 'icon_widget' => 'img/placeholders/icons/videoconferencing.png', 'title_widget' => 'Videoconferencia'])
+	@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('telemedicine'), 'icon_widget' => 'img/placeholders/icons/telemedicine.png', 'title_widget' => 'Telemedicina'])
 
 	@endsection

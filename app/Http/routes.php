@@ -172,9 +172,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 });
 
 
-Route::group(['prefix' => 'videoconferencing', 'namespace' => 'Videoconferencing'], function() {
+Route::group(['prefix' => 'telemedicine', 'namespace' => 'Telemedicine'], function() {
 	
-	Route::controller('/', 'VideoconferencingController', [
-		'getIndex' 			=> 'videoconferencing', 
+	Route::controller('/', 'TelemedicineController', [
+		'getIndex' 			=> 'telemedicine', 
+		'getTelediagnostic'	=> 'telediagnostic',
+		'getTeleconsult'	=> 'teleconsult',
+		'getLlamada'		=> 'call'
 	]);
 });

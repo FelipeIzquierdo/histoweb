@@ -1,7 +1,7 @@
 @extends('dashboard.pages.layout')
     
 @section('title') 
-    Videoconferencia
+    Teleconsulta
 @endsection
 
 @section('meta_extra')
@@ -12,7 +12,7 @@
     {!! Html::style('assets/css/webrtc.css') !!}
     <h1>
         <i class="fa fa-desktop"></i>
-        Videoconferencia
+        Teleconsulta
     </h1>
 @endsection
 
@@ -22,9 +22,9 @@
     
 @section('dashboard_body')
 
-    {!! Html::script('//cdn.webrtc-experiment.com/firebase.js') !!}
-    {!! Html::script('//cdn.webrtc-experiment.com/RTCMultiConnection.js') !!}
-    {!! Html::script('//www.webrtc-experiment.com/RecordRTC.js') !!}
+{!! Html::script('assets/js/plugins/webrtc/firebase.js') !!}
+{!! Html::script('assets/js/plugins/webrtc/RTCMultiConnection.js') !!}
+{!! Html::script('assets/js/plugins/webrtc/RecordRTC.js') !!}
     
 <div class="block" id="videoconferencing">
 
@@ -33,7 +33,7 @@
     </section>
 
     <div class="row">
-        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-push-2 col-sm-push-2 col-md-push-2 col-lg-push-2">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xs-push-0 col-sm-push-0 col-md-push-0 col-lg-push-1">
             <a href="javascript:void(0)" class="widget text-center">
                 <div id="leave-conference" class="widget-content themed-background-danger text-light-op text-center" style="display:none;">
                     <strong> Colgar </strong> 
@@ -46,7 +46,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-push-2 col-sm-push-2 col-md-push-2 col-lg-push-2">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xs-push-0 col-sm-push-0 col-md-push-0 col-lg-push-1">
 
             <div id="invited_widget" class="widget">
                 <div class="widget-content themed-background-flat text-left clearfix">
@@ -61,7 +61,7 @@
     </div>
 
     <div class="row">   
-        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-push-2 col-sm-push-2 col-md-push-2 col-lg-push-2">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xs-push-0 col-sm-push-0 col-md-push-0 col-lg-push-1">
 
             <div id="sala" > </div>
 
@@ -82,22 +82,6 @@
 
         </div>
     </div>
-
-    <audio id="callingSignal" loop>
-        <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/calling.ogg') }}"></source>
-        <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/calling.mp3') }}"></source>
-    </audio>
-
-    <audio id="endCallSignal">
-        <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/end_of_call.ogg') }}"></source>
-        <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/end_of_call.mp3') }}"></source>
-    </audio>
-
-    <audio id="ringtoneSignal" loop>
-        <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/ringtone.ogg') }}"></source>
-        <source src="{{  URL::to('assets/js/plugins/simplewebrtc/audio/ringtone.mp3') }}"></source>
-    </audio>
-
 </div>
 
 @endsection
@@ -106,19 +90,15 @@
 
     <script type="text/javascript">
         var name = '{{ Auth::user()->patients->name }}'; 
-        var room = '{{ Auth::user()->patients->id }}';
+        var room = 'teleconsult';
         var image_record = "{{ URL::to('img/placeholders/icons/record.png') }}";
         var number_videos = 0;
     </script>
     
     {!! Html::script('assets/js/pages/webrtc.js') !!}
-    {!! Html::script('//cdn.webrtc-experiment.com/commits.js') !!}    
-    {!! Html::script('https://cdn.rawgit.com/webrtc/adapter/master/adapter.js') !!}
+    {!! Html::script('assets/js/plugins/webrtc/commits.js') !!}    
+    {!! Html::script('assets/js/plugins/webrtc/adapter.js') !!}
     {!! Html::script('assets/js/plugins/recordrtc/recordrtc.js') !!}
-    {!! Html::script('assets/js/pages/confirm/entry.js') !!}
-    {!! Html::script('assets/js/plugins/simplewebrtc/simplewebrtc.bundle.js') !!}
-    <!-- {!! Html::script('assets/js/pages/telemedicine.js') !!} 
-    <script src="https://cdn.webrtc-experiment.com/commits.js" async></script>-->
 
 @endsection
 
