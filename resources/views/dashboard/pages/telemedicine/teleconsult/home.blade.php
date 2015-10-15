@@ -53,7 +53,7 @@
                     <a href="javascript:void(0)" class="pull-right">
                         <img src="{{ URL::to('img/placeholders/icons/user.png') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar-2x">
                     </a>
-                    <h3 class="widget-heading text-light"> {{ Auth::user()->patients->name }} <br/> </h3>
+                    <h3 class="widget-heading text-light"> {{ Auth::user()->doctors->name }} <br/> </h3>
                 </div>
             </div>
 
@@ -89,7 +89,7 @@
 @section('js_extra')
 
     <script type="text/javascript">
-        var name = '{{ Auth::user()->patients->name }}'; 
+        var name = '{{ Auth::user()->doctors->name }}'; 
         var room = 'teleconsult';
         var image_record = "{{ URL::to('img/placeholders/icons/record.png') }}";
         var number_videos = 0;
