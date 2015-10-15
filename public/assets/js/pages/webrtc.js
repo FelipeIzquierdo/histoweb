@@ -2,6 +2,7 @@ var connection = new RTCMultiConnection();
 var videos_widget = [ 'invited_widget' , 'doctor_widget' ];
 var roomsList = document.getElementById('rooms-list');
 var number_videos = 0;
+var name_room = 'sala';
 var video_element;
 
 connection.session = 
@@ -13,22 +14,6 @@ connection.session =
 connection.onstream = function(e) 
 {
     appendVideo(e.mediaElement, e.streamid);
-}
-
-function appendVideo(video, streamid) 
-{
-    if( number_videos < 2 )
-    {
-        enableId ( 'sala' , videos_widget[ number_videos ] );
-        video.width = $( '#sala' ).parent().width();    
-        video_element = document.getElementById( 'sala' ) || document.body;
-        number_videos = number_videos + 1;
-        video = getVideo(video, streamid, video_element , number_videos );
-        if ( number_videos == 2 )
-        {
-            $('.video_1').addClass( 'videos col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xs-push-8 col-sm-push-8 col-md-push-8 col-lg-push-8' );
-        }
-    }
 }
 
 function getVideo(video, streamid, element, number ) 
@@ -78,6 +63,66 @@ function getVideo(video, streamid, element, number )
     return element;
 }
 
+connection.onstreamended = function(e) 
+{
+    $( "#"+name_room ).empty();
+    document.getElementById("leave-conference").click();
+};
+
+var sessions = {};
+connection.onNewSession = function(session) 
+{
+    if (sessions[session.sessionid]) return;
+    sessions[session.sessionid] = session;
+    console.log('session');
+    console.log(session);
+    var li = document.createElement('li');
+    li.id = session['userid'];
+    li.style.fontSize = '12px';
+    li.innerHTML = '<a><span class="sidebar-nav-mini-hide text-success"> ' + session.extra['session-name'] + '</span>' +
+        '<button style="margin-left: 20px" class="btn btn-success btn-sm join"> <i class="fa fa-phone" ></i>  </button></a>';
+    roomsList.insertBefore(li, roomsList.firstChild);
+    var joinRoomButton = li.querySelector('.join');
+    joinRoomButton.setAttribute('data-sessionid', session.sessionid);
+    joinRoomButton.onclick = function() {
+        this.disabled = true;
+        var sessionid = this.getAttribute('data-sessionid');
+        session = sessions[sessionid];
+        if (!session) throw 'No such session exists.';
+        connection.join(session);
+        enableId( "leave-conference" , "init-conference" );
+    };
+};
+
+connection.onSessionClosed = function (e) {
+    $('#'+e['userid']).remove();
+};
+
+connection.onMediaError = function(event) 
+{
+    document.getElementById("leave-conference").click();
+    alert('Error');
+};
+
+document.getElementById('init-conference').onclick = function() 
+{
+    enableId( "leave-conference" , "init-conference" );
+    connection.sessionid = (Math.random() * 999999999999).toString().replace('.', '');
+    connection.extra = {
+        'session-name': name || 'Anonymous'
+    };
+    connection.open();
+};
+
+document.getElementById('leave-conference').onclick = function() 
+{
+    enableId( "init-conference" , "leave-conference" );
+    enableId( videos_widget[0] , name_room );
+    enableId( videos_widget[1] , name_room );
+    connection.close();
+    number_videos = 0;
+};
+
 function rotateVideo(mediaElement) 
 {
     mediaElement.style[navigator.mozGetUserMedia ? 'transform' : '-webkit-transform'] = 'rotate(0deg)';
@@ -86,57 +131,6 @@ function rotateVideo(mediaElement)
         mediaElement.style[navigator.mozGetUserMedia ? 'transform' : '-webkit-transform'] = 'rotate(360deg)';
     }, 1000);
 }
-
-connection.onstreamended = function(e) 
-{
-    var div = e.mediaElement.parentNode;
-    div.style.opacity = 0;
-    rotateVideo(div);
-    setTimeout(function() {
-        if (div.parentNode) {
-            div.parentNode.removeChild(div);
-        }
-    }, 1000);
-};
-
-var sessions = {};
-        connection.onNewSession = function(session) {
-            if (sessions[session.sessionid]) return;
-            sessions[session.sessionid] = session;
-            var tr = document.createElement('tr');
-            tr.innerHTML = '<td><strong>' + session.extra['session-name'] + '</strong> is running a conference!</td>' +
-                '<td><button class="join">Join</button></td>';
-            roomsList.insertBefore(tr, roomsList.firstChild);
-            var joinRoomButton = tr.querySelector('.join');
-            joinRoomButton.setAttribute('data-sessionid', session.sessionid);
-            joinRoomButton.onclick = function() {
-                this.disabled = true;
-                var sessionid = this.getAttribute('data-sessionid');
-                session = sessions[sessionid];
-                if (!session) throw 'No such session exists.';
-                connection.join(session);
-            };
-        };
-
-document.getElementById('init-conference').onclick = function() 
-{
-    enableId( "leave-conference" , "init-conference" );
-    //connection.sessionid = room;
-    connection.sessionid = (Math.random() * 999999999999).toString().replace('.', '');
-    connection.extra = {
-        'session-name': name || 'Anonymous'
-    };
-    connection.open();
-
-};
-
-document.getElementById('leave-conference').onclick = function() 
-{
-    enableId( "init-conference" , "leave-conference" );
-    enableId( videos_widget[0] , "sala" );
-    enableId( videos_widget[1] , "sala" );
-    connection.close();
-};
 
 function enableId( enable , disabled  )
 {

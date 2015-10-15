@@ -732,5 +732,19 @@ Breadcrumbs::register('describe_procedure', function($breadcrumbs, $entry_id, $d
 Breadcrumbs::register('telemedicine', function($breadcrumbs)
 {
     $breadcrumbs->parent('home');
-    $breadcrumbs->push('Telemedicina', route('admin'));
+    $breadcrumbs->push('Telemedicina', route('telemedicine'));
+});
+
+// Inicio > Telemedicina > Telediagnóstico
+Breadcrumbs::register('telediagnostic', function($breadcrumbs)
+{
+    $breadcrumbs->parent('telemedicine');
+    $breadcrumbs->push('Telediagnóstico', route('telediagnostic'));
+});
+
+// Inicio > Telemedicina > Teleconsulta
+Breadcrumbs::register('teleconsult', function($breadcrumbs)
+{
+    $breadcrumbs->parent('telemedicine');
+    $breadcrumbs->push('Teleconsulta', route('teleconsult'));
 });

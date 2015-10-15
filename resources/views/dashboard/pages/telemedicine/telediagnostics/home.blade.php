@@ -17,7 +17,7 @@
 @endsection
 
 @section('breadcrumbs')
-    
+    {!! Breadcrumbs::render('telediagnostic') !!}
 @endsection
     
 @section('dashboard_body')
@@ -92,6 +92,7 @@
         var number_videos = 0;
     </script>
     
+    {!! Html::script('assets/js/pages/telediagnostic.js') !!}
     {!! Html::script('assets/js/pages/webrtc.js') !!}
     {!! Html::script('assets/js/plugins/webrtc/commits.js') !!}    
     {!! Html::script('assets/js/plugins/webrtc/adapter.js') !!}

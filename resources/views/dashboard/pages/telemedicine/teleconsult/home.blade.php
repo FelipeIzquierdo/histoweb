@@ -12,14 +12,18 @@
     {!! Html::style('assets/css/webrtc.css') !!}
     <h1>
         <i class="fa fa-desktop"></i>
-        Teleconsulta
+        Teleconsulta    
     </h1>
 @endsection
 
 @section('breadcrumbs')
-    
+    {!! Breadcrumbs::render('teleconsult') !!}
 @endsection
-    
+
+@section('sidebar_menu')
+    @include('dashboard.pages.telemedicine.menu') 
+@endsection
+
 @section('dashboard_body')
 
 {!! Html::script('assets/js/plugins/webrtc/firebase.js') !!}
@@ -27,10 +31,6 @@
 {!! Html::script('assets/js/plugins/webrtc/RecordRTC.js') !!}
     
 <div class="block" id="videoconferencing">
-
-     <section class="experiment">
-            <table style="width: 100%;" id="rooms-list"></table>
-    </section>
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xs-push-0 col-sm-push-0 col-md-push-0 col-lg-push-1">
@@ -95,6 +95,7 @@
         var number_videos = 0;
     </script>
     
+    {!! Html::script('assets/js/pages/teleconsult.js') !!}
     {!! Html::script('assets/js/pages/webrtc.js') !!}
     {!! Html::script('assets/js/plugins/webrtc/commits.js') !!}    
     {!! Html::script('assets/js/plugins/webrtc/adapter.js') !!}
