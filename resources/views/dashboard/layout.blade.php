@@ -22,13 +22,17 @@
                     <h3 class="text-primary visible-lt-ie10"><strong>Cargando..</strong></h3>
                 </div>
             </div>
-            <div id="page-container" class="header-fixed-top sidebar-visible-lg-full">
+            <div id="page-container" class="header-fixed-top sidebar-visible-lg-full sidebar-alt-visible-lg">
                 <!-- Alternative Sidebar -->
                 {{-- @include('dashboard.includes.right_sidebar') --}}
                 <!-- END Alternative Sidebar -->
 
                 <!-- Main Sidebar -->
                 @include('dashboard.includes.sidebar')
+                <!-- END Main Sidebar -->
+
+                <!-- Main Sidebar -->
+                @yield('sidebar2', 'Contenido de telemedicina')
                 <!-- END Main Sidebar -->
 
                 <!-- Main Container -->

@@ -30,8 +30,7 @@
 {!! Html::script('assets/js/plugins/webrtc/RTCMultiConnection.js') !!}
 {!! Html::script('assets/js/plugins/webrtc/RecordRTC.js') !!}
     
-<div class="block" id="videoconferencing">
-
+<div class="block">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xs-push-0 col-sm-push-0 col-md-push-0 col-lg-push-1">
             <a href="javascript:void(0)" class="widget text-center">

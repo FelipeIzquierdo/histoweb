@@ -43,7 +43,11 @@
 								<td>{{ $patient->gender }}</td>
 								<td>{{ $patient->email }}</td>
 								<td>{{ $patient->tel }}</td>
-								<td>{{ $patient->users->email }}</td>
+								@if (isset($patient->users->email))
+          							<td>{{ $patient->users->email }}</td>
+          						@else
+          							<td> Sin asignar </td>
+       							@endif
 								<td class="text-center">
 									<a href="{{ route('admin.company.patients.edit', $patient->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar Paciente"><i class="fa fa-pencil"></i></a>
 								</td>

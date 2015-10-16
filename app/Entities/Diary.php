@@ -19,7 +19,7 @@ class Diary extends Model
     ];
     protected $typeEs = [
         'personal'      => 'Personal',
-        'telemedicine'  => 'Telediagnósis'
+        'telemedicine'  => 'Telediagnóstico'
     ];
 
     public function getTypeEsAttribute()

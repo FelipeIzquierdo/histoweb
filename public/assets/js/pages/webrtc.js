@@ -1,4 +1,4 @@
-var connection = new RTCMultiConnection();
+var connection = new RTCMultiConnection('H1ST0W3B'); // channel-id (Importante)
 var videos_widget = [ 'invited_widget' , 'doctor_widget' ];
 var roomsList = document.getElementById('rooms-list');
 var number_videos = 0;

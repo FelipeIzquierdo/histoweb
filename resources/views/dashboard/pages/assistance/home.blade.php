@@ -1,7 +1,7 @@
 @extends('dashboard.pages.layout')
 
 @section('dashboard_title')
-    <h1>Asistencia, Doctor {{ $doctor->name }} </h1>
+    <h1>Asistencia, Dr {{ $doctor->name }} </h1>
 @endsection
 
 @section('sidebar_menu')
