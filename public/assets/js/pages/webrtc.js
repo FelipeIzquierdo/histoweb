@@ -98,6 +98,10 @@ connection.onSessionClosed = function (e) {
     $('#'+e['userid']).remove();
 };
 
+connection.onleave = function (e) {
+    $('#'+e['userid']).remove();
+};
+
 connection.onMediaError = function(event) 
 {
     document.getElementById("leave-conference").click();
