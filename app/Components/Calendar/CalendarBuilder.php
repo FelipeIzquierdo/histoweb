@@ -71,7 +71,7 @@ class CalendarBuilder {
 
     public function getDoctorDiaries($doctor_t_id)
     {
-        $availabilities;
+        $availabilities = [];
         $diaries;
         $events = array();
 
@@ -88,7 +88,6 @@ class CalendarBuilder {
         }
         else
         {
-            $availabilities = [];
             $diaries = $doctor->getDiariesTypeAll;
         }
 
