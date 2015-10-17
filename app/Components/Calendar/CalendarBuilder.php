@@ -72,8 +72,8 @@ class CalendarBuilder {
     public function getDoctorDiaries($doctor_t_id)
     {
         $availabilities = [];
-        $diaries;
-        $events = array();
+        $diaries = [];
+        $events = [];
 
         $doctor_all = explode('-', $doctor_t_id);
         $doctor_id = $doctor_all[0];
