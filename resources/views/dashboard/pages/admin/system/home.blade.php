@@ -27,7 +27,7 @@
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.procedures.index'), 'icon_widget' => 'img/placeholders/icons/procedure.png', 'title_widget' => 'Procedimientos'])
 
-		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.diagnoses.index'), 'icon_widget' => 'img/placeholders/icons/diagnosis.png', 'title_widget' => 'Diagnósticos'])
+		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.diseases.index'), 'icon_widget' => 'img/placeholders/icons/diagnosis.png', 'title_widget' => 'Enfermedades'])
 
 		@include('dashboard.includes.bootstrap.widget', ['url_widget' => route('admin.system.system-revisions.index'), 'icon_widget' => 'img/placeholders/icons/system-revision.png', 'title_widget' => 'Revisión de sistemas'])
 

@@ -3,6 +3,10 @@
 	    Unidades
 	@endsection
 
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('unit') !!}
+	@endsection
+
 	@section('dashboard_title')
 		<h1>
 			<i class="gi gi-user_add"></i>

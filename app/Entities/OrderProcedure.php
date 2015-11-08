@@ -11,8 +11,7 @@ class OrderProcedure extends Model
 	public $increments = true;
 	public $errors;
 
-
-   public function procedure()
+    public function procedure()
     {
         return $this->belongsTo('Histoweb\Entities\Procedure');
     }

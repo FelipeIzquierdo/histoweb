@@ -20,7 +20,7 @@ $(document).ready(function () {
             return $(this).text();
         }).get();
 
-        var diagnostics = $('#diagnostics option:selected').map(function() {
+        var diseases = $('#diseases option:selected').map(function() {
             return $(this).text();
         }).get();
 
@@ -51,7 +51,7 @@ $(document).ready(function () {
         $("#modal_reasons").html(reasons.join( ", " ));
         $("#modal_system_revisions").html(system_revisions.join( ", " ));
         $("#modal_procedures").html(procedures.join( ", " ));
-        $("#modal_diagnostics").html(diagnostics.join( ", " ));
+        $("#modal_diseases").html(diseases.join( ", " ));
 
         $("#modal_present_illness").html($('textarea[name="present_illness"]').val());
         $("#modal_management_plan").html($('textarea[name="management_plan"]').val());

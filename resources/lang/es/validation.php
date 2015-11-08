@@ -214,8 +214,10 @@ return array(
    	'concentration_id' => 'Médidad de concentración',
    	'dose' => 'Dosis',
    	'unit_id' => 'Unidad',
-   	'diluent_id' => 'Diluyente'
-
+   	'diluent_id' => 'Diluyente',
+   	'diluent_amount' => 'Cantidad del diluyente',
+   	'unit_amount' => 'Cantidad de la unidad',
+   	'diseases' => 'Diagnóstico'
 
 ]
 

@@ -12,7 +12,11 @@
 			</a>
 		</h1>
 	@endsection
-	
+
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('reason') !!}
+	@endsection
+
 	@section('dashboard_body')
 		<div class="block">
 			<div class="block-title clearfix">

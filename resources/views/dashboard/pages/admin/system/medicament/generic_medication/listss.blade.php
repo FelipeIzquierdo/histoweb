@@ -3,6 +3,10 @@
 	    Medicamentos Genéricos
 	@endsection
 
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('generic_medication') !!}
+	@endsection
+
 	@section('dashboard_title')
 		<h1>
 			<i class="gi gi-user_add"></i>
@@ -22,22 +26,18 @@
 				<table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
 					<thead>
 						<tr>
-							<th>Códigoooo</th>
+							<th>Código</th>
 							<th>Nombre</th>
 							<th>Descripción</th>
-							<th>Presentación</th>
-							<th>Vía de administración</th>
 							<th style="min-width: 50px;" class="text-center"><i class="fa fa-flash"></i></th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($generic as $medicament)
+						@foreach($generic_medication as $medicament)
 							<tr>
 								<td>{{ $medicament->cod }}</td>
 								<td><strong>{{ $medicament->name }}</strong></td>
 								<td>{{ $medicament->description }}</td>
-								<td>{{ $medicament->presentation_name }}</td>
-								<td>{{ $medicament->administration_route_name }}</td>
 								<td class="text-center">
 									<a href="{{ route('admin.system.medicament.generic-medications.edit', $medicament->id) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar medicamento genérico"><i class="fa fa-pencil"></i></a>
 								</td>
@@ -49,7 +49,7 @@
 			</div>
 			<div class="row">
 			    <div class="col-xs-12">
-	                {!! $generic->render() !!}
+	                {!! $generic_medication->render() !!}
 	            </div>
 			</div>
 		</div>

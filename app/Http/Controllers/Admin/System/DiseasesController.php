@@ -1,19 +1,19 @@
 <?php namespace Histoweb\Http\Controllers\Admin\System;
 
-use Histoweb\Http\Requests\Diagnosis\CreateRequest;
-use Histoweb\Http\Requests\Diagnosis\EditRequest;
+use Histoweb\Http\Requests\Disease\CreateRequest;
+use Histoweb\Http\Requests\Disease\EditRequest;
 use Histoweb\Http\Controllers\Controller;
 
-use Histoweb\Entities\Diagnosis;	
+use Histoweb\Entities\Disease;	
 
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class DiagnosesController extends Controller {
+class DiseasesController extends Controller {
 
-	private $diagnosis;
-	private static $prefixRoute = 'admin.system.diagnoses.';
-	private static $prefixView = 'dashboard.pages.admin.system.diagnosis.';
+	private $diseases;
+	private static $prefixRoute = 'admin.system.diseases.';
+	private static $prefixView = 'dashboard.pages.admin.system.disease.';
 
 	public function __construct() 
 	{
@@ -27,15 +27,15 @@ class DiagnosesController extends Controller {
 	 */
 	public function findDiagnoses(Route $route)
 	{
-		$this->diagnosis = Diagnosis::findOrFail($route->getParameter('diagnoses'));
+		$this->diseases = Disease::findOrFail($route->getParameter('diseases'));
 	}
 
 
 
 	public function index()
 	{
-        $diagnoses = Diagnosis::orderBy('updated_at', 'desc')->paginate(12);
-        return view(self::$prefixView . 'lists', compact('diagnoses'));
+        $diseases = Disease::ListsViews();
+        return view(self::$prefixView . 'lists', compact('diseases'));
 	}
 
 	/**
@@ -45,11 +45,11 @@ class DiagnosesController extends Controller {
 	 */
 	public function create()
 	{
-        $this->diagnosis = new Diagnosis;
+        $this->diseases = new Disease;
         $form_data = ['route' => self::$prefixRoute . 'store', 'method' => 'POST'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['diagnosis' => $this->diagnosis]);
+        	->with(['diseases' => $this->diseases]);
 	}
 
 	/**
@@ -59,11 +59,11 @@ class DiagnosesController extends Controller {
 	 */
     public function store(CreateRequest $request)
     {
-        $this->diagnosis = Diagnosis::create($request->all());
+        $this->diseases = Disease::create($request->all());
 
         if($request->ajax())
         {
-            return $this->diagnosis;
+            return $this->diseases;
         }
 		
         return redirect()->route(self::$prefixRoute . 'index');
@@ -77,8 +77,8 @@ class DiagnosesController extends Controller {
 	 */
 	public function show($id)
 	{
-        $diagnosis = Diagnosis::find($id);
-        return view(self::$prefixView . 'show',compact('id', 'diagnosis'));
+        $diseases = Disease::find($id);
+        return view(self::$prefixView . 'show',compact('id', 'diseases'));
 	}
 
 	/**
@@ -89,10 +89,10 @@ class DiagnosesController extends Controller {
 	 */
 	public function edit($id)
 	{
-        $form_data = ['route' => [self::$prefixRoute . 'update', $this->diagnosis->id], 'method' => 'PUT'];
+        $form_data = ['route' => [self::$prefixRoute . 'update', $this->diseases->id], 'method' => 'PUT'];
 
         return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['diagnosis' => $this->diagnosis]);
+        	->with(['diseases' => $this->diseases]);
 	}
 
 	/**
@@ -103,12 +103,12 @@ class DiagnosesController extends Controller {
 	 */
     public function update(EditRequest $request, $id)
     {
-        $this->diagnosis->fill($request->all());
-        $this->diagnosis->save();
+        $this->diseases->fill($request->all());
+        $this->diseases->save();
         
         if($request->ajax())
         {
-            return $this->diagnosis;
+            return $this->diseases;
         }
 
         return redirect()->route(self::$prefixRoute . 'index');

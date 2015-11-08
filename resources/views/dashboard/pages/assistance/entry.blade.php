@@ -80,7 +80,7 @@
             </div>
             <div class="form-horizontal form-bordered">
                 {!! Field::select('procedures[]', $procedures, null, ['id' => 'procedures', 'data-placeholder' => 'Procedimientos', 'template' => 'horizontal', 'multiple' ]) !!}
-                {!! Field::select('diagnoses[]', $diagnoses, null, ['id' => 'diagnoses', 'data-placeholder' => 'Diagnosticos', 'template' => 'horizontal', 'multiple' ]) !!}
+                {!! Field::select('diseases[]', $diseases, null, ['id' => 'diseases', 'data-placeholder' => 'Enfermedades', 'template' => 'horizontal', 'multiple' ]) !!}
             </div>
         </div>  
 
@@ -143,7 +143,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Diagnosticos</label>
                             <div class="col-md-9">
-                                <p id="modal_diagnoses"></p>
+                                <p id="modal_diseases"></p>
                             </div>
                         </div>
                         <div class="form-group">

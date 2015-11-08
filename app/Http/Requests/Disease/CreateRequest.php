@@ -1,4 +1,4 @@
-<?php namespace Histoweb\Http\Requests\Diagnosis;
+<?php namespace Histoweb\Http\Requests\Disease;
 
 use Histoweb\Http\Requests\Request;
 
@@ -20,7 +20,8 @@ class CreateRequest extends Request {
 	public function rules()
 	{
 		return [			
-            'name'        => 	'required|max:200|unique:diagnoses,name'
+			'cod'		=> 	'required|max:50|unique:diseases,cod', 
+            'name'      => 	'required|max:200|unique:diseases,name'
 		];
 	}
 }

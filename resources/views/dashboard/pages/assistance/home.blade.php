@@ -8,6 +8,10 @@
 	@include('dashboard.pages.assistance.menu') 
 @endsection
 
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('assistance') !!}
+@endsection
+
 @section('dashboard_body')
 	
 

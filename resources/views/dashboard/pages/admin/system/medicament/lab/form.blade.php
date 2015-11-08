@@ -2,7 +2,11 @@
   @section('title') 
     @if($lab->exists) Editar {{$lab->cc}} @else Nuevo laboratorio @endif
   @endsection
-  
+
+  @section('breadcrumbs')
+    {!! Breadcrumbs::render('lab.create',$lab) !!}
+  @endsection
+
   @section('dashboard_title') 
     <h1>
       @if($lab->exists) Editar laboratorio: {{$lab->name}} @else Nuevo laboratorio @endif

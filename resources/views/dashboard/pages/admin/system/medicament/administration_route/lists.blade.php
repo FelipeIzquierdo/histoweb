@@ -3,6 +3,10 @@
 	    Vía de administración
 	@endsection
 
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('administration_route') !!}
+	@endsection
+
 	@section('dashboard_title')
 		<h1>
 			<i class="gi gi-user_add"></i>
@@ -28,7 +32,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($route as $viamedicament)
+						@foreach($administration_route as $viamedicament)
 							<tr>
 								<td>{{ $viamedicament->name }}</td>
 								<td><strong>{{ $viamedicament->description }}</strong></td>
@@ -43,7 +47,7 @@
 			</div>
 			<div class="row">
 			    <div class="col-xs-12">
-	                {!! $route->render() !!}
+	                {!! $administration_route->render() !!}
 	            </div>
 			</div>
 		</div>

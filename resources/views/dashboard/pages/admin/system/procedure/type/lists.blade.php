@@ -3,6 +3,10 @@
 	    Tipos de procedimientos 
 	@endsection
 
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('procedure_type') !!}
+	@endsection
+
 	@section('dashboard_title')
 		<h1>
 			<i class="fa fa-check-square-o"></i>

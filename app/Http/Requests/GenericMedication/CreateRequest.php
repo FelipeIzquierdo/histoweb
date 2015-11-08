@@ -20,11 +20,9 @@ class CreateRequest extends Request {
 	public function rules()
 	{
 		return [
-			'cod'		  => 	'required|max:50|unique:generic_medications,cod', 
-			'name'              => 	'required|max:50|unique:generic_medications,name',
-			'description'        => 'max:100',
-			'presentation_id'			=> 	'required|integer|exists:presentations,id',
-			'route_id'	=> 	'required|integer|exists:administration_routes,id',
+			'cod'						=> 	'required|max:50|unique:generic_medications,cod', 
+			'name'        		    	=> 	'required|max:50|unique:generic_medications,name',
+			'description'      			=>  'max:100'
 		];
 	}
 }

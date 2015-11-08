@@ -3,6 +3,10 @@
     @if($presentation->exists) Editar {{$presentation->id}} @else Nueva Presentación @endif
   @endsection
   
+  @section('breadcrumbs')
+    {!! Breadcrumbs::render('presentation.create',$presentation) !!}
+  @endsection
+
   @section('dashboard_title') 
     <h1>
       @if($presentation->exists) Editar Presentación: {{$presentation->name}} @else Nueva Presentación @endif

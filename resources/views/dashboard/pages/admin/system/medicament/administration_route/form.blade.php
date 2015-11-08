@@ -1,11 +1,15 @@
 @extends('dashboard.pages.layout')
   @section('title') 
-    @if($route->exists) Editar {{$route->id}} @else Nueva Vía de administración @endif
+    @if($administration_route->exists) Editar {{$administration_route->id}} @else Nueva Vía de administración @endif
   @endsection
-  
+
+  @section('breadcrumbs')
+    {!! Breadcrumbs::render('administration_route.create',$administration_route) !!}
+  @endsection
+
   @section('dashboard_title') 
     <h1>
-      @if($route->exists) Editar Vía de administración: {{$route->name}} @else Nueva Vía de administración @endif
+      @if($administration_route->exists) Editar Vía de administración: {{$administration_route->name}} @else Nueva Vía de administración @endif
     </h1> 
   @endsection 
 
@@ -17,7 +21,7 @@
                   <h2>Datos de Vía de administración</h2>
               </div>
               <div class="form-horizontal form-bordered">
-                {!! Form::model($route, $form_data) !!}
+                {!! Form::model($administration_route, $form_data) !!}
                   {!! Field::text( 'name', null, ['placeholder' => 'Nombres', 'template' => 'horizontal']) !!}
                   {!! Field::text( 'description', null, ['placeholder' => 'Descripción', 'template' => 'horizontal']) !!}
                   <div class="form-group form-actions">

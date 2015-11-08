@@ -2,7 +2,11 @@
   @section('title') 
     @if($diluent->exists) Editar {{$diluent->id}} @else Nueva Diluyente @endif
   @endsection
-  
+
+  @section('breadcrumbs')
+    {!! Breadcrumbs::render('diluent.create',$diluent) !!}
+  @endsection
+
   @section('dashboard_title') 
     <h1>
       @if($diluent->exists) Editar Diluyente: {{$diluent->name}} @else Nueva Diluyente @endif

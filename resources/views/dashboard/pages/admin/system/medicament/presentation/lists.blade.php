@@ -3,6 +3,10 @@
 	    Presentaciones
 	@endsection
 
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('presentation') !!}
+	@endsection
+
 	@section('dashboard_title')
 		<h1>
 			<i class="gi gi-user_add"></i>

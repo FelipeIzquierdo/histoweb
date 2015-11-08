@@ -25,8 +25,10 @@ class DatabaseSeeder extends Seeder {
 		$this->call('OccupationsTableSeeder');
 		$this->call('ReasonsTableSeeder');
 		$this->call('SystemRevisionsTableSeeder');
+		$this->call('ProcedureTypesTableSeeder');
 		$this->call('ProceduresTableSeeder');
 		
+		$this->call('RolesTableSeeder');
 		$this->call('UserTableSeeder');
         $this->call('SpecialtiesTableSeeder');
         $this->call('DoctorsTableSeeder');
@@ -43,11 +45,13 @@ class DatabaseSeeder extends Seeder {
         $this->call('DiluentsTableSeeder');
         $this->call('AdministrationRoutesTableSeeder');
         $this->call('PresentationsTableSeeder');
-        $this->call('AdministrationRoutePresentationsTableSeeder');
         $this->call('GenericMedicationsTableSeeder');
+        $this->call('ConcentrationsTableSeeder');
         $this->call('LabsTableSeeder');
-        $this->call('CommercialMedicationsTableSeeder');
+        //$this->call('CommercialMedicationsTableSeeder');
         $this->call('StaffTableSeeder');
+
+        $this->call('DiseasesTableSeeder');
 
 	}
 

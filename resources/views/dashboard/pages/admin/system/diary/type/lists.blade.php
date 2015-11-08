@@ -13,6 +13,10 @@
 		</h1>
 	@endsection
 	
+	@section('breadcrumbs')
+		{!! Breadcrumbs::render('diary_types') !!}
+	@endsection
+
 	@section('dashboard_body')
 		@foreach($types as $type)
 			<div class="col-sm-3">
