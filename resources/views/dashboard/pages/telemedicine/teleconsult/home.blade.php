@@ -26,9 +26,9 @@
 
 @section('dashboard_body')
 
-{!! Html::script('assets/js/plugins/webrtc/firebase.js') !!}
-{!! Html::script('assets/js/plugins/webrtc/RTCMultiConnection.js') !!}
-{!! Html::script('assets/js/plugins/webrtc/RecordRTC.js') !!}
+{!! Html::script('//cdn.webrtc-experiment.com/firebase.js') !!}
+{!! Html::script('//cdn.webrtc-experiment.com/RTCMultiConnection.js') !!}
+{!! Html::script('//www.webrtc-experiment.com/RecordRTC.js') !!}
     
 <div class="block">
     <div class="row">
@@ -96,9 +96,7 @@
     
     {!! Html::script('assets/js/pages/teleconsult.js') !!}
     {!! Html::script('assets/js/pages/webrtc.js') !!}
-    {!! Html::script('assets/js/plugins/webrtc/commits.js') !!}    
-    {!! Html::script('assets/js/plugins/webrtc/adapter.js') !!}
-    {!! Html::script('assets/js/plugins/recordrtc/recordrtc.js') !!}
+    {!! Html::script('//cdn.webrtc-experiment.com/commits.js') !!}    
 
 @endsection
 
