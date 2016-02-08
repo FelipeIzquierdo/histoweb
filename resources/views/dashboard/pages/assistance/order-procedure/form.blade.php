@@ -1,36 +1,29 @@
-@extends('dashboard.pages.layout')
+@extends('dashboard.pages.layout_on_window')
 
-@section('dashboard_title')
-    <h1>Paciente: {{ $entry->diary->patient->name }}</h1>
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('order_procedure', $entry->id) !!}
 @endsection
 
-  @section('breadcrumbs')
-    {!! Breadcrumbs::render('order_procedure', $entry->id) !!}
-  @endsection
+@section('dashboard_title') 
+<h1> Solicitar procedimiento, Paciente: {{ $entry->diary->patient->name }} </h1>
+@endsection 
 
 @section('dashboard_body')
-    
-    {!! Form::open($form_data) !!}
-    
-        <div class="block">
-            <div class="block-title clearfix">
-                <h2><span class="hidden-xs">Solitar procedimiento</h2>
-            </div>
-            <div class="form-horizontal form-bordered">
-                {!! Field::select('procedure_id[]',$procedure ,null, ['id' => 'procedure', 'data-placeholder' => 'Procedimientos', 'template' => 'horizontal', 'multiple' ]) !!}
+    <div class="block">
+        <div class="block-title clearfix">
+            <h2><span class="hidden-xs">Solicitar procedimiento</h2>
+        </div>
+        <div class="form-horizontal form-bordered">
+            {!! Field::select('procedure_id',$procedure ,null, ['id' => 'procedure_id', 'data-placeholder' => 'Procedimientos', 'template' => 'horizontalmodal', 'multiple' ]) !!}
+        </div>
+    </div>
+
+    <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3">
+                {!! Form::button('Vista previa', ['class' => 'btn btn-primary', 'id' => 'submitOrderProcedure']) !!}
             </div>
         </div>
-
-        
-        <div class="form-group form-actions">
-                <div class="col-md-9 col-md-offset-3">
-                    {!! Form::button('Vista previa', ['class' => 'btn btn-primary', 'type' => 'submit', 'id' => 'submitOrderProcedure']) !!}
-                </div>
-            </div>
-        </div>
-
-      
-    {!! Form::close() !!}
+    </div>
 
     <!-- Regular Fade -->
     <div id="entryModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -51,12 +44,16 @@
         </div>
     </div>
     <!-- END Regular Fade -->
-    
-
 @endsection
 
 @section('js_extra')
-    {!! Html::script('assets/js/pages/confirm/entry.js') !!}
+    <script type="text/javascript">
+        @if((isset($form_data) && isset($method)))
+            var form_data = "{{ $form_data }}";
+            var method = "{{ $method }}";
+        @else
+            console.log("{{ $form_dataa}}")
+        @endif
+    </script>
     {!! Html::script('assets/js/pages/order-procedure.js') !!}
 @endsection
-

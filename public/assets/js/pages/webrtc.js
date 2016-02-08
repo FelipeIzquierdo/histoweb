@@ -105,7 +105,7 @@ connection.onleave = function (e) {
 connection.onMediaError = function(event) 
 {
     document.getElementById("leave-conference").click();
-    alert('Error');
+    alert('Ingrese por favor por el protocolo https');
 };
 
 document.getElementById('init-conference').onclick = function() 

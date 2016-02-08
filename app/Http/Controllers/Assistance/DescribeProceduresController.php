@@ -57,18 +57,20 @@ class DescribeProceduresController extends Controller {
     public function create()
     {
         $describe_procedure = new DescribeProcedure;
-        $form_data = ['route' => [self::$prefixRoute . 'store',$this->entry->id], 'method' => 'POST', 'id' => 'entryForm'];
+        $form_data = route(self::$prefixRoute . 'store',$this->entry->id);
+        $method = 'POST';
 
-        return view(self::$prefixView . 'form', compact('form_data'))
+        return view(self::$prefixView . 'form', compact('form_data','method'))
             ->with([
-                'describe_procedures' => $describe_procedure,
-                'entry'             => $this->entry,
-                'doctors'           => $this->doctors,
-                'anesthesia_types'  => $this->anesthesia_types,
-                'staff'             => $this->staff,
-                'way_entries'       => $this->way_entries,
-                'state_ways'        => $this->state_ways,
-                'surgeries'         => $this->surgeries
+                'before_url'            => route('assistance.entries.options', $this->entry->id),
+                'describe_procedures'   => $describe_procedure,
+                'entry'                 => $this->entry,
+                'doctors'               => $this->doctors,
+                'anesthesia_types'      => $this->anesthesia_types,
+                'staff'                 => $this->staff,
+                'way_entries'           => $this->way_entries,
+                'state_ways'            => $this->state_ways,
+                'surgeries'             => $this->surgeries,
             ]);
     }
 
@@ -79,7 +81,10 @@ class DescribeProceduresController extends Controller {
         $this->describe_procedure = DescribeProcedure::create($data);
         $pdf = new MyPdf();
         $pdf->describeProcedurePdf($this->describe_procedure,$this->entry);
-        return redirect()->route('assistance.entries.options', $id);
+
+        return response()->json([
+                'url_options'     =>      route('assistance.entries.options', $this->entry->id),
+            ]);
     }
 
 

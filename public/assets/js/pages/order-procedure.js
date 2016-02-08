@@ -4,7 +4,7 @@ $(document).ready(function () {
         var $form = $(this).closest('form');
         e.preventDefault();
 
-        var procedure_id = $('select[name="procedure_id[]"]').val();
+        var procedure_id = $('select[name="procedure_id"]').val();
         $('.modal-body').remove();
 
         $.ajax({
@@ -21,9 +21,36 @@ $(document).ready(function () {
 
                 $('#entryModal').modal({ backdrop: 'static', keyboard: false })
                     .one('click', '#confirm', function() {
-                    $form.trigger('submit'); // submit the form
+                    createOrderProcedure(form_data,method);
+                    //$form.trigger('submit'); // submit the form
                 });
         }
         });
     });
 });
+
+function createOrderProcedure (url, method) {
+    $("[id^=error]").html("");
+    $.ajax({
+        data:  {
+            'procedure_id':             returnValueSelect ($('#procedure_id').val()),
+        },
+        url:   url,
+        type:  method,
+        beforeSend: function(request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+        },
+        success:  function (data) {
+            load_url(data.url_options);
+        },
+        error: function(data) {
+            // Error...
+            var errors = data.responseJSON;
+            $.each(errors, function (index, value) {
+                $('#error-'+ index +'').html(
+                    '<p>' + value + '</p>'
+                );
+            });
+        }
+    });
+}

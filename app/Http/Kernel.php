@@ -30,6 +30,7 @@ class Kernel extends HttpKernel {
 		'role_admin' 			=> 'Histoweb\Http\Middleware\Admin', 
 		'role_reception' 		=> 'Histoweb\Http\Middleware\Reception',
 		'role_doctor'	 		=> 'Histoweb\Http\Middleware\Doctor',
+		'https'	 				=> 'Histoweb\Http\Middleware\Https',
 	];
 
 }

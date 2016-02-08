@@ -210,13 +210,12 @@ return [
 		 * me aliases...
 		 */
 
-        'Form' 		=> 'Collective\Html\FormFacade',
-    	'Html' 		=> 'Collective\Html\HtmlFacade',
-    	'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
-        'Field'		=> 'Histoweb\Components\Field\FieldFacade',
-        'Calendar'	=> 'Histoweb\Components\Calendar\CalendarFacade',
-
-        'Flash' 	=> 'Laracasts\Flash\Flash'
+        'Form' 			=> 'Collective\Html\FormFacade',
+    	'Html' 			=> 'Collective\Html\HtmlFacade',
+    	'Breadcrumbs'	=> 'DaveJamesMiller\Breadcrumbs\Facade',
+        'Field'			=> 'Histoweb\Components\Field\FieldFacade',
+        'Calendar'		=> 'Histoweb\Components\Calendar\CalendarFacade',
+        'Flash' 		=> 'Laracasts\Flash\Flash'
 
 	],
 

@@ -1,12 +1,7 @@
-@extends('dashboard.pages.layout')
+@extends('dashboard.pages.layout_on_window')
 
-@section('dashboard_title')
+@section('dashboard_title') 
     <h1>Paciente: {{ $entry->diary->patient->name }}</h1>
-
-@endsection
-
-@section('sidebar_menu')
-    @include('dashboard.pages.assistance.menu') 
 @endsection
 
 @section('breadcrumbs')
@@ -19,13 +14,13 @@
 </div>
 <div class="col-sm-3">
 	<h4 class="sub-header">Opciones de Historia</h4>
-    <a href="{{ route('assistance.options.formulate.create', $entry->id) }}" class="btn btn-block btn-info">
+    <a id="btn-options" class="btn btn-block btn-info" onclick="load_url('{{ route('assistance.options.formulate.create', $entry->id) }}')">
         Formular
     </a>
-    <a href="{{ route('assistance.options.order-procedures.create', $entry->id) }}" class="btn btn-block btn-info">
+    <a id="btn-order-procedures" onclick="load_url('{{ route('assistance.options.order-procedures.create', $entry->id) }}')" class="btn btn-block btn-info">
         Solicitar procedimiento
     </a>
-    <a href="{{ route('assistance.options.describeProcedures.create', $entry->id) }}" class="btn btn-block btn-info">
+    <a id="btn-describe-procedures" onclick="load_url('{{ route('assistance.options.describeProcedures.create', $entry->id) }}')" class="btn btn-block btn-info">
         Describir procedimiento
     </a>
     <h4 class="sub-header">Reportes</h4>
@@ -45,7 +40,7 @@
 	<div class="block-title clearfix">
 		<h2><span class="hidden-xs">Lista de</span> Procedimientos</h2>
 	</div>
-{!! Form::open($form_data) !!}
+
 	<div class="table-responsive">
 		<table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
 			<thead>
@@ -70,7 +65,6 @@
 			</tbody>
 		</table>
 	</div>
-{!! Form::close() !!}
 </div>
     <div class="block">
 
@@ -91,7 +85,7 @@
                 @foreach($entry->getDescribeProcedures() as $describe_procedure)
                 <tr>
                     <td><strong>{{ $describe_procedure->description }}</strong></td>
-                    <td>{{ $describe_procedure->doctor->name }}</td>
+                    <td>{{ $describe_procedure->doctor->name }}</td>    
                     <td class="text-center">
                         <a href="/documents/describeProcedure/{!! $entry->diary->patient->doc !!}-{!! $describe_procedure->id !!}.pdf">
                         <button type="submit" data-toggle="tooltip" class="btn btn-success" data-original-title="Ver Descripción de procedimiento"><i class="fa fa-download"></i></button>
@@ -119,13 +113,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                 @foreach($formulations as $f)
+                 @foreach($formulations as $formulation)
                     <tr>
                       <td>
-                        {{ $f->for_humans }}
+                        {{ $formulation->for_humans }}
                       </td>
                       <td class="text-center">
-                        <a href="{{ route('assistance.options.formulate.edit', [$entry->id,$f->id]) }}" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
+                        <a onclick="load_url('{{ route('assistance.options.formulate.update', [$entry->id,$formulation->id]) }}')" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
                       </td>
                     </tr>
                   @endforeach
@@ -163,5 +157,13 @@
 @endsection
 
 @section('js_extra')
+    <script type="text/javascript">
+        @if((isset($form_data) && isset($method)))
+            var form_data = "{{ $form_data }}";
+            var method = "{{ $method }}";
+        @else
+            console.log("{{ $form_dataa }}")
+        @endif
+    </script>
     {!! Html::script('assets/js/pages/options.js') !!}
 @endsection

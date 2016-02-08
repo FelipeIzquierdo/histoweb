@@ -63,7 +63,42 @@ $(document).ready(function () {
 
         $('#entryModal').modal({ backdrop: 'static', keyboard: false })
             .one('click', '#confirm', function() {
-                $form.trigger('submit'); // submit the form
+                createEntry(form_data,method);
+                //$form.trigger('submit'); // submit the form
             });
     });
 });
+
+function createEntry (url, method) {
+    $("[id^=error]").html("");
+    $.ajax({
+        data:  {
+            'reasons':                  returnValueSelect ($('#reasons').val()),
+            'new_reasons':              $('#new_reasons').val(),
+            'present_illness':          $('#present_illness').val(),
+            'sexual_history':           $('#sexual_history').val(),
+            'system_revisions':         returnValueSelect ($('#system_revisions').val()),
+            'new_system_revisions':     $('#new_system_revisions').val(),
+            'procedures':               returnValueSelect ($('#procedures').val()),
+            'diseases':                 returnValueSelect ($('#diseases').val()),
+            'management_plan':          $('#management_plan').val(),
+        },
+        url:   url,
+        type:  method,
+        beforeSend: function(request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+        },
+        success:  function (data) {
+            load_url(data.url_options);
+        },
+        error: function(data) {
+            // Error...
+            var errors = data.responseJSON;
+            $.each(errors, function (index, value) {
+                $('#error-'+ index +'').html(
+                    '<p>' + value + '</p>'
+                );
+            });
+        }
+    });
+}

@@ -25,3 +25,30 @@ function deleteModel(button_id)
       }
    }, 'json');
 }
+
+function load_url (url) {
+    $('#page-content').load(url, function (response, status, xhr) {
+      $(this).hide().fadeIn();
+      if(status == "error"){
+        alert('Error en cargar la página');
+      }
+    });
+}
+
+function returnValueSelect (data) {
+    if( data != null ){
+        return data;
+    }
+    return [];
+}
+
+$(document).ready(function () {
+    $(document).mousemove(function (e){
+      if(($(window).width()/2) < e.pageX){
+        $('#toTop').fadeIn();
+      }
+      else{
+        $('#toTop').fadeOut();
+      }
+    });
+});

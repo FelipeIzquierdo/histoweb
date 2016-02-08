@@ -1,0 +1,101 @@
+@extends('dashboard.pages.layout_on_window')
+
+  @section('breadcrumbs')
+    {!! Breadcrumbs::render('formulate', $entry->id, $formulate) !!}
+  @endsection
+
+  @section('dashboard_title') 
+    <h1>
+      @if($formulate->exists) Editar formula, Paciente: {{ $entry->diary->patient->name }}  @else Nueva formula, Paciente: {{ $entry->diary->patient->name }}  @endif
+    </h1>
+    <h1> 
+      <a id="create_formulate_url" class="btn btn-info" title="Nueva formula" onclick="load_url('{{ $create_formulate_url }}')" >
+        <i class="fa fa-plus"></i>
+      </a>
+    </h1> 
+  @endsection 
+
+  @section('dashboard_body') 
+    <div class="row">
+      <div class="col-sm-7 col-md-7 col-lg-7">       
+          <div class="block">
+              <div class="block-title">
+                  <h2>Datos de la Formula</h2>
+              </div>
+              <div class="form-horizontal form-bordered">
+                {!! Form::model($formulate) !!}
+                  {!! Field::select( 'generic_medication_id', $generic_medications, null, [ 'id' => 'generic_medication_id','data-placeholder' => 'Medicamento Generico', 'template' => 'horizontalmodal', 'class' => 'form-control' ,'onchange' =>'generic_medication()']) !!}
+                  <div class="form-group">
+                    <label class="col-md-4 control-label" for="name">Presentación</label>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            {!! Form::select( 'concentration_id', [], null, ['id' => 'concentration_id', 'data-placeholder' => 'Presentación', 'template' => 'horizontalmodal','class' => 'form-control']) !!}
+                            <span class="input-group-addon"><i class="fa fa-bars"></i></span>
+                        </div>
+                        <div class="help-block animation-pullUp" style="color: #de815c;" id="error-concentration_id"></div>
+                    </div>
+                  </div>
+                  {!! Field::select( 'administration_route_id', $administration_routes , null, ['id' => 'administration_route_id','data-placeholder' => 'Vía de administración', 'template' => 'horizontalmodal','class' => 'form-control']) !!}
+                  {!! Field::number( 'dose', null , ['id' => 'dose', 'min' => '0', 'template' => 'horizontalmodal']) !!}
+                  {!! Field::number( 'interval', null , ['id' => 'interval', 'min' => '0' , 'template' => 'horizontalmodal']) !!}
+                  {!! Field::number( 'limit', null , ['id' => 'limit', 'min' => '0' , 'template' => 'horizontalmodal']) !!}
+                  <div class="form-group form-actions">
+                    <div class="col-md-9 col-md-offset-3">
+                        <a class="btn btn-effect-ripple btn-primary" onclick="save( '{{ $form_data }}', '{{ $method_form_data }}' )" >Guardar</a>
+                    </div>
+                  </div>
+                {!! Form::close() !!}
+              </div>
+          </div>
+      </div>
+
+      <div class="col-sm-5 col-md-5 col-lg-5">
+          <div class="block">
+            <div class="block-title clearfix">
+              <h2><span class="hidden-xs">Lista de</span> Lista de Formulación</h2>
+            </div>
+            <div class="table-responsive">
+              <table id="general-table" class="table table-vcenter table-striped table-condensed table-hover">
+                <thead>
+                  <tr>
+                    <th>Descripción</th>
+                    <th style="min-width: 50px;" class="text-center"><i class="fa fa-flash"></i></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($formulations as $formulation)
+                    <tr>
+                      <td>
+                        {{ $formulation->for_humans }}
+                      </td>
+                      <td class="text-center">
+                        <a onclick="load_url('{{ route('assistance.options.formulate.update', [$entry->id,$formulation->id]) }}')" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-sm btn-warning" data-original-title="Editar formular"><i class="fa fa-pencil"></i></a>
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+                <h1><a id="finish_formulation" class="btn btn-info" title="Nueva formula" onclick="load_url('{{ $before_url }}')" >
+                    Finalizar Formulación
+                    </a>
+                </h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                        {!! $formulations->render() !!}
+                    </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+  @endsection
+
+@section('js_extra')
+  {!! Html::script('assets/js/pages/formulate.js') !!}
+  <script type="text/javascript">
+      @if($formulate->exists)
+        generic_medication('{{ $formulate->concentration_id }}');
+      @endif
+  </script>
+@stop

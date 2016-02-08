@@ -34,7 +34,7 @@ class AssistanceController extends Controller {
 	public function __construct() 
 	{
 		$this->beforeFilter('@findDoctor');
-		$this->beforeFilter('@findEntry', ['only' => [ 'getExit', 'getOptions','getRemoveProcedure','getPdf']]);
+		$this->beforeFilter('@findEntry', ['only' => ['getExit', 'getOptions','getRemoveProcedure','getPdf']]);
 		$this->beforeFilter('@findDiary', ['only' => ['getCreateEntry', 'postHistory']]);
 	}
 
@@ -62,13 +62,15 @@ class AssistanceController extends Controller {
 
 	public function getCreateEntry($diary_id)
 	{ 
-		if($this->diary->entry)
-		{
-			return redirect()->route('assistance.entries.options', $this->diary->entry->id);
-		}
+		$url_options = (isset($this->diary->entry->id)) ? route('assistance.entries.options', $this->diary->entry->id) : '';
+		
 		return view('dashboard.pages.assistance.entry')->with([
-			'diary'	=> $this->diary,
-			'doctor'	=> $this->doctor
+			'form_data' 		=> route('assistance.entries.history',$this->diary->id),
+			'method'			=> 'POST',
+			'diary'				=> $this->diary,
+			'doctor'			=> $this->doctor,
+			'url_options'		=> $url_options,
+			'lenght_col_layout' => 'col-md-9'	
 		]);
 	}
 
@@ -87,17 +89,21 @@ class AssistanceController extends Controller {
 			$pdf = new MyPdf();
 			$pdf->historyPdf( $entry , $entry );
 		}
-		return redirect()->route('assistance.entries.options', $entry->id);
+
+		return response()->json([
+                'url_options' 	=>   	route('assistance.entries.options', $entry->id),
+            ]);
 	}
 
-	public function getOptions($id)
-	{	
+	public function getOptions()
+	{				
 		$formulations = $this->entry->getFormulatePaginate();
-		$form_data = ['route' => ['assistance.entries.removeprocedure',$this->entry->id], 'method' => 'POST', 'id' => 'entryForm'];
+		$form_data = route('assistance.entries.removeprocedure',$this->entry->id);
+		$method = 'POST';
 		
-		return view('dashboard.pages.assistance.options',compact('form_data','formulations'))->with([
+		return view('dashboard.pages.assistance.options',compact('form_data','method','formulations'))->with([
 			'doctor'				=> $this->doctor,
-			'entry' 				=> $this->entry
+			'entry' 				=> $this->entry,
 		]);
 	}
 
@@ -110,24 +116,20 @@ class AssistanceController extends Controller {
 			return Response::download($filename,'Procedimientos.pdf');	
 		}
 			
-		return redirect()->route('assistance.entries.options', $this->entry->id);
+		return response()->json([
+                'url_options' 	=>   	route('assistance.entries.options', $this->entry->id),
+            ]);
 	}
 
-	public function getRemoveProcedure($entry_id)
+	public function getRemoveProcedure($procedure_id)
 	{	
-		OrderProcedure::removeProcedure( $this->entry->id, Input::get('procedure') );
+		OrderProcedure::removeProcedure( $this->entry->id, Input::get('procedure_id') );
 		$rta = Procedure::getOrderProceduresAll($this->entry->id);
         $pdf = new MyPdf();
         $pdf->orderProceduresPdf($rta,$this->entry);
 
-		return redirect()->route('assistance.entries.options', $this->entry->id);
-	}
-
-	public function getFormulate($id)
-	{	
-		return view('dashboard.pages.assistance.options')->with([
-			'doctor'	=> $this->doctor,
-			'entry' 	=> $this->entry
-		]);
+        return response()->json([
+                'url_options' 	=>   	route('assistance.entries.options', $this->entry->id),
+            ]);
 	}
 }

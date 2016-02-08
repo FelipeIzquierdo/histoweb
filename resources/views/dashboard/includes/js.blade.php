@@ -8,7 +8,6 @@
 {!! Html::script('assets/js/app.js') !!}
 {!! Html::script('assets/js/admin.js') !!}
 {!! Html::script('assets/js/plugins/fileinput/fileinput.min.js') !!}
-{!! Html::script('assets/js/admin.js') !!}
 
 {!! Html::script('assets/js/vendor/lang-all.js') !!}
 

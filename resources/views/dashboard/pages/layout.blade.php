@@ -17,9 +17,13 @@
     </div>
     <!-- END Blank Header -->
     <div class="row">
-        <div class="col-md-12">
+        @if(isset($lenght_col_layout))
+            <div class="{{ $lenght_col_layout }}">
+        @else
+            <div class="col-md-12">
+        @endif
             @yield('dashboard_body')
         </div>
     </div>
-    
+@yield('js_extra_page_content')    
 @stop

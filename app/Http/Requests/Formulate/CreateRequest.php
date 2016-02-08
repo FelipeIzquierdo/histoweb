@@ -21,7 +21,7 @@ class CreateRequest extends Request {
 	{
 		return [
             'generic_medication_id'		=> 	'required|integer|exists:generic_medications,id',
-            //'concentration_id'			=> 	'required|integer|exists:concentrations,id',
+            'concentration_id'			=> 	'required|integer|exists:concentrations,id',
             'administration_route_id'	=> 	'required|integer|exists:administration_routes,id',
             'dose'						=>  'required|integer',
             'interval'					=>  'required|integer',

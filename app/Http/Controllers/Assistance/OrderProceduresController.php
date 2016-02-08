@@ -40,12 +40,14 @@ class OrderProceduresController extends Controller {
 
 	public function create()
 	{
-        $form_data = ['route' => [self::$prefixRoute . 'store',$this->entry->id], 'method' => 'POST', 'id' => 'entryForm'];
+        $form_data = route(self::$prefixRoute . 'store',$this->entry->id);
+        $method = 'POST';
 
-        return view(self::$prefixView . 'form', compact('form_data'))
-        	->with(['procedure' => $this->order_procedure,
-        			'procedure_type' => $this->procedure_type,
-        			'entry' => $this->entry]);
+        return view(self::$prefixView . 'form', compact('form_data','method'))
+        	->with(['before_url'             => route('assistance.entries.options', $this->entry->id),
+                    'procedure'              => $this->order_procedure,
+        			'procedure_type'         => $this->procedure_type,
+        			'entry'                  => $this->entry ]);
 	}
 
 
@@ -59,12 +61,15 @@ class OrderProceduresController extends Controller {
     		$value->entry_id = $this->entry->id;
     		OrderProcedure::create(json_decode($value, true));
     	}
-        return redirect()->route('assistance.entries.options', $id);
+
+        return response()->json([
+                'url_options'     =>      route('assistance.entries.options', $this->entry->id),
+            ]);
     }
 
-    public function jsonProcedure($ids)
+    public function jsonProcedure($ids_procedures)
     {
-    	$rta = Procedure::getProcedures(array_map('intval', explode(',', $ids)));
+    	$rta = Procedure::getProcedures(array_map('intval', explode(',', $ids_procedures)));
     	return response($rta);
     }
 

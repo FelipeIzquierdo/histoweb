@@ -6,6 +6,10 @@
     </h1>
 @endsection
 
+@section('meta_extra')
+    <meta name="_token" content="{{ csrf_token() }}"/>
+@endsection
+
 @section('sidebar_menu')
     @include('dashboard.pages.assistance.menu') 
     @include('dashboard.pages.telemedicine.menu') 
@@ -17,16 +21,16 @@
 
 @section('dashboard_body')
     
-    {!! Form::open(['route' => ['assistance.entries.history', $diary->id], 'method' => 'POST', 'id' => 'entryForm']) !!}
+     {!! Form::open(['route' => ['assistance.entries.history', $diary->id], 'method' => 'POST', 'id' => 'entryForm']) !!} 
     
         <div class="block">
             <div class="block-title clearfix">
                 <h2><span class="hidden-xs">Motivos de Consulta</h2>
             </div>
             <div class="form-horizontal form-bordered">
-                {!! Field::select('reasons[]', $reasons, null, ['id' => 'reasons', 'data-placeholder' => 'Motivos de consulta', 'template' => 'horizontal', 'multiple' ]) !!}
-                {!! Field::text('new_reasons', null, ['template' => 'horizontal', 'class' => 'input-tags']) !!}
-                {!! Field::textarea( 'present_illness', null, ['placeholder' => 'Enfermedad actual', 'template' => 'horizontal', 'rows' => '3']) !!}
+                {!! Field::select('reasons', $reasons, null, ['id' => 'reasons', 'data-placeholder' => 'Motivos de consulta', 'template' => 'horizontalmodal', 'multiple' ]) !!}
+                {!! Field::text('new_reasons', null, ['id' => 'new_reasons', 'template' => 'horizontalmodal', 'class' => 'input-tags']) !!}
+                {!! Field::textarea( 'present_illness', null, ['id' => 'present_illness', 'placeholder' => 'Enfermedad actual', 'template' => 'horizontalmodal', 'rows' => '3']) !!}
             </div>
         </div>
 
@@ -47,7 +51,7 @@
                             <div class="panel-body form-horizontal form-bordered">
                                 {!! Field::select($type->name_system . '[]', $type->historyLists(), null, ['id' => $type->name_system, 'data-placeholder' => $type->name, 'template' => 'horizontal', 'multiple' ]) !!}
                                 @if($type->news)
-                                    {!! Field::text('new_' . $type->name_system, null, ['class' => 'input-tags', 'template' => 'horizontal']) !!}
+                                    {!! Field::text('new_' . $type->name_system, null, ['class' => 'input-tags', 'template' => 'horizontalmodal']) !!}
                                 @endif
                             </div>
                         </div>
@@ -63,7 +67,7 @@
                     </div>
                     <div id="collapse_sexual_history" class="panel-collapse collapse" style="">
                         <div class="panel-body form-horizontal form-bordered">
-                            {!! Field::textarea('sexual_history', null, ['template' => 'horizontal']) !!}
+                            {!! Field::textarea('sexual_history', null, ['id' => 'sexual_history', 'template' => 'horizontalmodal']) !!}
                         </div>
                     </div>
                 </div>
@@ -76,8 +80,8 @@
                 <h2><span class="hidden-xs">Revisión de Sistemas</h2>
             </div>
             <div class="form-horizontal form-bordered">
-                {!! Field::select('system_revisions[]', $system_revisions, null, ['id' => 'system_revisions', 'data-placeholder' => 'Revisiones de sistemas', 'template' => 'horizontal', 'multiple' ]) !!}
-                {!! Field::text('new_system_revisions', null, ['template' => 'horizontal', 'class' => 'input-tags']) !!}
+                {!! Field::select('system_revisions', $system_revisions, null, ['id' => 'system_revisions', 'data-placeholder' => 'Revisiones de sistemas', 'template' => 'horizontalmodal', 'multiple' ]) !!}
+                {!! Field::text('new_system_revisions', null, ['id' => 'new_system_revisions', 'template' => 'horizontalmodal', 'class' => 'input-tags']) !!}
             </div>
         </div>
 
@@ -86,8 +90,8 @@
                 <h2><span class="hidden-xs">Diagnosticos y Procedimientos</h2>
             </div>
             <div class="form-horizontal form-bordered">
-                {!! Field::select('procedures[]', $procedures, null, ['id' => 'procedures', 'data-placeholder' => 'Procedimientos', 'template' => 'horizontal', 'multiple' ]) !!}
-                {!! Field::select('diseases[]', $diseases, null, ['id' => 'diseases', 'data-placeholder' => 'Enfermedades', 'template' => 'horizontal', 'multiple' ]) !!}
+                {!! Field::select('procedures', $procedures, null, ['id' => 'procedures', 'data-placeholder' => 'Procedimientos', 'template' => 'horizontalmodal', 'multiple' ]) !!}
+                {!! Field::select('diseases', $diseases, null, ['id' => 'diseases', 'data-placeholder' => 'Enfermedades', 'template' => 'horizontalmodal', 'multiple' ]) !!}
             </div>
         </div>  
 
@@ -96,11 +100,11 @@
                 <h2><span class="hidden-xs">Plan de Manejo</h2>
             </div>
             <div class="form-horizontal form-bordered">
-                {!! Field::textarea('management_plan', null, ['placeholder' => 'Plan de manejo', 'template' => 'horizontal', 'rows' => '3']) !!}
+                {!! Field::textarea('management_plan', null, ['id' => 'management_plan', 'placeholder' => 'Plan de manejo', 'template' => 'horizontalmodal', 'rows' => '3']) !!}
                 
                 <div class="form-group form-actions">
                     <div class="col-md-9 col-md-offset-3">
-                        {!! Form::button('Vista previa', ['class' => 'btn btn-primary', 'type' => 'submit', 'id' => 'submitEntry']) !!}
+                        {!! Form::button('Vista previa', ['class' => 'btn btn-primary', 'id' => 'submitEntry']) !!}
                     </div>
                 </div>
             </div>
@@ -174,18 +178,29 @@
 
 @endsection
 
-@section('js_extra')
+@section('js_extra')    
     <script type="text/javascript">
+        @if($diary->entry != "")
+            var url_options = "{!! $url_options !!}";
+            $('#page-content').load(url_options);
+        @endif 
         var name = '{{ Auth::user()->doctors->name }}'; 
         var room = 'teleconsult';
         var image_record = "{{ URL::to('img/placeholders/icons/record.png') }}";
-        var number_videos = 0;
+        var number_videos = 0;    
     </script>
     {!! Html::script('assets/js/pages/confirm/entry.js') !!}
     {!! Html::script('assets/js/pages/teleconsult.js') !!}
     {!! Html::script('assets/js/pages/webrtc.js') !!}
-    {!! Html::script('assets/js/plugins/webrtc/commits.js') !!}    
-    {!! Html::script('assets/js/plugins/webrtc/adapter.js') !!}
-    {!! Html::script('assets/js/plugins/recordrtc/recordrtc.js') !!}
 @endsection
 
+@section('js_extra_page_content')    
+    <script type="text/javascript">
+    @if((isset($form_data) && isset($method)))
+        var form_data = "{{ $form_data }}";
+        var method = "{{ $method }}";
+    @else
+        console.log("{{ $form_dataa }}")
+    @endif
+    </script>
+@endsection

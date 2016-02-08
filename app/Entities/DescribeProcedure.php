@@ -25,6 +25,15 @@ class DescribeProcedure extends Model {
         "complications"
     ];
 
+    public function setStartTimeAttribute($value)
+    {
+        return $this->attributes['start_time'] = date('H:i:s', strtotime($value));
+    }
+
+    public function setEndTimeAttribute($value)
+    {
+        return $this->attributes['end_time'] = date('H:i:s', strtotime($value));
+    }
 
     public function surgery()
     {

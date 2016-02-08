@@ -1,0 +1,8 @@
+#toTop{
+    position: fixed;
+    bottom: 10px;
+    right: 35%;
+    cursor: pointer;
+    display: none;
+    z-index: 1;
+}

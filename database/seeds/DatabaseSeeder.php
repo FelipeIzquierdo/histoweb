@@ -50,9 +50,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('LabsTableSeeder');
         //$this->call('CommercialMedicationsTableSeeder');
         $this->call('StaffTableSeeder');
-
         $this->call('DiseasesTableSeeder');
-
 	}
 
 }

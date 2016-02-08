@@ -45,11 +45,14 @@ class FormulateController extends Controller {
 	{
 		$formulations = $this->entry->getFormulatePaginate();
         $this->formulate = new Formulate;
+        $form_data = route(self::$prefixRoute . 'store',$this->entry->id);
+        $method_form_data = 'POST';        
 
-        $form_data = ['route' => [self::$prefixRoute . 'store',$this->entry->id], 'method' => 'POST'];
-
-        return view(self::$prefixView . 'formm', compact('form_data','formulations'))
-        	->with(['formulate' => $this->formulate, 'entry' => $this->entry]);
+        return view(self::$prefixView . 'form', compact('form_data','formulations','method_form_data'))
+        	->with(['formulate' 			=> $this->formulate, 'entry' => $this->entry, 
+        			'before_url' 			=> route('assistance.entries.options', $this->entry->id),
+        			'create_formulate_url' 	=> route('assistance.options.formulate.create', $this->entry->id) 
+        			 ]);
 	}
 
 	/**
@@ -62,16 +65,22 @@ class FormulateController extends Controller {
     	$this->formulate = new Formulate($request->all());
     	$this->entry->formulates()->save($this->formulate);
 		
-        return redirect()->route(self::$prefixRoute . 'create', $this->entry->id);
+		return response()->json([
+                'url_formulate' 	=>   	route(self::$prefixRoute . 'create', $this->entry->id),
+            ]);
     }
 
-	public function edit($one,$two)
+	public function edit($entry_id, $formulate_id)
 	{
 		$formulations = $this->entry->getFormulatePaginate();
-        $form_data = ['route' => [self::$prefixRoute . 'update', $this->entry->id,$this->formulate->id], 'method' => 'POST'];
-        
-        return view(self::$prefixView . 'formm', compact('form_data','formulations'))
-        	->with(['formulate' => $this->formulate, 'entry' => $this->entry]);
+        $form_data = route(self::$prefixRoute . 'update',[$this->entry->id, $formulate_id]);
+        $method_form_data = 'POST';       
+
+        return view(self::$prefixView . 'form', compact('form_data','formulations','method_form_data'))
+        	->with(['formulate' 			=> $this->formulate, 'entry' => $this->entry,
+        			'before_url' 			=> route('assistance.entries.options', $this->entry->id),
+        			'create_formulate_url' 	=> route('assistance.options.formulate.create', $this->entry->id) 
+        			]);
 	}
 
 	/**
@@ -85,12 +94,9 @@ class FormulateController extends Controller {
         $this->formulate->fill($request->all());
         $this->formulate->save();
 
-        if($request->ajax())
-        {
-            return $this->formulate;
-        }
-
-        return redirect()->route(self::$prefixRoute . 'create',$this->entry->id);
+        return response()->json([
+                'url_formulate' 	=>   	route(self::$prefixRoute . 'create', $this->entry->id),
+            ]);
     }
 
 }

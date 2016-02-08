@@ -45,6 +45,8 @@
 	            'name'          => 'Invitado',
 	            'email'         => 'invitado@histowebco.com',
             	'password'      =>  Hash::make('123'),
+            	'office_type'	=>	'Histoweb\Entities\Doctor',
+	            'office_id'		=>	1,	
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
 	            'role_id'		=> 5 
@@ -54,6 +56,8 @@
 	            'name'          => 'Miguel Mejia',
 	            'email'         => 'miguel.mejia@histowebco.com',
 	            'password'      =>  Hash::make('123'),
+	            'office_type'	=>	'Histoweb\Entities\Doctor',
+	            'office_id'		=>	1,	
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
 	            'role_id'		=> 4
@@ -63,6 +67,8 @@
 	            'name'          => 'Darío Gomez',
 	            'email'         => 'dario.gomez@histowebco.com',
 	            'password'      =>  Hash::make('123'),
+	            'office_type'	=>	'Histoweb\Entities\Doctor',
+	            'office_id'		=>	1,	
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
 	            'role_id'		=> 5
@@ -72,6 +78,8 @@
 	            'name'          => 'Andres Felipe Ardila',
 	            'email'         => 'andres.ardila@histowebco.com',
 	            'password'      =>  Hash::make('123'),
+	            'office_type'	=>	'Histoweb\Entities\Doctor',
+	            'office_id'		=>	1,	
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
 	            'role_id'		=> 1 
@@ -81,6 +89,8 @@
 	            'name'          => 'Andres Pinzon',
 	            'email'         => 'andres.pinzon@histowebco.com',
 	            'password'      =>  Hash::make('123'),
+	            'office_type'	=>	'Histoweb\Entities\Doctor',
+	            'office_id'		=>	1,	
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
 	            'role_id'		=> 1 
@@ -90,6 +100,8 @@
 	            'name'          => 'Puerto Lopez',
 	            'email'         => 'puertolopez@histowebco.com',
 	            'password'      =>  Hash::make('123'),
+	            'office_type'	=>	'Histoweb\Entities\Doctor',
+	            'office_id'		=>	1,	
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
 	            'role_id'		=> 6
@@ -99,6 +111,8 @@
 	            'name'          => 'Acacias',
 	            'email'         => 'acacias@histowebco.com',
 	            'password'      =>  Hash::make('123'),
+	            'office_type'	=>	'Histoweb\Entities\Doctor',
+	            'office_id'		=>	1,	
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
 	            'role_id'		=> 6
@@ -108,6 +122,8 @@
 	            'name'          => 'Puerto Gaitan',
 	            'email'         => 'puertogaitan@histowebco.com',
 	            'password'      =>  Hash::make('123'),
+	            'office_type'	=>	'Histoweb\Entities\Doctor',
+	            'office_id'		=>	1,	
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
 	            'role_id'		=> 6
@@ -117,6 +133,8 @@
 	            'name'          => 'Bogota',
 	            'email'         => 'bogota@histowebco.com',
 	            'password'      =>  Hash::make('123'),
+	            'office_type'	=>	'Histoweb\Entities\Doctor',
+	            'office_id'		=>	1,	
 	            'created_at'    => new DateTime,
 	            'updated_at'    => new DateTime,
 	            'role_id'		=> 6

@@ -1,4 +1,4 @@
-@extends('dashboard.pages.layout')
+@extends('dashboard.pages.layout_on_window')
 
 @section('dashboard_title')
     <h1>Paciente: {{ $entry->diary->patient->name }}</h1>
@@ -10,24 +10,23 @@
 
 @section('dashboard_body')
 
-    {!! Form::model($describe_procedures, $form_data) !!}
-    
+    {!! Form::model($describe_procedures) !!}
         <div class="block">
             <div class="block-title clearfix">
                 <h2><span class="hidden-xs">Describir Procedimiento</h2>
             </div>
             <div class="form-horizontal form-bordered">
-                {!! Field::text( 'start_date', null, ['placeholder' => 'Fecha Procedimiento', 'class' => 'input-datepicker', 'template' => 'horizontal', 'data-date-format' => 'yyyy-mm-dd', 'id' => 'start_date']) !!}
-                {!! Field::time('start_time', null,[ 'id' => 'start_time']) !!}
-                {!! Field::time('end_time', null, ['id' => 'end_time']) !!}
-                {!! Field::select('surgery_id', $surgeries, null, ['data-placeholder' => 'Seleccione consultorio', 'template' => 'horizontal', 'id' =>'surgery_id']) !!}
-                {!! Field::select('doctor_id', $doctors, null, ['data-placeholder' => 'Seleccione Doctor', 'template' => 'horizontal', 'id' =>'doctor_id']) !!}
-                {!! Field::select('staff_id', $staff, null, ['data-placeholder' => 'Seleccione Instrumentador', 'template' => 'horizontal', 'id' =>'staff_id']) !!}
-                {!! Field::select('anesthesia_type_id', $anesthesia_types, null, ['data-placeholder' => 'Seleccione Tipo de anestesia', 'template' => 'horizontal', 'id' =>'anesthesia_type_id']) !!}
-                {!! Field::select('way_entry_id', $way_entries, null, ['data-placeholder' => 'Seleccione Via de entrada', 'template' => 'horizontal', 'id' =>'way_entry_id']) !!}
-                {!! Field::select('state_way_id', $state_ways, null, ['data-placeholder' => 'Seleccione Estado de via', 'template' => 'horizontal', 'id' =>'state_way_id']) !!}
-                {!! Field::textarea( 'description', null, ['placeholder' => 'Descripcion', 'template' => 'horizontal', 'rows' => '3', 'id' =>'description']) !!}
-                {!! Field::textarea( 'complications', null, ['placeholder' => 'Descripcion', 'template' => 'horizontal', 'rows' => '3', 'id' =>'complications']) !!}
+                {!! Field::text( 'start_date', null, ['placeholder' => 'Fecha Procedimiento', 'class' => 'input-datepicker', 'template' => 'horizontalmodal', 'data-date-format' => 'yyyy-mm-dd', 'id' => 'start_date']) !!}
+                {!! Field::time('start_time', null,[ 'id' => 'start_time', 'template' => 'horizontalmodaltime']) !!}
+                {!! Field::time('end_time', null, ['id' => 'end_time', 'template' => 'horizontalmodaltime']) !!}
+                {!! Field::select('surgery_id', $surgeries, null, ['data-placeholder' => 'Seleccione consultorio', 'template' => 'horizontalmodal', 'id' =>'surgery_id']) !!}
+                {!! Field::select('doctor_id', $doctors, null, ['data-placeholder' => 'Seleccione Doctor', 'template' => 'horizontalmodal', 'id' =>'doctor_id']) !!}
+                {!! Field::select('staff_id', $staff, null, ['data-placeholder' => 'Seleccione Instrumentador', 'template' => 'horizontalmodal', 'id' =>'staff_id']) !!}
+                {!! Field::select('anesthesia_type_id', $anesthesia_types, null, ['data-placeholder' => 'Seleccione Tipo de anestesia', 'template' => 'horizontalmodal', 'id' =>'anesthesia_type_id']) !!}
+                {!! Field::select('way_entry_id', $way_entries, null, ['data-placeholder' => 'Seleccione Via de entrada', 'template' => 'horizontalmodal', 'id' =>'way_entry_id']) !!}
+                {!! Field::select('state_way_id', $state_ways, null, ['data-placeholder' => 'Seleccione Estado de via', 'template' => 'horizontalmodal', 'id' =>'state_way_id']) !!}
+                {!! Field::textarea( 'description', null, ['placeholder' => 'Descripción', 'template' => 'horizontalmodal', 'rows' => '3', 'id' =>'description']) !!}
+                {!! Field::textarea( 'complications', null, ['placeholder' => 'Descripción', 'template' => 'horizontalmodal', 'rows' => '3', 'id' =>'complications']) !!}
             </div>
         </div>
         <div class="form-group form-actions">
@@ -36,8 +35,6 @@
                 </div>
             </div>
         </div>
-
-      
     {!! Form::close() !!}
 
     <!-- Regular Fade -->
@@ -129,10 +126,16 @@
     </div>
     <!-- END Regular Fade -->
     
-
 @endsection
 
 @section('js_extra')
+<script type="text/javascript">
+    @if((isset($form_data) && isset($method)))
+        var form_data = "{{ $form_data }}";
+        var method = "{{ $method }}";
+    @else
+        console.log("{{ $form_dataa}}")
+    @endif
+</script>
 {!! Html::script('assets/js/pages/confirm/describeProcedure.js') !!}
 @endsection
-

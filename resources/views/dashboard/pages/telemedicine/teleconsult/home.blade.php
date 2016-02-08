@@ -26,9 +26,7 @@
 
 @section('dashboard_body')
 
-{!! Html::script('//cdn.webrtc-experiment.com/firebase.js') !!}
-{!! Html::script('//cdn.webrtc-experiment.com/RTCMultiConnection.js') !!}
-{!! Html::script('//www.webrtc-experiment.com/RecordRTC.js') !!}
+@include('dashboard.includes.telemedicine')
     
 <div class="block">
     <div class="row">

@@ -1,6 +1,4 @@
-{!! Html::script('assets/js/plugins/webrtc/firebase.js') !!}
-{!! Html::script('assets/js/plugins/webrtc/RTCMultiConnection.js') !!}
-{!! Html::script('assets/js/plugins/webrtc/RecordRTC.js') !!}
+@include('dashboard.includes.telemedicine')
 
 <!-- Alternative Sidebar -->
 <div id="sidebar-alt" tabindex="-1" aria-hidden="true">

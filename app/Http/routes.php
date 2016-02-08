@@ -22,7 +22,7 @@ Route::post('deprueba', 'PruebaController@index');
 Route::post('delete', 'PruebaController@delete');
 
 
-Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware' => ['role_doctor']], function() {
+Route::group(['prefix' => 'assistance', 'namespace' => 'Assistance','middleware' => ['role_doctor','https']], function() {
 	
 	Route::get('options/{one}/formulate/create', ['uses' => 'FormulateController@create', 'as' => 'assistance.options.formulate.create']);
 	Route::post('options/{one}/formulate/create', ['uses' => 'FormulateController@store', 'as' => 'assistance.options.formulate.store']);
@@ -172,7 +172,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 });
 
 
-Route::group(['prefix' => 'telemedicine', 'namespace' => 'Telemedicine'], function() {
+Route::group(['prefix' => 'telemedicine', 'namespace' => 'Telemedicine','middleware' => ['https']], function() {
 	
 	Route::controller('/', 'TelemedicineController', [
 		'getIndex' 			=> 'telemedicine', 

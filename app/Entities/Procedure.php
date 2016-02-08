@@ -43,7 +43,7 @@ class Procedure extends Model {
     public static function getProcedures($ids)
     {
         $rta = self::whereIn('id',$ids)->get();
-        return $rta;
+        
         foreach ($rta as $key => $value) {
             $rta->procedure_type_name = $value->procedure_type_name;
         }
